@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veritas AI Partners — AI-Driven Business Transformation</title>
+<meta name="description" content="自社ECで年商5.5億を動かすAI活用ノウハウを、あなたの事業に。中小企業向けAIコンサルティング・実装支援。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --bg: #0A0A0F;
+  --bg-card: #12121A;
+  --bg-card-hover: #1A1A26;
+  --bg-section: #0E0E16;
+  --violet: #7C5CFC;
+  --violet-light: #9B82FC;
+  --violet-glow: rgba(124, 92, 252, 0.15);
+  --cyan: #00D4AA;
+  --cyan-glow: rgba(0, 212, 170, 0.12);
+  --white: #F0F0F5;
+  --text: #B8B8CC;
+  --text-muted: #6B6B80;
+  --border: rgba(255,255,255,0.06);
+  --max: 1100px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== GRID BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; font-size: 14px; color: #fff;
+}
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--white); letter-spacing: 0.06em;
+}
+.logo-text span { color: var(--text-muted); font-weight: 400; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--text-muted); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.2s;
+}
+nav a:hover, nav a.active { color: var(--white); }
+.nav-cta {
+  background: var(--violet); color: #fff !important;
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 12px !important; letter-spacing: 0.06em;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { background: var(--violet-light); box-shadow: 0 0 20px var(--violet-glow); }
+
+/* Hamburger */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--white); }
+.menu-toggle svg { width: 24px; height: 24px; }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 40px 80px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--violet-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: var(--max); margin: 0 auto; width: 100%;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--violet); }
+.hero h1 {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; line-height: 1.4;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 16px; line-height: 1.9;
+  color: var(--text);
+  max-width: 560px;
+  margin-bottom: 40px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--violet); color: #fff;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.3s, transform 0.2s;
+}
+.hero-cta:hover {
+  background: var(--violet-light);
+  box-shadow: 0 0 40px var(--violet-glow);
+  transform: translateY(-2px);
+}
+.hero-cta svg { width: 16px; height: 16px; }
+
+/* ===== STATS BAR ===== */
+.stats {
+  background: var(--bg-section);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 40px;
+}
+.stats-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px; font-weight: 800;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+/* ===== SECTION COMMON ===== */
+.section { padding: 100px 40px; position: relative; z-index: 1; }
+.section-inner { max-width: var(--max); margin: 0 auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 16px; line-height: 1.4;
+}
+.section-desc {
+  font-size: 15px; color: var(--text);
+  max-width: 600px; margin-bottom: 48px;
+  line-height: 1.9;
+}
+
+/* ===== PAIN POINTS ===== */
+.pain-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+}
+.pain-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: border-color 0.3s, background 0.3s;
+}
+.pain-card:hover { border-color: rgba(124,92,252,0.3); background: var(--bg-card-hover); }
+.pain-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--violet-glow);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--violet); font-size: 18px;
+}
+.pain-text { font-size: 14px; color: var(--text); line-height: 1.7; }
+.pain-answer {
+  margin-top: 32px;
+  font-size: 16px; font-weight: 500; color: var(--white);
+  padding-left: 20px;
+  border-left: 3px solid var(--violet);
+}
+
+/* ===== SERVICE CARDS ===== */
+.service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 28px;
+  text-decoration: none;
+  transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  display: flex; flex-direction: column;
+}
+.service-card:hover {
+  border-color: rgba(124,92,252,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.service-icon {
+  width: 48px; height: 48px; margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--violet-glow), var(--cyan-glow));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.service-card h3 {
+  font-size: 18px; font-weight: 600; color: var(--white);
+  margin-bottom: 8px;
+}
+.service-card .service-sub {
+  font-size: 12px; color: var(--violet); font-weight: 500;
+  margin-bottom: 12px; letter-spacing: 0.04em;
+}
+.service-card p { font-size: 14px; color: var(--text); line-height: 1.7; flex: 1; }
+.service-card .service-link {
+  margin-top: 20px;
+  font-size: 13px; font-weight: 500; color: var(--violet);
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ===== CASE HIGHLIGHT ===== */
+.case-highlight {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+}
+.case-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.case-metric {
+  background: rgba(124,92,252,0.06);
+  border: 1px solid rgba(124,92,252,0.15);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.case-metric .metric-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px; font-weight: 800; color: var(--cyan);
+}
+.case-metric .metric-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.case-tag {
+  display: inline-block;
+  background: var(--violet-glow);
+  color: var(--violet);
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 4px;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.case-title { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+.case-desc { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 24px; }
+.case-link {
+  font-size: 14px; font-weight: 500; color: var(--violet);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.case-link:hover { color: var(--violet-light); }
+
+/* ===== DIFF TABLE ===== */
+.diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 12px; overflow: hidden; }
+.diff-col { padding: 36px 32px; }
+.diff-col:first-child { background: rgba(255,255,255,0.02); }
+.diff-col:last-child { background: var(--bg-card); border-left: 2px solid var(--violet); }
+.diff-col h3 {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.06em;
+  margin-bottom: 24px; text-transform: uppercase;
+}
+.diff-col:first-child h3 { color: var(--text-muted); }
+.diff-col:last-child h3 { color: var(--violet); }
+.diff-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 16px; font-size: 14px; line-height: 1.6;
+}
+.diff-icon { flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+.diff-col:first-child .diff-icon { color: var(--text-muted); }
+.diff-col:last-child .diff-icon { color: var(--cyan); }
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, var(--violet-glow) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 16px; position: relative; z-index: 1;
+}
+.cta-section p {
+  font-size: 15px; color: var(--text);
+  margin-bottom: 32px; position: relative; z-index: 1;
+}
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--violet); color: #fff;
+  padding: 16px 40px; border-radius: 8px;
+  font-size: 16px; font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative; z-index: 1;
+}
+.cta-btn:hover {
+  background: var(--violet-light);
+  box-shadow: 0 0 60px var(--violet-glow);
+  transform: translateY(-2px);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+  background: var(--bg);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 40px;
+}
+.footer-brand .logo { margin-bottom: 12px; }
+.footer-brand p { font-size: 12px; color: var(--text-muted); max-width: 280px; }
+.footer-links h4 {
+  font-size: 12px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.08em; margin-bottom: 16px; text-transform: uppercase;
+}
+.footer-links a {
+  display: block; font-size: 13px; color: var(--text-muted);
+  text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-copy {
+  max-width: var(--max); margin: 32px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .service-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .case-highlight { grid-template-columns: 1fr; }
+  .diff-grid { grid-template-columns: 1fr; }
+  .diff-col:last-child { border-left: none; border-top: 2px solid var(--violet); }
+}
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  nav { display: none; }
+  .menu-toggle { display: block; }
+  .hero { padding: 100px 20px 60px; }
+  .section { padding: 60px 20px; }
+  .stats { padding: 32px 20px; }
+  .case-highlight { padding: 28px 20px; }
+  .footer-inner { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">V</div>
+    <div class="logo-text">VERITAS AI <span>Partners</span></div>
+  </a>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="services.html">Services</a>
+    <a href="cases.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="nav-cta">無料AI診断</a>
+  </nav>
+  <button class="menu-toggle" aria-label="メニュー">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI-Driven Business Transformation</div>
+    <h1>AIを語る会社は多い。<br><em>自社で動かしている会社</em>は少ない。</h1>
+    <p class="hero-sub">年商5.5億のEC運営で培ったAI活用ノウハウを、あなたの事業に。<br>提案書で終わらない、動くAIシステムを届けます。</p>
+    <a href="contact.html" class="hero-cta">
+      無料AI診断を申し込む
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-num">5.5億</div>
+      <div class="stat-label">AI活用EC年商</div>
+    </div>
+    <div>
+      <div class="stat-num">12+</div>
+      <div class="stat-label">稼働中AIシステム</div>
+    </div>
+    <div>
+      <div class="stat-num">27,000</div>
+      <div class="stat-label">AIが支援する顧客数</div>
+    </div>
+    <div>
+      <div class="stat-num">85%</div>
+      <div class="stat-label">CS対応AI自動化率</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAIN POINTS ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Challenges</div>
+    <h2 class="section-title">こんな課題はありませんか？</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">💬</div>
+        <div class="pain-text">顧客対応に人手が足りず、レスポンスが遅れている</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📝</div>
+        <div class="pain-text">商品説明・レポート・提案書の作成に毎月何十時間もかけている</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📊</div>
+        <div class="pain-text">データはあるのに、分析が追いつかず勘で意思決定している</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🤖</div>
+        <div class="pain-text">AIを導入したいけど、何から始めればいいかわからない</div>
+      </div>
+    </div>
+    <p class="pain-answer">Veritasは、これらを全て自社事業で解決してきました。<br>机上の空論ではなく、実戦で検証済みの手法をお届けします。</p>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section" style="background: var(--bg-section);">
+  <div class="section-inner">
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">3つのサービスで、<br>AIを事業の武器に変える</h2>
+    <div class="section-desc">段階に応じた最適なプランを提案します。</div>
+    <div class="service-grid">
+      <a href="services.html#diagnosis" class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>AI診断</h3>
+        <div class="service-sub">15〜30万円 / 1〜2週間</div>
+        <p>業務フローを分析し、AI導入の余地とROIを数値化。優先順位付きのロードマップを納品します。</p>
+        <div class="service-link">詳しく見る →</div>
+      </a>
+      <a href="services.html#implementation" class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>AI実装</h3>
+        <div class="service-sub">50〜150万円 / 3〜6週間</div>
+        <p>LINE AI接客Bot、商品コピー自動生成、業務レポート自動化など、実際に動くAIシステムを構築・納品。</p>
+        <div class="service-link">詳しく見る →</div>
+      </a>
+      <a href="services.html#advisory" class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>AI顧問</h3>
+        <div class="service-sub">月額 15〜50万円</div>
+        <p>月次レビュー・プロンプト改善・新機能追加・Slackサポート。導入して終わりにしない、育て続ける伴走支援。</p>
+        <div class="service-link">詳しく見る →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASE STUDY HIGHLIGHT ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Case Study</div>
+    <h2 class="section-title">導入事例</h2>
+    <div class="section-desc">自社EC事業での実証データに基づく、リアルな成果。</div>
+    <div class="case-highlight">
+      <div>
+        <div class="case-tag">EC / LINE CRM</div>
+        <h3 class="case-title">SK本舗 — LINE CRM AI導入</h3>
+        <p class="case-desc">年商5.5億・顧客27,000人の3Dプリンター専門ECにおいて、Claude APIとLINE Messaging APIを連携。パーソナライズ応答とセグメント配信を完全自動化。</p>
+        <a href="cases.html" class="case-link">
+          詳しく見る
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="metric-num">96%</div>
+          <div class="metric-label">応答時間短縮</div>
+        </div>
+        <div class="case-metric">
+          <div class="metric-num">90%</div>
+          <div class="metric-label">配信工数削減</div>
+        </div>
+        <div class="case-metric">
+          <div class="metric-num">12+</div>
+          <div class="metric-label">稼働AIシステム</div>
+        </div>
+        <div class="case-metric">
+          <div class="metric-num">24/7</div>
+          <div class="metric-label">自動監視稼働</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIFFERENTIATOR ===== -->
+<section class="section" style="background: var(--bg-section);">
+  <div class="section-inner">
+    <div class="section-eyebrow">Why Veritas</div>
+    <h2 class="section-title">なぜVeritasか</h2>
+    <div class="section-desc">理論ではなく、実戦。提案書ではなく、動くシステム。</div>
+    <div class="diff-grid">
+      <div class="diff-col">
+        <h3>一般的なAIコンサル</h3>
+        <div class="diff-item"><span class="diff-icon">△</span><span>PowerPointの提案書で終わる</span></div>
+        <div class="diff-item"><span class="diff-icon">△</span><span>大企業向け、月額数百万円〜</span></div>
+        <div class="diff-item"><span class="diff-icon">△</span><span>AI理論は詳しいが自社運用経験なし</span></div>
+        <div class="diff-item"><span class="diff-icon">△</span><span>汎用的な提案、業界知見が浅い</span></div>
+      </div>
+      <div class="diff-col">
+        <h3>Veritas AI Partners</h3>
+        <div class="diff-item"><span class="diff-icon">◎</span><span>動くAIシステムを構築・納品</span></div>
+        <div class="diff-item"><span class="diff-icon">◎</span><span>中小企業向け、15万円〜</span></div>
+        <div class="diff-item"><span class="diff-icon">◎</span><span>年商5.5億のECで毎日AIを運用中</span></div>
+        <div class="diff-item"><span class="diff-icon">◎</span><span>EC・小売に特化した深い業務理解</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+  <h2>まずは30分の無料相談から</h2>
+  <p>あなたの事業のAI活用ポテンシャルを、無料で診断します。</p>
+  <a href="contact.html" class="cta-btn">
+    無料AI診断を申し込む
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">V</div>
+        <div class="logo-text">VERITAS AI <span>Partners</span></div>
+      </a>
+      <p>フェリデンシアキャピタルグループ。自社EC運営で培ったAI活用ノウハウを、中小企業の事業変革に。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <a href="services.html">Services</a>
+      <a href="cases.html">Case Studies</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h4>Group</h4>
+      <a href="https://felidentia.com" target="_blank" rel="noopener">フェリデンシアキャピタル</a>
+      <a href="https://skhonpo.com" target="_blank" rel="noopener">SK本舗</a>
+      <a href="https://nmgiken.jp" target="_blank" rel="noopener">日本未来技研</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 Veritas AI Partners / フェリデンシアキャピタル株式会社. All Rights Reserved.
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>導入事例 — Veritas AI Partners</title>
+<meta name="description" content="SK本舗 LINE CRM AI導入、業務自動化スイートなど、実戦から生まれたリアルな成果をご紹介します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --bg: #0A0A0F;
+  --bg-card: #12121A;
+  --bg-card-hover: #1A1A26;
+  --bg-section: #0E0E16;
+  --violet: #7C5CFC;
+  --violet-light: #9B82FC;
+  --violet-glow: rgba(124, 92, 252, 0.15);
+  --cyan: #00D4AA;
+  --cyan-glow: rgba(0, 212, 170, 0.12);
+  --white: #F0F0F5;
+  --text: #B8B8CC;
+  --text-muted: #6B6B80;
+  --border: rgba(255,255,255,0.06);
+  --max: 1100px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== GRID BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; font-size: 14px; color: #fff;
+}
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--white); letter-spacing: 0.06em;
+}
+.logo-text span { color: var(--text-muted); font-weight: 400; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--text-muted); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.2s;
+}
+nav a:hover, nav a.active { color: var(--white); }
+.nav-cta {
+  background: var(--violet); color: #fff !important;
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 12px !important; letter-spacing: 0.06em;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { background: var(--violet-light); box-shadow: 0 0 20px var(--violet-glow); }
+
+/* Hamburger */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--white); }
+.menu-toggle svg { width: 24px; height: 24px; }
+
+/* ===== HERO (shorter) ===== */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex; align-items: center;
+  padding: 120px 40px 60px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--violet-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: var(--max); margin: 0 auto; width: 100%;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--violet); }
+.hero h1 {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; line-height: 1.4;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 16px; line-height: 1.9;
+  color: var(--text);
+  max-width: 560px;
+}
+
+/* ===== SECTION COMMON ===== */
+.section { padding: 100px 40px; position: relative; z-index: 1; }
+.section-inner { max-width: var(--max); margin: 0 auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 16px; line-height: 1.4;
+}
+.section-desc {
+  font-size: 15px; color: var(--text);
+  max-width: 600px; margin-bottom: 48px;
+  line-height: 1.9;
+}
+
+/* ===== CASE STUDY CARD ===== */
+.case-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+  margin-bottom: 48px;
+}
+.case-tag {
+  display: inline-block;
+  background: var(--violet-glow);
+  color: var(--violet);
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 4px;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.case-title {
+  font-size: 24px; font-weight: 700; color: var(--white);
+  margin-bottom: 8px;
+}
+.case-subtitle {
+  font-size: 14px; color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* Challenge / Solution / Results */
+.case-block { margin-bottom: 20px; }
+.case-block:last-child { margin-bottom: 0; }
+.case-block-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.case-block-label.challenge { color: #FF6B6B; }
+.case-block-label.solution { color: var(--violet); }
+.case-block-label.results { color: var(--cyan); }
+.case-block p {
+  font-size: 14px; color: var(--text); line-height: 1.8;
+}
+
+/* Metrics */
+.case-metrics {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.case-metric {
+  background: rgba(124,92,252,0.06);
+  border: 1px solid rgba(124,92,252,0.15);
+  border-radius: 10px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.case-metric .metric-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px; font-weight: 800; color: var(--cyan);
+}
+.case-metric .metric-label {
+  font-size: 12px; color: var(--text-muted); margin-top: 4px;
+}
+.case-metric .metric-detail {
+  font-size: 11px; color: var(--text-muted); margin-top: 2px;
+}
+
+/* Quote */
+.case-quote {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: rgba(124,92,252,0.04);
+  border-left: 3px solid var(--violet);
+  border-radius: 0 8px 8px 0;
+}
+.case-quote p {
+  font-size: 14px; color: var(--text); line-height: 1.8;
+  font-style: italic;
+}
+.case-quote cite {
+  display: block; margin-top: 8px;
+  font-size: 12px; color: var(--text-muted);
+  font-style: normal;
+}
+
+/* Case 2: System List */
+.system-list {
+  list-style: none; padding: 0;
+}
+.system-list li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; color: var(--text);
+}
+.system-list li:last-child { border-bottom: none; }
+.system-dot {
+  width: 8px; height: 8px; flex-shrink: 0;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
+/* ===== PILOT CTA ===== */
+.pilot-cta {
+  position: relative;
+  background: var(--bg-card);
+  border: 2px solid var(--violet);
+  border-radius: 16px;
+  padding: 56px 48px;
+  text-align: center;
+  overflow: hidden;
+}
+.pilot-cta::before {
+  content: '';
+  position: absolute; inset: -2px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  border-radius: 16px;
+  z-index: -1;
+  opacity: 0.15;
+  filter: blur(40px);
+}
+.pilot-cta::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at center, var(--violet-glow) 0%, transparent 50%);
+  pointer-events: none;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+.pilot-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 6px 20px; border-radius: 20px;
+  margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.pilot-cta h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
+.pilot-cta p {
+  font-size: 15px; color: var(--text);
+  max-width: 520px; margin: 0 auto 32px;
+  line-height: 1.9;
+  position: relative; z-index: 1;
+}
+.pilot-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--violet); color: #fff;
+  padding: 16px 40px; border-radius: 8px;
+  font-size: 16px; font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative; z-index: 1;
+}
+.pilot-btn:hover {
+  background: var(--violet-light);
+  box-shadow: 0 0 60px var(--violet-glow);
+  transform: translateY(-2px);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+  background: var(--bg);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 40px;
+}
+.footer-brand .logo { margin-bottom: 12px; }
+.footer-brand p { font-size: 12px; color: var(--text-muted); max-width: 280px; }
+.footer-links h4 {
+  font-size: 12px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.08em; margin-bottom: 16px; text-transform: uppercase;
+}
+.footer-links a {
+  display: block; font-size: 13px; color: var(--text-muted);
+  text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-copy {
+  max-width: var(--max); margin: 32px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .case-card { grid-template-columns: 1fr; }
+  .case-metrics { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  nav { display: none; }
+  .menu-toggle { display: block; }
+  .hero { padding: 100px 20px 40px; min-height: 50vh; }
+  .section { padding: 60px 20px; }
+  .case-card { padding: 28px 20px; }
+  .pilot-cta { padding: 40px 20px; }
+  .footer-inner { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">V</div>
+    <div class="logo-text">VERITAS AI <span>Partners</span></div>
+  </a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="cases.html" class="active">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="nav-cta">無料AI診断</a>
+  </nav>
+  <button class="menu-toggle" aria-label="メニュー">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Case Studies</div>
+    <h1>実戦から生まれた、<br><em>リアルな成果</em></h1>
+    <p class="hero-sub">提案書の数字ではなく、自社事業で検証済みの実績。全て、私たちが自ら構築・運用しているAIシステムの成果です。</p>
+  </div>
+</section>
+
+<!-- ===== CASE 1: SK本舗 LINE CRM AI ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Case 01</div>
+    <div class="case-card">
+      <div>
+        <div class="case-tag">EC / LINE CRM</div>
+        <h2 class="case-title">SK本舗 LINE CRM AI</h2>
+        <div class="case-subtitle">年商5.5億の3Dプリンター専門ECにおけるAI導入</div>
+
+        <div class="case-block">
+          <div class="case-block-label challenge">Challenge</div>
+          <p>6,000人のLINE会員に対して手動で配信を行っており、セグメント分けも属人的。CS応答は平均4時間かかり、営業時間外の問合せは翌日対応が常態化していた。</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label solution">Solution</div>
+          <p>Claude API + LINE Messaging APIを連携し、パーソナライズ応答とセグメント配信を完全自動化。購買履歴・閲覧行動に基づくAIレコメンドと、24時間対応のAI接客Botを構築。</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label results">Results</div>
+          <p>応答時間を96%短縮（4時間 → 15分）。配信工数を90%削減（月20時間 → 2時間）。LINE経由の売上が向上し、顧客満足度も大幅に改善。</p>
+        </div>
+
+        <div class="case-quote">
+          <p>「AIは難しいと思っていたが、自社ECで実際に動いているシステムをベースに提案してもらえたので、導入の判断が早かった。数字で効果が見えるのが良い。」</p>
+          <cite>— 代表</cite>
+        </div>
+      </div>
+
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="metric-num">96%</div>
+            <div class="metric-label">応答時間短縮</div>
+            <div class="metric-detail">4時間 → 15分</div>
+          </div>
+          <div class="case-metric">
+            <div class="metric-num">90%</div>
+            <div class="metric-label">配信工数削減</div>
+            <div class="metric-detail">月20h → 2h</div>
+          </div>
+          <div class="case-metric">
+            <div class="metric-num">6,000</div>
+            <div class="metric-label">LINE会員数</div>
+            <div class="metric-detail">AI管理下</div>
+          </div>
+          <div class="case-metric">
+            <div class="metric-num">24/7</div>
+            <div class="metric-label">AI接客稼働</div>
+            <div class="metric-detail">営業時間外も対応</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASE 2: 業務自動化スイート ===== -->
+<section class="section" style="background: var(--bg-section);">
+  <div class="section-inner">
+    <div class="section-eyebrow">Case 02</div>
+    <div class="case-card">
+      <div>
+        <div class="case-tag">業務効率化</div>
+        <h2 class="case-title">業務自動化スイート</h2>
+        <div class="case-subtitle">12個のAIシステムを1人の経営者が運用</div>
+
+        <div class="case-block">
+          <div class="case-block-label challenge">Challenge</div>
+          <p>EC運営、在庫管理、競合分析、レポート作成、顧客対応など、多岐にわたるバックオフィス業務が経営者1人に集中。意思決定に必要な情報の収集・整理だけで、月100時間以上を費やしていた。</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label solution">Solution</div>
+          <p>業務領域ごとに特化したAIシステムを段階的に構築。全システムがSlack/Discord/LINEで連携し、経営者は通知を確認するだけで状況を把握できる体制を実現。</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label results">Results</div>
+          <p>バックオフィス工数を月100時間以上削減。データに基づく意思決定が日常化し、異常検知・機会発見のスピードが飛躍的に向上。</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 20px; letter-spacing: 0.04em;">稼働中AIシステム</h3>
+        <ul class="system-list">
+          <li><span class="system-dot"></span>在庫監視システム（sk-monitor） — 毎時自動チェック、欠品アラート</li>
+          <li><span class="system-dot"></span>週次レポート自動生成 — 売上・広告・在庫を統合レポート化</li>
+          <li><span class="system-dot"></span>AI価格分析 — 競合価格監視、最適価格提案</li>
+          <li><span class="system-dot"></span>AIニュースダイジェスト — 業界ニュースを毎日2回配信</li>
+          <li><span class="system-dot"></span>株式シグナル分析 — テクニカル・ファンダメンタル自動スクリーニング</li>
+          <li><span class="system-dot"></span>LINE CRM Bot — 顧客対応・セグメント配信</li>
+          <li><span class="system-dot"></span>商品カタログ自動生成 — PDF出力・背景除去</li>
+          <li><span class="system-dot"></span>Google Ads ダッシュボード — 広告パフォーマンス可視化</li>
+        </ul>
+
+        <div class="case-metrics" style="margin-top: 24px;">
+          <div class="case-metric">
+            <div class="metric-num">12+</div>
+            <div class="metric-label">稼働AIシステム</div>
+          </div>
+          <div class="case-metric">
+            <div class="metric-num">100h+</div>
+            <div class="metric-label">月間工数削減</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PILOT PROGRAM CTA ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="pilot-cta">
+      <div class="pilot-badge">Limited — 3社限定</div>
+      <h2>パイロットプログラム<br>パートナー企業募集中</h2>
+      <p>現在、AI導入パイロットプログラムのパートナー企業を3社限定で募集しています。自社事業で実証済みのAIシステムを、特別条件で導入いただけます。</p>
+      <a href="contact.html" class="pilot-btn">
+        パイロットプログラムに応募する
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">V</div>
+        <div class="logo-text">VERITAS AI <span>Partners</span></div>
+      </a>
+      <p>フェリデンシアキャピタルグループ。自社EC運営で培ったAI活用ノウハウを、中小企業の事業変革に。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <a href="services.html">Services</a>
+      <a href="cases.html">Case Studies</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h4>Group</h4>
+      <a href="https://felidentia.com" target="_blank" rel="noopener">フェリデンシアキャピタル</a>
+      <a href="https://skhonpo.com" target="_blank" rel="noopener">SK本舗</a>
+      <a href="https://nmgiken.jp" target="_blank" rel="noopener">日本未来技研</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 Veritas AI Partners / フェリデンシアキャピタル株式会社. All Rights Reserved.
+  </div>
+</footer>
+
+</body>
+</html>

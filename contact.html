@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ — Veritas AI Partners</title>
+<meta name="description" content="Veritas AI Partnersへのお問い合わせ。無料AI診断のお申し込みはこちらから。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --bg: #0A0A0F;
+  --bg-card: #12121A;
+  --bg-card-hover: #1A1A26;
+  --bg-section: #0E0E16;
+  --violet: #7C5CFC;
+  --violet-light: #9B82FC;
+  --violet-glow: rgba(124, 92, 252, 0.15);
+  --cyan: #00D4AA;
+  --cyan-glow: rgba(0, 212, 170, 0.12);
+  --white: #F0F0F5;
+  --text: #B8B8CC;
+  --text-muted: #6B6B80;
+  --border: rgba(255,255,255,0.06);
+  --max: 1100px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== GRID BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; font-size: 14px; color: #fff;
+}
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--white); letter-spacing: 0.06em;
+}
+.logo-text span { color: var(--text-muted); font-weight: 400; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--text-muted); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.2s;
+}
+nav a:hover, nav a.active { color: var(--white); }
+.nav-cta {
+  background: var(--violet); color: #fff !important;
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 12px !important; letter-spacing: 0.06em;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { background: var(--violet-light); box-shadow: 0 0 20px var(--violet-glow); }
+
+/* Hamburger */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--white); }
+.menu-toggle svg { width: 24px; height: 24px; }
+
+/* ===== HERO (SHORT) ===== */
+.hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex; align-items: center;
+  padding: 120px 40px 60px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--violet-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: var(--max); margin: 0 auto; width: 100%;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--violet); }
+.hero h1 {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; line-height: 1.4;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== SECTION COMMON ===== */
+.section { padding: 100px 40px; position: relative; z-index: 1; }
+.section-inner { max-width: var(--max); margin: 0 auto; }
+
+/* ===== CONTACT LAYOUT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ===== FORM ===== */
+.form-group {
+  margin-bottom: 24px;
+}
+.form-label {
+  display: block;
+  font-size: 13px; font-weight: 600; color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.form-label .required {
+  color: var(--violet);
+  font-size: 11px;
+  margin-left: 4px;
+}
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px var(--violet-glow);
+}
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B80' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.form-select option {
+  background: var(--bg-card);
+  color: var(--white);
+}
+.form-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+.form-submit {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--violet); color: #fff;
+  padding: 14px 32px; border-radius: 8px;
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: background 0.2s, box-shadow 0.3s, transform 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+.form-submit:hover {
+  background: var(--violet-light);
+  box-shadow: 0 0 40px var(--violet-glow);
+  transform: translateY(-2px);
+}
+
+/* ===== INFO CARDS ===== */
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  margin-bottom: 20px;
+}
+.info-card-title {
+  font-size: 16px; font-weight: 600; color: var(--white);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.info-card-icon {
+  width: 36px; height: 36px;
+  background: var(--violet-glow);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.info-list {
+  list-style: none;
+}
+.info-list li {
+  font-size: 14px; color: var(--text); line-height: 1.8;
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 8px;
+}
+.info-list li::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--violet);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+.info-contact-item {
+  font-size: 14px; color: var(--text); line-height: 1.8;
+  margin-bottom: 8px;
+}
+.info-contact-label {
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.info-contact-value {
+  font-size: 14px; color: var(--white);
+}
+.info-contact-value a {
+  color: var(--violet);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.info-contact-value a:hover {
+  color: var(--violet-light);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+  background: var(--bg);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 40px;
+}
+.footer-brand .logo { margin-bottom: 12px; }
+.footer-brand p { font-size: 12px; color: var(--text-muted); max-width: 280px; }
+.footer-links h4 {
+  font-size: 12px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.08em; margin-bottom: 16px; text-transform: uppercase;
+}
+.footer-links a {
+  display: block; font-size: 13px; color: var(--text-muted);
+  text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-copy {
+  max-width: var(--max); margin: 32px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  nav { display: none; }
+  .menu-toggle { display: block; }
+  .hero { padding: 100px 20px 40px; min-height: 40vh; }
+  .section { padding: 60px 20px; }
+  .footer-inner { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">V</div>
+    <div class="logo-text">VERITAS AI <span>Partners</span></div>
+  </a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="cases.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="nav-cta active">無料AI診断</a>
+  </nav>
+  <button class="menu-toggle" aria-label="メニュー">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Contact</div>
+    <h1>あなたの事業の<em>AI活用ポテンシャル</em>を<br>無料で診断</h1>
+  </div>
+</section>
+
+<!-- ===== CONTACT FORM ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <!-- LEFT: Form -->
+      <div>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label class="form-label" for="company">会社名</label>
+            <input type="text" id="company" name="company" class="form-input" placeholder="例: 株式会社サンプル">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">お名前 <span class="required">*必須</span></label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="例: 山田 太郎" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">メールアドレス <span class="required">*必須</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="例: taro@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">電話番号</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="例: 03-1234-5678">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="business">事業内容</label>
+            <select id="business" name="business" class="form-select">
+              <option value="" disabled selected>選択してください</option>
+              <option value="ec-retail">EC・小売</option>
+              <option value="manufacturing">製造業</option>
+              <option value="service">サービス業</option>
+              <option value="it-tech">IT・テクノロジー</option>
+              <option value="professional">士業・専門サービス</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="revenue">月商規模</label>
+            <select id="revenue" name="revenue" class="form-select">
+              <option value="" disabled selected>選択してください</option>
+              <option value="under-10m">〜1,000万円</option>
+              <option value="10m-50m">1,000万〜5,000万円</option>
+              <option value="50m-100m">5,000万〜1億円</option>
+              <option value="over-100m">1億円〜</option>
+              <option value="undisclosed">非公開</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ai-status">現在のAI活用状況</label>
+            <select id="ai-status" name="ai-status" class="form-select">
+              <option value="" disabled selected>選択してください</option>
+              <option value="none">未導入</option>
+              <option value="partial">一部ツール利用中</option>
+              <option value="active">本格活用中</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">ご相談内容</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="現在の課題やAI活用で実現したいことをお聞かせください"></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            無料AI診断を申し込む
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- RIGHT: Info Cards -->
+      <div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">🔍</div>
+            無料AI診断
+          </div>
+          <ul class="info-list">
+            <li>3営業日以内にご連絡</li>
+            <li>30分のオンライン相談</li>
+            <li>AI活用ロードマップを無料提供</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">
+            <div class="info-card-icon">📮</div>
+            連絡先
+          </div>
+          <div class="info-contact-item">
+            <div class="info-contact-label">メール</div>
+            <div class="info-contact-value"><a href="mailto:contact@veritas-ai.jp">contact@veritas-ai.jp</a></div>
+          </div>
+          <div class="info-contact-item">
+            <div class="info-contact-label">所在地</div>
+            <div class="info-contact-value">〒150-6018<br>東京都渋谷区恵比寿4-20-3<br>恵比寿ガーデンプレイスタワー18階</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">V</div>
+        <div class="logo-text">VERITAS AI <span>Partners</span></div>
+      </a>
+      <p>フェリデンシアキャピタルグループ。自社EC運営で培ったAI活用ノウハウを、中小企業の事業変革に。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <a href="services.html">Services</a>
+      <a href="cases.html">Case Studies</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h4>Group</h4>
+      <a href="https://felidentia.com" target="_blank" rel="noopener">フェリデンシアキャピタル</a>
+      <a href="https://skhonpo.com" target="_blank" rel="noopener">SK本舗</a>
+      <a href="https://nmgiken.jp" target="_blank" rel="noopener">日本未来技研</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 Veritas AI Partners / フェリデンシアキャピタル株式会社. All Rights Reserved.
+  </div>
+</footer>
+
+</body>
+</html>
