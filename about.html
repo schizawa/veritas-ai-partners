@@ -218,6 +218,18 @@ nav a:hover, nav a.active { color: var(--white); }
 .profile-bio {
   font-size: 15px; color: var(--text); line-height: 2;
 }
+.profile-badges {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+}
+.profile-badge {
+  display: inline-block;
+  background: var(--violet-glow);
+  border: 1px solid rgba(124,92,252,0.25);
+  color: var(--violet-light);
+  font-size: 11px; font-weight: 600;
+  padding: 5px 14px; border-radius: 20px;
+  letter-spacing: 0.03em;
+}
 .profile-photo {
   display: flex; justify-content: center; align-items: center;
 }
@@ -442,7 +454,14 @@ footer {
         <div class="profile-name">遅沢翔</div>
         <div class="profile-name-en">Sho Chizawa</div>
         <div class="profile-title">Founder & CEO</div>
-        <p class="profile-bio">2017年創業。複数のEC事業・テクノロジー事業を経営する過程で、Claude API・LINE API・Shopify APIを活用した12以上のAIシステムを自ら設計・実装・運用。「AIは使ってこそ価値がある」をモットーに、自社での実証を経たノウハウを外部企業に展開するためVeritas AI Partnersを設立。</p>
+        <p class="profile-bio">2017年に起業。EC事業・産業用3Dプリンター事業・デンタルテクノロジー事業など複数の事業を経営する傍ら、日々の業務にAIを深く組み込み、経営・マーケティング・CS・在庫管理・コンテンツ制作のあらゆるレイヤーでAIシステムを自ら設計・実装・運用。</p>
+        <p class="profile-bio" style="margin-top: 12px;">Claude（Anthropic）をコア技術としたエージェント開発に精通し、GPT-4o・Gemini・Perplexity・Midjourney等のマルチモデル活用にも深い知見を持つ。「AIは使ってこそ価値がある」をモットーに、自社での実証を経たノウハウを外部展開するためVeritas AI Partnersを設立。</p>
+        <div class="profile-badges">
+          <span class="profile-badge">Claude Code ヘビーユーザー</span>
+          <span class="profile-badge">Prompt Engineering</span>
+          <span class="profile-badge">AI Agent Design</span>
+          <span class="profile-badge">Multi-Model Orchestration</span>
+        </div>
       </div>
       <div class="profile-photo">
         <div class="profile-avatar">SC</div>
@@ -457,7 +476,7 @@ footer {
     <div class="section-eyebrow">Our Approach</div>
     <h2 class="section-title">実戦から生まれた方法論</h2>
     <div class="group-desc">
-      <p style="margin-bottom: 12px;">私たちは自社で複数のEC事業・テクノロジー事業を運営する中で、12以上のAIシステムを構築・運用してきました。</p>
+      <p style="margin-bottom: 12px;">私たちは自社で複数のEC事業・テクノロジー事業を運営する中で、あらゆる業務にAIを組み込んできました。</p>
       <p>この経験から得た「実際に動くAI」のノウハウを、お客様の事業環境に合わせてカスタマイズし、提供しています。</p>
     </div>
   </div>
@@ -469,6 +488,8 @@ footer {
     <div class="section-eyebrow">Tech Stack</div>
     <h2 class="section-title">技術スタック</h2>
     <div class="section-desc">自社で実証済みの技術を、お客様のプロジェクトに適用します。</div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--violet);letter-spacing:0.08em;margin-bottom:16px;">AI / LLM</h3>
     <div class="tech-grid">
       <div class="tech-card">
         <div class="tech-icon">🧠</div>
@@ -476,15 +497,68 @@ footer {
         <div class="tech-provider">Anthropic</div>
       </div>
       <div class="tech-card">
+        <div class="tech-icon">🤖</div>
+        <div class="tech-name">Claude Code</div>
+        <div class="tech-provider">AI Agent IDE</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">💎</div>
+        <div class="tech-name">GPT-4o / o1</div>
+        <div class="tech-provider">OpenAI</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">✨</div>
+        <div class="tech-name">Gemini</div>
+        <div class="tech-provider">Google</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔍</div>
+        <div class="tech-name">Perplexity</div>
+        <div class="tech-provider">AI Search</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🎨</div>
+        <div class="tech-name">Midjourney / DALL-E</div>
+        <div class="tech-provider">Image Generation</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--violet);letter-spacing:0.08em;margin:32px 0 16px;">DEVELOPMENT</h3>
+    <div class="tech-grid">
+      <div class="tech-card">
         <div class="tech-icon">⚡</div>
-        <div class="tech-name">Next.js / TypeScript</div>
+        <div class="tech-name">Next.js / React</div>
         <div class="tech-provider">Vercel</div>
       </div>
       <div class="tech-card">
+        <div class="tech-icon">📘</div>
+        <div class="tech-name">TypeScript</div>
+        <div class="tech-provider">Microsoft</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🐍</div>
+        <div class="tech-name">Python</div>
+        <div class="tech-provider">Data / ML / Automation</div>
+      </div>
+      <div class="tech-card">
         <div class="tech-icon">🗄️</div>
-        <div class="tech-name">Supabase</div>
+        <div class="tech-name">Supabase / PostgreSQL</div>
         <div class="tech-provider">Database & Auth</div>
       </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔥</div>
+        <div class="tech-name">Node.js</div>
+        <div class="tech-provider">Runtime</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🚀</div>
+        <div class="tech-name">Vercel / GitHub Actions</div>
+        <div class="tech-provider">Deploy & CI/CD</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--violet);letter-spacing:0.08em;margin:32px 0 16px;">PLATFORM & API</h3>
+    <div class="tech-grid">
       <div class="tech-card">
         <div class="tech-icon">🛒</div>
         <div class="tech-name">Shopify API / Liquid</div>
@@ -499,6 +573,55 @@ footer {
         <div class="tech-icon">🎧</div>
         <div class="tech-name">Zendesk API</div>
         <div class="tech-provider">Zendesk</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📊</div>
+        <div class="tech-name">Google Analytics / Ads API</div>
+        <div class="tech-provider">Google</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🐦</div>
+        <div class="tech-name">X (Twitter) API</div>
+        <div class="tech-provider">X Corp</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">💼</div>
+        <div class="tech-name">Slack / Discord API</div>
+        <div class="tech-provider">Communication</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--violet);letter-spacing:0.08em;margin:32px 0 16px;">TOOLS & WORKFLOW</h3>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-icon">🎭</div>
+        <div class="tech-name">Playwright</div>
+        <div class="tech-provider">Browser Automation</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📐</div>
+        <div class="tech-name">Figma</div>
+        <div class="tech-provider">Design</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📈</div>
+        <div class="tech-name">Looker Studio / Neon</div>
+        <div class="tech-provider">Analytics & DB</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">⚙️</div>
+        <div class="tech-name">Puppeteer / Cheerio</div>
+        <div class="tech-provider">Scraping & PDF</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📦</div>
+        <div class="tech-name">Amazon SP-API</div>
+        <div class="tech-provider">Marketplace</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔐</div>
+        <div class="tech-name">OAuth / JWT / Webhook</div>
+        <div class="tech-provider">Security & Integration</div>
       </div>
     </div>
     <p class="tech-note">特定のツールに縛られず、お客様の環境に最適な技術を選定します。</p>
