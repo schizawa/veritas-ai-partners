@@ -313,6 +313,37 @@ footer {
   text-align: center;
 }
 
+/* ===== MOBILE NAV ===== */
+.mobile-nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+  background: var(--bg); z-index: 300;
+  transform: translateX(100%); transition: transform 0.3s ease;
+  display: flex; flex-direction: column;
+}
+.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav__header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+.mobile-nav__close { background: none; border: none; cursor: pointer; color: var(--white); }
+.mobile-nav__body { padding: 24px 20px; display: flex; flex-direction: column; gap: 0; }
+.mobile-nav__body a {
+  display: block; padding: 16px 0; font-size: 16px; font-weight: 500;
+  color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-nav__body a:hover { color: var(--white); }
+.mobile-nav__cta {
+  margin-top: 16px !important; background: var(--violet) !important;
+  color: #fff !important; text-align: center; border-radius: 8px;
+  padding: 14px 0 !important; border-bottom: none !important;
+}
+.mobile-nav__overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 299; display: none;
+}
+.mobile-nav__overlay.is-open { display: block; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; }
@@ -346,6 +377,22 @@ footer {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
 </header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav__header">
+    <a href="index.html" class="logo"><div class="logo-icon">V</div><div class="logo-text">VERITAS AI <span>Partners</span></div></a>
+    <button class="mobile-nav__close" id="mobileNavClose" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="mobile-nav__body">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="cases.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="mobile-nav__cta">無料AI診断</a>
+  </div>
+</div>
+<div class="mobile-nav__overlay" id="mobileNavOverlay"></div>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -482,5 +529,18 @@ footer {
   </div>
 </footer>
 
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var btn=document.querySelector(".menu-toggle");
+  var nav=document.getElementById("mobileNav");
+  var overlay=document.getElementById("mobileNavOverlay");
+  var close=document.getElementById("mobileNavClose");
+  function open(){nav.classList.add("is-open");overlay.classList.add("is-open");document.body.style.overflow="hidden";}
+  function shut(){nav.classList.remove("is-open");overlay.classList.remove("is-open");document.body.style.overflow="";}
+  if(btn)btn.addEventListener("click",open);
+  if(close)close.addEventListener("click",shut);
+  if(overlay)overlay.addEventListener("click",shut);
+});
+</script>
 </body>
 </html>
