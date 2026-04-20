@@ -1,0 +1,815 @@
+<!-- 
+aesthetic_dna: GitHub Profile / Linear Changelog / Terminal Dashboard Matrix. Open Studio transparent execution.
+ui_paradigm: IDE / System Monitor Hybrid. Intense data density, bento-box grid mechanics, vertical timeline storytelling.
+palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), Foundry Grey (#13131a), Wireframe Lines (#22222f). 
+-->
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | THE OPEN STUDIO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#0a0a0e',
+                        surface: '#13131a',
+                        surface_hover: '#1a1a24',
+                        line: '#22222f',
+                        terminal: '#00ff88',
+                        sysblue: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #22222f 1px, transparent 1px), linear-gradient(to bottom, #22222f 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0e;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22222f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
+        /* Animations */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .animate-blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes feed-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .live-feed-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        .live-feed-container::before, .live-feed-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 40px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .live-feed-container::before {
+            top: 0;
+            background: linear-gradient(to bottom, #0a0a0e 0%, transparent 100%);
+        }
+        .live-feed-container::after {
+            bottom: 0;
+            background: linear-gradient(to top, #0a0a0e 0%, transparent 100%);
+        }
+        .live-feed-content {
+            animation: feed-scroll 30s linear infinite;
+        }
+        .live-feed-container:hover .live-feed-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+            50% { box-shadow: 0 0 8px 2px rgba(0, 255, 136, 0.1); }
+        }
+        .status-dot-active {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes progress-load {
+            from { width: 0%; }
+        }
+        .progress-bar-fill {
+            animation: progress-load 1.5s ease-out forwards;
+        }
+
+        /* Utility selection */
+        ::selection {
+            background-color: #00ff88;
+            color: #0a0a0e;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col font-sans">
+    
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
+
+    <!-- Global Top Bar -->
+    <header class="fixed top-0 w-full bg-void/90 backdrop-blur-md border-b border-line z-50">
+        <div class="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
+            <div class="flex items-center gap-4">
+                <span class="text-white font-bold text-sm font-sans tracking-wide">VERITAS AI PARTNERS</span>
+                <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">v2.4.0-production</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#dashboard" class="hover:text-white transition-colors">Dashboard</a>
+                <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                <a href="#repos" class="hover:text-white transition-colors">Public Repos</a>
+                <a href="#team" class="hover:text-white transition-colors">Team Matrix</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
+                    <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
+                    <span class="tracking-wider">SYSTEM ONLINE</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-32">
+        <!-- SECTION 1: HERO / THE OPEN STUDIO -->
+        <section class="max-w-[1400px] mx-auto px-6 mb-32 pt-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Ideology -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 border border-line rounded bg-surface font-mono text-xs text-gray-400">
+                        <i class="ph-fill ph-broadcast text-sysblue"></i>
+                        <span>CONCEPT: THE OPEN STUDIO</span>
+                        <span class="text-line mx-2">|</span>
+                        <span>CONFIDENTIALITY LEVEL: ZERO</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+                        今この瞬間も、<br>
+                        私たちは作っている。
+                    </h1>
+                    
+                    <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
+                        コンサルティングのブラックボックスへ終止符を。
+                        Veritas AI Partnersは、GitHubのコミット、Slackの議論、Figmaの進行状況をすべて公開する。
+                        これが、ごまかしのない「本物の実行力」の証明。
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-4 font-mono">
+                        <a href="#cta" class="group relative px-6 py-3 bg-white text-void font-bold text-sm hover:bg-gray-200 transition-colors flex items-center gap-2 rounded-sm">
+                            <i class="ph-bold ph-terminal-window text-lg"></i>
+                            <span>Initialize Project</span>
+                            <div class="absolute inset-0 border border-transparent group-hover:border-white scale-105 transition-transform duration-300 pointer-events-none"></div>
+                        </a>
+                        <a href="#repos" class="px-6 py-3 bg-surface border border-line text-gray-300 font-bold text-sm hover:border-gray-500 hover:text-white transition-colors flex items-center gap-2 rounded-sm">
+                            <i class="ph-bold ph-github-logo text-lg"></i>
+                            <span>View Source</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Live Execution Feed -->
+                <div class="lg:col-span-5 border border-line bg-void rounded-md shadow-[0_0_40px_rgba(0,255,136,0.05)] flex flex-col font-mono text-xs relative overflow-hidden">
+                    <div class="bg-surface border-b border-line px-4 py-2 flex justify-between items-center text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-terminal"></i>
+                            <span>global_activity.log</span>
+                        </div>
+                        <div class="flex gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-line"></div>
+                            <div class="w-2 h-2 rounded-full bg-line"></div>
+                            <div class="w-2 h-2 rounded-full bg-terminal status-dot-active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 live-feed-container">
+                        <!-- Duplicated content for seamless scroll marqee -->
+                        <div class="live-feed-content flex flex-col gap-3">
+                            <!-- Feed block 1 -->
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:42:01</span>
+                                <div><span class="text-terminal">SYS</span> Push to <span class="text-sysblue">main</span> at veritas/crm-ai-engine <span class="text-gray-500">#a1b2c3d</span></div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:41:15</span>
+                                <div><span class="text-[#eab308]">SLK</span> [Osozawa] Reviewing architecture docs for Q4 scale.</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:35:22</span>
+                                <div><span class="text-[#f24e1e]">FIG</span> [Kento] Updated "LLM Dashboard Admin UI" frames.</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:28:44</span>
+                                <div><span class="text-terminal">SYS</span> Deploy successful (Production) - 1.2s</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:15:00</span>
+                                <div><span class="text-terminal">SYS</span> Commit <span class="text-gray-500">#9f8e7d6</span>: "fix: token leak in RAG pipeline"</div>
+                            </div>
+                             <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">10:02:11</span>
+                                <div><span class="text-[#eab308]">SLK</span> [Yuki] API testing completed. All green. ✅</div>
+                            </div>
+                            <!-- Feed block 2 (Copy for loop) -->
+                            <div class="flex gap-3 text-gray-300 mt-3">
+                                <span class="text-gray-500 shrink-0">09:55:01</span>
+                                <div><span class="text-terminal">SYS</span> Push to <span class="text-sysblue">staging</span> at veritas/demo-environment</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">09:40:15</span>
+                                <div><span class="text-[#eab308]">SLK</span> [Osozawa] Client sync starting.</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">09:12:22</span>
+                                <div><span class="text-[#f24e1e]">FIG</span> [Kento] Exporting assets for frontend integration.</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">08:58:44</span>
+                                <div><span class="text-terminal">SYS</span> Vercel build started (Preview)</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">08:30:00</span>
+                                <div><span class="text-terminal">SYS</span> Commit <span class="text-gray-500">#3a4b5c6</span>: "feat: intialize new vector DB"</div>
+                            </div>
+                            <div class="flex gap-3 text-gray-300">
+                                <span class="text-gray-500 shrink-0">08:15:11</span>
+                                <div><span class="text-[#eab308]">SLK</span> [Yuki] Morning standup notes posted.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: LIVE DASHBOARD -->
+        <section id="dashboard" class="max-w-[1400px] mx-auto px-6 mb-32">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-line pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight mb-2">Active Execution State</h2>
+                    <p class="text-gray-400 text-sm font-mono tracking-tight">>> Currently running implementations. Real-time telemetry.</p>
+                </div>
+                <div class="mt-4 md:mt-0 font-mono text-xs text-gray-500 flex gap-4">
+                    <span>4 ACTV</span>
+                    <span>LOAD: NORMAL</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <!-- Project Card 1 -->
+                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="font-mono text-xs text-terminal bg-terminal/10 px-2 py-0.5 rounded border border-terminal/20">PRJ-089</span>
+                        <i class="ph ph-database text-gray-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">RAG Document Analyzer</h3>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">金融機関向け非構造化データ抽出AIの構築。チャンク最適化フェーズ。</p>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-gray-400">Completion</span>
+                            <span class="text-white">78%</span>
+                        </div>
+                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full bg-sysblue progress-bar-fill" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
+                        <div class="flex -space-x-2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface relative z-10">
+                        </div>
+                        <span class="font-mono text-[10px] text-gray-500">Last commit: 12m ago</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="font-mono text-xs text-sysblue bg-sysblue/10 px-2 py-0.5 rounded border border-sysblue/20">PRJ-092</span>
+                        <i class="ph ph-robot text-gray-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">LINE Customer Success AI</h3>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">CRM連動型自動応答ボット。プロンプトインジェクション対策実装中。</p>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-gray-400">Completion</span>
+                            <span class="text-white">45%</span>
+                        </div>
+                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#f24e1e] progress-bar-fill" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
+                        <div class="flex -space-x-2">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface">
+                        </div>
+                        <span class="font-mono text-[10px] text-gray-500">Last commit: 2h ago</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-terminal/5 z-0 pointer-events-none"></div>
+                    <div class="relative z-10 flex justify-between items-start mb-4">
+                        <span class="font-mono text-xs text-white bg-white/10 px-2 py-0.5 rounded border border-white/20 flex gap-2 items-center"><span class="w-1.5 h-1.5 bg-terminal rounded-full animate-pulse"></span>DEPLOYING</span>
+                        <i class="ph ph-rocket-launch text-terminal"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1 relative z-10">AI-Driven E-Comm Matrix</h3>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow relative z-10">商品推薦アルゴリズムの本番環境デプロイ。A/Bテスト準備。</p>
+                    
+                    <div class="space-y-2 mb-4 relative z-10">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-gray-400">Completion</span>
+                            <span class="text-terminal">99%</span>
+                        </div>
+                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full bg-terminal progress-bar-fill" style="width: 99%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto relative z-10">
+                        <div class="flex -space-x-2">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface">
+                            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface">
+                            <div class="w-7 h-7 rounded-full border border-surface bg-line flex items-center justify-center text-[10px] text-gray-400">+1</div>
+                        </div>
+                        <span class="font-mono text-[10px] text-terminal">Live deployment...</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="font-mono text-xs text-gray-400 bg-line px-2 py-0.5 rounded border border-gray-600">PRJ-098</span>
+                        <i class="ph ph-magnifying-glass text-gray-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Competitor Scraping Bot</h3>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">競合サイトの価格・在庫変動を監視するETLパイプラインアーキテクチャ設計。</p>
+                    
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-gray-400">Completion</span>
+                            <span class="text-white">12%</span>
+                        </div>
+                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full bg-white progress-bar-fill" style="width: 12%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
+                        <div class="flex -space-x-2">
+                            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=100&q=80" alt="Engineer" class="w-7 h-7 rounded-full border border-surface">
+                        </div>
+                        <span class="font-mono text-[10px] text-gray-500">Last commit: 1d ago</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 & 4: SLACK COMMS & ROADMAP (Split Layout) -->
+        <section class="max-w-[1400px] mx-auto px-6 mb-32">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Internal Comms (Slack style) -->
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight mb-2 flex items-center gap-2">
+                        <i class="ph-fill ph-slack-logo text-gray-300"></i> Internal Workspace
+                    </h2>
+                    <p class="text-gray-400 text-sm font-mono tracking-tight mb-6">>> Unfiltered engineering logs. Channel: #dev-general</p>
+                    
+                    <div class="bg-surface border border-line rounded-md p-1 h-[400px] flex flex-col">
+                        <div class="bg-void/50 border-b border-line p-3 flex justify-between items-center text-sm font-mono">
+                            <div class="flex gap-4 text-gray-400">
+                                <span class="text-white"># dev-general</span>
+                                <span class="hidden sm:inline">| System alerts & team sync</span>
+                            </div>
+                            <span class="text-xs text-gray-500">12 members</span>
+                        </div>
+                        
+                        <div class="flex-grow p-4 overflow-y-auto space-y-6 text-sm">
+                            <!-- Message 1 -->
+                            <div class="flex gap-4">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="Sho" class="w-10 h-10 rounded shadow-sm shrink-0">
+                                <div>
+                                    <div class="flex items-baseline gap-2 mb-1">
+                                        <span class="font-bold font-mono">Sho Osozawa</span>
+                                        <span class="text-gray-500 font-mono text-[10px]">Today at 09:42 AM</span>
+                                    </div>
+                                    <p class="text-gray-300 leading-relaxed mb-2">クライアントA社のAPIレート制限回避ロジック、キューイングシステムをRedisに移行完了。レイテンシ200ms低下。ドキュメントは <span class="text-sysblue hover:underline cursor-pointer">/docs/arch-v2</span> に。</p>
+                                    <div class="flex gap-2">
+                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-1 rounded text-xs border border-[#3b3b4f]"><span class="text-lg">🚀</span> <span class="text-gray-300 font-mono">3</span></div>
+                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-1 rounded text-xs border border-[#3b3b4f]"><span class="text-lg">🔥</span> <span class="text-gray-300 font-mono">1</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Message 2 -->
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 rounded shadow-sm shrink-0 bg-terminal/20 flex items-center justify-center border border-terminal/30">
+                                    <i class="ph-fill ph-robot text-terminal text-xl"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2 mb-1">
+                                        <span class="font-bold font-mono text-terminal">GitHub Bot</span>
+                                        <span class="text-gray-500 font-mono text-[10px]">Today at 10:15 AM</span>
+                                        <span class="bg-gray-800 text-[9px] px-1 rounded text-gray-400">APP</span>
+                                    </div>
+                                    <p class="text-gray-300 leading-relaxed"><span class="font-mono text-sysblue">PR #128</span> merged into <span class="font-mono bg-line px-1 rounded">main</span> by <span class="font-mono">@kento</span></p>
+                                    <div class="mt-2 bg-void border border-line rounded p-2 text-xs font-mono text-gray-400 border-l-2 border-l-terminal">
+                                        feat: implement parallel embedding processing for large PDF batch uploads
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Message 3 -->
+                            <div class="flex gap-4">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Yuki" class="w-10 h-10 rounded shadow-sm shrink-0">
+                                <div>
+                                    <div class="flex items-baseline gap-2 mb-1">
+                                        <span class="font-bold font-mono">Yuki</span>
+                                        <span class="text-gray-500 font-mono text-[10px]">Today at 11:02 AM</span>
+                                    </div>
+                                    <p class="text-gray-300 leading-relaxed">バッチ処理確認しました。UI側でステータスのプログレスバーをポーリングする部分、WebSocketに切り替えておきます。</p>
+                                    <div class="flex gap-2 mt-2">
+                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-1 rounded text-xs border border-[#3b3b4f]"><span class="text-lg">👀</span> <span class="text-gray-300 font-mono">2</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-3 border-t border-line bg-void/50">
+                            <div class="w-full bg-void border border-line rounded p-2 text-gray-500 text-sm font-mono flex gap-2 items-center">
+                                <i class="ph ph-plus-circle"></i>
+                                <span>Message #dev-general... (Read Only Mode)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linear Style Roadmap -->
+                <div id="roadmap">
+                    <div class="flex justify-between items-end mb-2">
+                        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
+                            <i class="ph-fill ph-kanban text-gray-300"></i> Public Roadmap
+                        </h2>
+                        <a href="#" class="text-sm font-mono text-sysblue hover:underline">View All >></a>
+                    </div>
+                    <p class="text-gray-400 text-sm font-mono tracking-tight mb-6">>> Scheduled releases and upcoming architectural changes.</p>
+
+                    <div class="space-y-6">
+                        <!-- Column: This Week -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-2.5 h-2.5 bg-[#f24e1e] rounded-sm transform rotate-45"></div>
+                                <h3 class="font-mono text-sm font-bold text-white uppercase tracking-wider">This Week (v2.4.1)</h3>
+                                <div class="h-[1px] flex-grow bg-line ml-2"></div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-surface border border-line rounded p-3 flex items-start gap-3 hover:border-gray-500 transition-colors">
+                                    <i class="ph-bold ph-check-circle text-gray-600 mt-0.5"></i>
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-200">LLMオーケストレーターのマルチエージェント対応</p>
+                                        <div class="flex gap-2 mt-2">
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 rounded">Feature</span>
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">AI Core</span>
+                                        </div>
+                                    </div>
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="w-5 h-5 rounded-full shrink-0">
+                                </div>
+                                <div class="bg-surface border border-line rounded p-3 flex items-start gap-3 hover:border-gray-500 transition-colors">
+                                    <i class="ph-bold ph-circle-dashed text-terminal mt-0.5"></i>
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-200">RAG処理パイプラインのメモリリーク修正</p>
+                                        <div class="flex gap-2 mt-2">
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/20 rounded">Bug</span>
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">High Priority</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column: Next Month -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-2.5 h-2.5 border-2 border-sysblue rounded-sm transform rotate-45"></div>
+                                <h3 class="font-mono text-sm font-bold text-gray-400 uppercase tracking-wider">Next Month (Q3 Phase 2)</h3>
+                                <div class="h-[1px] flex-grow bg-line ml-2"></div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bg-void border border-line rounded p-3 flex items-start gap-3 opacity-60 hover:opacity-100 transition-opacity">
+                                    <i class="ph-bold ph-circle text-gray-600 mt-0.5"></i>
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-300">各社独自データの自動ベクトル化基盤のSaaS化</p>
+                                        <div class="flex gap-2 mt-2">
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#8b5cf6]/10 text-[#8b5cf6] border border-[#8b5cf6]/20 rounded">Epic</span>
+                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">Infra</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PUBLIC REPOS (Case Studies) -->
+        <section id="repos" class="max-w-[1400px] mx-auto px-6 mb-32 pt-10 border-t border-line">
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold tracking-tight mb-2">Public Repositories</h2>
+                <p class="text-gray-400 text-sm font-mono tracking-tight max-w-2xl">>> Past implementations reframed as repositories. We don't do "case studies". We display functional architectures.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Repo 1 -->
+                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-book-bookmark text-gray-400"></i>
+                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / line-crm-ai-engine</h3>
+                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-[#8b949e] mb-6 pr-4">LINEを通じた顧客対応を完全自動化するAIエンジン。既存CRM（Salesforce等）とシームレスに同期し、パーソナライズされた接客を実現。導入後、対応工数80%削減。</p>
+                    
+                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#3178c6]"></span>
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-trend-up"></i>
+                            <span>ROI 450%</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-clock"></i>
+                            <span>Impl: 2 Months</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repo 2 -->
+                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-book-bookmark text-gray-400"></i>
+                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / auto-update-media</h3>
+                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-[#8b949e] mb-6 pr-4">海外ニュースをスクレイピングし、AIが翻訳・要約・画像生成を行い、CMS（WordPress/MicroCMS）に自動投稿する完全無人メディア運用システム。</p>
+                    
+                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#3572A5]"></span>
+                            <span>Python</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-article"></i>
+                            <span>1.2k posts/mo</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-clock"></i>
+                            <span>Impl: 3 Weeks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repo 3 -->
+                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-book-bookmark text-gray-400"></i>
+                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / competitor-monitor</h3>
+                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-[#8b949e] mb-6 pr-4">Eコマースサイト向け、競合他社の価格変動や商品追加を24時間監視する分散型スクレイピングアーキテクチャ。差分データをSlackに即時通知。</p>
+                    
+                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#f1e05a]"></span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#e34c26]"></span>
+                            <span>HTML/DOM</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-lightning"></i>
+                            <span>Latency <100ms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repo 4 -->
+                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-book-bookmark text-gray-400"></i>
+                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / amazon-ads-optimizer</h3>
+                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-[#8b949e] mb-6 pr-4">Amazon Advertising APIを活用した広告入札の自動最適化エンジン。ROAS（広告費用対効果）の目標値に向けて、キーワード入札額を機械学習で動的コントロール。</p>
+                    
+                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#3572A5]"></span>
+                            <span>Python</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-[#b07219]"></span>
+                            <span>Java</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph ph-chart-line-up"></i>
+                            <span>ROAS +120%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: TEAM MATRIX -->
+        <section id="team" class="max-w-[1400px] mx-auto px-6 mb-32">
+            <div class="mb-10 flex flex-col md:flex-row justify-between items-end border-b border-line pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight mb-2">Team Matrix & Live Status</h2>
+                    <p class="text-gray-400 text-sm font-mono tracking-tight">>> Current node states. Who is doing what, right now.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-4 text-xs font-mono">
+                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-terminal"></div><span class="text-gray-400">Coding</span></div>
+                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-[#eab308]"></div><span class="text-gray-400">Meeting</span></div>
+                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400">Offline</span></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Founder -->
+                <div class="bg-surface border border-line rounded-md p-6 flex flex-col items-center text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-sysblue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative mb-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=250&q=80" alt="Sho Osozawa" class="w-24 h-24 rounded-full object-cover border-2 border-line group-hover:border-sysblue transition-colors">
+                        <div class="absolute bottom-1 right-1 w-4 h-4 bg-[#eab308] rounded-full border-2 border-surface"></div>
+                    </div>
+                    <h3 class="font-bold text-lg">遅沢 翔 <span class="text-gray-500 font-normal text-sm block">Sho Osozawa</span></h3>
+                    <p class="text-sysblue text-xs font-mono mb-4">Founder / Lead Architect</p>
+                    <div class="w-full bg-void border border-line rounded p-2 text-left">
+                        <p class="text-[10px] font-mono text-gray-500 mb-1">CURRENT PROCESS</p>
+                        <p class="text-xs text-gray-300">Client Strategy Sync. Architecture validation for auto-media agent.</p>
+                    </div>
+                </div>
+
+                <!-- Engineer 1 -->
+                <div class="bg-surface border border-line rounded-md p-6 flex flex-col items-center text-center relative group">
+                    <div class="relative mb-4">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80" alt="Yuki" class="w-24 h-24 rounded-full object-cover border-2 border-line group-hover:border-terminal transition-colors grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-1 right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface status-dot-active"></div>
+                    </div>
+                    <h3 class="font-bold text-lg">Yuki H.</h3>
+                    <p class="text-gray-400 text-xs font-mono mb-4">Senior AI Engineer</p>
+                    <div class="w-full bg-void border border-line rounded p-2 text-left">
+                        <p class="text-[10px] font-mono text-gray-500 mb-1">CURRENT PROCESS</p>
+                        <p class="text-xs text-terminal font-mono">> IDE Active: crm-ai-engine/src</p>
+                    </div>
+                </div>
+
+                <!-- Designer -->
+                <div class="bg-surface border border-line rounded-md p-6 flex flex-col items-center text-center relative group">
+                    <div class="relative mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80" alt="Kento" class="w-24 h-24 rounded-full object-cover border-2 border-line group-hover:border-[#f24e1e] transition-colors grayscale group-hover:grayscale-0">
+                        <div class="absolute bottom-1 right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface"></div>
+                    </div>
+                    <h3 class="font-bold text-lg">Kento M.</h3>
+                    <p class="text-gray-400 text-xs font-mono mb-4">UX/UI Developer</p>
+                    <div class="w-full bg-void border border-line rounded p-2 text-left">
+                        <p class="text-[10px] font-mono text-gray-500 mb-1">CURRENT PROCESS</p>
+                        <p class="text-xs text-gray-300">Figma design system refinement. Component mapping.</p>
+                    </div>
+                </div>
+
+                <!-- Data Sci -->
+                <div class="bg-surface border border-line rounded-md p-6 flex flex-col items-center text-center relative group opacity-60">
+                    <div class="relative mb-4">
+                        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=250&q=80" alt="Sota" class="w-24 h-24 rounded-full object-cover border-2 border-line grayscale">
+                        <div class="absolute bottom-1 right-1 w-4 h-4 bg-gray-600 rounded-full border-2 border-surface"></div>
+                    </div>
+                    <h3 class="font-bold text-lg">Sota K.</h3>
+                    <p class="text-gray-400 text-xs font-mono mb-4">Data Scientist / Python</p>
+                    <div class="w-full bg-void border border-line rounded p-2 text-left">
+                        <p class="text-[10px] font-mono text-gray-500 mb-1">CURRENT PROCESS</p>
+                        <p class="text-xs text-gray-500 font-mono">Process terminated. Offline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: CTA -->
+        <section id="cta" class="max-w-[800px] mx-auto px-6 mb-20 text-center">
+            <div class="bg-surface border border-line p-10 rounded-lg shadow-2xl relative overflow-hidden">
+                <!-- Abstract BG for CTA -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-sysblue/20 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-terminal/10 rounded-full blur-[80px] pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <div class="inline-block p-4 bg-void border border-line rounded-full mb-6">
+                        <i class="ph-fill ph-rocket-launch text-3xl text-white"></i>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">次のRepoは、<br>あなたの案件。</h2>
+                    <p class="text-gray-400 mb-8 max-w-lg mx-auto leading-relaxed">
+                        要件定義の美辞麗句はもういらない。私たちは手を動かし、形にする。<br>
+                        現状の課題と実現したいシステムを、Founderに直接ぶつけてください。
+                    </p>
+
+                    <div class="bg-void border border-line rounded-md p-4 text-left font-mono text-xs text-gray-300 mb-8 max-w-md mx-auto shadow-inner">
+                        <p><span class="text-sysblue">~/veritas</span> $ init project-discovery \</p>
+                        <p class="ml-4">--client="you" \</p>
+                        <p class="ml-4">--type="45min-video-call" \</p>
+                        <p class="ml-4 animate-blink text-terminal">_</p>
+                    </div>
+
+                    <a href="#" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-4 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <i class="ph-bold ph-calendar-plus text-xl"></i>
+                        <span>Founder遅沢と45分対話する（無料）</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer / Status Bar -->
+    <footer class="fixed bottom-0 w-full h-8 bg-void border-t border-line z-50 flex items-center justify-between px-4 font-mono text-[10px] text-gray-500">
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:inline">Veritas AI Partners © 2024</span>
+            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
+                <i class="ph ph-git-branch text-sysblue"></i>
+                <span>main</span>
+            </div>
+            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
+                <i class="ph ph-arrows-clockwise text-terminal"></i>
+                <span>Sync: Active</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-1">
+                <i class="ph-fill ph-check-circle text-terminal"></i>
+                <span>Build passing</span>
+            </div>
+            <span>Uptime: 99.98%</span>
+            <span class="text-gray-400">UTF-8</span>
+            <button class="hover:text-white transition-colors" onclick="window.scrollTo(0,0)"><i class="ph-bold ph-caret-up"></i> TOP</button>
+        </div>
+    </footer>
+
+    <!-- Interactive Script for small UX details -->
+    <script>
+        // Simple script to update 'time ago' or server time to make it feel slightly alive
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeElements = document.querySelectorAll('.server-time');
+            setInterval(() => {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+                timeElements.forEach(el => el.textContent = timeString);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERITAS WEEKLY | The Definitive Guide to Enterprise AI Implementation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { ink: '#1a1a1a', inkLight: '#333333', paper: '#fefefe', cream: '#f9f7f1', crimson: '#dc2626', line: '#d1cdc2' },
+            fontFamily: { 'serif-en': ['"EB Garamond"', 'serif'], 'serif-jp': ['"Noto Serif JP"', 'serif'], 'sans-meta': ['"Inter"', 'sans-serif'] }
+        }}}
+    </script>
+    <style>
+        body { background-color: #f9f7f1; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
+        .typography-body { font-family: 'Noto Serif JP', serif; line-height: 1.8; letter-spacing: 0.03em; }
+        .typography-heading { font-family: 'Noto Serif JP', serif; line-height: 1.3; font-weight: 700; }
+        .drop-cap:first-letter { float: left; font-size: 4.5rem; line-height: 0.8; padding-top: 0.15rem; padding-right: 0.5rem; font-family: 'Noto Serif JP', serif; color: #1a1a1a; font-weight: 900; }
+        .rule-top { border-top: 4px solid #1a1a1a; }
+        .rule-top-double { border-top: 5px double #1a1a1a; }
+        .rule-bottom { border-bottom: 2px solid #1a1a1a; }
+        .gutter-right { border-right: 1px solid #d1cdc2; }
+        @media (max-width: 1024px) { .gutter-right { border-right: none; border-bottom: 1px solid #d1cdc2; } }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #f9f7f1; } ::-webkit-scrollbar-thumb { background: #1a1a1a; }
+        ::selection { background: #dc2626; color: #fefefe; }
+    </style>
+</head>
+<body class="font-serif-jp min-h-screen flex flex-col">
+    <div class="w-full border-b border-line bg-paper px-4 py-1.5 flex justify-between items-center text-xs font-sans-meta tracking-wider text-inkLight z-50 relative">
+        <div class="flex items-center space-x-6"><span class="font-semibold uppercase tracking-widest text-ink">Veritas AI Partners</span><span class="hidden md:inline">Tokyo, Japan</span></div>
+        <div class="flex items-center space-x-4">
+            <span>ISSUE NO. 48</span><span>|</span><span class="font-medium">APRIL 20, 2026</span>
+            <a href="#subscribe" class="hidden sm:inline bg-ink text-paper px-3 py-1 hover:bg-crimson">SUBSCRIBE</a>
+        </div>
+    </div>
+    <main class="max-w-[1440px] mx-auto w-full px-4 sm:px-6 lg:px-8 flex-grow">
+        <header class="py-8 md:py-12 flex flex-col items-center text-center rule-bottom mb-8">
+            <h1 class="font-serif-en text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter uppercase mb-4 text-ink leading-none whitespace-nowrap overflow-hidden">Veritas Weekly</h1>
+            <div class="flex items-center space-x-4 w-full justify-center text-sm md:text-base tracking-widest text-inkLight rule-top-double pt-3">
+                <span class="italic font-serif-en text-lg">"Truth in Implementation"</span><span>—</span><span>エンタープライズAI実装の真実を届ける編集部</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 border-b-2 border-line pb-12">
+            <article class="lg:col-span-8 lg:gutter-right lg:pr-8 flex flex-col group">
+                <div class="mb-4 flex items-center space-x-3 font-sans-meta text-xs font-bold uppercase tracking-widest">
+                    <span class="text-crimson bg-crimson/10 px-2 py-1">[EXCLUSIVE REPORT]</span>
+                    <span class="text-inkLight">読了時間: 12分</span>
+                </div>
+                <h2 class="typography-heading text-4xl md:text-5xl lg:text-7xl mb-6 group-hover:text-crimson transition-colors">なぜ大手コンサルのAIプロジェクトは<br class="hidden md:block">90%失敗するのか</h2>
+                <div class="flex items-center space-x-3 mb-6 font-sans-meta text-sm border-y border-line py-2 inline-block">
+                    <span class="font-bold text-ink">BY SHO CHIZAWA</span><span class="text-line">|</span><span class="text-inkLight">FOUNDER & EDITOR-IN-CHIEF</span>
+                </div>
+                <div class="relative w-full aspect-video mb-8 overflow-hidden bg-ink">
+                    <img src="https://images.unsplash.com/photo-1574069814488-66db00dd1d7a?auto=format&fit=crop&w=1200" alt="Corporate desk" class="w-full h-full object-cover opacity-90 mix-blend-luminosity">
+                    <div class="absolute bottom-0 right-0 bg-paper text-ink font-sans-meta text-[10px] px-2 py-1 uppercase">Photo: Veritas Insight</div>
+                </div>
+                <div class="typography-body text-lg md:text-xl text-inkLight space-y-6">
+                    <p class="drop-cap">「PoC死」は技術の問題ではない。昨今、大企業において雨後の筍のように乱立する生成AIプロジェクトの惨状を見るに、その根本原因はコードやモデルの精度ではなく、極めて人間臭い組織力学にある。</p>
+                    <p>経営陣が抱く「魔法の杖」としてのAIファンタジーと、既存ベンダーが仕掛ける「AIという名の新たなベンダーロックイン」。この構造的な共犯関係こそが、数億円の予算を投じながら、社内FAQボット以上の価値を生み出せない悲劇の根源である。</p>
+                </div>
+                <a href="#" class="mt-6 font-sans-meta font-bold text-sm text-ink group-hover:text-crimson inline-flex items-center uppercase tracking-widest">Continue Reading <i class="ph ph-arrow-right ml-2"></i></a>
+            </article>
+
+            <aside class="lg:col-span-4 flex flex-col space-y-10">
+                <div class="bg-paper border border-ink p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                    <h3 class="font-serif-en font-bold text-2xl uppercase tracking-tight mb-2 border-b-2 border-ink pb-2">Weekly AI Index</h3>
+                    <p class="font-sans-meta text-xs text-inkLight mb-6">エンタープライズAI実装の現在地。</p>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="font-sans-meta text-xs font-semibold uppercase">Claude Opus 4 vs GPT-5</span>
+                                <span class="font-serif-en text-sm text-crimson font-bold">▼ -12.4%</span>
+                            </div>
+                            <div class="w-full bg-cream h-2 border border-line overflow-hidden flex"><div class="bg-ink w-3/5 h-full"></div><div class="bg-line w-2/5 h-full"></div></div>
+                            <div class="flex justify-between mt-1 text-[10px] font-sans-meta text-inkLight"><span>Anthropic</span><span>OpenAI</span></div>
+                        </div>
+                        <div class="border-t border-dotted border-line pt-4">
+                            <div class="flex justify-between items-baseline mb-1"><span class="font-sans-meta text-xs font-semibold uppercase">日系エンタープライズ 本番導入率</span><span class="font-serif-en text-lg text-ink font-bold">14.2%</span></div>
+                            <p class="text-xs typography-body text-inkLight">PoC段階を抜け本番業務に組み込まれた企業の割合（前週比+0.8pt）</p>
+                        </div>
+                        <div class="border-t border-dotted border-line pt-4">
+                            <div class="flex justify-between items-baseline mb-1"><span class="font-sans-meta text-xs font-semibold uppercase">LLMレスポンス遅延 (Tokyo)</span><span class="font-serif-en text-sm text-crimson font-bold">⚠ High</span></div>
+                            <div class="flex items-center space-x-1 mt-1"><div class="h-4 w-1/4 bg-ink"></div><div class="h-4 w-1/4 bg-ink"></div><div class="h-4 w-1/4 bg-crimson opacity-80"></div><div class="h-4 w-1/4 bg-cream border border-line"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t-4 border-ink pt-6 group cursor-pointer">
+                    <div class="mb-3 font-sans-meta text-[10px] font-bold uppercase tracking-widest text-crimson">[TECH INSIGHT]</div>
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600" alt="Server" class="w-full aspect-[4/3] object-cover mb-4">
+                    <h3 class="typography-heading text-2xl mb-2 group-hover:underline">RAGの限界と「ナレッジグラフ」への回帰</h3>
+                    <p class="typography-body text-sm text-inkLight">社内文書をベクトルDBに突っ込むだけの単純なRAGは、複雑な業務要件の前で崩壊しつつある。</p>
+                </div>
+            </aside>
+        </div>
+
+        <div class="w-full flex items-center justify-center space-x-4 mb-12 opacity-40"><div class="h-[1px] bg-ink flex-grow"></div><i class="ph-fill ph-diamonds-four text-xl text-ink"></i><div class="h-[1px] bg-ink flex-grow"></div></div>
+
+        <section class="mb-16">
+            <h2 class="font-serif-en font-bold text-4xl uppercase tracking-tight text-ink mb-8 border-b-2 border-line pb-4 flex justify-between items-end">
+                <span>The Wire</span><span class="font-sans-meta text-xs tracking-widest font-normal text-inkLight">LATEST DISPATCHES</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                <article class="group border-b border-line pb-6 lg:border-none">
+                    <div class="relative overflow-hidden mb-4 aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 bg-paper text-ink font-sans-meta text-[10px] font-bold px-2 py-1 uppercase tracking-widest border-b border-r border-ink">Strategy</div>
+                    </div>
+                    <div class="font-sans-meta text-[11px] text-inkLight mb-2">APR 18, 2026</div>
+                    <h3 class="typography-heading text-xl mb-3 group-hover:text-crimson">部門横断AI推進チームの「アジャイル病」</h3>
+                    <p class="typography-body text-sm text-inkLight">名ばかりの「アジャイル」が免罪符となり、要件定義から逃げ続ける開発現場が後を絶たない。</p>
+                </article>
+                <article class="group border-b border-line pb-6 lg:border-none">
+                    <div class="relative overflow-hidden mb-4 aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 bg-paper text-ink font-sans-meta text-[10px] font-bold px-2 py-1 uppercase tracking-widest border-b border-r border-ink">Engineering</div>
+                    </div>
+                    <div class="font-sans-meta text-[11px] text-inkLight mb-2">APR 16, 2026</div>
+                    <h3 class="typography-heading text-xl mb-3 group-hover:text-crimson">Claude Opus 4による自律型エージェント構築の罠</h3>
+                    <p class="typography-body text-sm text-inkLight">コーディング能力の高さから急速に普及するClaudeだが、ステート管理を外部依存しすぎるリスク。</p>
+                </article>
+                <article class="group border-b border-line pb-6 lg:border-none">
+                    <div class="relative overflow-hidden mb-4 aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1628126235206-5260b9ea6441?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 bg-paper text-ink font-sans-meta text-[10px] font-bold px-2 py-1 uppercase tracking-widest border-b border-r border-ink">Finance</div>
+                    </div>
+                    <div class="font-sans-meta text-[11px] text-inkLight mb-2">APR 14, 2026</div>
+                    <h3 class="typography-heading text-xl mb-3 group-hover:text-crimson">LLMランニングコストの減価償却モデル</h3>
+                    <p class="typography-body text-sm text-inkLight">従量課金型のAIシステムをSaaSと捉えるか自社資産と捉えるか。CFOが直面する新会計課題。</p>
+                </article>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 bg-paper p-6 sm:p-10 border border-ink">
+            <div class="lg:col-span-5 lg:gutter-right lg:pr-10 relative">
+                <div class="absolute -top-3 -left-3 bg-crimson text-paper font-sans-meta text-[10px] font-bold px-3 py-1 uppercase tracking-widest">Editor's Column</div>
+                <div class="flex items-center space-x-4 mb-6 pt-4">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150" alt="" class="w-16 h-16 rounded-full grayscale border-2 border-ink object-cover">
+                    <div><h4 class="font-serif-jp font-bold text-xl">遅沢翔の実装手帳</h4><p class="font-sans-meta text-xs text-inkLight">SHO CHIZAWA, FOUNDER</p></div>
+                </div>
+                <h3 class="typography-heading text-3xl mb-6">「幻滅期」こそが、本物のゲームの始まりである。</h3>
+                <div class="typography-body text-base text-inkLight space-y-4">
+                    <p>我々Veritas AI Partnersを創業した時、市場はまだ狂騒の只中にあった。誰もが「プロンプトエンジニアリング」を魔法の呪文のごとく崇め、デモに拍手喝采を送っていた。</p>
+                    <blockquote class="border-l-4 border-crimson pl-4 my-6 italic text-lg text-ink font-semibold">「我々の仕事は、夢から覚めさせた後、泥まみれになりながら現実の歯車にAIを組み込むことだ。」</blockquote>
+                    <p>いま、市場は明確に幻滅期へ突入しつつある。だが、これこそが我々実装屋が待ち望んだ「本物のゲーム」の始まりだ。</p>
+                </div>
+                <a href="#" class="mt-6 inline-block font-sans-meta text-xs font-bold uppercase tracking-widest text-ink border-b border-ink hover:text-crimson hover:border-crimson pb-1">Read the full column</a>
+            </div>
+            <div class="lg:col-span-7 flex flex-col justify-center">
+                <div class="mb-8 border-b-2 border-line pb-2 flex justify-between items-baseline">
+                    <h3 class="font-serif-en text-3xl font-bold uppercase tracking-tight text-ink">Field Reports</h3>
+                    <span class="font-sans-meta text-[10px] text-inkLight uppercase tracking-widest">Case Studies in Reality</span>
+                </div>
+                <div class="space-y-6">
+                    <a href="#" class="block group border border-transparent hover:border-ink hover:bg-cream p-4 -ml-4">
+                        <div class="flex justify-between mb-2"><h4 class="font-bold text-lg group-hover:text-crimson">SK本舗: LINE CRM AI化、応答時間96%短縮</h4><span class="font-sans-meta text-[10px] text-inkLight">CASE 042</span></div>
+                        <ul class="font-sans-meta text-xs text-inkLight list-disc list-inside space-y-1"><li>Claude API × LINE Messaging API完全自動化</li><li>27,000名顧客対応、CS工数90%削減</li></ul>
+                    </a>
+                    <a href="#" class="block group border border-transparent hover:border-ink hover:bg-cream p-4 -ml-4">
+                        <div class="flex justify-between mb-2"><h4 class="font-bold text-lg group-hover:text-crimson">7ブランドEC: AI駆動コーポレートサイト、2週間実装</h4><span class="font-sans-meta text-[10px] text-inkLight">CASE 039</span></div>
+                        <ul class="font-sans-meta text-xs text-inkLight list-disc list-inside space-y-1"><li>競合20社をAI自動分析</li><li>制作期間1/3、コスト1/3達成</li></ul>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="subscribe" class="bg-ink text-paper py-16 px-6 sm:px-12 md:py-24 mb-16 relative overflow-hidden flex flex-col md:flex-row shadow-[8px_8px_0px_0px_rgba(220,38,38,1)]">
+            <div class="md:w-3/5 md:pr-16 z-10">
+                <h2 class="font-serif-en text-sm font-bold tracking-[0.2em] text-crimson mb-4 uppercase">Subscribe to the truth</h2>
+                <h3 class="typography-heading text-4xl sm:text-5xl md:text-6xl mb-6 text-paper leading-tight">AI実装の「現場のリアル」を、<br>あなたの受信トレイへ。</h3>
+                <p class="typography-body text-paper/80 mb-8 max-w-xl">Veritas AI Partnersの週次ニュースレター。成功談PRではなく、血を流して得たアーキテクチャの知見、予算編成の真実、技術選定インサイトを配信。</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input type="email" placeholder="Email Address" class="bg-transparent border-b-2 border-paper/50 text-paper px-4 py-3 font-sans-meta focus:outline-none focus:border-crimson w-full sm:w-64 placeholder:text-paper/40">
+                    <button class="bg-crimson text-paper font-sans-meta font-bold uppercase tracking-widest px-8 py-3 hover:bg-paper hover:text-ink">Subscribe</button>
+                </div>
+            </div>
+            <div class="md:w-2/5 mt-16 md:mt-0 flex flex-col justify-center border-t md:border-t-0 md:border-l border-paper/20 pt-10 md:pt-0 md:pl-16 z-10">
+                <h4 class="font-serif-jp font-bold text-xl mb-4 text-paper">経営層向けプライベートセッション</h4>
+                <p class="font-sans-meta text-xs text-paper/70 mb-6">Founder遅沢との45分間のオンライン戦略室。現在のアプローチに対する率直な壁打ちを提供します。</p>
+                <button class="border border-paper text-paper font-sans-meta font-semibold uppercase tracking-widest px-6 py-2 text-xs hover:bg-paper hover:text-ink self-start">Founderと45分対話</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-cream border-t-8 border-ink pt-12 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div><h2 class="font-serif-en text-2xl font-bold uppercase text-ink mb-4">Veritas AI Partners</h2><p class="font-sans-meta text-xs text-inkLight">エンタープライズAIの「真実」を実装するテクノロジー・アーキテクチャ・ファーム。</p></div>
+            <div><h4 class="font-sans-meta text-xs font-bold uppercase tracking-widest text-ink mb-4 border-b border-line pb-2">The Publication</h4><ul class="text-sm text-inkLight space-y-2"><li><a href="#" class="hover:text-crimson">最新号</a></li><li><a href="#" class="hover:text-crimson">バックナンバー</a></li><li><a href="#" class="hover:text-crimson">遅沢翔の実装手帳</a></li></ul></div>
+            <div><h4 class="font-sans-meta text-xs font-bold uppercase tracking-widest text-ink mb-4 border-b border-line pb-2">The Firm</h4><ul class="text-sm text-inkLight space-y-2"><li><a href="#" class="hover:text-crimson">Veritasについて</a></li><li><a href="#" class="hover:text-crimson">提供サービス</a></li><li><a href="#" class="hover:text-crimson">お問い合わせ</a></li></ul></div>
+            <div><h4 class="font-sans-meta text-xs font-bold uppercase tracking-widest text-ink mb-4 border-b border-line pb-2">Headquarters</h4><address class="font-sans-meta text-xs text-inkLight not-italic">Tokyo, Japan<br><a href="mailto:dispatch@veritas-ai.jp" class="text-ink hover:text-crimson border-b border-black/20">dispatch@veritas-ai.jp</a></address></div>
+        </div>
+        <div class="max-w-[1440px] mx-auto border-t border-line pt-6 flex flex-col sm:flex-row justify-between items-center font-sans-meta text-[10px] text-inkLight uppercase tracking-widest">
+            <p>&copy; 2026 Veritas AI Partners. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>

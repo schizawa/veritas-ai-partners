@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Veritas — 5 NEW Concepts (Founder CTA)</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height: 100vh; background: #050505; color: #fff; font-family: 'Inter', -apple-system, sans-serif; overflow: hidden; }
+.tabs {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 20px; display: flex; gap: 10px; height: 64px; align-items: center;
+  overflow-x: auto;
+}
+.brand { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); padding-right: 16px; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 8px; white-space: nowrap; }
+.tab {
+  padding: 10px 16px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.6); cursor: pointer; font-size: 12px; font-weight: 600;
+  transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+  font-family: inherit; white-space: nowrap; flex-shrink: 0;
+}
+.tab:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+.tab.active { background: #fff; color: #000; border-color: #fff; }
+.tab .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; font-weight: 400; }
+.tab.active .num { opacity: 0.6; }
+.right { margin-left: auto; font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; font-family: 'JetBrains Mono', monospace; white-space: nowrap; padding-left: 16px; }
+iframe { position: fixed; top: 64px; left: 0; right: 0; bottom: 0; width: 100%; height: calc(100vh - 64px); border: none; background: #000; }
+</style>
+</head>
+<body>
+<div class="tabs">
+  <div class="brand">VERITAS · 5 NEW DEEP CONCEPTS</div>
+  <button class="tab active" data-src="full2/concept-1-blacksmith.html"><span class="num">06</span> THE BLACKSMITH</button>
+  <button class="tab" data-src="full2/concept-2-whisper.html"><span class="num">07</span> WHISPER NETWORK</button>
+  <button class="tab" data-src="full2/concept-3-living.html"><span class="num">08</span> LIVING DOCUMENT</button>
+  <button class="tab" data-src="full2/concept-4-mirror.html"><span class="num">09</span> OBSIDIAN MIRROR</button>
+  <button class="tab" data-src="full2/concept-5-school.html"><span class="num">10</span> FIRST PRINCIPLES</button>
+  <div class="right">CTA: FOUNDER 45min</div>
+</div>
+<iframe id="frame" src="full2/concept-1-blacksmith.html"></iframe>
+<script>
+const frame = document.getElementById('frame');
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    frame.src = t.dataset.src;
+  });
+});
+</script>
+</body>
+</html>
+</content>
+</invoke>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE TRIAL | 1業務だけAIに置き換えます - Veritas AI Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'] },
+            colors: { brand: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' }, surface: { default: '#ffffff', muted: '#fafafa', subtle: '#f4f4f5' }, text: { main: '#09090b', muted: '#71717a' } },
+            backgroundImage: { 'dot-pattern': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23e4e4e7'/%3E%3C/svg%3E\")" },
+            boxShadow: { 'xs': '0 1px 2px 0 rgba(0,0,0,0.03)', 'sm': '0 1px 3px 0 rgba(0,0,0,0.05)', 'glow': '0 0 20px -5px rgba(245,158,11,0.4)' }
+        }}}
+    </script>
+    <style>
+        body { -webkit-font-smoothing: antialiased; }
+        ::selection { background-color: #fde68a; color: #09090b; }
+        details > summary { list-style: none; } details > summary::-webkit-details-marker { display: none; }
+        .glass { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(228,228,231,0.5); }
+    </style>
+</head>
+<body class="bg-surface-default text-text-main font-sans selection:bg-brand-200">
+    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 group cursor-pointer hover:opacity-80">
+                <div class="w-7 h-7 bg-text-main text-white flex items-center justify-center rounded-[6px]"><i class="ph-bold ph-lightning text-lg"></i></div>
+                <span class="font-bold text-lg tracking-tight">Veritas AI</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-text-muted">
+                <a href="#how-it-works" class="hover:text-text-main">仕組み</a>
+                <a href="#features" class="hover:text-text-main">対象業務</a>
+                <a href="#pricing" class="hover:text-text-main">料金</a>
+                <a href="#showcase" class="hover:text-text-main">実例</a>
+                <a href="#faq" class="hover:text-text-main">FAQ</a>
+            </div>
+            <a href="#form" class="bg-text-main hover:bg-neutral-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all shadow-sm">30日無料 Trial</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden border-b border-neutral-200/60">
+        <div class="absolute inset-0 bg-dot-pattern opacity-40 z-0"></div>
+        <div class="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-surface-default to-transparent z-0"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 flex flex-col gap-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-200 bg-white shadow-xs w-max">
+                        <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span></span>
+                        <span class="text-xs font-semibold tracking-wide text-text-main">THE TRIAL MODEL</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] text-text-main">30日無料。<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-text-main to-neutral-500">1業務だけ、</span><br>AIに置き換えます。</h1>
+                    <p class="text-lg text-text-muted leading-relaxed max-w-xl font-medium">完全ノーリスクのSaaS型AI構築。クレジットカード登録は不要です。まず1つのルーチン業務を選び、30日間無料でAI化をお試しください。気に入らなければ即終了、効果を実感できたら本導入へ。</p>
+                    <div class="flex items-center gap-6 pt-2">
+                        <div class="flex -space-x-3">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150" alt="">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150" alt="">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150" alt="">
+                            <div class="w-10 h-10 rounded-full border-2 border-white bg-neutral-100 flex items-center justify-center text-xs font-bold">+50</div>
+                        </div>
+                        <div class="text-sm font-medium text-text-muted"><span class="text-text-main font-bold">50社以上</span>が無料トライアルから<br>業務効率化を実現しています</div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 relative" id="form">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-300 to-amber-100 rounded-[2rem] blur-xl opacity-30"></div>
+                    <div class="relative bg-white border border-neutral-200/80 shadow-xl rounded-2xl p-6 sm:p-8">
+                        <div class="mb-6"><h3 class="text-xl font-bold tracking-tight mb-1">Trialを申し込む</h3><p class="text-sm text-text-muted">翌営業日までにセットアップ開始</p></div>
+                        <form class="space-y-4" onsubmit="event.preventDefault();">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label class="block text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wider">姓</label><input type="text" placeholder="山田" class="w-full bg-surface-subtle border border-neutral-200 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"></div>
+                                <div><label class="block text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wider">名</label><input type="text" placeholder="太郎" class="w-full bg-surface-subtle border border-neutral-200 text-sm rounded-lg px-4 py-2.5"></div>
+                            </div>
+                            <div><label class="block text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wider">会社用メールアドレス *</label><input type="email" placeholder="taro@company.com" class="w-full bg-surface-subtle border border-neutral-200 text-sm rounded-lg px-4 py-2.5"></div>
+                            <div>
+                                <label class="block text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wider">置き換えたい業務</label>
+                                <select class="w-full bg-surface-subtle border border-neutral-200 text-sm rounded-lg px-4 py-2.5">
+                                    <option disabled selected>業務を選択してください</option>
+                                    <option>カスタマーサポートの一次返信</option>
+                                    <option>営業リストの自動スクレイピング</option>
+                                    <option>社内マニュアルからの応答Bot</option>
+                                    <option>議事録の要約・タスク抽出</option>
+                                </select>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm rounded-lg px-4 py-3 flex items-center justify-center gap-2 group">Trialを無料開始する <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i></button>
+                                <p class="text-[11px] text-center text-text-muted mt-3"><i class="ph-fill ph-lock-key mr-1"></i>クレジットカードの登録は不要です</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-24 bg-surface-muted border-b border-neutral-200/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold tracking-tight mb-4">わずか数日で、AIが働き始めます。</h2>
+                <p class="text-text-muted text-lg">コンサルティングのような長いヒアリングはありません。最速で実働するプロダクトを提供し、現場でテストします。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <div class="hidden md:block absolute top-[44px] left-[15%] right-[15%] h-[1px] border-t-2 border-dashed border-neutral-200 -z-10"></div>
+                <div class="relative bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm flex flex-col items-center text-center group hover:border-brand-300">
+                    <div class="w-14 h-14 bg-neutral-100 group-hover:bg-brand-50 rounded-xl flex items-center justify-center mb-6 border border-neutral-200"><i class="ph-duotone ph-list-magnifying-glass text-2xl group-hover:text-brand-600"></i></div>
+                    <div class="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-text-main text-white flex items-center justify-center text-sm font-bold">1</div>
+                    <h3 class="text-lg font-bold mb-2">業務を選ぶ</h3>
+                    <p class="text-sm text-text-muted">非効率なルーチン業務を1つ指定。「メール返信」「データ入力」など単純なものでOK。</p>
+                </div>
+                <div class="relative bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm flex flex-col items-center text-center group hover:border-brand-300">
+                    <div class="w-14 h-14 bg-neutral-100 group-hover:bg-brand-50 rounded-xl flex items-center justify-center mb-6 border border-neutral-200"><i class="ph-duotone ph-magic-wand text-2xl group-hover:text-brand-600"></i></div>
+                    <div class="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-text-main text-white flex items-center justify-center text-sm font-bold">2</div>
+                    <h3 class="text-lg font-bold mb-2">我々がAI化（最短3日）</h3>
+                    <p class="text-sm text-text-muted">専任エンジニアがカスタムAIツールを最速で構築・デプロイ。</p>
+                </div>
+                <div class="relative bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm flex flex-col items-center text-center group hover:border-brand-300">
+                    <div class="w-14 h-14 bg-neutral-100 group-hover:bg-brand-50 rounded-xl flex items-center justify-center mb-6 border border-neutral-200"><i class="ph-duotone ph-rocket-launch text-2xl group-hover:text-brand-600"></i></div>
+                    <div class="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold">3</div>
+                    <h3 class="text-lg font-bold mb-2">30日の実稼働テスト</h3>
+                    <p class="text-sm text-text-muted">現場で実際に使う。価値を感じた場合のみ有料プランへ移行。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12 md:flex justify-between items-end">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold tracking-tight mb-4">即座に置き換え可能な業務リスト</h2>
+                    <p class="text-text-muted text-lg">以下の業務は、すでに複数のクライアント様で実証済みのAI化しやすい領域です。</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-envelope-simple text-lg"></i></div><h4 class="font-bold text-sm">CS一次返信</h4></div>
+                    <p class="text-xs text-text-muted">過去の対応履歴とFAQを学習させ、問い合わせに対する高精度の返信文を自動起案。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-file-text text-lg"></i></div><h4 class="font-bold text-sm">議事録・要約</h4></div>
+                    <p class="text-xs text-text-muted">音声データや長文ログから、要点、決定事項、ネクストアクションを抽出。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-globe text-lg"></i></div><h4 class="font-bold text-sm">競合監視レポート</h4></div>
+                    <p class="text-xs text-text-muted">指定した競合サイトの更新情報や価格変更を巡回し、週報として自動通知。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-databases text-lg"></i></div><h4 class="font-bold text-sm">データクレンジング</h4></div>
+                    <p class="text-xs text-text-muted">表記揺れのある名刺・売上データをAI判定で正規化フォーマットに一括変換。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-trend-up text-lg"></i></div><h4 class="font-bold text-sm">営業リスト作成</h4></div>
+                    <p class="text-xs text-text-muted">特定の条件に基づく企業をWebから自動収集し、担当者名・連絡先付きリスト生成。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group lg:col-span-2 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-surface-subtle to-transparent -z-10"></div>
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600"><i class="ph-duotone ph-robot text-lg"></i></div><h4 class="font-bold text-sm">社内文書QAボット</h4></div>
+                    <p class="text-xs text-text-muted max-w-md">数百ページに及ぶ社内規定や業務マニュアルをRAG技術でベクトル化。「〇〇の経費申請はどうやる？」という質問に、ソース元を明示しながら瞬時に回答するSlackBotを構築。</p>
+                </div>
+                <div class="bg-white border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md group">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center group-hover:text-brand-600"><i class="ph-duotone ph-translate text-lg"></i></div><h4 class="font-bold text-sm">専門用語の翻訳</h4></div>
+                    <p class="text-xs text-text-muted">業界特有の専門用語辞書を加味し、コンテキストに沿った自然な多言語翻訳を自動化。</p>
+                </div>
+                <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 hover:border-neutral-600 flex flex-col justify-center items-center text-center cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white mb-2"><i class="ph-bold ph-plus text-xl"></i></div>
+                    <h4 class="font-bold text-sm text-white mb-1">その他の業務</h4>
+                    <p class="text-xs text-neutral-400">御社独自の課題をご相談ください</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 bg-surface-muted border-y border-neutral-200/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold tracking-tight mb-4">明朗なサブスクリプション</h2>
+                <p class="text-text-muted text-lg">初期開発費用は無料。使った分だけ、価値を感じた分だけお支払いいただくSaaSモデル。</p>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
+                <div class="bg-white rounded-2xl border-2 border-brand-500 shadow-glow p-8 relative z-10 lg:-my-4">
+                    <div class="absolute top-0 right-8 transform -translate-y-1/2"><span class="bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wider py-1 px-3 rounded-full">Most Popular</span></div>
+                    <h3 class="text-xl font-bold mb-2">Free Trial</h3>
+                    <p class="text-sm text-text-muted mb-6 h-10">最初の30日間。リスクゼロで効果を検証。</p>
+                    <div class="mb-6 flex items-baseline"><span class="text-4xl font-bold">¥0</span><span class="text-text-muted ml-2">/ 30日間</span></div>
+                    <a href="#form" class="block w-full text-center bg-text-main text-white hover:bg-neutral-800 font-semibold text-sm rounded-lg py-3 mb-8">無料で始める</a>
+                    <ul class="space-y-4 text-sm text-text-muted">
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-500 mt-0.5"></i> 1業務のフルカスタムAI化</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-500 mt-0.5"></i> 要件定義から構築まで無料</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-500 mt-0.5"></i> クレジットカード登録不要</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-500 mt-0.5"></i> 気に入らなければ即解約</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-2xl border border-neutral-200 p-8 shadow-sm">
+                    <h3 class="text-xl font-bold mb-2">Standard</h3>
+                    <p class="text-sm text-text-muted mb-6 h-10">トライアル後、1業務を継続自動化する場合。</p>
+                    <div class="mb-6 flex items-baseline"><span class="text-4xl font-bold">¥150k</span><span class="text-text-muted ml-2">/ 月</span></div>
+                    <button class="block w-full text-center bg-surface-subtle text-text-main font-semibold text-sm rounded-lg py-3 border border-neutral-200 mb-8 disabled:opacity-50 cursor-not-allowed">Trial後に選択可能</button>
+                    <ul class="space-y-4 text-sm text-text-muted">
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> 1業務の継続利用</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> プロンプト継続チューニング</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> 保守・サーバー運用費込み</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-2xl border border-neutral-200 p-8 shadow-sm">
+                    <h3 class="text-xl font-bold mb-2">Pro</h3>
+                    <p class="text-sm text-text-muted mb-6 h-10">部門全体・複数業務の本格導入。</p>
+                    <div class="mb-6 flex items-baseline"><span class="text-4xl font-bold">¥500k~</span><span class="text-text-muted ml-2">/ 月</span></div>
+                    <button class="block w-full text-center bg-surface-subtle text-text-main font-semibold text-sm rounded-lg py-3 border border-neutral-200 mb-8">詳細を問い合わせる</button>
+                    <ul class="space-y-4 text-sm text-text-muted">
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> 複数業務自動化（無制限）</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> 専属エンジニアアサイン</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-neutral-800 mt-0.5"></i> 基幹システムとのAPI連携</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold tracking-tight mb-4 border-l-4 border-brand-500 pl-4 py-1">Trialから始まった導入実績</h2>
+                <p class="text-text-muted text-lg pl-5">無料で試し、効果を確信してから本導入へ進んだ企業様の事例。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border border-neutral-200 rounded-2xl p-1 bg-surface-subtle group">
+                    <div class="bg-white rounded-xl p-6 h-full">
+                        <div class="flex justify-between items-start mb-6"><span class="text-[10px] font-bold bg-neutral-100 px-2 py-1 rounded">CS一次対応</span></div>
+                        <h4 class="text-lg font-bold mb-3">SK本舗 LINE CRM AI（96%短縮）</h4>
+                        <p class="text-sm text-text-muted mb-6">3Dプリンター EC。月間27,000名のLINE問い合わせをClaude APIで自動応答化。CS担当時間を1日4時間削減。</p>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-brand-600"><i class="ph-fill ph-check-circle"></i> Trial後、Standardプランへ移行</div>
+                    </div>
+                </div>
+                <div class="border border-neutral-200 rounded-2xl p-1 bg-surface-subtle group">
+                    <div class="bg-white rounded-xl p-6 h-full">
+                        <div class="flex justify-between items-start mb-6"><span class="text-[10px] font-bold bg-neutral-100 px-2 py-1 rounded">商品データ生成</span></div>
+                        <h4 class="text-lg font-bold mb-3">7ブランドEC 商品コピー量産（2週間）</h4>
+                        <p class="text-sm text-text-muted mb-6">商品の外観画像から特徴を捉えた紹介文とSNSハッシュタグを自動生成。出品業務の工数を1/5に圧縮。</p>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-brand-600"><i class="ph-fill ph-check-circle"></i> Trial後、Standardプランへ移行</div>
+                    </div>
+                </div>
+                <div class="border border-neutral-200 rounded-2xl p-1 bg-surface-subtle group">
+                    <div class="bg-white rounded-xl p-6 h-full">
+                        <div class="flex justify-between items-start mb-6"><span class="text-[10px] font-bold bg-neutral-100 px-2 py-1 rounded">情報抽出Bot</span></div>
+                        <h4 class="text-lg font-bold mb-3">競合監視AI（15分検知）</h4>
+                        <p class="text-sm text-text-muted mb-6">Playwright × Claude APIで競合の価格変動・新商品を24時間監視、検知15分でSlack即通知。</p>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-neutral-600"><i class="ph-fill ph-check-circle"></i> Trial後、Proプランへ移行</div>
+                    </div>
+                </div>
+                <div class="border border-neutral-200 rounded-2xl p-1 bg-surface-subtle group">
+                    <div class="bg-white rounded-xl p-6 h-full">
+                        <div class="flex justify-between items-start mb-6"><span class="text-[10px] font-bold bg-neutral-100 px-2 py-1 rounded">広告運用</span></div>
+                        <h4 class="text-lg font-bold mb-3">Amazon広告AIダッシュボード（50+運用）</h4>
+                        <p class="text-sm text-text-muted mb-6">SP-API × Perpetua × AIで50+キャンペーンを自動分析。Google Ads統合で全広告チャネル一元管理。</p>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-brand-600"><i class="ph-fill ph-check-circle"></i> Trial後、Standardプランへ移行</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-surface-muted border-t border-neutral-200/60">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-2xl font-bold tracking-tight mb-10 text-center">よくあるご質問</h2>
+            <div class="space-y-4">
+                <details class="group bg-white border border-neutral-200 rounded-xl" open>
+                    <summary class="flex justify-between items-center font-semibold cursor-pointer p-5">本当にクレジットカードの登録は不要ですか？<span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span></summary>
+                    <div class="text-text-muted text-sm px-5 pb-5 leading-relaxed border-t border-neutral-100">はい、不要です。30日間無料で実稼働環境を提供し、期間終了時に継続意思を確認します。自動課金は一切ありません。</div>
+                </details>
+                <details class="group bg-white border border-neutral-200 rounded-xl">
+                    <summary class="flex justify-between items-center font-semibold cursor-pointer p-5">セキュリティや機密情報の取り扱いは？<span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span></summary>
+                    <div class="text-text-muted text-sm px-5 pb-5 leading-relaxed border-t border-neutral-100">入力データはモデル再学習に使用されません（オプトアウトAPI利用）。不要データはトライアル終了後に完全破棄、NDA締結も可能。</div>
+                </details>
+                <details class="group bg-white border border-neutral-200 rounded-xl">
+                    <summary class="flex justify-between items-center font-semibold cursor-pointer p-5">社内エンジニアの工数は発生しますか？<span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span></summary>
+                    <div class="text-text-muted text-sm px-5 pb-5 leading-relaxed border-t border-neutral-100">いいえ。Veritas AIのエンジニアが全て構築し、Slack等で完結する形で納品。貴社は「使うだけ」です。</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 border-t border-neutral-200/60">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white border border-neutral-200 rounded-2xl p-8 sm:p-12 shadow-sm flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-50 rounded-full blur-3xl opacity-50 z-0"></div>
+                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400" alt="Sho Chizawa" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-md relative z-10">
+                <div class="relative z-10 text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-1">遅沢 翔 <span class="text-sm font-normal text-text-muted ml-2">Sho Chizawa</span></h3>
+                    <p class="text-sm font-semibold text-brand-600 mb-4">Founder / Lead AI Engineer</p>
+                    <p class="text-text-muted leading-relaxed text-sm">「AI導入にコンサルティングはいりません。必要なのは、現場で動くプロダクトを最速で作り、検証することです。我々はパワポの提案書ではなく、実働するコードで価値を証明します。まずは1業務、我々に任せてみてください。」</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-text-main text-white relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-500 rounded-[100%] blur-[120px] opacity-20"></div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl sm:text-5xl font-bold tracking-tight mb-6">まずは1つ、<br>業務を丸投げしてください。</h2>
+            <p class="text-neutral-400 text-lg mb-10">30日間無料・完全ノーリスク。自動化のエクスペリエンスを体感してください。</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#form" class="w-full sm:w-auto bg-white text-text-main hover:bg-neutral-100 font-bold text-sm rounded-lg px-8 py-4">30日無料 Trial を始める</a>
+                <a href="#" class="w-full sm:w-auto bg-neutral-800 border border-neutral-700 text-white hover:bg-neutral-700 font-semibold text-sm rounded-lg px-8 py-4 flex items-center justify-center gap-2"><i class="ph-bold ph-calendar-blank"></i> Founderと45分話す</a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-6">クレジットカード不要 • いつでもキャンセル可能</p>
+        </div>
+    </section>
+
+    <footer class="bg-surface-default border-t border-neutral-200/60 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center pt-8 border-t border-neutral-200/60">
+                <p class="text-xs text-text-muted">&copy; 2026 Veritas AI Partners Inc. All rights reserved.</p>
+                <div class="flex items-center gap-2 text-xs text-text-muted bg-surface-subtle border border-neutral-200 px-3 py-1.5 rounded-lg"><i class="ph-bold ph-globe"></i>日本語 (JP)</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>

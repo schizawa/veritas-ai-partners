@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Veritas — 5 Deep Concepts</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height: 100vh; background: #050505; color: #fff; font-family: 'Inter', -apple-system, sans-serif; overflow: hidden; }
+.tabs {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 20px; display: flex; gap: 10px; height: 64px; align-items: center;
+}
+.brand { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); padding-right: 16px; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 8px; }
+.tab {
+  padding: 10px 16px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.6); cursor: pointer; font-size: 12px; font-weight: 600;
+  transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+  font-family: inherit; white-space: nowrap;
+}
+.tab:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+.tab.active { background: #fff; color: #000; border-color: #fff; }
+.tab .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; font-weight: 400; }
+.tab.active .num { opacity: 0.6; }
+.right { margin-left: auto; font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; font-family: 'JetBrains Mono', monospace; }
+
+iframe {
+  position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+  width: 100%; height: calc(100vh - 64px); border: none; background: #000;
+}
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="brand">VERITAS · 5 CONCEPTS</div>
+  <button class="tab active" data-src="concept-1-operator.html"><span class="num">01</span> THE OPERATOR</button>
+  <button class="tab" data-src="concept-2-capital.html"><span class="num">02</span> VERITAS CAPITAL</button>
+  <button class="tab" data-src="concept-3-mind.html"><span class="num">03</span> FOUNDER'S MIND</button>
+  <button class="tab" data-src="concept-4-physics.html"><span class="num">04</span> IMPLEMENTATION PHYSICS</button>
+  <button class="tab" data-src="concept-5-silent.html"><span class="num">05</span> SILENT PRODUCTION</button>
+  <div class="right">DEEP THINK · v2</div>
+</div>
+
+<iframe id="frame" src="concept-1-operator.html"></iframe>
+
+<script>
+const frame = document.getElementById('frame');
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    frame.src = t.dataset.src;
+  });
+});
+</script>
+</body>
+</html>
+</content>
+</invoke>

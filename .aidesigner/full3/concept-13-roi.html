@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ROI MACHINE | Veritas AI Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+            colors: { black: '#09090b', white: '#ffffff', primary: '#7C5CFC', 'primary-hover': '#6645db', success: '#10b981', zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46', 800: '#27272a', 900: '#18181b', 950: '#09090b' } },
+            boxShadow: { 'dataviz': '0 4px 6px -1px rgba(0,0,0,0.05)', 'floating': '0 20px 25px -5px rgba(0,0,0,0.1)' },
+            backgroundImage: { 'grid-pattern': 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20zM20 0h20v20H20V0z\' fill=\'%23f4f4f5\' fill-opacity=\'0.4\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")' }
+        }}}
+    </script>
+    <style>
+        body { background-color: #fafafa; color: #09090b; }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #ffffff; cursor: pointer; margin-top: -6px; border: 2px solid #09090b; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: transform 0.1s; }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #e4e4e7; border-radius: 2px; }
+        input[type=range]:focus { outline: none; }
+        .slider-wrapper { position: relative; }
+        .slider-fill { position: absolute; top: 50%; transform: translateY(-50%); left: 0; height: 4px; background-color: #09090b; border-radius: 2px; pointer-events: none; }
+        .bar-chart-bar { transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2"><i class="ph-fill ph-cpu text-primary text-2xl"></i><span class="font-bold tracking-tight text-lg">Veritas AI Partners</span></div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
+                <a href="#calculator" class="hover:text-black">THE ROI MACHINE</a>
+                <a href="#comparison" class="hover:text-black">競合比較</a>
+                <a href="#cases" class="hover:text-black">実装実績</a>
+            </div>
+            <a href="#cta" class="bg-black text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-zinc-800 flex items-center gap-2">最短で試算する <i class="ph ph-arrow-right"></i></a>
+        </div>
+    </nav>
+
+    <section id="calculator" class="relative pt-20 pb-24 border-b border-zinc-200 bg-grid-pattern">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-50 pointer-events-none"></div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-zinc-100 border border-zinc-200 rounded-full text-xs font-mono font-medium text-zinc-600 mb-6"><span class="w-2 h-2 rounded-full bg-success animate-pulse"></span> SYSTEM ONLINE</div>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight text-black mb-4">感情論は排除。<br class="md:hidden">AIの「真の価値」を計算する。</h1>
+                <p class="text-lg text-zinc-600 max-w-2xl mx-auto font-medium">あなたのビジネスにおいて、AI導入が年間いくらのコスト削減と利益をもたらすか。<br>以下のパラメーターを入力し、即座にROIを可視化してください。</p>
+            </div>
+
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-floating overflow-hidden flex flex-col lg:flex-row">
+                <div class="w-full lg:w-5/12 p-8 lg:border-r border-zinc-200 bg-white flex flex-col gap-8">
+                    <div>
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-500 mb-6 flex items-center gap-2"><i class="ph ph-sliders"></i> Input Parameters</h2>
+                        <div class="mb-8">
+                            <label class="flex justify-between items-end mb-2"><span class="text-sm font-semibold">対象業務のアナログ稼働時間 / 月</span><span class="font-mono text-zinc-500 text-sm"><span id="val-hours">500</span> 時間</span></label>
+                            <div class="slider-wrapper"><div class="slider-fill" id="fill-hours" style="width: 25%;"></div><input type="range" id="input-hours" min="10" max="2000" step="10" value="500"></div>
+                            <p class="text-xs text-zinc-400 mt-2">データ入力、リサーチ、カスタマー対応などの反復業務。</p>
+                        </div>
+                        <div class="mb-8">
+                            <label class="flex justify-between items-end mb-2"><span class="text-sm font-semibold">担当者の平均時給・人件費換算</span><span class="font-mono text-zinc-500 text-sm">¥<span id="val-wage">3,000</span></span></label>
+                            <div class="slider-wrapper"><div class="slider-fill" id="fill-wage" style="width: 30%;"></div><input type="range" id="input-wage" min="1000" max="10000" step="100" value="3000"></div>
+                        </div>
+                        <div class="mb-8">
+                            <label class="flex justify-between items-end mb-2"><span class="text-sm font-semibold">企業規模（従業員数）</span><span class="font-mono text-zinc-500 text-sm"><span id="val-emp">50</span> 名</span></label>
+                            <div class="slider-wrapper"><div class="slider-fill" id="fill-emp" style="width: 10%;"></div><input type="range" id="input-emp" min="1" max="500" step="1" value="50"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-7/12 bg-zinc-50 p-8 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-500 mb-6 flex items-center gap-2"><i class="ph ph-chart-line-up"></i> Projected ROI</h2>
+                        <div class="mb-8">
+                            <p class="text-sm font-medium text-zinc-500 mb-1">AI化による年間想定削減額（純益）</p>
+                            <div class="text-4xl md:text-6xl font-mono font-bold text-success tracking-tight flex items-baseline gap-2"><span class="text-3xl text-zinc-400">¥</span><span id="out-savings">0</span></div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                            <div class="bg-white border border-zinc-200 p-4 rounded-lg shadow-dataviz"><p class="text-xs font-semibold text-zinc-500 mb-1">想定初期実装費用</p><div class="text-lg font-mono font-bold text-black border-l-2 border-primary pl-2">¥<span id="out-cost">0</span></div></div>
+                            <div class="bg-white border border-zinc-200 p-4 rounded-lg shadow-dataviz"><p class="text-xs font-semibold text-zinc-500 mb-1">月間ランニング</p><div class="text-lg font-mono font-bold text-black border-l-2 border-zinc-300 pl-2">¥<span id="out-running">0</span></div></div>
+                            <div class="col-span-2 md:col-span-1 bg-black p-4 rounded-lg shadow-dataviz text-white"><p class="text-xs font-semibold text-zinc-400 mb-1">投資回収期間</p><div class="text-xl font-mono font-bold flex items-end gap-1"><span id="out-payback" class="text-success">0.0</span> ヶ月</div></div>
+                        </div>
+                        <div class="h-40 border-t border-b border-zinc-200 py-4 flex items-end gap-12 justify-center relative">
+                            <div class="flex flex-col items-center gap-2 z-10 w-24"><div class="text-xs font-mono text-zinc-500">Before</div><div id="chart-before" class="w-16 bg-zinc-300 rounded-t-sm bar-chart-bar" style="height: 100%;"></div></div>
+                            <div class="flex flex-col items-center gap-2 z-10 w-24"><div class="text-xs font-mono font-bold text-success">After</div><div class="w-16 flex flex-col justify-end" style="height: 100%;"><div id="chart-saved" class="w-full border-2 border-dashed border-success bg-success/10 rounded-t-sm bar-chart-bar" style="height: 0%;"></div><div id="chart-after" class="w-full bg-primary rounded-b-sm bar-chart-bar" style="height: 0%;"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-2xl font-bold tracking-tight mb-2">なぜ我々のROIが高いのか。</h2>
+            <p class="text-zinc-500 mb-12">表面的な「AIコンサルティング」と、我々の「AI実装」の構造的な違い。</p>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead><tr class="border-b-2 border-black"><th class="py-4 text-left text-xs font-mono uppercase text-zinc-500 w-1/3">Metric</th><th class="py-4 text-left text-base font-bold text-black w-1/3 bg-zinc-50 px-4">Veritas AI Partners</th><th class="py-4 text-left text-base font-medium text-zinc-400 w-1/3 px-4">一般的なDX/AIコンサル</th></tr></thead>
+                    <tbody class="divide-y divide-zinc-200">
+                        <tr><td class="py-5 text-sm font-semibold">最終成果物</td><td class="py-5 px-4 bg-zinc-50"><span class="bg-black text-white text-xs px-2 py-1 rounded font-mono mr-2">CODE</span>現場で動くシステム</td><td class="py-5 px-4 text-zinc-500 text-sm">数百ページのPowerPoint提案書</td></tr>
+                        <tr><td class="py-5 text-sm font-semibold">開発スピード</td><td class="py-5 px-4 bg-zinc-50"><span class="text-primary font-bold">2〜4週間</span></td><td class="py-5 px-4 text-zinc-500 text-sm">半年〜1年</td></tr>
+                        <tr><td class="py-5 text-sm font-semibold">コスト構造</td><td class="py-5 px-4 bg-zinc-50">実装費 + トランザクション従量</td><td class="py-5 px-4 text-zinc-500 text-sm">高額月額リテーナー＋人月単価</td></tr>
+                        <tr><td class="py-5 text-sm font-semibold">主目的</td><td class="py-5 px-4 bg-zinc-50 border-b-2 border-black"><strong>業務時間の物理的削減による利益創出</strong></td><td class="py-5 px-4 text-zinc-500 text-sm">「AIを導入した」という実績づくり</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="py-24 bg-zinc-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold tracking-tight mb-2 text-center">実装実績と、圧倒的な数字。</h2>
+            <p class="text-zinc-500 mb-16 text-center text-sm">各ユースケースにおける我々の実装成果。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-zinc-200 rounded-xl p-8 hover:border-black group">
+                    <div class="flex justify-between items-start mb-6"><div><span class="text-[10px] font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded">D2C Retail</span><h3 class="text-lg font-bold mt-3">LINE CRM AI化</h3></div><div class="text-right"><p class="text-xs text-zinc-400 font-mono">RESPONSE -</p><p class="text-2xl font-mono font-bold text-success">-96%</p></div></div>
+                    <p class="text-sm text-zinc-600 mb-6">月間27,000件の顧客対応をClaude API × LINE Messaging APIで完全自動化。配信工数も90%削減。</p>
+                    <div class="border-t border-zinc-100 pt-4 flex justify-between text-xs font-mono"><span class="text-zinc-500">実装期間: 3週間</span><span class="text-zinc-500">削減額: 年間 ¥1,200万</span></div>
+                </div>
+                <div class="bg-white border border-zinc-200 rounded-xl p-8 hover:border-black group">
+                    <div class="flex justify-between items-start mb-6"><div><span class="text-[10px] font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded">Media / SEO</span><h3 class="text-lg font-bold mt-3">AI駆動コーポレートサイト</h3></div><div class="text-right"><p class="text-xs text-zinc-400 font-mono">PROD TIME</p><p class="text-2xl font-mono font-bold text-black">2wk</p></div></div>
+                    <p class="text-sm text-zinc-600 mb-6">競合20社をAIで自動分析、コピー・SEO・実装を全工程AI化。期間1/3、コスト1/3を達成。</p>
+                    <div class="border-t border-zinc-100 pt-4 flex justify-between text-xs font-mono"><span class="text-zinc-500">実装期間: 2週間</span><span class="text-zinc-500">削減額: 年間 ¥1,800万</span></div>
+                </div>
+                <div class="bg-white border border-zinc-200 rounded-xl p-8 hover:border-black group">
+                    <div class="flex justify-between items-start mb-6"><div><span class="text-[10px] font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded">B2B</span><h3 class="text-lg font-bold mt-3">競合監視AI</h3></div><div class="text-right"><p class="text-xs text-zinc-400 font-mono">DETECT</p><p class="text-2xl font-mono font-bold text-black">15min</p></div></div>
+                    <p class="text-sm text-zinc-600 mb-6">Playwright × Claude APIで24時間監視。価格変動・新商品を15分で検知しSlack通知。</p>
+                    <div class="border-t border-zinc-100 pt-4 flex justify-between text-xs font-mono"><span class="text-zinc-500">実装期間: 2週間</span><span class="text-zinc-500">削減額: 年間 ¥480万</span></div>
+                </div>
+                <div class="bg-white border border-zinc-200 rounded-xl p-8 hover:border-black group">
+                    <div class="flex justify-between items-start mb-6"><div><span class="text-[10px] font-mono bg-zinc-100 text-zinc-600 px-2 py-1 rounded">EC</span><h3 class="text-lg font-bold mt-3">Amazon広告AIダッシュボード</h3></div><div class="text-right"><p class="text-xs text-zinc-400 font-mono">EFFORT</p><p class="text-2xl font-mono font-bold text-success">-90%</p></div></div>
+                    <p class="text-sm text-zinc-600 mb-6">SP-API × Perpetua × AIで50+キャンペーン自動分析。Google Ads統合で全広告一元管理。</p>
+                    <div class="border-t border-zinc-100 pt-4 flex justify-between text-xs font-mono"><span class="text-zinc-500">実装期間: 5週間</span><span class="text-zinc-500">利益増: 年間 ¥2,400万</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white border-t border-b border-zinc-200">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400" alt="Sho Chizawa" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full grayscale border-2 border-zinc-200 shadow-sm">
+            <div>
+                <h2 class="text-2xl font-bold mb-2">遅沢 翔 <span class="text-sm font-normal text-zinc-500 font-mono ml-2">Sho Chizawa</span></h2>
+                <p class="text-sm font-semibold text-primary mb-4">Founder / Chief Automator</p>
+                <p class="text-zinc-600 text-sm leading-relaxed">フェリデンシアキャピタル代表、20代でSK本舗・7ブランドEC・3Dプリンター事業を運営。「PowerPointを書く時間があるなら、動くPythonコードを書け」を信条にVeritas AI Partnersを創業。Claude Code × Agent SDK で全LLMを実戦投入する稀有な経営者。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-24 bg-zinc-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-4 text-black">結果が出ると確信した方へ。</h2>
+                <p class="text-zinc-600 mb-8 max-w-lg mx-auto text-sm">上部の計算機で算出した数字（PDF）をお持ちください。45分のMTGで、その数字を現実にするための技術要件をFounder自ら即答します。</p>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-dataviz overflow-hidden max-w-3xl mx-auto flex flex-col md:flex-row">
+                <div class="w-full md:w-1/3 border-r border-zinc-200 p-6 bg-zinc-50/50">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=100" alt="Sho" class="w-12 h-12 rounded-full mb-4 grayscale">
+                    <h4 class="font-bold text-sm mb-1">遅沢 翔</h4>
+                    <h3 class="font-bold text-lg mb-4">AI ROI 診断 / 要件定義（45分）</h3>
+                    <div class="text-xs text-zinc-500 flex flex-col gap-2">
+                        <span class="flex items-center gap-2"><i class="ph ph-video-camera text-base text-zinc-400"></i> Google Meet</span>
+                        <span class="flex items-center gap-2"><i class="ph ph-clock text-base text-zinc-400"></i> 45 min</span>
+                        <span class="flex items-center gap-2"><i class="ph ph-currency-jpy text-base text-zinc-400"></i> 無料（経営層限定）</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3 p-6">
+                    <h4 class="font-semibold text-sm mb-4">日時を選択</h4>
+                    <div class="grid grid-cols-7 gap-1 text-center mb-4 text-[10px] text-zinc-400 font-medium"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+                    <div class="grid grid-cols-7 gap-1 text-center mb-4">
+                        <div class="p-2"></div><div class="p-2"></div>
+                        <div class="p-2 text-sm font-mono text-zinc-300">1</div>
+                        <div class="p-2 text-sm font-mono hover:bg-black hover:text-white rounded cursor-pointer">2</div>
+                        <div class="p-2 text-sm font-mono hover:bg-black hover:text-white rounded cursor-pointer">3</div>
+                        <div class="p-2 text-sm font-mono hover:bg-black hover:text-white rounded cursor-pointer bg-zinc-100">4</div>
+                        <div class="p-2 text-sm font-mono text-zinc-300">5</div>
+                        <div class="p-2 text-sm font-mono text-zinc-300">6</div>
+                        <div class="p-2 text-sm font-mono hover:bg-black hover:text-white rounded cursor-pointer">7</div>
+                    </div>
+                    <button class="w-full py-3 bg-black text-white rounded-md text-sm font-bold hover:bg-zinc-800 mt-2">日程を選択して予約に進む</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-zinc-200 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2"><i class="ph-fill ph-cpu text-black text-xl"></i><span class="font-bold text-sm">Veritas AI Partners</span></div>
+            <div class="text-xs text-zinc-400 font-mono">© 2026 Veritas AI Partners. Execute efficiently.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputHours = document.getElementById('input-hours'), inputWage = document.getElementById('input-wage'), inputEmp = document.getElementById('input-emp');
+            const valHours = document.getElementById('val-hours'), valWage = document.getElementById('val-wage'), valEmp = document.getElementById('val-emp');
+            const fillHours = document.getElementById('fill-hours'), fillWage = document.getElementById('fill-wage'), fillEmp = document.getElementById('fill-emp');
+            const outSavings = document.getElementById('out-savings'), outCost = document.getElementById('out-cost'), outRunning = document.getElementById('out-running'), outPayback = document.getElementById('out-payback');
+            const chartBefore = document.getElementById('chart-before'), chartAfter = document.getElementById('chart-after'), chartSaved = document.getElementById('chart-saved');
+            const fmt = (n) => new Intl.NumberFormat('ja-JP').format(Math.round(n));
+            const fmtD = (n) => (Math.round(n * 10) / 10).toFixed(1);
+
+            const update = () => {
+                const h = +inputHours.value, w = +inputWage.value, e = +inputEmp.value;
+                valHours.textContent = fmt(h); valWage.textContent = fmt(w); valEmp.textContent = e;
+                fillHours.style.width = `${((h - inputHours.min) / (inputHours.max - inputHours.min)) * 100}%`;
+                fillWage.style.width = `${((w - inputWage.min) / (inputWage.max - inputWage.min)) * 100}%`;
+                fillEmp.style.width = `${((e - inputEmp.min) / (inputEmp.max - inputEmp.min)) * 100}%`;
+
+                const automation = 0.75;
+                const monthlyCost = h * w, annualCost = monthlyCost * 12;
+                const monthlySavings = monthlyCost * automation, annualSavings = monthlySavings * 12;
+                let implCost = 1500000 + h * 1500 + e * 5000;
+                if (implCost < 1500000) implCost = 1500000;
+                const monthlyRun = (h * automation * 10) + 30000, annualRun = monthlyRun * 12;
+                const netSavings = annualSavings - annualRun;
+                const payback = implCost / (monthlySavings - monthlyRun);
+
+                outSavings.textContent = fmt(Math.max(0, netSavings));
+                outCost.textContent = fmt(implCost);
+                outRunning.textContent = fmt(monthlyRun);
+                if (payback > 0 && payback < 120) { outPayback.textContent = fmtD(payback); outPayback.className = payback < 6 ? 'text-success' : 'text-zinc-300'; }
+                else { outPayback.textContent = "N/A"; }
+
+                chartBefore.style.height = '100%';
+                const afterRatio = (annualCost - netSavings) / annualCost;
+                const savedRatio = netSavings / annualCost;
+                chartAfter.style.height = `${Math.max(5, afterRatio * 100)}%`;
+                chartSaved.style.height = `${savedRatio * 100}%`;
+            };
+            [inputHours, inputWage, inputEmp].forEach(i => i.addEventListener('input', () => requestAnimationFrame(update)));
+            update();
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

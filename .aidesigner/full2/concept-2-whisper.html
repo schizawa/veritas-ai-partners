@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | The Whisper Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { 'v-black': '#080808', 'v-surface': '#111111', 'v-gold': '#C9A661', 'v-gold-muted': '#8A7342', 'v-ivory': '#F5F0E1', 'v-ivory-muted': '#A3A096', 'v-wine': '#722F37' },
+            fontFamily: { 'en': ['"Cormorant Garamond"', 'serif'], 'jp': ['"Shippori Mincho"', 'serif'], 'sign': ['"Great Vibes"', 'cursive'] }
+        }}}
+    </script>
+    <style>
+        body { background-color: #080808; color: #F5F0E1; overflow-x: hidden; }
+        .texture-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background-image: url('https://transparenttextures.com/patterns/black-paper.png'); opacity: 0.3; z-index: 50; mix-blend-mode: multiply; }
+        .hairline-b { border-bottom: 1px solid rgba(201, 166, 97, 0.2); }
+        .hairline-t { border-top: 1px solid rgba(201, 166, 97, 0.2); }
+        .hairline-l { border-left: 1px solid rgba(201, 166, 97, 0.2); }
+        .hairline-r { border-right: 1px solid rgba(201, 166, 97, 0.2); }
+        .hairline-all { border: 1px solid rgba(201, 166, 97, 0.2); }
+        .tracking-mega { letter-spacing: 0.3em; }
+        .text-vert { writing-mode: vertical-rl; text-orientation: mixed; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .gold-hover { position: relative; display: inline-block; }
+        .gold-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 50%; background-color: #C9A661; transition: width 0.6s, left 0.6s; }
+        .gold-hover:hover::after { width: 100%; left: 0; }
+        .master-frame { position: fixed; top: 1.5rem; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; border: 1px solid rgba(201, 166, 97, 0.15); pointer-events: none; z-index: 40; }
+        .frame-corner { position: absolute; width: 8px; height: 8px; border: 1px solid #C9A661; }
+        .fc-tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .fc-tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .fc-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .fc-br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .dossier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background-color: rgba(201, 166, 97, 0.2); border: 1px solid rgba(201, 166, 97, 0.2); }
+        .dossier-card { background-color: #080808; transition: background-color 0.8s ease; }
+        .dossier-card:hover { background-color: #0f0f0f; }
+        .desaturated-img { filter: grayscale(100%) contrast(1.2) brightness(0.6); transition: filter 1s ease; }
+        .group:hover .desaturated-img { filter: grayscale(40%) contrast(1.1) brightness(0.8); }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: #333; }
+    </style>
+</head>
+<body class="antialiased font-jp selection:bg-v-wine selection:text-v-ivory">
+    <div class="texture-overlay"></div>
+    <div class="master-frame hidden md:block"><div class="frame-corner fc-tl"></div><div class="frame-corner fc-tr"></div><div class="frame-corner fc-bl"></div><div class="frame-corner fc-br"></div></div>
+    <header class="fixed top-0 left-0 w-full z-50 px-8 py-8 md:py-12 mix-blend-difference flex justify-center items-start pointer-events-none">
+        <div class="flex flex-col items-center">
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" class="text-v-gold opacity-80"><path d="M50 10L90 30V70L50 90L10 70V30L50 10Z" stroke="currentColor" stroke-width="1.5"/><path d="M30 35L50 75L70 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="50" cy="50" r="3" fill="#722F37"/></svg>
+            <span class="font-en text-[10px] tracking-widest uppercase mt-4 text-v-ivory-muted">Veritas AI Partners</span>
+        </div>
+    </header>
+    <section class="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-12 overflow-hidden">
+        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-[0.03]"><div class="w-[80vw] h-[80vw] rounded-full border border-v-gold animate-[spin_120s_linear_infinite]"></div><div class="absolute w-[60vw] h-[60vw] rounded-full border border-v-gold/50 animate-[spin_90s_linear_infinite_reverse]"></div></div>
+        <div class="relative z-10 w-full max-w-4xl text-center reveal">
+            <div class="mb-12 flex justify-center"><div class="px-6 py-2 hairline-all bg-v-black/50 backdrop-blur-sm"><p class="font-en text-xs tracking-mega text-v-gold-muted leading-none">Strictly Private</p></div></div>
+            <h1 class="font-en text-5xl md:text-7xl lg:text-8xl font-light text-v-ivory mb-8 leading-[1.1]"><span class="block text-xl md:text-2xl tracking-[0.4em] text-v-gold mb-6">THE</span>WHISPER <br><span class="italic text-v-gold-muted px-4">Network</span></h1>
+            <div class="w-px h-16 bg-v-gold/30 mx-auto my-10"></div>
+            <p class="font-jp text-lg md:text-2xl font-light text-v-ivory-muted tracking-[0.2em] leading-loose mb-16">あなたは、<br class="md:hidden">選ばれました。</p>
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center"><span class="font-en text-[9px] tracking-[0.3em] text-v-ivory-muted mb-4 rotate-90">SCROLL</span><div class="w-px h-24 bg-gradient-to-b from-v-gold/50 to-transparent"></div></div>
+        </div>
+    </section>
+    <section class="py-32 px-6 md:px-16 lg:px-32 relative hairline-t">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
+            <div class="w-full lg:w-5/12 relative aspect-[3/4] reveal">
+                <img src="https://images.unsplash.com/photo-1618022325802-7e5e732d97a1?q=80&w=1200&auto=format&fit=crop" alt="Marble texture" class="w-full h-full object-cover desaturated-img hairline-all p-2">
+                <div class="absolute -right-10 top-20 hidden lg:block text-vert font-jp text-v-gold tracking-[0.5em] text-sm opacity-60">哲学と沈黙</div>
+            </div>
+            <div class="w-full lg:w-7/12 reveal">
+                <h2 class="font-en text-3xl md:text-4xl text-v-gold mb-12 flex items-center gap-4"><span class="w-12 h-px bg-v-gold"></span>The Manifesto</h2>
+                <div class="font-jp text-xl md:text-2xl leading-[2.2] font-light text-v-ivory">
+                    <p class="mb-8">我々は、広告を打たない。</p>
+                    <p class="mb-8 text-v-ivory-muted">不特定多数にAIの魔法を喧伝するSaaS企業ではなく、<br class="hidden md:block">真の変革を望む少数の覇者だけを支える「工房」である。</p>
+                    <p class="mb-8 border-l border-v-wine pl-6 py-2">我々が年間で受け入れるのは、<br>わずか <span class="font-en text-3xl text-v-gold mx-2">8</span> 社のみ。</p>
+                    <p class="text-base text-v-ivory-muted mt-12">それが我々の限界であり、妥協なき美学である。<br>選ばれた経営者だけが、Veritasの存在を知っている。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 px-6 relative hairline-t">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-24 reveal"><p class="font-en text-sm tracking-mega text-v-gold-muted mb-4 uppercase">The Journey</p><h2 class="font-jp text-3xl md:text-4xl font-light">三つの階層、深淵なる対話</h2><div class="w-px h-12 bg-v-gold/30 mx-auto mt-8"></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="hairline-all p-10 relative group reveal hover:-translate-y-2 transition-transform duration-700 bg-v-black flex flex-col h-full">
+                    <div class="font-en text-5xl text-v-surface font-black absolute top-6 right-6 select-none -z-10">I</div>
+                    <h3 class="font-en text-2xl text-v-gold mb-2">Discovery</h3>
+                    <p class="font-jp text-sm tracking-widest text-v-ivory-muted mb-8">初顔合わせ・対話 · ¥150k–¥300k</p>
+                    <div class="flex-grow space-y-4 font-jp text-sm text-v-ivory leading-relaxed font-light mb-8"><p>審査を通過した経営者との、45分間の完全非公開セッション。</p><p>現状の課題と、AIがもたらすパラダイムシフトの可能性を探る。</p></div>
+                    <div class="mt-auto hairline-t pt-4 flex justify-between items-center text-v-gold-muted text-xs font-en uppercase tracking-widest"><span>Time</span><span class="text-v-ivory">1–2 Weeks</span></div>
+                </div>
+                <div class="hairline-all p-10 relative group reveal hover:-translate-y-2 transition-transform duration-700 delay-100 bg-v-surface/40 flex flex-col h-full">
+                    <div class="font-en text-5xl text-v-black font-black absolute top-6 right-6 select-none -z-10">II</div>
+                    <h3 class="font-en text-2xl text-v-gold mb-2">Engagement</h3>
+                    <p class="font-jp text-sm tracking-widest text-v-ivory-muted mb-8">実装・組織変革 · ¥500k–¥1.5m</p>
+                    <div class="flex-grow space-y-4 font-jp text-sm text-v-ivory leading-relaxed font-light mb-8"><p>年間8社限定。企業の心臓部にAIを組み込み、業務プロセスを不可逆的に進化させる。</p><p>フェリデンシアグループで培われた実証済み技術のみを適用。</p></div>
+                    <div class="mt-auto hairline-t pt-4 flex justify-between items-center text-v-gold-muted text-xs font-en uppercase tracking-widest"><span>Duration</span><span class="text-v-ivory">3–6 Weeks</span></div>
+                </div>
+                <div class="hairline-all p-10 relative group reveal hover:-translate-y-2 transition-transform duration-700 delay-200 bg-v-black flex flex-col h-full overflow-hidden">
+                    <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-v-wine/10 rounded-full blur-3xl"></div>
+                    <div class="font-en text-5xl text-v-surface font-black absolute top-6 right-6 select-none -z-10">III</div>
+                    <h3 class="font-en text-2xl text-v-gold mb-2">Confidante</h3>
+                    <p class="font-jp text-sm tracking-widest text-v-ivory-muted mb-8">経営顧問 · 月額¥150k–¥500k</p>
+                    <div class="flex-grow space-y-4 font-jp text-sm text-v-ivory leading-relaxed font-light mb-8"><p>実装完了後、選ばれし者だけが進める最終領域。</p><p>AI戦略の継続的助言、特別なネットワークへのアクセス権。</p></div>
+                    <div class="mt-auto hairline-t pt-4 flex justify-between items-center text-v-gold-muted text-xs font-en uppercase tracking-widest"><span>Access</span><span class="text-v-wine">Invitation Only</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 px-2 md:px-6 relative hairline-t bg-[#0a0a0a]">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-20 flex flex-col md:flex-row justify-between items-end gap-10 px-4 md:px-10 reveal">
+                <div><p class="font-en text-sm tracking-mega text-v-gold-muted mb-4 uppercase">The Archives</p><h2 class="font-en text-4xl md:text-5xl font-light text-v-ivory mb-4">Proven Track Record</h2><p class="font-jp text-sm text-v-ivory-muted tracking-widest">フェリデンシアグループ内部実装における成功の系譜</p></div>
+                <div class="hidden md:block"><i class="ph ph-fingerprint text-4xl text-v-gold opacity-50"></i></div>
+            </div>
+            <div class="dossier-grid reveal">
+                <div class="dossier-card p-10 relative group">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full border border-v-gold/30 group-hover:bg-v-gold transition-colors"></div>
+                    <div class="font-en text-xs text-v-gold-muted tracking-widest mb-10">CASE 01 · CRM</div>
+                    <h3 class="font-jp text-2xl text-v-ivory mb-4 group-hover:text-v-gold transition-colors">SK本舗 · LINE CRM AI</h3>
+                    <p class="font-jp text-sm text-v-ivory-muted font-light leading-relaxed mb-12">Claude API × LINE Messaging APIで応答時間96%短縮、配信工数90%削減。27,000名の顧客接点を完全自動化。</p>
+                    <div class="hairline-t pt-4 flex justify-between text-xs font-en text-v-ivory-muted/50"><span>STATUS: ACTIVE</span><span>CONFIDENTIAL</span></div>
+                </div>
+                <div class="dossier-card p-10 relative group">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full border border-v-gold/30 group-hover:bg-v-gold transition-colors"></div>
+                    <div class="font-en text-xs text-v-gold-muted tracking-widest mb-10">CASE 02 · WEB</div>
+                    <h3 class="font-jp text-2xl text-v-ivory mb-4 group-hover:text-v-gold transition-colors">AI駆動コーポレートサイト</h3>
+                    <p class="font-jp text-sm text-v-ivory-muted font-light leading-relaxed mb-12">競合20社をAIで自動分析、コピーからSEO最適化まで全工程AI活用。制作期間2週間に圧縮。</p>
+                    <div class="hairline-t pt-4 flex justify-between text-xs font-en text-v-ivory-muted/50"><span>STATUS: COMPLETED</span><span>CONFIDENTIAL</span></div>
+                </div>
+                <div class="dossier-card p-10 relative group">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full border border-v-gold/30 group-hover:bg-v-gold transition-colors"></div>
+                    <div class="font-en text-xs text-v-gold-muted tracking-widest mb-10">CASE 03 · INTEL</div>
+                    <h3 class="font-jp text-2xl text-v-ivory mb-4 group-hover:text-v-gold transition-colors">競合モニタリングAI</h3>
+                    <p class="font-jp text-sm text-v-ivory-muted font-light leading-relaxed mb-12">Playwright × Claude APIで競合を24時間監視。価格変動・新商品を15分で検知しSlack即通知。</p>
+                    <div class="hairline-t pt-4 flex justify-between text-xs font-en text-v-ivory-muted/50"><span>STATUS: ACTIVE</span><span>CONFIDENTIAL</span></div>
+                </div>
+                <div class="dossier-card p-10 relative group">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full border border-v-gold/30 group-hover:bg-v-gold transition-colors"></div>
+                    <div class="font-en text-xs text-v-gold-muted tracking-widest mb-10">CASE 04 · ADS</div>
+                    <h3 class="font-jp text-2xl text-v-ivory mb-4 group-hover:text-v-gold transition-colors">Amazon広告AIダッシュボード</h3>
+                    <p class="font-jp text-sm text-v-ivory-muted font-light leading-relaxed mb-12">SP-API × Perpetua × AIで50以上のキャンペーンを自動分析。Google Ads統合で全広告を一元管理。</p>
+                    <div class="hairline-t pt-4 flex justify-between text-xs font-en text-v-ivory-muted/50"><span>STATUS: ACTIVE</span><span>CONFIDENTIAL</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 px-6 relative hairline-t overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-en text-[400px] text-v-surface/30 font-black pointer-events-none select-none z-0">V</div>
+        <div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+            <div class="w-full md:w-5/12 reveal">
+                <div class="relative p-4 hairline-all bg-v-black/50 backdrop-blur-sm">
+                    <div class="aspect-[3/4] overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Sho Chizawa" class="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 hover:grayscale-0 transition-all duration-1000"></div>
+                    <div class="absolute -bottom-6 -right-6 bg-v-black hairline-all px-6 py-2"><span class="font-en text-xs tracking-mega text-v-gold">EST. 2024</span></div>
+                </div>
+            </div>
+            <div class="w-full md:w-7/12 reveal text-center md:text-left">
+                <p class="font-en text-sm tracking-mega text-v-gold-muted mb-4 uppercase">The General Partner</p>
+                <h2 class="font-en text-4xl lg:text-5xl text-v-ivory mb-2">Sho Chizawa</h2>
+                <h3 class="font-jp text-lg text-v-ivory-muted tracking-widest font-light mb-10">遅沢 翔</h3>
+                <div class="font-jp text-sm md:text-base text-v-ivory leading-[2.4] font-light space-y-6 lg:pe-12 border-l border-v-gold/30 pl-6">
+                    <p>「AIの実装は、単なるIT投資ではない。企業の脳髄を創り変える外科手術である。」</p>
+                    <p class="text-v-ivory-muted">フェリデンシアキャピタル代表。20代でSK本舗・7ブランドEC・3Dプリンター事業・不動産・株式投資を運営。Claude Code / Agent SDK で全LLM・全AIスタックを実戦投入する稀有な経営者。</p>
+                    <p class="text-v-ivory-muted">広告は打たない。派手なカンファレンスにも出ない。口コミと、限られた招待状だけが、我々を繋ぐ唯一の糸です。貴殿の直感が動いたなら、その扉を開いてください。</p>
+                </div>
+                <div class="mt-12 inline-block"><div class="font-sign text-4xl text-v-gold opacity-90 transform -rotate-2">Sho Chizawa</div></div>
+            </div>
+        </div>
+    </section>
+    <section class="py-40 px-6 relative bg-v-surface min-h-[80vh] flex justify-center items-center">
+        <div class="absolute inset-4 md:inset-10 border border-v-gold/20 pointer-events-none"></div>
+        <div class="max-w-2xl w-full mx-auto relative z-10 reveal">
+            <div class="bg-v-black p-10 md:p-16 hairline-all shadow-[0_0_50px_rgba(0,0,0,0.8)] relative">
+                <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-v-wine rounded-full flex items-center justify-center shadow-lg shadow-v-wine/20"><i class="ph-fill ph-envelope-simple-open text-v-ivory text-xl"></i></div>
+                <div class="text-center mb-12 mt-4">
+                    <h2 class="font-en text-3xl text-v-gold mb-6">Request Invitational Dialogue</h2>
+                    <h3 class="font-jp text-lg text-v-ivory-muted tracking-widest font-light">Founderと45分、対話する</h3>
+                    <p class="font-jp text-xs text-v-ivory-muted/60 mt-4 leading-relaxed">※代表・遅沢翔との45分間の完全非公開セッション<br>※月間受付枠は3社のみ。審査の結果、見送らせていただく場合もございます。</p>
+                </div>
+                <form class="space-y-8 font-jp">
+                    <div class="relative"><input type="text" id="name" class="w-full bg-transparent border-b border-v-ivory/20 py-3 text-v-ivory focus:outline-none focus:border-v-gold transition-colors peer placeholder-transparent" placeholder="Name"><label for="name" class="absolute left-0 top-3 text-xs text-v-ivory-muted tracking-widest transition-all peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-v-gold">御芳名 / FULL NAME</label></div>
+                    <div class="relative"><input type="text" id="company" class="w-full bg-transparent border-b border-v-ivory/20 py-3 text-v-ivory focus:outline-none focus:border-v-gold transition-colors peer placeholder-transparent" placeholder="Company"><label for="company" class="absolute left-0 top-3 text-xs text-v-ivory-muted tracking-widest transition-all peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-v-gold">貴社名 / COMPANY</label></div>
+                    <div class="relative"><input type="email" id="email" class="w-full bg-transparent border-b border-v-ivory/20 py-3 text-v-ivory focus:outline-none focus:border-v-gold transition-colors peer placeholder-transparent" placeholder="Email"><label for="email" class="absolute left-0 top-3 text-xs text-v-ivory-muted tracking-widest transition-all peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-v-gold">連絡先 / EMAIL</label></div>
+                    <div class="pt-8 text-center">
+                        <button type="button" class="group relative inline-flex items-center justify-center px-12 py-4 bg-transparent hairline-all overflow-hidden text-v-ivory hover:text-v-black transition-colors duration-500">
+                            <div class="absolute inset-0 w-0 bg-v-gold transition-all duration-[800ms] ease-out group-hover:w-full -z-10"></div>
+                            <span class="font-en text-sm tracking-widest uppercase mr-4">Submit Request</span>
+                            <i class="ph-light ph-arrow-right text-lg transition-transform group-hover:translate-x-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="py-16 px-6 bg-v-black relative border-t border-v-gold/10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <svg width="60" height="60" viewBox="0 0 100 100" fill="none" class="text-v-gold/50 mb-8"><path d="M50 10L90 30V70L50 90L10 70V30L50 10Z" stroke="currentColor" stroke-width="1"/><path d="M30 35L50 75L70 35" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+            <h4 class="font-en tracking-mega text-v-ivory-muted text-sm mb-6 uppercase text-center">Veritas AI Partners</h4>
+            <ul class="flex gap-8 font-en text-xs tracking-widest text-v-ivory/40 uppercase mb-16">
+                <li><a href="#" class="gold-hover hover:text-v-gold transition-colors">Manifesto</a></li>
+                <li><a href="#" class="gold-hover hover:text-v-gold transition-colors">Archives</a></li>
+                <li><a href="#" class="gold-hover hover:text-v-gold transition-colors">Privacy</a></li>
+            </ul>
+            <div class="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-en tracking-widest text-v-ivory-muted/30 pt-8 border-t border-v-gold/10">
+                <p>&copy; 2026 Veritas AI Partners. All rights reserved.</p>
+                <p class="mt-4 md:mt-0 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-v-wine inline-block"></span>STRICTLY CONFIDENTIAL</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries, obs) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); } }); }, { threshold: 0.15 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOUNDER'S MIND | Veritas AI Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+            colors: { void: '#030108', cyan: { 400: '#00e5ff', 500: '#00b3cc' }, magenta: { 400: '#ff00b3', 500: '#cc008f' }, amethyst: { 400: '#9d00ff', 500: '#7000ff' } },
+            backgroundImage: { 'radial-glow': 'radial-gradient(circle at center, rgba(112, 0, 255, 0.1) 0%, rgba(3, 1, 8, 0) 70%)' }
+        }}}
+    </script>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #030108; color: white; -webkit-font-smoothing: antialiased; }
+        .scanlines { position: fixed; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1)); background-size: 100% 4px; pointer-events: none; z-index: 50; opacity: 0.3; }
+        .glass-panel { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .glass-panel:hover { background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+        .monumental-text { font-size: clamp(3rem, 7vw, 7rem); line-height: 1.05; letter-spacing: -0.05em; text-shadow: 0 0 40px rgba(255,255,255,0.1); }
+        .section-title { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; letter-spacing: -0.03em; }
+        .data-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); } 50% { box-shadow: 0 0 30px rgba(0, 229, 255, 0.8); } }
+        .pulse-cyan { animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes synapse-flash { 0% { opacity: 0; } 10% { opacity: 1; filter: brightness(2) drop-shadow(0 0 20px currentColor); } 100% { opacity: 0; } }
+        .synapse-flash-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, currentColor 0%, transparent 70%); mix-blend-mode: screen; opacity: 0; pointer-events: none; }
+        .trigger-flash:hover .synapse-flash-overlay { animation: synapse-flash 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 4px; }
+        @keyframes drop { 0% { top: -50%; } 100% { top: 150%; } }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+    </style>
+</head>
+<body class="bg-void text-white font-sans selection:bg-cyan-500 selection:text-void font-light relative">
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="absolute inset-0 bg-radial-glow"></div>
+    </div>
+    <div class="scanlines"></div>
+    <header class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-start pointer-events-none mix-blend-difference">
+        <div class="flex items-center gap-4 pointer-events-auto">
+            <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-md"><i class="ph-fill ph-brain text-white text-xl"></i></div>
+            <div><h2 class="text-sm font-bold tracking-widest uppercase text-white">Veritas AI Partners</h2><p class="data-label">Sys_Core: ONLINE // Vol. 9.4</p></div>
+        </div>
+        <nav class="hidden md:flex gap-8 data-label mt-2 pointer-events-auto items-center"><a href="#mind-arch" class="hover:text-cyan-400 transition-colors">Cognitive Arch</a><a href="#cases" class="hover:text-magenta-400 transition-colors">Outputs</a></nav>
+    </header>
+    <footer class="fixed bottom-0 w-full z-50 p-6 lg:p-10 flex justify-between items-end pointer-events-none data-label mix-blend-difference text-white/50">
+        <div class="flex flex-col gap-1"><span>Scroll Alpha: <span id="scroll-alpha">0.00</span></span><span>Synapse Density: High</span></div>
+        <div class="hidden sm:flex flex-col text-right gap-1"><span>Loc: Tokyo, JP [V-Net]</span><span id="clock" class="text-white">00:00:00:000</span></div>
+    </footer>
+    <div class="relative z-10">
+        <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 lg:px-10 pb-20 pt-32">
+            <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-12 mt-10">
+                <div class="w-full lg:w-7/12 pointer-events-auto mix-blend-lighten reveal visible">
+                    <div class="data-label mb-6 flex items-center gap-3 text-cyan-400"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>CONCEPT: FOUNDER'S MIND</div>
+                    <h1 class="monumental-text font-black mb-8 text-white">経営者の脳が、<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-magenta-400 to-amethyst-500">AIで進化する。</span></h1>
+                    <p class="font-mono text-sm leading-relaxed text-white/70 mb-10 max-w-xl border-l border-white/20 pl-4 py-1">
+                        > SUBJECT: S. CHIZAWA [CEO / ARCHITECT]<br>
+                        > COGNITIVE LOAD: Distributed via AI Framework.<br><br>
+                        Veritasの生み出す全事業の革新は、この「一人の拡張された脳神経」から分岐する。Claude Opus 4 / GPT-5 / Gemini 3.1 / Grok 4.20 が、思考の各領域を増幅する。
+                    </p>
+                    <button class="group relative px-10 py-5 bg-white/5 border border-white/20 hover:border-cyan-400 overflow-hidden transition-all duration-300">
+                        <div class="absolute inset-0 bg-cyan-400/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                        <span class="relative flex items-center gap-4 font-bold tracking-widest text-sm uppercase">Start Diagnostics<i class="ph-bold ph-arrow-right group-hover:translate-x-2 transition-transform"></i></span>
+                    </button>
+                </div>
+                <div class="w-full lg:w-4/12 flex flex-col gap-4 pointer-events-auto mt-12 lg:mt-0 reveal reveal-delay-2 visible">
+                    <div class="data-label text-right mb-2">Primary Cortex Sync</div>
+                    <div class="glass-panel p-5 rounded flex items-start gap-5 hover:scale-[1.02] transition-transform">
+                        <div class="w-12 h-12 rounded-sm bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0"><i class="ph-bold ph-cube text-cyan-400 text-2xl"></i></div>
+                        <div class="flex-1"><h3 class="font-bold text-sm tracking-wide">3D Printing / SK Honpo</h3><div class="mt-3 text-[10px] font-mono text-cyan-400 flex justify-between"><span>SUPPLY CHAIN AI</span><span>ACTIVE</span></div><div class="w-full h-px bg-white/10 mt-1 relative"><div class="absolute inset-y-0 left-0 w-1/3 bg-cyan-400"></div></div></div>
+                    </div>
+                    <div class="glass-panel p-5 rounded flex items-start gap-5 hover:scale-[1.02] transition-transform">
+                        <div class="w-12 h-12 rounded-sm bg-magenta-500/10 border border-magenta-500/30 flex items-center justify-center shrink-0"><i class="ph-bold ph-chart-line-up text-magenta-400 text-2xl"></i></div>
+                        <div class="flex-1"><h3 class="font-bold text-sm tracking-wide">Quant Trading</h3><div class="mt-3 text-[10px] font-mono text-magenta-400 flex justify-between"><span>ALGO PREDICTION</span><span>SYNCING...</span></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-auto opacity-50 hover:opacity-100 transition-opacity"><span class="data-label">Descend</span><div class="w-px h-12 bg-white/20 relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-1/2 bg-white animate-[drop_2s_infinite]"></div></div></div>
+        </section>
+
+        <section id="mind-arch" class="relative min-h-screen py-32 px-6 lg:px-10 flex flex-col justify-center">
+            <div class="mb-16 reveal">
+                <div class="data-label text-amethyst-400 mb-2">// 01_Architecture</div>
+                <h2 class="section-title font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">The Mind<br>Architecture</h2>
+                <p class="font-mono text-sm max-w-lg mt-6 text-white/50">一人の脳が、いかにしてAIにより拡張され、複数領域を同時支配可能にしているか。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pointer-events-auto relative">
+                <div class="glass-panel p-8 md:col-span-2 lg:col-span-2 row-span-2 flex flex-col justify-between reveal group trigger-flash overflow-hidden text-cyan-400">
+                    <div class="synapse-flash-overlay"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-12"><i class="ph-light ph-shopping-bag text-5xl opacity-80"></i><span class="data-label border border-cyan-400/20 px-2 py-1 bg-cyan-400/5">E-Commerce / 7 Brands</span></div>
+                        <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">マルチブランドEC群</h3>
+                        <p class="text-sm text-white/60 leading-relaxed font-mono">AI駆動型のマーケティング・在庫予測・商品開発により、1つの脳が7つの異なるブランド人格を同時に操作。</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 reveal reveal-delay-1 group trigger-flash overflow-hidden text-amethyst-400 flex flex-col justify-between">
+                    <div class="synapse-flash-overlay"></div>
+                    <div><i class="ph-light ph-buildings text-4xl opacity-80 mb-6"></i><h3 class="text-xl font-bold text-white mb-2">Real Estate</h3><p class="text-xs text-white/60 font-mono">不動産開発・空間価値予測。</p></div>
+                </div>
+                <div class="glass-panel p-8 reveal reveal-delay-2 group trigger-flash overflow-hidden text-white flex flex-col justify-between bg-white/5">
+                    <div class="synapse-flash-overlay text-white"></div>
+                    <div><i class="ph-light ph-code text-4xl opacity-80 mb-6"></i><h3 class="text-xl font-bold text-white mb-2">Web3 / SaaS</h3><p class="text-xs text-white/60 font-mono">自社完結のテック開発。</p></div>
+                </div>
+                <div class="glass-panel p-8 md:col-span-2 lg:col-span-4 flex items-center justify-between reveal reveal-delay-1 group border-l-4 border-l-magenta-500 border-r-0 border-t-0 border-b-0 bg-gradient-to-r from-magenta-500/10 to-transparent">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-full border border-magenta-500/30 flex items-center justify-center"><i class="ph-fill ph-infinity text-2xl text-magenta-500"></i></div>
+                        <div><h3 class="text-2xl font-bold text-white tracking-tight">Veritas Core Framework</h3><p class="text-sm text-white/60 font-mono mt-1">これらの全事業レイヤーを横断し、フィードバックループを回す中央神経系。</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative min-h-screen py-32 px-6 lg:px-10">
+            <div class="flex flex-col lg:flex-row gap-20">
+                <div class="lg:w-1/3 reveal">
+                    <div class="data-label text-magenta-400 mb-2">// 02_Cognitive_Stack</div>
+                    <h2 class="text-4xl lg:text-5xl font-black mb-6 leading-tight">複数AIによる<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-magenta-400 to-cyan-400">大脳皮質の階層化</span></h2>
+                    <p class="font-mono text-sm leading-relaxed text-white/50 mb-8">単一のLLMに依存しない。用途と認知特性に応じ、複数モデルを脳の部位（皮質）としてアサインし、完全なる論理回路を構築。</p>
+                </div>
+                <div class="lg:w-2/3 flex flex-col gap-6 pointer-events-auto">
+                    <div class="glass-panel p-6 lg:p-8 flex items-center gap-8 reveal hover:pl-12 transition-all duration-500 border-l-4 border-l-amethyst-500">
+                        <div class="text-5xl font-black text-white/5 font-mono min-w-[60px] select-none">01</div>
+                        <div class="flex-1">
+                            <div class="flex items-end gap-4 mb-2"><h3 class="text-2xl font-bold tracking-tight">Claude Opus 4</h3><span class="data-label text-amethyst-400">/ Prefrontal Cortex (前頭前野)</span></div>
+                            <p class="text-white/60 text-sm font-mono leading-relaxed">圧倒的な論理構成力とニュアンス理解。経営判断における最終思考レイヤーと高度なコード生成の中枢。</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 lg:p-8 flex items-center gap-8 reveal hover:pl-12 transition-all duration-500 border-l-4 border-l-cyan-500 ml-0 lg:ml-12">
+                        <div class="text-5xl font-black text-white/5 font-mono min-w-[60px] select-none">02</div>
+                        <div class="flex-1"><div class="flex items-end gap-4 mb-2"><h3 class="text-2xl font-bold tracking-tight">GPT-5</h3><span class="data-label text-cyan-400">/ Visual & Multimodal (視覚野)</span></div><p class="text-white/60 text-sm font-mono leading-relaxed">画像生成、データ分析、Webブラウジングなど、外界からのマルチモーダル入力処理。</p></div>
+                    </div>
+                    <div class="glass-panel p-6 lg:p-8 flex items-center gap-8 reveal hover:pl-12 transition-all duration-500 border-l-4 border-l-blue-500 ml-0 lg:ml-24">
+                        <div class="text-5xl font-black text-white/5 font-mono min-w-[60px] select-none">03</div>
+                        <div class="flex-1"><div class="flex items-end gap-4 mb-2"><h3 class="text-2xl font-bold tracking-tight">Gemini 3.1 Pro</h3><span class="data-label text-blue-400">/ Hippocampus (海馬・巨大記憶)</span></div><p class="text-white/60 text-sm font-mono leading-relaxed">100万トークンを超えるコンテキストウィンドウ。数年分の議事録、全コードベースを一挙に飲み込み文脈として保持。</p></div>
+                    </div>
+                    <div class="glass-panel p-6 lg:p-8 flex items-center gap-8 reveal hover:pl-12 transition-all duration-500 border-l-4 border-l-white/50 ml-0 lg:ml-36">
+                        <div class="text-5xl font-black text-white/5 font-mono min-w-[60px] select-none">04</div>
+                        <div class="flex-1"><div class="flex items-end gap-4 mb-2"><h3 class="text-2xl font-bold tracking-tight">Grok 4.20 / DeepSeek</h3><span class="data-label text-white/50">/ Social & Analytical (側頭葉)</span></div><p class="text-white/60 text-sm font-mono leading-relaxed">リアルタイムのSNSトレンド解析（Grok）と、低コスト・高効率な大量テキスト推論（DeepSeek）。</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cases" class="relative min-h-screen py-32 px-6 lg:px-10">
+            <div class="text-center mb-20 reveal">
+                <div class="data-label text-cyan-400 mb-2">// 03_Output_Synapses</div>
+                <h2 class="section-title font-black text-white">Synaptic <span class="italic font-light text-white/40">Ignitions.</span></h2>
+                <p class="font-mono text-sm mt-4 text-white/50">この神経網が外界の企業システムと接続し、発火した実装事例。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto pointer-events-auto">
+                <div class="glass-panel h-[400px] flex flex-col justify-end p-8 reveal group relative overflow-hidden text-cyan-400 trigger-flash">
+                    <div class="synapse-flash-overlay"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-10 group-hover:opacity-30 transition-opacity duration-700 mix-blend-luminosity grayscale"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030108] via-[#030108]/80 to-transparent"></div>
+                    <div class="relative z-10"><div class="data-label mb-2 border border-cyan-400/30 inline-block px-2 py-1 backdrop-blur-md">CRM AUTOMATION</div><h3 class="text-3xl font-black text-white mb-3">LINE CRM AI化</h3><p class="text-sm font-mono text-white/70">応答時間96%短縮。Claude API × LINE Messaging APIで完全自動化。</p></div>
+                </div>
+                <div class="glass-panel h-[400px] flex flex-col justify-end p-8 reveal reveal-delay-1 group relative overflow-hidden text-magenta-400 trigger-flash">
+                    <div class="synapse-flash-overlay"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-10 group-hover:opacity-30 transition-opacity duration-700 mix-blend-luminosity grayscale"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030108] via-[#030108]/80 to-transparent"></div>
+                    <div class="relative z-10"><div class="data-label mb-2 border border-magenta-400/30 inline-block px-2 py-1 backdrop-blur-md">WEB INFRASTRUCTURE</div><h3 class="text-3xl font-black text-white mb-3">AI駆動コーポレートサイト</h3><p class="text-sm font-mono text-white/70">制作期間2週間に圧縮。AIで競合20社自動分析。</p></div>
+                </div>
+                <div class="glass-panel md:col-span-2 h-[300px] flex flex-col md:flex-row items-center justify-between p-8 md:p-12 reveal group relative overflow-hidden border-t border-t-white/20">
+                    <div class="relative z-10 w-full md:w-1/2 mb-6 md:mb-0"><div class="data-label text-amethyst-400 mb-2">MARKET INTELLIGENCE</div><h3 class="text-4xl font-black text-white mb-4">競合モニタリングAI</h3><p class="text-sm font-mono text-white/70">15分で価格変動・新商品を検知しSlack即通知。Playwright × Claude API。</p></div>
+                    <div class="relative z-10 bg-white/5 border border-white/10 p-6 backdrop-blur-md w-full md:w-1/3 rounded-lg flex flex-col gap-3 group-hover:border-amethyst-500/50 transition-colors">
+                        <div class="w-full h-8 bg-black/40 rounded overflow-hidden relative"><div class="absolute top-0 left-0 h-full bg-amethyst-500 w-[85%]"></div><div class="absolute inset-y-0 right-0 p-1 flex items-center justify-end font-mono text-[10px] text-white/80">DATA VOL.</div></div>
+                        <div class="w-full h-8 bg-black/40 rounded overflow-hidden relative"><div class="absolute top-0 left-0 h-full bg-cyan-500 w-[42%]"></div><div class="absolute inset-y-0 right-0 p-1 flex items-center justify-end font-mono text-[10px] text-white/80">THREAT Lvl.</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative min-h-screen py-32 px-6 lg:px-10 flex items-center overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-white/[0.02] whitespace-nowrap pointer-events-none select-none">ARCHITECT</div>
+            <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 pointer-events-auto">
+                <div class="w-full lg:w-1/2 aspect-[4/5] relative reveal border border-white/10 glass-panel overflow-hidden group">
+                    <div class="absolute inset-0 bg-void"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center mix-blend-screen opacity-40 grayscale group-hover:scale-105 transition-transform duration-[2s]"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-transparent to-magenta-400/20 mix-blend-overlay"></div>
+                    <div class="absolute bottom-6 left-6 font-mono text-cyan-400 text-[10px] tracking-widest uppercase">Identity: Confirmed<br>Status: Neural Uplink Active</div>
+                </div>
+                <div class="w-full lg:w-1/2 reveal reveal-delay-1 mix-blend-lighten">
+                    <div class="data-label mb-4">// System_Architect</div>
+                    <h2 class="text-5xl lg:text-7xl font-black mb-4">Sho Chizawa</h2>
+                    <p class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-magenta-400 mb-8 tracking-wider">CEO / Veritas AI Partners</p>
+                    <div class="space-y-6 font-mono text-sm leading-relaxed text-white/70">
+                        <p>20代にしてSK本舗・7ブランドEC・3Dプリンター事業・株トレード・不動産開発を同時並行でコントロールする。</p>
+                        <p>彼がなぜそれを可能にしているか。それは「一人で頑張っているから」ではない。<br>自身の思考プロセス、意思決定アルゴリズム、単純作業のすべてをAIという外部ネットワークに委譲・拡張しているからだ。</p>
+                        <p class="border-l-2 border-white/20 pl-4 text-white italic">「Veritasの提供する全サービスは、私自身が日常的に用いている脳の拡張ツール群、そのものです。」</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-40 px-6 lg:px-10 flex justify-center items-center pointer-events-auto">
+            <div class="glass-panel border-cyan-500/30 p-12 lg:p-20 text-center max-w-4xl relative overflow-hidden group reveal">
+                <i class="ph-thin ph-plugs-connected text-6xl text-cyan-400 mb-6 drop-shadow-[0_0_15px_rgba(0,229,255,0.8)]"></i>
+                <h2 class="text-4xl lg:text-6xl font-black tracking-tight mb-6 relative z-10">Sync with the Architect.</h2>
+                <p class="font-mono text-sm text-white/60 mb-12 max-w-xl mx-auto relative z-10">あなたの経営システムを、AI神経網に接続する。<br>無料AI診断 30分相談を実行。</p>
+                <button class="relative inline-flex items-center gap-4 px-12 py-5 bg-white text-void font-bold tracking-widest uppercase hover:bg-cyan-400 transition-colors z-10 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(0,229,255,0.6)]">Initiate Diagnosis<i class="ph-bold ph-arrow-right"></i></button>
+            </div>
+        </section>
+        <div class="h-20"></div>
+    </div>
+    <script>
+        function updateClock() { const now = new Date(); const h = String(now.getHours()).padStart(2,'0'); const m = String(now.getMinutes()).padStart(2,'0'); const s = String(now.getSeconds()).padStart(2,'0'); const ms = String(now.getMilliseconds()).padStart(3,'0'); const c = document.getElementById('clock'); if(c) c.textContent = `${h}:${m}:${s}:${ms}`; requestAnimationFrame(updateClock); }
+        updateClock();
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const canvas = document.getElementById('neuralCanvas'); const ctx = canvas.getContext('2d', { alpha: false });
+        let width, height, particles = [], mouse = { x: window.innerWidth/2, y: window.innerHeight/2, active: false };
+        let scrollOffset = 0;
+        window.addEventListener('scroll', () => { scrollOffset = window.scrollY; const a = document.getElementById('scroll-alpha'); if(a) a.textContent = (scrollOffset*0.001).toFixed(2); });
+        const config = { particleCount: window.innerWidth < 768 ? 150 : 350, baseConnectDistance: 130, colors: ['#00e5ff', '#ff00b3', '#7000ff', '#ffffff'], speedLimit: 0.8 };
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; if(particles.length === 0) initParticles(); }
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+        class Particle {
+            constructor() { this.x = Math.random()*width; this.y = Math.random()*height*2; this.absoluteY = this.y; this.vx = (Math.random()-0.5)*config.speedLimit; this.vy = (Math.random()-0.5)*config.speedLimit; this.size = Math.random()*2+0.5; this.color = config.colors[Math.floor(Math.random()*config.colors.length)]; this.isFiring = false; this.fireTimer = 0; }
+            update(time) { this.y = this.absoluteY - (scrollOffset*0.4); this.x += this.vx; this.absoluteY += this.vy;
+                if(this.x<0) this.x=width; if(this.x>width) this.x=0;
+                if(mouse.active) { const dx=mouse.x-this.x, dy=mouse.y-this.y, distSQ=dx*dx+dy*dy;
+                    if(distSQ<40000) { const dist=Math.sqrt(distSQ), force=(200-dist)/200; this.x-=(dx/dist)*force*2; this.absoluteY-=(dy/dist)*force*2; } }
+                if(Math.random()<0.0005) { this.isFiring=true; this.fireTimer=Math.random()*30+10; }
+                if(this.isFiring) { this.fireTimer--; if(this.fireTimer<=0) this.isFiring=false; }
+            }
+            draw() { if(this.y<-50 || this.y>height+50) return; const baseAlpha = this.isFiring?1:0.3;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.isFiring?this.size*2.5:this.size, 0, Math.PI*2);
+                ctx.fillStyle = this.isFiring?'#ffffff':this.color;
+                if(this.isFiring) { ctx.shadowBlur=15; ctx.shadowColor=this.color; } else ctx.shadowBlur=0;
+                ctx.globalAlpha=baseAlpha; ctx.fill(); ctx.globalAlpha=1;
+            }
+        }
+        function initParticles() { particles=[]; for(let i=0;i<config.particleCount;i++) particles.push(new Particle()); }
+        function drawLines() { for(let i=0;i<particles.length;i++) { const p1=particles[i]; if(p1.y<-100||p1.y>height+100) continue;
+            for(let j=i+1;j<particles.length;j++) { const p2=particles[j]; if(p2.y<-100||p2.y>height+100) continue;
+                const dx=p1.x-p2.x, dy=p1.y-p2.y, distSQ=dx*dx+dy*dy;
+                if(distSQ<(config.baseConnectDistance*config.baseConnectDistance)) { const dist=Math.sqrt(distSQ), alpha=1-(dist/config.baseConnectDistance);
+                    const isFiring=p1.isFiring||p2.isFiring;
+                    ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y);
+                    ctx.strokeStyle = isFiring?p1.color:`rgba(255,255,255,${alpha*0.1})`; ctx.lineWidth = isFiring?1.5:0.5;
+                    if(isFiring) { ctx.shadowBlur=10; ctx.shadowColor=p1.color; } else ctx.shadowBlur=0;
+                    ctx.globalCompositeOperation='screen'; ctx.stroke(); ctx.globalCompositeOperation='source-over';
+                }
+            }
+        }}
+        let time=0;
+        function animate() { ctx.fillStyle='#030108'; ctx.fillRect(0,0,width,height); time+=16;
+            particles.forEach(p=>p.update(time)); drawLines(); particles.forEach(p=>p.draw());
+            requestAnimationFrame(animate);
+        }
+        resize(); animate();
+    </script>
+</body>
+</html>
+</content>
+</invoke>

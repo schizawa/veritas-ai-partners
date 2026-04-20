@@ -1,0 +1,123 @@
+<!--
+  aesthetic_dna: Refik Anadol Data Sculpture x Neuralink HUD x Apple Machine Learning Viz
+  ui_paradigm: Immersive Interactive Spatial Canvas (No-Scroll Terminal)
+  palette_choice: Deep Void (#030108), Neural Cyan (#00e5ff), Synapse Magenta (#ff00b3), Amethyst (#7000ff)
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOUNDER'S MIND | Veritas AI Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;500;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+            colors: { void: '#030108', cyan: { 400: '#00e5ff', 500: '#00b3cc' }, magenta: { 400: '#ff00b3', 500: '#cc008f' }, amethyst: { 400: '#9d00ff', 500: '#7000ff' } },
+            backgroundImage: { 'radial-glow': 'radial-gradient(circle at center, rgba(112, 0, 255, 0.15) 0%, rgba(3, 1, 8, 1) 70%)' }
+        }}}
+    </script>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background-color: #030108; color: white; -webkit-font-smoothing: antialiased; }
+        .scanlines { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1)); background-size: 100% 4px; pointer-events: none; z-index: 50; opacity: 0.3; }
+        .glass-panel { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        .monumental-text { font-size: clamp(3rem, 6vw, 6rem); line-height: 1.1; letter-spacing: -0.05em; background: linear-gradient(to right, #ffffff 20%, #a0a0a0 80%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(255,255,255,0.1); }
+        .data-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.2); } 50% { box-shadow: 0 0 30px rgba(0, 229, 255, 0.8), inset 0 0 20px rgba(0, 229, 255, 0.4); } }
+        .pulse-cyan { animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        .business-node { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .business-node:hover { transform: scale(1.05); background: rgba(255, 255, 255, 0.05); border-color: rgba(0, 229, 255, 0.5); }
+        .node-connector { stroke: rgba(255,255,255,0.1); stroke-width: 1; fill: none; stroke-dasharray: 4 4; animation: dash 20s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -100; } }
+    </style>
+</head>
+<body class="bg-void text-white font-sans selection:bg-cyan-500 selection:text-void">
+    <div class="absolute inset-0 bg-radial-glow z-0 pointer-events-none"></div>
+    <canvas id="neuralCanvas" class="absolute inset-0 z-10 block"></canvas>
+    <div class="scanlines"></div>
+    <div class="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between p-6 lg:p-10">
+        <header class="flex justify-between items-start pointer-events-auto w-full">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-md"><i class="ph-fill ph-brain text-cyan-400 text-xl"></i></div>
+                <div><h2 class="text-sm font-bold tracking-widest uppercase">Veritas AI Partners</h2><p class="data-label">Sys_Core: ONLINE // Vol. 9.4</p></div>
+            </div>
+            <nav class="hidden md:flex gap-8 data-label mt-2"><a href="#" class="hover:text-cyan-400 transition-colors">Architecture</a><a href="#" class="hover:text-magenta-400 transition-colors">Neural Sync</a><a href="#" class="hover:text-white transition-colors">Contact</a></nav>
+        </header>
+        <main class="flex-1 w-full flex flex-col lg:flex-row items-end lg:items-center justify-between pb-20 lg:pb-0">
+            <div class="lg:w-5/12 z-30 pointer-events-auto mix-blend-lighten">
+                <div class="data-label mb-4 flex items-center gap-2 text-cyan-400"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>CONCEPT: FOUNDER'S MIND</div>
+                <h1 class="monumental-text font-black mb-6">経営者の脳が、<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-magenta-400 to-amethyst-500">AIで進化する。</span></h1>
+                <p class="font-mono text-sm leading-relaxed text-white/60 mb-8 max-w-md">> SUBJECT: S. CHIZAWA [CEO / ARCHITECT]<br>> AGE: 2_ years<br>> COGNITIVE LOAD: Distributed via Veritas AI Framework.<br><br>Veritasの全イノベーションは、この一人の拡張された脳神経から分岐する。Claude Opus 4 / GPT-5 / Gemini 3.1 / Grok 4.20 が、思考の各領域を増幅する。</p>
+                <button class="group relative px-8 py-4 bg-white/5 border border-white/20 hover:border-cyan-400 overflow-hidden transition-all duration-300"><div class="absolute inset-0 bg-cyan-400/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div><span class="relative flex items-center gap-3 font-bold tracking-wide">無料AI診断を実行<i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i></span></button>
+            </div>
+            <div class="lg:w-4/12 h-full flex flex-col justify-center gap-4 relative z-30 pointer-events-auto mt-12 lg:mt-0">
+                <svg class="absolute inset-0 w-full h-full pointer-events-none -z-10" style="overflow: visible;"><path d="M -200,300 Q 100,500 400,100" class="node-connector"/><path d="M -200,300 Q 50,300 400,300" class="node-connector" style="animation-delay: -5s"/><path d="M -200,300 Q 150,100 400,500" class="node-connector" style="animation-delay: -10s"/></svg>
+                <div class="data-label text-right mb-2">Synchronized Operations</div>
+                <div class="business-node glass-panel p-4 rounded-lg flex items-start gap-4"><div class="w-10 h-10 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0"><i class="ph ph-cube text-cyan-400 text-xl"></i></div><div><h3 class="font-bold text-sm">SK本舗 / 3D Printing</h3><p class="text-xs text-white/50 mt-1">Parametric Supply Chain AI</p><div class="mt-2 text-[10px] font-mono text-cyan-400 flex justify-between"><span>OPTIMIZATION</span><span>99.8%</span></div><div class="w-full h-1 bg-white/10 mt-1 rounded-full overflow-hidden"><div class="w-[99.8%] h-full bg-cyan-400 pulse-cyan"></div></div></div></div>
+                <div class="business-node glass-panel p-4 rounded-lg flex items-start gap-4"><div class="w-10 h-10 rounded bg-magenta-500/10 border border-magenta-500/30 flex items-center justify-center shrink-0"><i class="ph ph-chart-line-up text-magenta-400 text-xl"></i></div><div><h3 class="font-bold text-sm">Quant Trading</h3><p class="text-xs text-white/50 mt-1">Algorithmic Market Prediction</p><div class="mt-2 text-[10px] font-mono text-magenta-400 flex justify-between"><span>HFT LATENCY</span><span>0.4ms</span></div><div class="flex items-end gap-[2px] h-3 mt-1"><div class="w-1 bg-magenta-400/40 h-[40%] animate-[bounce_1s_infinite]"></div><div class="w-1 bg-magenta-400/60 h-[80%] animate-[bounce_1.2s_infinite]"></div><div class="w-1 bg-magenta-400 h-[60%] animate-[bounce_0.8s_infinite]"></div><div class="w-1 bg-magenta-400/80 h-[100%] animate-[bounce_1.5s_infinite]"></div><div class="w-1 bg-magenta-400 h-[30%] animate-[bounce_0.9s_infinite]"></div></div></div></div>
+                <div class="business-node glass-panel p-4 rounded-lg flex items-start gap-4"><div class="w-10 h-10 rounded bg-amethyst-500/10 border border-amethyst-500/30 flex items-center justify-center shrink-0"><i class="ph ph-buildings text-amethyst-400 text-xl"></i></div><div><h3 class="font-bold text-sm">Real Estate Development</h3><p class="text-xs text-white/50 mt-1">Spatial Valuation Modeling</p><div class="mt-2 text-[10px] font-mono text-amethyst-400">[GEOSPATIAL MAPPING ACTIVE]</div></div></div>
+            </div>
+        </main>
+        <footer class="w-full flex justify-between items-end pointer-events-auto data-label">
+            <div class="flex gap-6 opacity-60"><div class="flex flex-col"><span>Cerebral Cap: 104 TFLOPS</span><span>Synapse Density: High</span></div><div class="hidden sm:flex flex-col"><span>Loc: Tokyo, JP</span><span id="clock">00:00:00:000</span></div></div>
+        </footer>
+    </div>
+    <script>
+        function updateClock() { const now = new Date(); const h = String(now.getHours()).padStart(2, '0'); const m = String(now.getMinutes()).padStart(2, '0'); const s = String(now.getSeconds()).padStart(2, '0'); const ms = String(now.getMilliseconds()).padStart(3, '0'); document.getElementById('clock').textContent = `${h}:${m}:${s}:${ms}`; requestAnimationFrame(updateClock); }
+        updateClock();
+        const canvas = document.getElementById('neuralCanvas'); const ctx = canvas.getContext('2d');
+        let width, height, particles = [], mouse = { x: 0, y: 0, active: false };
+        const config = { particleCount: 400, baseConnectDistance: 120, colors: ['#00e5ff', '#ff00b3', '#7000ff', '#ffffff'], hemisphereGap: 40 };
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; initParticles(); }
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+        window.addEventListener('mouseleave', () => mouse.active = false);
+        class Particle {
+            constructor() { const radius = (Math.random() * Math.random()) * (Math.min(width, height) * 0.4); const theta = Math.random() * Math.PI * 2; const phi = Math.acos(2 * Math.random() - 1);
+                this.baseX = radius * Math.sin(phi) * Math.cos(theta); this.baseY = radius * Math.sin(phi) * Math.sin(theta); this.z = radius * Math.cos(phi);
+                if (this.baseX > 0) this.baseX += config.hemisphereGap; else this.baseX -= config.hemisphereGap;
+                this.x = width/2 + this.baseX; this.y = height/2 + this.baseY;
+                this.size = Math.random() * 2 + 0.5; this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
+                this.isFiring = false; this.fireTimer = 0;
+            }
+            update(time) { const angle = time * 0.0002; const cosA = Math.cos(angle); const sinA = Math.sin(angle);
+                const rx = this.baseX * cosA - this.z * sinA;
+                this.x = width/2 + rx + Math.sin(time * 0.001 + this.baseY) * 20;
+                this.y = height/2 + this.baseY + Math.cos(time * 0.001 + rx) * 20;
+                if (mouse.active) { const dx = mouse.x - this.x; const dy = mouse.y - this.y; const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) { const force = (200 - dist) / 200; this.x -= (dx / dist) * force * 5; this.y -= (dy / dist) * force * 5; } }
+                if (Math.random() < 0.001) { this.isFiring = true; this.fireTimer = 20; }
+                if (this.isFiring) { this.fireTimer--; if (this.fireTimer <= 0) this.isFiring = false; }
+            }
+            draw() { const depthScale = (this.size + (Math.sin(this.x * 0.01) * 1)); const alpha = Math.max(0.1, Math.min(1, depthScale / 3));
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.isFiring ? depthScale * 2 : depthScale, 0, Math.PI * 2);
+                ctx.fillStyle = this.isFiring ? '#ffffff' : this.color;
+                if (this.isFiring) { ctx.shadowBlur = 15; ctx.shadowColor = this.color; } else { ctx.shadowBlur = 0; }
+                ctx.globalAlpha = this.isFiring ? 1 : alpha; ctx.fill(); ctx.globalAlpha = 1;
+            }
+        }
+        function initParticles() { particles = []; for (let i = 0; i < config.particleCount; i++) particles.push(new Particle()); }
+        function drawLines() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const p1 = particles[i]; const p2 = particles[j]; const dx = p1.x - p2.x; const dy = p1.y - p2.y; const distSQ = dx * dx + dy * dy;
+            if (distSQ < (config.baseConnectDistance * config.baseConnectDistance)) { const dist = Math.sqrt(distSQ); const alpha = 1 - (dist / config.baseConnectDistance);
+                const isFiringPath = p1.isFiring || p2.isFiring;
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.quadraticCurveTo((p1.x + p2.x)/2 + (Math.sin(dist)*10), (p1.y + p2.y)/2 + (Math.cos(dist)*10), p2.x, p2.y);
+                ctx.strokeStyle = isFiringPath ? p1.color : `rgba(255, 255, 255, ${alpha * 0.15})`; ctx.lineWidth = isFiringPath ? 2 : 0.5;
+                if(isFiringPath) { ctx.shadowBlur = 10; ctx.shadowColor = p1.color; } else { ctx.shadowBlur = 0; }
+                ctx.globalCompositeOperation = 'screen'; ctx.stroke(); ctx.globalCompositeOperation = 'source-over';
+            } } } }
+        let time = 0;
+        function animate() { ctx.fillStyle = 'rgba(3, 1, 8, 0.15)'; ctx.fillRect(0, 0, width, height); time += 16;
+            particles.forEach(p => p.update(time)); drawLines(); particles.forEach(p => p.draw());
+            requestAnimationFrame(animate);
+        }
+        resize(); animate();
+    </script>
+</body>
+</html>
+</content>
+</invoke>

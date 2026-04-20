@@ -1,0 +1,113 @@
+<!--
+  aesthetic_dna: Dieter Rams / Kengo Kuma / Apple Park / Severance / Zen
+  ui_paradigm: Immersive Scrollytelling / Hyper-Minimalist Architectural Void
+  palette: Obsidian Black (#000000), Surgical White (#FAFAFA), Vapor Gray (#555555), Micro-accent Violet/Cyan
+-->
+<!DOCTYPE html>
+<html lang="ja" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | Silent Production</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&family=Noto+Sans+JP:wght@100;200;300&display=swap" rel="stylesheet">
+    <style>
+        :root { --dot-opacity: 1; --dot-scale: 1; --text-en-opacity: 0; --text-en-y: 20px; --text-jp-opacity: 0; --text-jp-y: 20px; --fleet-opacity: 0; --fleet-scale: 0.85; --fleet-z: -100px; --footer-opacity: 0; }
+        body { background-color: #000000; color: #FAFAFA; font-family: 'Inter', 'Noto Sans JP', sans-serif; margin: 0; scrollbar-width: none; -ms-overflow-style: none; overflow-x: hidden; overscroll-behavior: none; }
+        body::-webkit-scrollbar { display: none; }
+        ::selection { background-color: #FAFAFA; color: #000000; }
+        .stage { perspective: 1000px; transform-style: preserve-3d; }
+        .breathing-dot { animation: breathe 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        @keyframes breathe { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        .reg-mark { position: absolute; width: 15px; height: 15px; opacity: 0.15; pointer-events: none; }
+        .reg-mark::before, .reg-mark::after { content: ''; position: absolute; background-color: #ffffff; }
+        .reg-mark::before { top: 7px; left: 0; right: 0; height: 1px; }
+        .reg-mark::after { left: 7px; top: 0; bottom: 0; width: 1px; }
+        .reg-tl { top: 40px; left: 40px; } .reg-tr { top: 40px; right: 40px; } .reg-bl { bottom: 40px; left: 40px; } .reg-br { bottom: 40px; right: 40px; }
+        #fleet-container { display: grid; grid-template-columns: repeat(32, 1fr); gap: 1.5vw; width: 150vw; height: 150vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(var(--fleet-scale)) translateZ(var(--fleet-z)); opacity: var(--fleet-opacity); will-change: transform, opacity; }
+        .node { background-color: #ffffff; border-radius: 1px; opacity: 0.05; transition: opacity 1s ease; }
+        .node.active { opacity: 0.6; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+        .node.accent-violet { background-color: #8B5CF6; opacity: 0.8 !important; box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); }
+        .node.accent-cyan { background-color: #06B6D4; opacity: 0.8 !important; box-shadow: 0 0 12px rgba(6, 182, 212, 0.6); }
+        @keyframes microBlink { 0%, 100% { opacity: 0.2; } 5% { opacity: 0.9; } }
+        .node.blink { animation: microBlink 8s infinite; }
+        .map-dot { opacity: var(--dot-opacity); transform: scale(var(--dot-scale)); }
+        .map-text-en { opacity: var(--text-en-opacity); transform: translateY(var(--text-en-y)); }
+        .map-text-jp { opacity: var(--text-jp-opacity); transform: translateY(var(--text-jp-y)); }
+        .map-footer { opacity: var(--footer-opacity); }
+    </style>
+</head>
+<body class="h-[600vh]">
+    <main class="fixed inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden stage z-10 bg-[#000000]">
+        <div class="reg-mark reg-tl hidden md:block"></div>
+        <div class="reg-mark reg-tr hidden md:block"></div>
+        <div class="reg-mark reg-bl hidden md:block"></div>
+        <div class="reg-mark reg-br hidden md:block"></div>
+        <div class="absolute top-10 left-10 md:top-12 md:left-14 opacity-20 tracking-[0.2em] text-[10px] uppercase font-light z-50">Veritas AI Partners</div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 tracking-[0.4em] text-[8px] uppercase font-light flex flex-col items-center gap-4 z-50 map-dot"><span>Scroll</span><div class="w-[1px] h-6 bg-white/50"></div></div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-40 map-dot"><div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full breathing-dot"></div></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-30 text-center px-6">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-[100] tracking-[0.15em] md:tracking-[0.2em] leading-tight text-[#FAFAFA] map-text-en will-change-transform">Production AI is silent.</h1>
+            <p class="mt-8 md:mt-12 text-[11px] md:text-sm font-[200] tracking-[0.4em] md:tracking-[0.6em] text-[#777777] map-text-jp will-change-transform">静かに、稼働している。</p>
+        </div>
+        <div id="fleet-container" class="z-20 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-full p-10 md:p-16 flex flex-col md:flex-row justify-between items-end z-50 map-footer pointer-events-auto">
+            <div class="flex flex-col gap-2"><div class="text-[10px] md:text-xs text-[#555555] tracking-[0.2em] uppercase">Status</div><div class="text-xs md:text-sm text-[#FAFAFA] tracking-[0.1em] font-light flex items-center gap-3"><div class="w-1.5 h-1.5 bg-[#00FF00] rounded-full shadow-[0_0_8px_rgba(0,255,0,0.5)]"></div>All Systems Operational</div></div>
+            <div class="flex flex-col gap-1 text-right mt-8 md:mt-0"><div class="text-[10px] uppercase tracking-[0.3em] text-[#444444]">Enterprise AI Architecture</div><div class="text-xs md:text-sm tracking-[0.1em] text-[#999999] font-light">Veritas AI Partners Tokyo</div><a href="#" class="text-[10px] mt-2 tracking-[0.2em] border-b border-[#333333] hover:border-[#FAFAFA] hover:text-[#FAFAFA] text-[#666666] transition-colors pb-1 inline-block w-max self-end duration-500">INITIATE CONTACT</a></div>
+        </div>
+    </main>
+    <script>
+        const fleetContainer = document.getElementById('fleet-container');
+        const numNodes = 32 * 24;
+        for (let i = 0; i < numNodes; i++) {
+            const node = document.createElement('div');
+            let classList = 'node ';
+            const rand = Math.random();
+            if (rand > 0.95) { classList += '+ active blink '; } else if (rand > 0.8) { classList += '+ active '; }
+            if (rand < 0.1) { node.style.gridColumn = `span ${Math.floor(Math.random() * 3) + 2}`; node.style.height = '2px'; node.style.alignSelf = 'center'; }
+            else if (rand > 0.1 && rand < 0.2) { node.style.gridRow = `span ${Math.floor(Math.random() * 3) + 2}`; node.style.width = '2px'; node.style.justifySelf = 'center'; }
+            else { node.style.width = Math.random() > 0.5 ? '2px' : '3px'; node.style.height = node.style.width; node.style.placeSelf = 'center'; }
+            node.className = classList;
+            fleetContainer.appendChild(node);
+        }
+        const nodes = document.querySelectorAll('.node');
+        if (nodes.length > 100) { nodes[Math.floor(nodes.length * 0.3)].classList.add('accent-violet', 'active'); nodes[Math.floor(nodes.length * 0.7)].classList.add('accent-cyan', 'active'); }
+        const root = document.documentElement;
+        function clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
+        function mapRange(val, inMin, inMax, outMin, outMax) { const p = (val - inMin) / (inMax - inMin); const clampedP = clamp(p, 0, 1); return outMin + clampedP * (outMax - outMin); }
+        let ticking = false;
+        function updatePlayhead() {
+            const scrollY = window.scrollY;
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const progress = clamp(scrollY / maxScroll, 0, 1);
+            const dotOpacity = mapRange(progress, 0.05, 0.15, 1, 0);
+            const dotScale = mapRange(progress, 0.05, 0.15, 1, 0);
+            root.style.setProperty('--dot-opacity', dotOpacity);
+            root.style.setProperty('--dot-scale', dotScale);
+            let textEnOpacity = 0, textEnY = 20;
+            if (progress < 0.4) { textEnOpacity = mapRange(progress, 0.12, 0.25, 0, 1); textEnY = mapRange(progress, 0.12, 0.30, 20, 0); }
+            else { textEnOpacity = mapRange(progress, 0.4, 0.5, 1, 0); textEnY = mapRange(progress, 0.4, 0.5, 0, -20); }
+            root.style.setProperty('--text-en-opacity', textEnOpacity);
+            root.style.setProperty('--text-en-y', `${textEnY}px`);
+            let textJpOpacity = 0, textJpY = 20;
+            if (progress < 0.45) { textJpOpacity = mapRange(progress, 0.22, 0.35, 0, 1); textJpY = mapRange(progress, 0.22, 0.40, 20, 0); }
+            else { textJpOpacity = mapRange(progress, 0.45, 0.55, 1, 0); textJpY = mapRange(progress, 0.45, 0.55, 0, -20); }
+            root.style.setProperty('--text-jp-opacity', textJpOpacity);
+            root.style.setProperty('--text-jp-y', `${textJpY}px`);
+            const fleetOpacity = mapRange(progress, 0.5, 0.8, 0, 1);
+            const fleetScale = mapRange(progress, 0.5, 1.0, 1.5, 1.0);
+            root.style.setProperty('--fleet-opacity', fleetOpacity);
+            root.style.setProperty('--fleet-scale', fleetScale);
+            const footerOpacity = mapRange(progress, 0.85, 0.95, 0, 1);
+            root.style.setProperty('--footer-opacity', footerOpacity);
+            ticking = false;
+        }
+        window.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(updatePlayhead); ticking = true; } });
+        updatePlayhead();
+    </script>
+</body>
+</html>
+</content>
+</invoke>

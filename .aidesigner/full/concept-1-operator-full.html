@@ -1,0 +1,329 @@
+<!--
+  aesthetic_dna: Corporate Cyberpunk / Cinematic Command Center (The Complete Terminal)
+  ui_paradigm: Vertical Scrollytelling HUD (Infinite Dashboard Canvas)
+  palette: Vantablack (#050505), CRT Phosphor Green (#39FF14), Terminal Cyan (#00E5FF), Deep Severance Purple (#6D28D9), Amber Glow (#FFB300)
+-->
+<!DOCTYPE html>
+<html lang="ja" class="antialiased scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | THE OPERATOR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800;900&family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['"Noto Sans JP"', 'sans-serif'], inter: ['Inter', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+            colors: { operator: { black: '#040406', void: '#0a0a0e', cyan: '#00E5FF', purple: '#6D28D9', amber: '#FFB300', green: '#00FF66', gray: '#1a1a24' } },
+            backgroundImage: {
+                'scanlines': 'repeating-linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 1px, rgba(0,0,0,0.2) 1px, rgba(0,0,0,0.2) 2px)',
+                'vignette-hero': 'radial-gradient(circle at center, transparent 30%, #040406 90%)',
+                'grid-pattern': 'linear-gradient(to right, #1a1a24 1px, transparent 1px), linear-gradient(to bottom, #1a1a24 1px, transparent 1px)'
+            }
+        }}}
+    </script>
+    <style>
+        :root { --m-x: 0; --m-y: 0; }
+        body { background-color: theme('colors.operator.black'); color: white; overflow-x: hidden; scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; background: theme('colors.operator.black'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.operator.purple'); border-left: 2px solid theme('colors.operator.black'); }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.operator.cyan'); }
+        .section-panel { position: relative; background-size: 40px 40px; border-top: 1px solid theme('colors.operator.gray'); }
+        .bg-grid { background-image: theme('backgroundImage.grid-pattern'); background-size: 40px 40px; }
+        .px-bg { transform: translate(calc(var(--m-x) * -20px), calc(var(--m-y) * -20px)) scale(1.05); }
+        .px-operator { transform: translate(calc(var(--m-x) * 5px), calc(var(--m-y) * 5px)); }
+        .screen-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 8px; width: 140vw; height: 140vh; opacity: 0.85; transform: perspective(1000px) rotateX(5deg) scale(1.1); }
+        .monitor-cell { background: linear-gradient(135deg, rgba(15,15,20,0.9), rgba(5,5,10,0.95)); border: 1px solid rgba(255,255,255,0.03); border-radius: 4px; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 1rem; box-shadow: inset 0 0 40px rgba(0,0,0,0.8); }
+        .monitor-cell::after { content:''; position: absolute; inset: 0; background: theme('backgroundImage.scanlines'); opacity: 0.3; pointer-events: none; mix-blend-mode: overlay; }
+        .rim-light-generator { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 80vw; height: 80vh; background: radial-gradient(ellipse at bottom, theme('colors.operator.cyan') 0%, theme('colors.operator.purple') 40%, transparent 70%); filter: blur(120px); opacity: 0.4; mix-blend-mode: screen; z-index: 10; pointer-events: none; }
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+        .scanner-line { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, theme('colors.operator.cyan'), transparent); animation: scan 4s linear infinite; opacity: 0.5; }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+        .svg-chart-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 8s linear infinite alternate; }
+        @keyframes tickerTape { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ticker-track { display: flex; width: max-content; animation: tickerTape 20s linear infinite; }
+        .ticker-track-reverse { display: flex; width: max-content; animation: tickerTape 30s linear infinite reverse; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        @keyframes radarPing { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+        .radar-ping { animation: radarPing 2s cubic-bezier(0, 0.2, 0.8, 1) infinite; }
+        @keyframes noise { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 100%; } }
+        .glitch-bg { background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E'); opacity: 0.05; mix-blend-mode: overlay; animation: noise 0.5s steps(2) infinite; }
+        .glass-panel { background: rgba(4, 4, 6, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .corner-brackets { position: relative; }
+        .corner-brackets::before, .corner-brackets::after { content: ''; position: absolute; width: 16px; height: 16px; border-color: theme('colors.operator.cyan'); border-style: solid; transition: all 0.3s; }
+        .corner-brackets::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+        .corner-brackets::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+        .corner-brackets:hover::before { width: 100%; height: 100%; top: -4px; left: -4px; }
+        .corner-brackets:hover::after { width: 100%; height: 100%; bottom: -4px; right: -4px; border-color: theme('colors.operator.purple'); }
+        .btn-clip { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: all 0.3s ease; }
+        .btn-clip:hover { box-shadow: 0 0 30px theme('colors.operator.purple'), inset 0 0 15px theme('colors.operator.cyan'); transform: translateY(-2px); }
+        .bento-card { background: linear-gradient(to bottom right, rgba(20,20,30,0.6), rgba(5,5,10,0.9)); border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; }
+        .bento-card:hover { border-color: theme('colors.operator.cyan'); box-shadow: 0 8px 30px rgba(0,229,255,0.1); }
+        .text-glow { text-shadow: 0 0 10px var(--tw-shadow-color); }
+        .crosshair-corner { position: absolute; width: 10px; height: 10px; border: 1px solid theme('colors.operator.amber'); }
+        .cc-tl { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .cc-tr { top: -5px; right: -5px; border-left: none; border-bottom: none; }
+        .cc-bl { bottom: -5px; left: -5px; border-right: none; border-top: none; }
+        .cc-br { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+    </style>
+</head>
+<body class="selection:bg-operator-cyan selection:text-black">
+    <header class="fixed top-0 w-full h-16 flex justify-between items-center px-6 md:px-8 z-50 font-mono text-[10px] md:text-xs tracking-widest text-gray-400 glass-panel border-t-0 border-x-0 border-b border-operator-gray">
+        <div class="flex items-center gap-4 text-white font-inter">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-operator-cyan"><path d="M2 12l10-10 10 10-10 10L2 12z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+            <span class="font-bold tracking-[0.2em] hidden sm:block">VERITAS AI PARTNERS</span>
+            <span class="font-bold tracking-[0.2em] sm:hidden">VERITAS</span>
+        </div>
+        <div class="flex gap-4 md:gap-8 items-center">
+            <a href="#cta" class="hidden md:flex bg-operator-cyan text-black px-4 py-1.5 font-bold hover:bg-white transition-colors uppercase cursor-pointer btn-clip">Init_Diagnostic()</a>
+            <div class="flex flex-col text-right"><span class="text-[8px] text-operator-amber">SYS_CLOCK</span><span id="clock" class="text-white">00:00:00:00</span></div>
+        </div>
+    </header>
+    <div class="fixed bottom-0 w-full h-8 overflow-hidden z-50 glass-panel border-b-0 border-x-0 border-t border-operator-gray flex items-center">
+        <div class="w-16 h-full bg-operator-cyan flex items-center justify-center text-black font-mono text-[10px] font-bold z-10">LIVE LOG</div>
+        <div class="flex-1 overflow-hidden relative h-full flex items-center font-mono text-[10px] text-operator-green/80">
+            <div class="ticker-track flex gap-8">
+                <span>[SYS] Biometric lock disengaged. Operator recognized.</span>
+                <span>[INFO] Agent v-Core processing at 840 TFLOPS...</span>
+                <span class="text-operator-cyan">[LOG] 経営判断パラメータ、リアルタイム同期中。</span>
+                <span class="text-operator-amber">[WARN] Market node x7f89 offline, re-routing bandwidth.</span>
+                <span>[SYS] Claude Opus executing semantic parsing.</span>
+                <span>[SYS] Biometric lock disengaged. Operator recognized.</span>
+                <span>[INFO] Agent v-Core processing at 840 TFLOPS...</span>
+                <span class="text-operator-cyan">[LOG] 経営判断パラメータ、リアルタイム同期中。</span>
+                <span class="text-operator-amber">[WARN] Market node x7f89 offline, re-routing bandwidth.</span>
+                <span>[SYS] Claude Opus executing semantic parsing.</span>
+            </div>
+        </div>
+    </div>
+    <main class="w-full">
+        <section id="hero" class="relative w-full h-screen overflow-hidden bg-operator-black flex justify-center items-center">
+            <div class="absolute inset-0 px-bg z-0 flex justify-center items-center">
+                <div class="screen-grid">
+                    <div class="monitor-cell"><div class="scanner-line"></div><div class="text-[10px] font-mono text-gray-500 uppercase">SYS_1</div></div>
+                    <div class="monitor-cell justify-end pb-4 font-mono text-[8px] text-operator-cyan overflow-hidden"><div class="opacity-50">Init sequence alpha... [OK]<br>Loading neural weights... [OK]</div></div>
+                    <div class="monitor-cell items-center justify-center"><svg viewBox="0 0 100 100" class="w-16 h-16 -rotate-90"><circle cx="50" cy="50" r="40" fill="none" class="stroke-operator-amber" stroke-width="2" stroke-dasharray="251" stroke-dashoffset="100"><animate attributeName="stroke-dashoffset" values="251;0" dur="4s" repeatCount="indefinite"/></circle></svg></div>
+                    <div class="monitor-cell bg-operator-void border-dashed border-gray-800"><span class="text-gray-700 text-xs text-center mt-auto mb-auto">OFFLINE</span></div>
+                    <div class="monitor-cell col-span-2 relative items-center justify-center"><div class="absolute top-2 left-2 text-[10px] font-mono text-gray-500">Global Vector</div><svg viewBox="0 0 400 100" class="w-full h-full fill-none stroke-operator-cyan opacity-40"><path class="svg-chart-line" d="M0,50 Q40,10 80,50 T160,50 T240,50 T320,50 T400,50"/></svg></div>
+                    <div class="monitor-cell"><div class="flex items-end gap-1 h-3/4 w-full"><div class="w-1/4 bg-operator-green/30 h-[20%]"></div><div class="w-1/4 bg-operator-green/50 h-[80%]"></div><div class="w-1/4 bg-operator-green/70 h-[40%]"></div><div class="w-1/4 bg-operator-green h-[90%]"></div></div></div>
+                    <div class="monitor-cell"></div>
+                    <div class="monitor-cell"></div><div class="monitor-cell border-operator-purple/30 shadow-[inset_0_0_20px_rgba(109,40,217,0.2)]"></div><div class="monitor-cell col-span-2 text-center text-4xl font-mono text-operator-purple opacity-20"><span id="hero-counter">89.4</span>%</div>
+                    <div class="monitor-cell"></div><div class="monitor-cell text-[8px] font-mono overflow-hidden">1010101<br>0101010<br>1100101</div><div class="monitor-cell"></div><div class="monitor-cell"></div>
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-vignette-hero pointer-events-none z-[5]"></div>
+            <div class="rim-light-generator px-glow z-10 pointer-events-none"></div>
+            <div class="absolute bottom-0 w-full flex justify-center items-end h-[85vh] px-operator z-20 pointer-events-none">
+                <svg viewBox="0 0 1000 800" preserveAspectRatio="none" class="w-[90vw] md:w-[70vw] h-[75vh] max-w-[1200px] drop-shadow-[0_-30px_60px_rgba(0,0,0,1)]">
+                    <path d="M 150 800 C 150 600, 300 500, 400 500 L 430 300 C 430 200, 570 200, 570 300 L 600 500 C 700 500, 850 600, 850 800 Z" fill="#020203" stroke="rgba(0,229,255,0.3)" stroke-width="2" filter="blur(1px)"/>
+                </svg>
+            </div>
+            <div class="relative z-30 flex flex-col items-center mt-[-10vh] px-6 text-center">
+                <div class="mb-6 rounded-full border border-white/10 bg-black/40 backdrop-blur-md px-4 py-1.5 inline-block shadow-2xl"><p class="font-sans font-bold text-xs md:text-sm text-gray-300 tracking-[0.2em]">経営者は、もう判断する人ではない。16画面を同時に見る指揮官だ。</p></div>
+                <div class="corner-brackets p-6 md:p-8 mb-10"><h1 class="font-sans font-black text-4xl md:text-6xl lg:text-8xl text-white leading-[1.1] tracking-tight drop-shadow-2xl">指揮官の席に、<br>座ってください。</h1></div>
+                <a href="#cta" class="group relative inline-flex items-center justify-center font-sans font-bold text-sm md:text-lg tracking-widest text-white btn-clip bg-operator-void border border-operator-cyan px-8 py-4 overflow-hidden pointer-events-auto"><span class="absolute inset-0 bg-operator-cyan w-0 group-hover:w-full transition-all duration-500 ease-out z-0"></span><div class="relative z-10 flex items-center gap-3 mix-blend-difference"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>システムを起動</div></a>
+            </div>
+            <div class="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 font-mono text-[10px] text-gray-500 flex flex-col items-center gap-2"><span>SCROLL TO DESCEND</span><div class="w-[1px] h-12 bg-gray-600 relative overflow-hidden"><div class="absolute top-0 w-full h-4 bg-operator-cyan animate-[scan_2s_linear_infinite]"></div></div></div>
+        </section>
+
+        <section id="manifesto" class="section-panel bg-grid py-32 lg:py-48 px-6 lg:px-24">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center relative z-10">
+                <div class="hidden lg:block w-1/3 relative font-mono">
+                    <div class="text-[8px] text-operator-purple/50 leading-none whitespace-pre select-none">
+function optimizeCorporateMind() {
+  const legacy = new PowerPoint("slides");
+  legacy.terminate();
+  const vCore = new IntelligenceVector();
+  vCore.ingest(dataLake);
+  vCore.deployScale(16);
+  return vCore.getDominance();
+}
+// EXECUTION: Bypassing standard logic.
+                    </div>
+                </div>
+                <div class="flex-1 space-y-8">
+                    <div class="font-mono text-sm text-operator-amber border-l-2 border-operator-amber pl-4">SYS.MANIFESTO_v2</div>
+                    <h2 class="font-sans font-black text-5xl md:text-7xl lg:text-8xl tracking-tighter text-white leading-[0.9]">No PowerPoint.<br><span class="text-operator-cyan text-glow">Production AI.</span></h2>
+                    <p class="font-sans text-lg md:text-xl text-gray-400 font-medium leading-relaxed max-w-2xl border-t border-white/10 pt-8">資料作成で終わるコンサルティングは、過去の遺物だ。<br>我々が提供するのは「紙」ではない。あなたの事業を自律的に監視し、推論し、実行する「知能の歯車」そのものである。<br>絵に描いた餅を燃やし、本番環境(Production)で動く武器を手に入れよ。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section-panel py-32 px-6 lg:px-12 relative overflow-hidden">
+            <div class="absolute inset-0 glitch-bg z-0 pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto relative z-10 space-y-16">
+                <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+                    <div><div class="font-mono text-[10px] text-operator-cyan mb-2 tracking-widest uppercase">Protocol Categories</div><h2 class="font-sans font-black text-3xl md:text-5xl text-white">オペレーション階層</h2></div>
+                    <div class="font-mono text-xs text-gray-500 hidden sm:block">SELECT NODE [1-3]</div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bento-card p-8 group relative overflow-hidden">
+                        <div class="crosshair-corner cc-tl"></div><div class="crosshair-corner cc-tr"></div><div class="crosshair-corner cc-bl"></div><div class="crosshair-corner cc-br"></div>
+                        <div class="absolute right-[-10%] top-[-10%] text-[120px] font-mono font-black text-white/[0.02] group-hover:text-operator-cyan/[0.05] transition-colors">01</div>
+                        <div class="flex justify-between items-start mb-12"><h3 class="font-sans font-black text-2xl text-white">AI診断</h3><span class="font-mono text-[10px] bg-white/10 px-2 py-1 rounded text-gray-300">DIAGNOSTIC</span></div>
+                        <p class="text-sm text-gray-400 font-sans mb-12 leading-relaxed">現状の業務フローとデータ構造をスキャン。<br>導入すべきAIエージェントの設計図を策定する。</p>
+                        <div class="space-y-4 font-mono"><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: BUDGET</span><span class="text-operator-cyan font-bold">¥150k - ¥300k</span></div><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: TIME</span><span class="text-white">1 - 2 WEEKS</span></div></div>
+                        <div class="w-full h-1 bg-gray-800 mt-6 relative overflow-hidden"><div class="h-full bg-operator-cyan w-1/3 group-hover:w-full transition-all duration-700"></div></div>
+                    </div>
+                    <div class="bento-card p-8 group relative overflow-hidden border-operator-green/30">
+                        <div class="crosshair-corner cc-tl !border-operator-green"></div><div class="crosshair-corner cc-br !border-operator-green"></div>
+                        <div class="absolute inset-0 bg-operator-green/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute right-[-10%] top-[-10%] text-[120px] font-mono font-black text-white/[0.02] group-hover:text-operator-green/[0.05] transition-colors">02</div>
+                        <div class="flex justify-between items-start mb-12 relative z-10"><h3 class="font-sans font-black text-2xl text-white">AI実装</h3><span class="font-mono text-[10px] bg-operator-green/20 text-operator-green px-2 py-1 rounded border border-operator-green/50">DEPLOYMENT</span></div>
+                        <p class="text-sm text-gray-400 font-sans mb-12 leading-relaxed relative z-10">図面だけでは終わらない。LLMと自社データを統合した独自システムのスクラッチ開発と本番環境への投下。</p>
+                        <div class="space-y-4 font-mono relative z-10"><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: BUDGET</span><span class="text-operator-green font-bold">¥500k - ¥1.5m</span></div><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: TIME</span><span class="text-white">3 - 6 WEEKS</span></div></div>
+                        <div class="w-full h-1 bg-gray-800 mt-6 relative overflow-hidden z-10"><div class="h-full bg-operator-green w-2/3 group-hover:w-full transition-all duration-700"></div></div>
+                    </div>
+                    <div class="bento-card p-8 group relative overflow-hidden">
+                        <div class="crosshair-corner cc-tr !border-operator-purple"></div><div class="crosshair-corner cc-bl !border-operator-purple"></div>
+                        <div class="absolute right-[-10%] top-[-10%] text-[120px] font-mono font-black text-white/[0.02] group-hover:text-operator-purple/[0.05] transition-colors">03</div>
+                        <div class="flex justify-between items-start mb-12"><h3 class="font-sans font-black text-2xl text-white">AI顧問</h3><span class="font-mono text-[10px] bg-white/10 px-2 py-1 rounded text-gray-300">ADVISORY</span></div>
+                        <p class="text-sm text-gray-400 font-sans mb-12 leading-relaxed">経営中枢にAIパラダイムを常駐させる機能拡張。最新LLMのアップデートへの即応と、継続的なシステム再設計。</p>
+                        <div class="space-y-4 font-mono"><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: BUDGET</span><span class="text-operator-purple font-bold">¥150k - ¥500k</span></div><div class="flex justify-between text-xs border-b border-white/5 pb-2"><span class="text-gray-500">PARAM: TIME</span><span class="text-white">MONTHLY RECURRING</span></div></div>
+                        <div class="w-full h-1 bg-gray-800 mt-6 relative overflow-hidden"><div class="h-full bg-operator-purple w-full opacity-50 group-hover:opacity-100 transition-all duration-700"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cases" class="section-panel bg-grid py-32 px-6 lg:px-12">
+            <div class="max-w-7xl mx-auto space-y-16">
+                <div class="flex items-center gap-4 border-b border-gray-800 pb-4"><div class="w-3 h-3 bg-operator-amber rounded-full animate-pulse"></div><h2 class="font-sans font-black text-3xl md:text-5xl text-white">実戦配備データ</h2><span class="font-mono text-sm text-gray-500 ml-auto">[CASE_FILES_LOADED: 4]</span></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[300px]">
+                    <div class="bento-card col-span-1 md:col-span-2 lg:col-span-2 relative p-6 flex flex-col justify-between overflow-hidden group">
+                        <div class="absolute right-0 bottom-0 w-64 h-64 opacity-10 group-hover:opacity-30 transition-opacity"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="50" r="45" fill="none" class="stroke-operator-amber" stroke-width="2" stroke-dasharray="283" stroke-dashoffset="20"/></svg></div>
+                        <div class="flex justify-between items-start z-10 w-full"><span class="font-mono text-[10px] text-gray-500 border border-gray-700 px-2 py-1">CASE_01</span><span class="font-mono text-xs text-operator-amber flex items-center gap-2"><span class="w-2 h-2 bg-operator-amber rounded-full block"></span>LIVE</span></div>
+                        <div class="z-10 mt-auto"><h4 class="font-sans font-bold text-2xl text-white mb-2">LINE CRM AI化</h4><p class="font-sans text-sm text-gray-400 mb-6 max-w-sm">カスタマーサクセスの一次対応を完全自動化。人間の介在を劇的に削減。</p><div class="font-mono text-4xl text-white font-black">応答短縮: <span class="text-operator-amber text-glow">96%</span></div></div>
+                    </div>
+                    <div class="bento-card p-6 flex flex-col relative group">
+                        <span class="font-mono text-[10px] text-gray-500 border border-gray-700 px-2 py-1 self-start mb-4">CASE_02</span>
+                        <h4 class="font-sans font-bold text-lg text-white mb-2">AI駆動サイト構築</h4>
+                        <p class="font-sans text-xs text-gray-400 mb-6">全コードをLLMで記述し、工数を極限まで圧縮。</p>
+                        <div class="mt-auto bg-[#0a0a0e] border border-gray-800 p-2 font-mono text-[8px] text-gray-500 rounded relative overflow-hidden">
+                            <div class="absolute inset-0 bg-operator-cyan/5"></div>
+                            > build init<br>> generating dom... <span class="text-operator-green">done</span><br>> styling inject... <span class="text-operator-green">done</span><br>
+                            <span class="text-white text-[10px] mt-2 block">DELIVERY: 2 WEEKS</span>
+                        </div>
+                    </div>
+                    <div class="bento-card p-6 flex flex-col relative group items-center justify-center text-center">
+                        <div class="absolute inset-0 flex justify-center items-center pointer-events-none"><div class="w-32 h-32 rounded-full border border-operator-purple/30 relative"><div class="absolute inset-0 rounded-full border border-operator-purple radar-ping"></div></div></div>
+                        <span class="absolute top-6 left-6 font-mono text-[10px] text-gray-500 border border-gray-700 px-2 py-1">CASE_03</span>
+                        <div class="relative z-10 mt-4"><div class="font-mono text-3xl font-black text-operator-purple text-glow mb-2">15 min</div><h4 class="font-sans font-bold text-sm text-white mb-2">競合動向AIモニタリング</h4><p class="font-sans text-[10px] text-gray-400">特定URLのDOM変化を検知しSlackへ即時サマリー通知。</p></div>
+                    </div>
+                    <div class="bento-card col-span-1 md:col-span-2 xl:col-span-2 p-6 flex flex-col justify-between group">
+                        <div class="flex justify-between items-start w-full"><span class="font-mono text-[10px] text-gray-500 border border-gray-700 px-2 py-1">CASE_04</span><span class="font-mono text-[10px] text-operator-cyan border border-operator-cyan/50 px-2 py-1">ROAS OPTIMIZED</span></div>
+                        <div class="flex gap-6 items-end mt-4">
+                            <div class="flex-1"><h4 class="font-sans font-bold text-xl text-white mb-2">Amazon広告 分析基盤</h4><p class="font-sans text-xs text-gray-400">散在するASIN別データを統合、AIが投資配分をリアルタイム推論するダッシュボード設計。</p></div>
+                            <div class="w-32 h-24 relative border-b border-l border-gray-700"><svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-operator-cyan rotate-180 scale-x-[-1]" stroke-width="2"><path d="M0,80 L20,60 L40,70 L60,30 L80,50 L100,10" class="svg-chart-line"/></svg></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="founder" class="section-panel py-32 relative">
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
+                <div class="flex flex-col lg:flex-row bg-operator-void border border-gray-800 group hover:border-white/20 transition-colors">
+                    <div class="lg:w-2/5 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-gray-800 bg-black min-h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Sho Chizawa" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity filter grayscale contrast-150 group-hover:scale-105 transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.8))]"></div>
+                        <div class="absolute inset-0" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 102, 0.05) 2px, rgba(0, 255, 102, 0.05) 4px);"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/10 rounded-full flex items-center justify-center pointer-events-none"><div class="w-full h-[1px] bg-white/20 absolute"></div><div class="w-[1px] h-full bg-white/20 absolute"></div></div>
+                        <div class="absolute bottom-6 left-6 font-mono text-[10px] text-operator-green tracking-widest uppercase"><span class="block">TARGET: ACQUIRED</span><span class="block">AGE: 20s</span></div>
+                    </div>
+                    <div class="lg:w-3/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                        <div class="font-mono text-xs text-gray-500 mb-2 border-b border-gray-800 pb-2 flex justify-between"><span>AUTHORITY_LEVEL: MAX</span><span>FOUNDER / CEO</span></div>
+                        <h3 class="font-sans font-black text-4xl text-white mb-1 uppercase tracking-wider">遅沢 翔 <span class="text-xl text-gray-500 font-light ml-2">SHO CHIZAWA</span></h3>
+                        <div class="font-sans text-sm md:text-base text-gray-400 leading-loose mt-8 space-y-4">
+                            <p>自らが「全LLMを実戦投入するモルモット」となる起業家。<br>AIツールの評論家ではなく、血を流して本番環境で運用する「野戦指揮官」としてのインサイトを提供する。</p>
+                            <div class="bg-[#050508] border border-white/5 p-4 mt-6 rounded shadow-inner">
+                                <span class="font-mono text-[10px] text-operator-cyan mb-2 block">ACTIVE_NEURAL_LINKS</span>
+                                <div class="flex flex-wrap gap-2 font-mono text-xs text-white/80">
+                                    <span class="bg-white/5 px-2 py-1">Claude Opus 4 / Sonnet</span>
+                                    <span class="bg-white/5 px-2 py-1">GPT-5</span>
+                                    <span class="bg-white/5 px-2 py-1">Gemini 3.1 Pro</span>
+                                    <span class="bg-white/5 px-2 py-1">Grok 4.20</span>
+                                    <span class="bg-white/5 px-2 py-1">DeepSeek-V3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stack" class="section-panel py-16 bg-operator-black overflow-hidden border-y border-white/10 flex flex-col gap-4 relative">
+            <div class="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-operator-black to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-operator-black to-transparent z-10 pointer-events-none"></div>
+            <div class="text-center mb-4"><span class="font-mono text-[10px] uppercase text-gray-500 tracking-[0.3em]">The Arsenal - 稼働中のウェポン</span></div>
+            <div class="font-mono text-3xl md:text-5xl font-black text-white/10 whitespace-nowrap overflow-hidden">
+                <div class="ticker-track shrink-0">
+                    <span class="px-8">CLAUDE OPUS 4</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">GPT-5</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">GEMINI 3.1</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8 text-white/30">GROK 4.20</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">DEEPSEEK</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">CLAUDE OPUS 4</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">GPT-5</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">GEMINI 3.1</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8 text-white/30">GROK 4.20</span><span class="px-8 text-operator-purple">/</span>
+                    <span class="px-8">DEEPSEEK</span><span class="px-8 text-operator-purple">/</span>
+                </div>
+            </div>
+            <div class="font-mono text-3xl md:text-5xl font-black text-white/5 whitespace-nowrap overflow-hidden">
+                <div class="ticker-track-reverse shrink-0">
+                    <span class="px-8">CURSOR</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">DEVIN</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">COMFY UI</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">KLING</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">ELEVENLABS</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">RUNWAY GEN-4</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">CURSOR</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">DEVIN</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">COMFY UI</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">KLING</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">ELEVENLABS</span><span class="px-8 text-operator-cyan">/</span>
+                    <span class="px-8">RUNWAY GEN-4</span><span class="px-8 text-operator-cyan">/</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="section-panel bg-grid py-32 lg:py-48 flex justify-center items-center px-6 relative">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+            <div class="max-w-3xl w-full bento-card p-8 md:p-16 text-center relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-operator-cyan to-transparent opacity-50"></div>
+                <h2 class="font-sans font-black text-4xl md:text-6xl text-white mb-6">戦略ではなく、<br>システムを要求せよ。</h2>
+                <p class="font-sans text-gray-400 mb-12">現状の課題をインプットしてください。<br>我々がアーキテクチャの青図（Blueprint）を生成します。</p>
+                <div class="mx-auto w-full max-w-md bg-black border border-gray-800 text-left p-4 mb-8 font-mono text-xs text-gray-500 rounded flex flex-col gap-2 relative">
+                    <div class="absolute left-0 top-0 h-full w-1 bg-operator-amber"></div>
+                    <div>$ user.request_session(time="30min", type="diagnostic")</div>
+                    <div class="text-operator-amber">Authenticating root privileges... OK.</div>
+                    <div class="flex items-center gap-2">> <span class="w-2 h-4 bg-white cursor-blink block"></span></div>
+                </div>
+                <a href="#" class="inline-flex items-center justify-center font-sans font-bold text-lg md:text-xl text-black bg-operator-cyan px-12 py-5 btn-clip hover:bg-white transition-colors uppercase tracking-widest shadow-[0_0_40px_rgba(0,229,255,0.3)]">無料AI診断 30分相談</a>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-operator-black border-t border-gray-800 py-12 px-6 lg:px-12 mb-8 relative font-mono text-xs text-gray-600">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+            <div><div class="text-white font-inter font-bold tracking-[0.2em] mb-4 flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12l10-10 10 10-10 10L2 12z" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>VERITAS AI PARTNERS</div><p>JAPAN / GLOBAL OPERATIONAL NODE</p><p class="mt-1">GRID: 35.6895° N, 139.6917° E</p></div>
+            <div class="flex flex-col md:text-right space-y-2"><a href="#" class="hover:text-operator-cyan">Privacy Policy</a><a href="#" class="hover:text-operator-cyan">Terms of Service</a><a href="#" class="hover:text-operator-cyan">Company Information</a><div class="mt-4 pt-4 border-t border-gray-800">&copy; 2026 Veritas AI Partners. All Systems Operational.</div></div>
+        </div>
+    </footer>
+    <script>
+        function updateClock() { const now = new Date(); const h = String(now.getHours()).padStart(2, '0'); const m = String(now.getMinutes()).padStart(2, '0'); const s = String(now.getSeconds()).padStart(2, '0'); const ms = String(Math.floor(now.getMilliseconds()/10)).padStart(2,'0'); document.getElementById('clock').innerHTML = `${h}:${m}:${s}<span class="text-gray-600">:${ms}</span>`; requestAnimationFrame(updateClock); }
+        updateClock();
+        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+        document.addEventListener('mousemove', (e) => { if (window.scrollY < window.innerHeight) { targetX = (e.clientX/window.innerWidth - 0.5) * 2; targetY = (e.clientY/window.innerHeight - 0.5) * 2; } });
+        function animateParallax() { currentX += (targetX-currentX)*0.05; currentY += (targetY-currentY)*0.05; document.documentElement.style.setProperty('--m-x', currentX); document.documentElement.style.setProperty('--m-y', currentY); requestAnimationFrame(animateParallax); }
+        animateParallax();
+        const bgCounter = document.getElementById('hero-counter');
+        if(bgCounter) { setInterval(() => { let base = parseFloat(bgCounter.innerText); let f = (Math.random()-0.5)*0.5; let nv = base + f; if(nv>99)nv=99; if(nv<80)nv=80; bgCounter.innerText = nv.toFixed(1); }, 300); }
+    </script>
+</body>
+</html>
+</content>
+</invoke>

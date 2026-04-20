@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veritas — 6 Concept Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #050505; color: #fff; font-family: 'Inter', 'Noto Sans JP', sans-serif; overflow-x: hidden; }
+body { min-height: 100vh; }
+
+/* ===== Tab nav ===== */
+.tabs {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(5,5,5,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 12px 20px; display: flex; gap: 8px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto; padding: 10px 18px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.55); cursor: pointer;
+  font-size: 13px; font-weight: 500; transition: all 0.25s;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.tab:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+.tab.active { background: #fff; color: #000; border-color: #fff; }
+.tab .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: 0.6; }
+
+.panel { display: none; min-height: 100vh; padding-top: 60px; }
+.panel.active { display: block; }
+
+/* ============================================================ */
+/* ===== CONCEPT 1: LIVE AI DEMO  =============================== */
+/* ============================================================ */
+.c1 { background: radial-gradient(ellipse at 30% 20%, #1a0d3d 0%, #050505 60%); min-height: 100vh; position: relative; overflow: hidden; }
+.c1-hero { padding: 80px 60px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; min-height: calc(100vh - 60px); }
+.c1-headline { font-size: clamp(40px, 5vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; }
+.c1-headline em { font-style: normal; background: linear-gradient(135deg, #00D4AA, #7C5CFC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.c1-sub { font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 40px; max-width: 520px; }
+.c1-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid rgba(0,212,170,0.4); background: rgba(0,212,170,0.08); border-radius: 999px; color: #00D4AA; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 32px; }
+.c1-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #00D4AA; box-shadow: 0 0 10px #00D4AA; animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.c1-demo { background: rgba(15,15,20,0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 24px; backdrop-filter: blur(16px); position: relative; overflow: hidden; }
+.c1-demo::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00D4AA, transparent); animation: scanLine 3s linear infinite; }
+@keyframes scanLine { 0%{transform: translateX(-100%);} 100%{transform: translateX(100%);} }
+.c1-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.c1-demo-title { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #00D4AA; }
+.c1-demo-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4); }
+.c1-demo-input { display: flex; gap: 12px; margin-bottom: 20px; }
+.c1-demo-input input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px 16px; color: #fff; font-size: 14px; font-family: inherit; }
+.c1-demo-input input:focus { outline: none; border-color: #00D4AA; }
+.c1-demo-input button { background: linear-gradient(135deg, #00D4AA, #7C5CFC); color: #000; border: none; border-radius: 10px; padding: 14px 24px; font-weight: 700; cursor: pointer; font-size: 13px; }
+.c1-stream { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.7; min-height: 180px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+.c1-stream .typing { color: #00D4AA; }
+.c1-stream .key { color: #7C5CFC; }
+.c1-cursor { display: inline-block; width: 8px; height: 16px; background: #00D4AA; vertical-align: middle; animation: blink 0.8s infinite; }
+
+/* ============================================================ */
+/* ===== CONCEPT 2: WAR ROOM  =================================== */
+/* ============================================================ */
+.c2 { background: #050a0e; min-height: 100vh; padding: 80px 40px; position: relative; }
+.c2::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,255,170,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,170,0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+.c2-header { max-width: 1500px; margin: 0 auto 30px; display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; }
+.c2-title { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #00D4AA; letter-spacing: 0.2em; }
+.c2-time { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,0.5); }
+.c2-headline { font-size: clamp(36px, 4vw, 56px); font-weight: 900; line-height: 1.1; max-width: 1500px; margin: 0 auto 40px; position: relative; z-index: 1; letter-spacing: -0.02em; }
+.c2-grid { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; z-index: 1; }
+.c2-card { background: rgba(10,15,20,0.7); border: 1px solid rgba(0,212,170,0.15); border-radius: 8px; padding: 20px; min-height: 140px; position: relative; overflow: hidden; }
+.c2-card.wide { grid-column: span 2; }
+.c2-card.tall { grid-row: span 2; }
+.c2-card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; }
+.c2-card-value { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; }
+.c2-card-value.up { color: #00D4AA; }
+.c2-card-value.down { color: #ff4d6d; }
+.c2-card-delta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.5); }
+.c2-card-delta.up { color: #00D4AA; }
+.c2-card-delta.down { color: #ff4d6d; }
+.c2-spark { position: absolute; bottom: 0; left: 0; right: 0; height: 50px; opacity: 0.6; }
+.c2-tag { display: inline-block; padding: 3px 8px; background: rgba(0,212,170,0.15); border: 1px solid rgba(0,212,170,0.3); border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #00D4AA; letter-spacing: 0.1em; }
+.c2-feed { background: rgba(10,15,20,0.7); border: 1px solid rgba(0,212,170,0.15); border-radius: 8px; padding: 20px; }
+.c2-feed-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.7); }
+.c2-feed-row .t { color: #00D4AA; flex: 0 0 70px; }
+.c2-feed-row .lvl { flex: 0 0 50px; padding: 1px 6px; border-radius: 2px; text-align: center; font-size: 9px; }
+.c2-feed-row .lvl.ok { background: rgba(0,212,170,0.2); color: #00D4AA; }
+.c2-feed-row .lvl.warn { background: rgba(255,180,0,0.2); color: #ffb400; }
+.c2-feed-row .lvl.alert { background: rgba(255,77,109,0.2); color: #ff4d6d; }
+
+/* ============================================================ */
+/* ===== CONCEPT 3: VS CHALLENGER  ============================== */
+/* ============================================================ */
+.c3 { background: #fff; color: #000; min-height: 100vh; padding: 80px 60px; }
+.c3-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #ff2d2d; margin-bottom: 24px; max-width: 1400px; margin-left: auto; margin-right: auto; }
+.c3-headline { font-size: clamp(50px, 7vw, 110px); font-weight: 900; line-height: 0.92; letter-spacing: -0.04em; max-width: 1400px; margin: 0 auto 50px; }
+.c3-headline .vs { color: #ff2d2d; font-style: italic; font-family: 'Inter', serif; font-weight: 900; }
+.c3-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: stretch; }
+.c3-col { padding: 40px 32px; }
+.c3-col-them { background: #f4f4f4; }
+.c3-col-us { background: #000; color: #fff; }
+.c3-col-vs { display: flex; align-items: center; justify-content: center; font-size: 80px; font-weight: 900; font-style: italic; color: #ff2d2d; }
+.c3-col h3 { font-size: 22px; font-weight: 800; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid currentColor; }
+.c3-col-them h3 { color: #999; }
+.c3-row { display: flex; gap: 12px; padding: 14px 0; font-size: 16px; line-height: 1.5; }
+.c3-row .icon { flex: 0 0 24px; font-size: 20px; }
+.c3-col-them .icon { color: #999; }
+.c3-col-us .icon { color: #00D4AA; }
+.c3-col-them .row-text { color: #777; text-decoration: line-through; }
+.c3-col-us .row-text { color: #fff; font-weight: 500; }
+.c3-bottom { max-width: 1400px; margin: 60px auto 0; display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-top: 1px solid #000; }
+.c3-cta { padding: 18px 36px; background: #ff2d2d; color: #fff; font-weight: 800; text-decoration: none; font-size: 16px; letter-spacing: 0.05em; }
+
+/* ============================================================ */
+/* ===== CONCEPT 4: SAMURAI TECH  =============================== */
+/* ============================================================ */
+.c4 { background: #0a0a0a; min-height: 100vh; position: relative; overflow: hidden; }
+.c4::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+  opacity: 0.5; pointer-events: none;
+}
+.c4-ink {
+  position: absolute; top: 10%; right: -5%; width: 60%; height: 80%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(180,30,40,0.5) 0%, transparent 50%),
+              radial-gradient(ellipse at 30% 70%, rgba(50,30,80,0.4) 0%, transparent 60%),
+              radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 0%, transparent 70%);
+  filter: blur(40px); pointer-events: none; opacity: 0.7;
+}
+.c4-circle {
+  position: absolute; top: 50%; right: 8%; width: 480px; height: 480px;
+  border-radius: 50%; transform: translateY(-50%);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: inset 0 0 200px rgba(180,30,40,0.3), 0 0 100px rgba(0,0,0,0.8);
+}
+.c4-circle::after {
+  content: '実'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'Shippori Mincho', serif; font-size: 320px; font-weight: 900;
+  color: rgba(255,255,255,0.06); -webkit-text-stroke: 1px rgba(180,30,40,0.4);
+}
+.c4-hero { position: relative; z-index: 2; padding: 100px 80px; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 60px); display: flex; flex-direction: column; justify-content: center; }
+.c4-eyebrow { display: flex; align-items: center; gap: 12px; font-family: 'Shippori Mincho', serif; font-size: 14px; letter-spacing: 0.4em; color: rgba(180,30,40,0.9); margin-bottom: 32px; }
+.c4-eyebrow::before { content: ''; width: 40px; height: 1px; background: rgba(180,30,40,0.6); }
+.c4-headline {
+  font-family: 'Shippori Mincho', serif; font-weight: 900;
+  font-size: clamp(60px, 8vw, 130px); line-height: 1; letter-spacing: 0.02em;
+  margin-bottom: 32px; color: #fff;
+  text-shadow: 0 0 30px rgba(180,30,40,0.4);
+}
+.c4-headline .accent { color: #d92434; }
+.c4-vertical { writing-mode: vertical-rl; position: absolute; right: 30px; top: 100px; font-family: 'Shippori Mincho', serif; font-size: 14px; letter-spacing: 0.5em; color: rgba(255,255,255,0.3); }
+.c4-sub { font-family: 'Shippori Mincho', serif; font-size: 22px; line-height: 1.9; color: rgba(255,255,255,0.7); max-width: 580px; margin-bottom: 40px; }
+.c4-meta { display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.2em; }
+
+/* ============================================================ */
+/* ===== CONCEPT 5: ALL-LLM ARENA  ============================== */
+/* ============================================================ */
+.c5 { background: #050505; min-height: 100vh; }
+.c5-top { padding: 30px 40px; max-width: 1500px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; }
+.c5-headline { font-size: clamp(28px, 3vw, 44px); font-weight: 900; line-height: 1.1; max-width: 700px; }
+.c5-headline .gradient { background: linear-gradient(90deg, #7C5CFC, #00D4AA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.c5-prompt { background: rgba(20,20,25,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 20px; max-width: 500px; min-width: 380px; }
+.c5-prompt-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #00D4AA; letter-spacing: 0.2em; margin-bottom: 8px; }
+.c5-prompt-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+.c5-arena { max-width: 1500px; margin: 30px auto 0; padding: 0 40px 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.c5-llm { background: rgba(15,15,20,0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; min-height: 420px; position: relative; overflow: hidden; }
+.c5-llm[data-color="violet"] { border-color: rgba(124,92,252,0.3); }
+.c5-llm[data-color="cyan"] { border-color: rgba(0,212,170,0.3); }
+.c5-llm[data-color="orange"] { border-color: rgba(255,150,50,0.3); }
+.c5-llm[data-color="pink"] { border-color: rgba(255,90,150,0.3); }
+.c5-llm-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.c5-llm-name { font-weight: 800; font-size: 16px; }
+.c5-llm-vendor { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; margin-top: 2px; }
+.c5-llm-badge { padding: 4px 10px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+.c5-llm[data-color="violet"] .c5-llm-badge { background: rgba(124,92,252,0.2); color: #b09dff; }
+.c5-llm[data-color="cyan"] .c5-llm-badge { background: rgba(0,212,170,0.2); color: #00D4AA; }
+.c5-llm[data-color="orange"] .c5-llm-badge { background: rgba(255,150,50,0.2); color: #ff9632; }
+.c5-llm[data-color="pink"] .c5-llm-badge { background: rgba(255,90,150,0.2); color: #ff5a96; }
+.c5-llm-streaming { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 16px; min-height: 200px; }
+.c5-llm-streaming .pulse { width: 6px; height: 14px; background: currentColor; display: inline-block; vertical-align: middle; animation: blink 0.8s infinite; }
+.c5-llm-meta { position: absolute; bottom: 16px; left: 20px; right: 20px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.4); }
+.c5-meta-good { color: #00D4AA; }
+.c5-orchestrator { max-width: 1500px; margin: 0 auto 40px; padding: 24px 40px; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; }
+.c5-orch-text { font-size: 14px; color: rgba(255,255,255,0.7); }
+.c5-orch-text strong { color: #fff; font-weight: 800; }
+.c5-orch-cta { padding: 12px 24px; background: #fff; color: #000; border-radius: 999px; font-weight: 800; font-size: 13px; text-decoration: none; }
+
+/* ============================================================ */
+/* ===== CONCEPT 6: NORAD LIVE LOG  ============================= */
+/* ============================================================ */
+.c6 { background: #000; color: #00ff88; min-height: 100vh; font-family: 'JetBrains Mono', monospace; padding: 80px 40px; position: relative; overflow: hidden; }
+.c6::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,255,136,0.04) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+.c6-top { max-width: 1600px; margin: 0 auto 30px; display: flex; justify-content: space-between; }
+.c6-id { font-size: 12px; letter-spacing: 0.2em; }
+.c6-id .dot { color: #00ff88; }
+.c6-stamp { font-size: 12px; color: rgba(0,255,136,0.5); }
+.c6-headline-wrap { max-width: 1600px; margin: 0 auto 40px; }
+.c6-headline {
+  font-family: 'Inter', monospace; font-size: clamp(50px, 7vw, 110px); font-weight: 900;
+  color: #fff; line-height: 0.95; letter-spacing: -0.04em;
+}
+.c6-headline .green { color: #00ff88; }
+.c6-headline .strike { text-decoration: line-through; opacity: 0.3; }
+.c6-meta { color: rgba(0,255,136,0.7); font-size: 13px; margin-top: 16px; letter-spacing: 0.1em; }
+.c6-grid { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.c6-pane { background: rgba(0,30,15,0.4); border: 1px solid rgba(0,255,136,0.25); border-radius: 4px; padding: 16px; min-height: 380px; position: relative; }
+.c6-pane-head { display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px dashed rgba(0,255,136,0.3); margin-bottom: 12px; font-size: 11px; letter-spacing: 0.15em; }
+.c6-pane-head .lbl { color: #00ff88; }
+.c6-pane-head .badge { padding: 2px 8px; border: 1px solid currentColor; border-radius: 2px; font-size: 9px; }
+.c6-log-line { font-size: 12px; line-height: 1.8; padding: 2px 0; }
+.c6-log-line .time { color: rgba(0,255,136,0.6); margin-right: 12px; }
+.c6-log-line .tag { color: #00ff88; font-weight: 700; }
+.c6-log-line .ok { color: #00ff88; }
+.c6-log-line .warn { color: #ffaa00; }
+.c6-log-line .err { color: #ff4d6d; }
+.c6-log-line .dim { color: rgba(0,255,136,0.4); }
+.c6-cursor { display: inline-block; width: 8px; height: 14px; background: #00ff88; vertical-align: middle; animation: blink 1s infinite; }
+.c6-side { display: flex; flex-direction: column; gap: 16px; }
+.c6-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.c6-stat { background: rgba(0,30,15,0.4); border: 1px solid rgba(0,255,136,0.25); border-radius: 4px; padding: 16px; }
+.c6-stat-lbl { font-size: 10px; color: rgba(0,255,136,0.6); letter-spacing: 0.15em; margin-bottom: 8px; }
+.c6-stat-val { font-size: 28px; color: #00ff88; font-weight: 700; }
+.c6-stat-val.white { color: #fff; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== TABS ===== -->
+<div class="tabs">
+  <button class="tab active" data-tab="1"><span class="num">01</span> Live AI Demo</button>
+  <button class="tab" data-tab="2"><span class="num">02</span> War Room</button>
+  <button class="tab" data-tab="3"><span class="num">03</span> Challenger</button>
+  <button class="tab" data-tab="4"><span class="num">04</span> Samurai Tech</button>
+  <button class="tab" data-tab="5"><span class="num">05</span> All-LLM Arena</button>
+  <button class="tab" data-tab="6"><span class="num">06</span> NORAD Log</button>
+</div>
+
+<!-- ===== CONCEPT 1: LIVE AI DEMO ===== -->
+<section class="panel active c1" data-panel="1">
+  <div class="c1-hero">
+    <div>
+      <div class="c1-eyebrow"><span class="c1-live-dot"></span>LIVE AI · 触れて、その場で動く</div>
+      <h1 class="c1-headline">読まずに、<br><em>触ってください。</em></h1>
+      <p class="c1-sub">提案書のサンプルではない。このページに埋め込まれた実物のAIが、あなたの業界を入力するだけで、30秒で診断レポートを生成します。これがVeritasの仕事の標準。</p>
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:#fff;color:#000;border-radius:999px;text-decoration:none;font-weight:800;font-size:15px;">
+        無料AI診断を予約する <i class="ph-bold ph-arrow-right"></i>
+      </a>
+    </div>
+    <div class="c1-demo">
+      <div class="c1-demo-header">
+        <div class="c1-demo-title">▸ Veritas.diagnose()</div>
+        <div class="c1-demo-status">claude-opus-4 · streaming</div>
+      </div>
+      <div class="c1-demo-input">
+        <input type="text" placeholder="例: BtoB SaaS / 製造業 / 美容クリニック..." value="化粧品EC（年商3億円・LINE会員2万人）">
+        <button>診断 →</button>
+      </div>
+      <div class="c1-stream">
+<span class="key">[INPUT]</span> 化粧品EC（年商3億円・LINE会員2万人）
+<span class="key">[ANALYSIS]</span> <span class="typing">業界平均と比較中...</span>
+<span class="key">[BOTTLENECK]</span> CS応答時間が業界平均の<span class="typing">3.2倍</span>
+<span class="key">[OPPORTUNITY]</span> LINE × Claude APIで応答時間 <span class="typing">▼ 96%短縮</span>
+<span class="key">[ROI]</span> 月次工数削減 <span class="typing">¥620,000相当</span>
+<span class="key">[NEXT]</span> 実装期間 <span class="typing">3週間</span> / 投資回収 <span class="typing">2.4ヶ月</span><span class="c1-cursor"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONCEPT 2: WAR ROOM ===== -->
+<section class="panel c2" data-panel="2">
+  <div class="c2-header">
+    <div class="c2-title">▸ FELIDENTIA.OPS · LIVE</div>
+    <div class="c2-time" id="c2-time">2026-04-19 17:42:08 JST</div>
+  </div>
+  <h1 class="c2-headline">これが我々の<br>毎日です。</h1>
+  <div class="c2-grid">
+    <div class="c2-card wide">
+      <div class="c2-card-label"><span>SK本舗 · TODAY GMV</span><span class="c2-tag">LIVE</span></div>
+      <div class="c2-card-value up">¥1,847,200</div>
+      <div class="c2-card-delta up">▲ +18.4% vs 7d avg</div>
+    </div>
+    <div class="c2-card">
+      <div class="c2-card-label"><span>LINE 配信 OPEN</span><span class="c2-tag">2H</span></div>
+      <div class="c2-card-value">62.3%</div>
+      <div class="c2-card-delta up">▲ +4.1pt</div>
+    </div>
+    <div class="c2-card">
+      <div class="c2-card-label"><span>CS 応答 P50</span><span class="c2-tag">AI</span></div>
+      <div class="c2-card-value up">42s</div>
+      <div class="c2-card-delta up">▼ -96% vs human</div>
+    </div>
+    <div class="c2-card tall">
+      <div class="c2-card-label"><span>AMAZON ROAS</span><span class="c2-tag">7D</span></div>
+      <div class="c2-card-value">8.4×</div>
+      <div class="c2-card-delta up">▲ +1.2× MoM</div>
+      <div style="margin-top:24px;">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;letter-spacing:0.15em;margin-bottom:12px;">CAMPAIGN HEALTH</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'JetBrains Mono',monospace;"><span style="color:rgba(255,255,255,0.7);">Bambu Lab P1S</span><span class="up" style="color:#00D4AA;">12.3×</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'JetBrains Mono',monospace;"><span style="color:rgba(255,255,255,0.7);">ELEGOO Saturn 4</span><span class="up" style="color:#00D4AA;">9.8×</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'JetBrains Mono',monospace;"><span style="color:rgba(255,255,255,0.7);">水洗いレジン</span><span class="up" style="color:#00D4AA;">7.1×</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'JetBrains Mono',monospace;"><span style="color:rgba(255,255,255,0.7);">xTool Laser</span><span class="down" style="color:#ff4d6d;">3.2×</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="c2-card">
+      <div class="c2-card-label"><span>競合監視</span><span class="c2-tag">ALERT</span></div>
+      <div class="c2-card-value down">3</div>
+      <div class="c2-card-delta down">▲ 価格変動検知</div>
+    </div>
+    <div class="c2-card">
+      <div class="c2-card-label"><span>DEPLOY 24H</span><span class="c2-tag">CI</span></div>
+      <div class="c2-card-value up">14</div>
+      <div class="c2-card-delta">100% green</div>
+    </div>
+    <div class="c2-feed wide" style="grid-column: span 2;">
+      <div class="c2-card-label" style="margin-bottom:12px;"><span>OPS FEED · LAST 8 EVENTS</span><span class="c2-tag">LIVE</span></div>
+      <div class="c2-feed-row"><span class="t">17:41:52</span><span class="lvl ok">OK</span><span>LINE broadcast: 春の3Dプリンター祭 → 6,184 users delivered (98.7%)</span></div>
+      <div class="c2-feed-row"><span class="t">17:39:18</span><span class="lvl ok">OK</span><span>Vercel deploy: sk-portal v2.14.1 → production (build 24s)</span></div>
+      <div class="c2-feed-row"><span class="t">17:36:02</span><span class="lvl warn">WRN</span><span>競合監視: サンステラ Bambu Lab P1S 値下げ ¥99,800 → ¥94,800</span></div>
+      <div class="c2-feed-row"><span class="t">17:33:47</span><span class="lvl ok">OK</span><span>Claude API: CS auto-reply generated 84 tickets / cost $1.42</span></div>
+      <div class="c2-feed-row"><span class="t">17:31:09</span><span class="lvl ok">OK</span><span>cron: Bambu watcher detected 2 new SKUs → drafts created</span></div>
+      <div class="c2-feed-row"><span class="t">17:28:33</span><span class="lvl alert">ALR</span><span>Amazon広告: xTool Laser ROAS &lt; 4× → pause recommended</span></div>
+      <div class="c2-feed-row"><span class="t">17:25:01</span><span class="lvl ok">OK</span><span>Stock signal: 三菱重工(7011) buy signal triggered 信用取引</span></div>
+      <div class="c2-feed-row"><span class="t">17:22:48</span><span class="lvl ok">OK</span><span>weekly-report-bot: Discord post #ops-summary delivered</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONCEPT 3: CHALLENGER ===== -->
+<section class="panel c3" data-panel="3">
+  <div class="c3-eyebrow">▸ MANIFESTO · 業界への挑戦状</div>
+  <h1 class="c3-headline">PowerPoint <span class="vs">vs.</span><br>Production Code.</h1>
+  <div class="c3-grid">
+    <div class="c3-col c3-col-them">
+      <h3>従来のAIコンサル</h3>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">3ヶ月で「示唆」を提案書にまとめる</span></div>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">月額300万円〜、大企業前提</span></div>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">PoC（概念実証）で終わる</span></div>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">提案者は実装したことがない</span></div>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">「業務改革しましょう」</span></div>
+      <div class="c3-row"><span class="icon">✕</span><span class="row-text">納品物: スライド 80枚</span></div>
+    </div>
+    <div class="c3-col-vs">VS</div>
+    <div class="c3-col c3-col-us">
+      <h3>VERITAS AI PARTNERS</h3>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">3週間で「動くシステム」を本番投入</span></div>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">15万円〜、中小企業に最適化</span></div>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">毎日6事業で本番運用中</span></div>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">経営者自身が Claude Code で実装</span></div>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">「明日からこれを使ってください」</span></div>
+      <div class="c3-row"><span class="icon">◎</span><span class="row-text">納品物: GitHub repo + 稼働中システム</span></div>
+    </div>
+  </div>
+  <div class="c3-bottom">
+    <div style="font-size:14px;color:#777;font-family:'JetBrains Mono',monospace;letter-spacing:0.15em;">▸ 提案書はもう、聞き飽きた。</div>
+    <a href="#" class="c3-cta">無料AI診断を予約 →</a>
+  </div>
+</section>
+
+<!-- ===== CONCEPT 4: SAMURAI TECH ===== -->
+<section class="panel c4" data-panel="4">
+  <div class="c4-ink"></div>
+  <div class="c4-circle"></div>
+  <div class="c4-vertical">VERITAS · MMXXVI · TOKYO</div>
+  <div class="c4-hero">
+    <div class="c4-eyebrow">和魂 × AI · 経営の刀</div>
+    <h1 class="c4-headline">実装、<br>ただ、<span class="accent">それ</span>のみ。</h1>
+    <p class="c4-sub">武の本質は、抜くまでもなく勝つこと。<br>AIの本質も、語るまでもなく動かすこと。<br>提案書を抜く者と、コードを書く者は、別の流派である。</p>
+    <div class="c4-meta">
+      <span>EST. 二〇二四</span>
+      <span>·</span>
+      <span>東京 / 恵比寿</span>
+      <span>·</span>
+      <span style="color:#d92434;">FELIDENTIA CAPITAL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONCEPT 5: ALL-LLM ARENA ===== -->
+<section class="panel c5" data-panel="5">
+  <div class="c5-top">
+    <h1 class="c5-headline">同じ問いを、<span class="gradient">全LLMに同時投下する。</span><br>それが我々の標準工程です。</h1>
+    <div class="c5-prompt">
+      <div class="c5-prompt-label">▸ TODAY'S BENCHMARK PROMPT</div>
+      <div class="c5-prompt-text">"中小企業向けLINE CRMにおいて、Claude APIとGPT APIを使い分ける最適な分岐ロジックを設計せよ"</div>
+    </div>
+  </div>
+  <div class="c5-arena">
+    <div class="c5-llm" data-color="violet">
+      <div class="c5-llm-head">
+        <div>
+          <div class="c5-llm-name">Claude Opus 4</div>
+          <div class="c5-llm-vendor">ANTHROPIC</div>
+        </div>
+        <div class="c5-llm-badge">★ BEST</div>
+      </div>
+      <div class="c5-llm-streaming">
+複雑な意図解釈と長文応答が必要な場合は Claude を採用。具体的には:<br><br>
+1. 顧客の質問が3往復以上 →<br>2. 商品比較・技術仕様の説明 →<br>3. 感情的なクレーム対応 →<br><span style="color:#b09dff;">Claude Opus 4 にルーティング</span><span class="pulse" style="color:#b09dff;"></span>
+      </div>
+      <div class="c5-llm-meta"><span>3,247 tokens</span><span class="c5-meta-good">2.1s · $0.034</span></div>
+    </div>
+    <div class="c5-llm" data-color="cyan">
+      <div class="c5-llm-head">
+        <div>
+          <div class="c5-llm-name">GPT-5</div>
+          <div class="c5-llm-vendor">OPENAI</div>
+        </div>
+        <div class="c5-llm-badge">FAST</div>
+      </div>
+      <div class="c5-llm-streaming">
+速度重視のシナリオで採用。マルチモーダル入力（画像付き問い合わせ）に強み:<br><br>
+- 商品画像の不良判定<br>
+- レシート画像のOCR<br>
+- 即時レスポンス要求<span class="pulse" style="color:#00D4AA;"></span>
+      </div>
+      <div class="c5-llm-meta"><span>2,891 tokens</span><span class="c5-meta-good">0.9s · $0.012</span></div>
+    </div>
+    <div class="c5-llm" data-color="orange">
+      <div class="c5-llm-head">
+        <div>
+          <div class="c5-llm-name">Gemini 3.1 Pro</div>
+          <div class="c5-llm-vendor">GOOGLE</div>
+        </div>
+        <div class="c5-llm-badge">100M ctx</div>
+      </div>
+      <div class="c5-llm-streaming">
+長文脈解析タスクに採用。100万トークン×2倍推論ブースト:<br><br>
+- 過去2年分のCS全履歴<br>
+- 商品マニュアル全社統合<br>
+- 法務文書の長文比較<span class="pulse" style="color:#ff9632;"></span>
+      </div>
+      <div class="c5-llm-meta"><span>4,102 tokens</span><span class="c5-meta-good">1.8s · $0.024</span></div>
+    </div>
+    <div class="c5-llm" data-color="pink">
+      <div class="c5-llm-head">
+        <div>
+          <div class="c5-llm-name">Grok 4.20</div>
+          <div class="c5-llm-vendor">XAI</div>
+        </div>
+        <div class="c5-llm-badge">×16 PARALLEL</div>
+      </div>
+      <div class="c5-llm-streaming">
+リアルタイム情報・X(Twitter)分析で採用。16エージェント並列Deep Search:<br><br>
+- 競合の最新SNS動向<br>
+- 業界ニュース速報<br>
+- バイラル事象の検知<span class="pulse" style="color:#ff5a96;"></span>
+      </div>
+      <div class="c5-llm-meta"><span>5,820 tokens</span><span class="c5-meta-good">3.2s · $0.041</span></div>
+    </div>
+  </div>
+  <div class="c5-orchestrator">
+    <div class="c5-orch-text">▸ <strong>Veritas Orchestrator</strong> が、タスク特性に応じて最適LLMを自動選択。月間平均でコスト <strong style="color:#00D4AA;">▼ 64%</strong>、品質 <strong style="color:#00D4AA;">▲ 38%</strong></div>
+    <a href="#" class="c5-orch-cta">技術の詳細を見る →</a>
+  </div>
+</section>
+
+<!-- ===== CONCEPT 6: NORAD LIVE LOG ===== -->
+<section class="panel c6" data-panel="6">
+  <div class="c6-top">
+    <div class="c6-id">▸ <span class="dot">●</span> SYSTEM ID: VERITAS-CORE.7B22</div>
+    <div class="c6-stamp" id="c6-stamp">UPLINK 2026-04-19T17:42:08+09:00 · 99.97% UPTIME · 30D</div>
+  </div>
+  <div class="c6-headline-wrap">
+    <h1 class="c6-headline"><span class="strike">talk_about_AI()</span><br><span class="green">deploy()</span>.</h1>
+    <div class="c6-meta">▸ 我々のシステムは、語っている間にも稼働している。これはその実況。</div>
+  </div>
+  <div class="c6-grid">
+    <div class="c6-pane">
+      <div class="c6-pane-head"><span class="lbl">▸ PRODUCTION LOG · live tail</span><span class="badge">FOLLOWING</span></div>
+      <div class="c6-log-line"><span class="time">17:42:08</span><span class="tag">[claude-api]</span> <span class="ok">✓</span> sk-line-crm: 84 tickets auto-resolved · cost $1.42</div>
+      <div class="c6-log-line"><span class="time">17:41:52</span><span class="tag">[line-broadcast]</span> <span class="ok">✓</span> 6,184 users · open 62.3% · CTR 8.4%</div>
+      <div class="c6-log-line"><span class="time">17:39:18</span><span class="tag">[vercel-deploy]</span> <span class="ok">✓</span> sk-portal v2.14.1 → prod · 24s</div>
+      <div class="c6-log-line"><span class="time">17:36:02</span><span class="tag">[bambu-watcher]</span> <span class="warn">!</span> サンステラ P1S ¥99,800 → ¥94,800 (-5.0%)</div>
+      <div class="c6-log-line"><span class="time">17:33:47</span><span class="tag">[claude-api]</span> <span class="ok">✓</span> blog-writer: 3 articles drafted · 14,200 chars</div>
+      <div class="c6-log-line"><span class="time">17:31:09</span><span class="tag">[cron:15min]</span> <span class="ok">✓</span> Bambu Lab 2 new SKUs → draft pages created</div>
+      <div class="c6-log-line"><span class="time">17:28:33</span><span class="tag">[ad-optimizer]</span> <span class="err">✕</span> xTool Laser ROAS 3.2× &lt; threshold · paused</div>
+      <div class="c6-log-line"><span class="time">17:25:01</span><span class="tag">[stock-signal]</span> <span class="ok">✓</span> 7011 buy signal · alpaca paper trade triggered</div>
+      <div class="c6-log-line"><span class="time">17:22:48</span><span class="tag">[weekly-report]</span> <span class="ok">✓</span> Discord #ops-summary delivered</div>
+      <div class="c6-log-line"><span class="time">17:20:14</span><span class="tag">[mcp-server]</span> <span class="ok">✓</span> aidesigner generate · 13,871 tokens · $0.15</div>
+      <div class="c6-log-line"><span class="time">17:18:00</span><span class="tag">[gemini-api]</span> <span class="ok">✓</span> long-context analysis · 480k tokens · 18s</div>
+      <div class="c6-log-line"><span class="time">17:15:32</span><span class="tag">[claude-code]</span> <span class="ok">✓</span> sk-monitor: 14 commits · 0 conflicts</div>
+      <div class="c6-log-line"><span class="time">17:13:09</span><span class="tag">[zendesk-api]</span> <span class="ok">✓</span> 47 tickets routed via Veritas.classify()</div>
+      <div class="c6-log-line"><span class="time">17:11:58</span><span class="dim">···</span> awaiting next event<span class="c6-cursor"></span></div>
+    </div>
+    <div class="c6-side">
+      <div class="c6-stat-row">
+        <div class="c6-stat">
+          <div class="c6-stat-lbl">▸ AI CALLS · 24H</div>
+          <div class="c6-stat-val">14,820</div>
+        </div>
+        <div class="c6-stat">
+          <div class="c6-stat-lbl">▸ TOKENS · 24H</div>
+          <div class="c6-stat-val">8.4M</div>
+        </div>
+      </div>
+      <div class="c6-stat-row">
+        <div class="c6-stat">
+          <div class="c6-stat-lbl">▸ AGENTS RUNNING</div>
+          <div class="c6-stat-val white">23</div>
+        </div>
+        <div class="c6-stat">
+          <div class="c6-stat-lbl">▸ DEPLOYS · 7D</div>
+          <div class="c6-stat-val white">186</div>
+        </div>
+      </div>
+      <div class="c6-pane" style="min-height:auto;">
+        <div class="c6-pane-head"><span class="lbl">▸ ACTIVE LLM ROUTING</span><span class="badge">REAL-TIME</span></div>
+        <div class="c6-log-line"><span class="dim">[37%]</span> claude-opus-4 ████████░░░░</div>
+        <div class="c6-log-line"><span class="dim">[28%]</span> gpt-5 ██████░░░░░░</div>
+        <div class="c6-log-line"><span class="dim">[19%]</span> gemini-3.1-pro ████░░░░░░░░</div>
+        <div class="c6-log-line"><span class="dim">[11%]</span> grok-4.20 ██░░░░░░░░░░</div>
+        <div class="c6-log-line"><span class="dim">[ 5%]</span> deepseek-v3 █░░░░░░░░░░░</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Tab switcher
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector('[data-panel="' + t.dataset.tab + '"]').classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// Live time tickers
+function tick() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const stamp = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} JST`;
+  const c2 = document.getElementById('c2-time');
+  const c6 = document.getElementById('c6-stamp');
+  if (c2) c2.textContent = stamp;
+  if (c6) c6.textContent = `UPLINK ${now.toISOString()} · 99.97% UPTIME · 30D`;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
+</content>
+</invoke>

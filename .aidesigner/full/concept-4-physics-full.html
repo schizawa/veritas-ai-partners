@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth bg-bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | Implementation Physics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100;300;400;700&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], serif: ['Noto Serif JP', 'serif'], math: ['"Times New Roman"', 'serif'] },
+            colors: { bg: '#030305', surface: '#0a0a0f', surface2: '#12121a', border: '#1f1f2e', border_sub: '#161622', accent: { cyan: '#00f0ff', purple: '#b026ff', orange: '#ff5e00', chalk: '#e6e6e6' } },
+            backgroundImage: { 'grid-pattern': "linear-gradient(to right, #1f1f2e 1px, transparent 1px), linear-gradient(to bottom, #1f1f2e 1px, transparent 1px)", 'scan-gradient': "linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.1), transparent)" }
+        }}}
+    </script>
+    <style>
+        body { background-color: #030305; color: #e6e6e6; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; } ::-webkit-scrollbar-track { background: #030305; border-left: 1px solid #1f1f2e; } ::-webkit-scrollbar-thumb { background: #33334d; }
+        ::selection { background: #b026ff; color: #fff; }
+        .tex { font-family: 'Times New Roman', serif; font-style: italic; letter-spacing: 0.05em; }
+        .tex-op { font-family: 'Times New Roman', serif; font-style: normal; margin: 0 0.1em; }
+        .tex-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.3em; line-height: 1; }
+        .tex-frac-num { border-bottom: 1px solid currentColor; padding: 0 0.2em; font-size: 0.9em; }
+        .tex-frac-den { padding: 0 0.2em; font-size: 0.9em; }
+        .tex-int { font-size: 1.8em; line-height: 0.5; vertical-align: middle; margin-right: 0.1em; font-weight: 300; }
+        .blueprint-grid { background-size: 40px 40px; background-position: center top; opacity: 0.4; }
+        .paper-border { border: 1px solid #1f1f2e; box-shadow: inset 0 0 40px rgba(0,0,0,0.5); }
+        .scanner-line { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.4), transparent); animation: scanViewport 12s linear infinite; z-index: 100; pointer-events: none; }
+        @keyframes scanViewport { 0% { top: -10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 110%; opacity: 0; } }
+        .data-stream { animation: stream 20s linear infinite; }
+        @keyframes stream { 100% { background-position: 0 -1000px; } }
+        .fig-caption::before { content: "Fig " attr(data-fig) " — "; color: #00f0ff; font-family: 'JetBrains Mono', monospace; }
+        .table-caption::before { content: "Table " attr(data-fig) " — "; color: #b026ff; font-family: 'JetBrains Mono', monospace; }
+        .nav-link.active { color: #00f0ff; border-left-color: #00f0ff; background: rgba(0,240,255,0.05); }
+        .citation { position: relative; cursor: help; border-bottom: 1px dotted #aaddff; }
+        .citation:hover::after { content: attr(data-ref); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #12121a; border: 1px solid #1f1f2e; padding: 4px 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #00f0ff; white-space: nowrap; z-index: 50; margin-bottom: 4px; }
+    </style>
+</head>
+<body class="relative flex flex-col min-h-screen">
+    <div class="scanner-line"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none blueprint-grid bg-grid-pattern"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_70%_20%,_rgba(176,38,255,0.03)_0%,_transparent_50%)]"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_30%_80%,_rgba(0,240,255,0.03)_0%,_transparent_50%)]"></div>
+    <header class="fixed top-0 w-full z-50 border-b border-border bg-bg/80 backdrop-blur-md px-4 md:px-6 py-3 flex justify-between items-center font-mono text-xs uppercase tracking-wider text-zinc-400">
+        <div class="flex items-center gap-3 md:gap-6">
+            <span class="text-accent-chalk font-bold flex items-center gap-2"><i class="ph-bold ph-hexagon fill-accent-cyan text-base"></i>Veritas AI Partners</span>
+            <span class="hidden md:inline-block px-2 py-0.5 border border-border bg-surface text-zinc-500">Doc.Ref: V-26.1</span>
+        </div>
+        <a href="#section-6" class="px-4 py-1.5 bg-accent-chalk text-bg font-bold hover:bg-accent-cyan transition-colors flex items-center gap-2 relative isolate overflow-hidden group"><span class="relative z-10 hidden md:inline">Initialize Audit</span><span class="relative z-10 md:hidden">Audit</span><i class="ph-bold ph-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i></a>
+    </header>
+    <div class="h-14"></div>
+    <div class="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col lg:flex-row">
+        <aside class="w-full lg:w-64 lg:shrink-0 border-b lg:border-b-0 lg:border-r border-border bg-bg/95 z-40 lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] overflow-y-auto hidden md:block">
+            <div class="p-6">
+                <h2 class="font-mono text-[10px] text-zinc-500 tracking-widest mb-6 border-b border-border pb-2">CONTENTS / 目次</h2>
+                <nav class="flex flex-col gap-1 font-mono text-xs text-zinc-400">
+                    <a href="#abstract" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-cyan transition-colors">Abstract</a>
+                    <a href="#section-1" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-cyan transition-colors">Sec 1. Entropic Decay</a>
+                    <a href="#section-2" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-cyan transition-colors">Sec 2. Three Forces</a>
+                    <a href="#section-3" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-orange transition-colors">Sec 3. Empirical Evidence</a>
+                    <a href="#section-4" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-purple transition-colors">Sec 4. The Researcher</a>
+                    <a href="#section-5" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-accent-cyan transition-colors">Sec 5. References</a>
+                    <a href="#section-6" class="nav-link py-2 px-3 border-l-2 border-transparent hover:text-white transition-colors mt-4">>> Conclusion</a>
+                </nav>
+                <div class="mt-12 p-4 bg-surface border border-border">
+                    <div class="text-[10px] text-accent-cyan font-mono mb-2">System Status</div>
+                    <div class="flex justify-between text-xs text-zinc-400 font-mono border-b border-border_sub pb-1 mb-1"><span>Load</span><span>0.14%</span></div>
+                    <div class="flex justify-between text-xs text-zinc-400 font-mono border-b border-border_sub pb-1 mb-1"><span>Entropy</span><span class="text-accent-purple">Stable</span></div>
+                    <div class="flex justify-between text-xs text-zinc-400 font-mono"><span>Sync</span><span class="text-accent-orange animate-pulse">Running</span></div>
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 w-full relative">
+            <section id="abstract" class="min-h-screen flex flex-col justify-center px-6 lg:px-16 py-20 border-b border-border relative isolate">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,240,255,0.05)_0%,_transparent_50%)] z-0 pointer-events-none"></div>
+                <div class="max-w-4xl relative z-10">
+                    <div class="font-mono text-xs text-accent-cyan tracking-widest border-l-2 border-accent-cyan pl-3 mb-8">THESIS 0.0 / ABSTRACT</div>
+                    <h1 class="font-serif text-4xl md:text-5xl lg:text-7xl leading-[1.1] text-accent-chalk mb-8">AIは魔法ではない。<br>計算可能な<span class="text-accent-purple italic font-math">物理法則</span>である。</h1>
+                    <div class="font-sans text-base md:text-lg text-zinc-400 leading-relaxed max-w-2xl space-y-6 mb-12">
+                        <p>多くの企業がAIを「ブラックボックス化された奇跡」として盲信している。しかし現実は異なる。データパイプラインの構築、推論の最適化、事業価値への変換は、すべて流体力学や熱力学と同様に、計算・観測・制御が可能な<span class="citation text-zinc-200" data-ref="Ref 1: Dynamical Systems in Business">力学系（Dynamical System）</span>である。</p>
+                        <p>Veritas AI Partnersは、バズワードを排し、AIを「科学的学問」および「工学的実装」の地位へと昇格させる。事業変数をコードと時間で積分し、確実な成果を導き出す。</p>
+                    </div>
+                    <div class="p-6 md:p-10 border border-border bg-surface/50 backdrop-blur-sm relative overflow-hidden inline-block group">
+                        <div class="relative z-10">
+                            <div class="font-mono text-[10px] text-zinc-500 mb-4 uppercase">Eq 1. The Implementation Function</div>
+                            <div class="text-2xl md:text-5xl text-white flex items-center font-math">
+                                <span class="tex mr-4 text-accent-chalk">I</span><span class="tex-op mr-4">=</span><span class="text-accent-cyan tex-int">∫</span>
+                                <div class="flex flex-col text-[10px] md:text-xs text-accent-cyan mr-4 font-mono justify-between h-full py-1"><span>t_f</span><span>t_0</span></div>
+                                <span class="tex-op text-zinc-400">(</span>
+                                <span class="tex-frac"><span class="tex-frac-num text-accent-purple tex">α ∇ ⋅ S</span><span class="tex-frac-den text-zinc-500 text-[10px] font-mono">strategy</span></span>
+                                <span class="tex-op text-zinc-400 mx-3">+</span>
+                                <span class="tex-frac"><span class="tex-frac-num text-accent-cyan tex">β <span class="tex-op">∂</span>C</span><span class="tex-frac-den text-accent-cyan tex"><span class="tex-op">∂</span>t</span></span>
+                                <span class="tex-op text-zinc-400 ml-4">)</span><span class="tex ml-3 text-xl md:text-3xl text-zinc-300">dt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-10 left-6 lg:left-16 flex items-center gap-4 text-zinc-600 font-mono text-[10px] uppercase"><div class="h-[1px] w-12 bg-zinc-600"></div> Scroll to observe dynamics</div>
+            </section>
+            <section id="section-1" class="px-6 lg:px-16 py-24 border-b border-border bg-bg relative">
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start">
+                    <div class="space-y-8">
+                        <div class="font-mono text-[10px] text-zinc-500 tracking-widest flex items-center gap-2"><span class="w-2 h-2 bg-accent-orange"></span> SECTION 1.0</div>
+                        <h2 class="font-serif text-3xl text-accent-chalk">標準的AI導入における<br>エントロピー増大の法則</h2>
+                        <div class="font-sans text-sm text-zinc-400 leading-relaxed space-y-4">
+                            <p>目的なきAIツールの導入は、システム内に無作為なデータの振動を引き起こす。ツール群が孤立して稼働するとき、組織間のデータ交換において致命的な熱損失が発生し、系全体のエントロピー S は不可逆的に増大する。</p>
+                            <p>数式で表せば、現状のAIプロジェクトの多くは <span class="tex text-accent-orange">dS/dt > 0</span> の崩壊状態にある。</p>
+                        </div>
+                        <div class="border-l border-zinc-700 pl-4 py-2 mt-8"><div class="font-math text-xl text-zinc-300">ΔS_system = ∫ (δQ_friction / T) + S_debt</div><div class="font-mono text-[10px] text-zinc-500 mt-2">Where Q = Operational Friction, debt = Technical Debt</div></div>
+                    </div>
+                    <div class="paper-border bg-surface p-6 relative group isolate">
+                        <div class="absolute top-2 right-2 font-mono text-[10px] text-zinc-600 fig-caption" data-fig="1.1">Entropic Phase Diagram</div>
+                        <div class="h-64 mt-6 border-l border-b border-zinc-700 relative w-full pt-4 pr-4">
+                            <span class="absolute -left-6 top-1/2 -rotate-90 font-mono text-[10px] text-zinc-500">Entropy (S)</span>
+                            <span class="absolute left-1/2 -bottom-6 font-mono text-[10px] text-zinc-500">Time (t)</span>
+                            <svg class="absolute inset-0 w-full h-full overflow-visible p-2" preserveAspectRatio="none"><path d="M 10 240 Q 50 200 150 150 T 300 50" fill="none" stroke="#ff5e00" stroke-width="2" stroke-dasharray="4" class="opacity-50"/><path d="M 10 240 Q 50 240 150 240 T 300 240" fill="none" stroke="#00f0ff" stroke-width="2"/></svg>
+                            <div class="absolute top-12 right-12 text-accent-orange font-mono text-[10px] text-right">lim S = ∞<br>Standard Implementation</div>
+                            <div class="absolute bottom-4 right-12 text-accent-cyan font-mono text-[10px] text-right">dS/dt = 0<br>Veritas Architecture</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="section-2" class="px-6 lg:px-16 py-24 border-b border-border bg-surface2 relative">
+                <div class="mb-16">
+                    <div class="font-mono text-[10px] text-zinc-500 tracking-widest flex items-center gap-2 mb-4"><span class="w-2 h-2 bg-accent-cyan"></span> SECTION 2.0</div>
+                    <h2 class="font-serif text-3xl text-accent-chalk mb-4">実装における3つの基本相互作用</h2>
+                    <p class="font-sans text-sm text-zinc-400 max-w-2xl">宇宙が強い力・電磁気力・重力によって構成されるように、確実なAI実装は3つの独立したサービスレイヤー（力学的ベクトル）の合成によって成立する。</p>
+                </div>
+                <div class="flex flex-col gap-8">
+                    <div class="border border-border bg-bg flex flex-col md:flex-row p-0 overflow-hidden relative group">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent-purple scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></div>
+                        <div class="md:w-1/3 bg-surface p-8 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center">
+                            <div class="font-mono text-xs text-accent-purple mb-2">Vector 1. F_strategy</div>
+                            <div class="font-serif text-lg text-white mb-4">AI診断・戦略構築</div>
+                            <div class="font-math text-2xl text-accent-purple drop-shadow-[0_0_8px_rgba(176,38,255,0.3)]">F₁ = ∇U_value</div>
+                            <div class="mt-4 font-mono text-xs text-zinc-500">¥150k-¥300k / 1-2 weeks</div>
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h3 class="font-sans font-bold text-zinc-200 mb-2 border-b border-border_sub pb-2 inline-block">Architecture & Blueprint (強い力)</h3>
+                            <p class="font-sans text-sm text-zinc-400 leading-relaxed">事業上の課題のポテンシャルエネルギー勾配を計算し、AIをどこに組み込めば最も仕事量（ROI）が最大化されるかを定義する。局所的なツール導入ではなく、システム全体のアーキテクチャ再設計を行う技術顧問サービス。</p>
+                        </div>
+                    </div>
+                    <div class="border border-border bg-bg flex flex-col md:flex-row p-0 overflow-hidden relative group">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent-cyan scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></div>
+                        <div class="md:w-1/3 bg-surface p-8 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center">
+                            <div class="font-mono text-xs text-accent-cyan mb-2">Vector 2. F_code</div>
+                            <div class="font-serif text-lg text-white mb-4">AI実装・システム開発</div>
+                            <div class="font-math text-2xl text-accent-cyan drop-shadow-[0_0_8px_rgba(0,240,255,0.3)]">F₂ = ∮ C · dl</div>
+                            <div class="mt-4 font-mono text-xs text-zinc-500">¥500k-¥1.5m / 3-6 weeks</div>
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h3 class="font-sans font-bold text-zinc-200 mb-2 border-b border-border_sub pb-2 inline-block">Engineering & Integration (電磁気力)</h3>
+                            <p class="font-sans text-sm text-zinc-400 leading-relaxed">LLM API統合、RAGパイプライン構築、既存CRMや社内DBとの安全な結合。机上の空論ではなく、堅牢なTypeScript/Pythonバックエンドを通じて実際のコード空間に推論能力を結合させる。</p>
+                        </div>
+                    </div>
+                    <div class="border border-border bg-bg flex flex-col md:flex-row p-0 overflow-hidden relative group">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-zinc-500 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></div>
+                        <div class="md:w-1/3 bg-surface p-8 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center">
+                            <div class="font-mono text-xs text-zinc-500 mb-2">Constant. C_ops</div>
+                            <div class="font-serif text-lg text-white mb-4">AI顧問・継続最適化</div>
+                            <div class="font-math text-2xl text-zinc-400">C = -∂L/∂w</div>
+                            <div class="mt-4 font-mono text-xs text-zinc-500">¥150k-¥500k / 月額</div>
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h3 class="font-sans font-bold text-zinc-200 mb-2 border-b border-border_sub pb-2 inline-block">Maintenance & Evolution (重力)</h3>
+                            <p class="font-sans text-sm text-zinc-400 leading-relaxed">実装されたシステムは環境変化で劣化する。プロンプト再計測、ベクトルDB更新、モデル微調整を通じ、システム精度を定常状態に維持するための継続的引力。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="section-3" class="px-6 lg:px-16 py-24 border-b border-border bg-bg relative overflow-hidden">
+                <div class="absolute -right-64 top-20 w-[800px] h-[800px] bg-accent-orange/5 blur-[120px] rounded-full pointer-events-none"></div>
+                <div class="mb-16 relative z-10">
+                    <div class="font-mono text-[10px] text-zinc-500 tracking-widest flex items-center gap-2 mb-4"><span class="w-2 h-2 bg-accent-purple"></span> SECTION 3.0</div>
+                    <h2 class="font-serif text-3xl text-accent-chalk mb-4">経験的証拠（実験環境の観測結果）</h2>
+                    <p class="font-sans text-sm text-zinc-400 max-w-2xl">構築された仮想理論は、市場という物理世界で証明されなければ無価値である。以下は特定条件下の初期値から力学系を稼働させた際の、客観的かつ計量的な観測データである。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                    <div class="border border-border bg-surface p-6 flex flex-col justify-between aspect-square group hover:border-accent-cyan/50 transition-colors">
+                        <div>
+                            <div class="font-mono text-[10px] text-accent-cyan mb-1 flex justify-between"><span>[ Exp α ]</span><span>p &lt; 0.01</span></div>
+                            <h3 class="font-serif text-lg text-white mb-2">LINE CRM AI Integration</h3>
+                            <p class="font-sans text-xs text-zinc-400 border-b border-border pb-4">従来型の静的シナリオ応答を、動的RAGに置換。ユーザーのコンテキスト空間から最適な解をリアルタイム演算するパイプラインを実装。</p>
+                        </div>
+                        <div class="mt-6 flex flex-col items-center justify-center flex-1">
+                            <div class="font-mono text-zinc-500 text-[10px] mb-2">Response Time Reduction (Δη)</div>
+                            <div class="text-6xl text-white font-mono flex items-start">-96<span class="text-2xl text-accent-cyan mt-2">%</span></div>
+                        </div>
+                    </div>
+                    <div class="border border-border bg-surface p-6 flex flex-col justify-between aspect-square group hover:border-accent-purple/50 transition-colors">
+                        <div>
+                            <div class="font-mono text-[10px] text-accent-purple mb-1">[ Exp β ]</div>
+                            <h3 class="font-serif text-lg text-white mb-2">AI-Driven Corporate Site</h3>
+                            <p class="font-sans text-xs text-zinc-400 border-b border-border pb-4">企業データレイクをシードとして、Next.js + LLM APIを用いたAIアシスタントをサイト内に埋め込む。開発開始からの所要時間を観測。</p>
+                        </div>
+                        <div class="mt-6 relative flex-1 border border-zinc-800 bg-bg p-4 flex flex-col justify-center">
+                            <div class="w-full h-1 bg-border relative"><div class="absolute left-0 h-full bg-accent-purple w-full origin-left"></div></div>
+                            <div class="flex justify-between mt-2 font-mono text-[10px] text-zinc-500"><span>t=0</span><span class="text-accent-purple font-bold">t = 2 Weeks</span></div>
+                            <div class="text-center font-mono text-xs text-zinc-300 mt-4">Record velocity deployed.</div>
+                        </div>
+                    </div>
+                    <div class="border border-border bg-surface p-6 flex flex-col justify-between aspect-[2/1] md:aspect-square group hover:border-accent-orange/50 transition-colors">
+                        <div>
+                            <div class="font-mono text-[10px] text-accent-orange mb-1">[ Exp γ ]</div>
+                            <h3 class="font-serif text-lg text-white mb-2">Competitive Monitoring AI</h3>
+                            <p class="font-sans text-xs text-zinc-400">人力によるウェブクローリングをAIスクレイパーに微分。抽出・要約・通知関数を結合。</p>
+                        </div>
+                        <div class="mt-4 flex items-center gap-4 border-t border-border pt-4">
+                            <div class="w-12 h-12 rounded-full border border-accent-orange/30 relative overflow-hidden flex items-center justify-center shrink-0"><div class="absolute inset-0 bg-[conic-gradient(from_0deg,_transparent_70%,_#ff5e00_100%)] animate-[spin_2s_linear_infinite]"></div><div class="w-10 h-10 bg-surface rounded-full z-10 flex items-center justify-center"><div class="w-1 h-1 bg-accent-orange rounded-full animate-ping"></div></div></div>
+                            <div><div class="font-mono text-[10px] text-zinc-500">Detection Frequency (ω)</div><div class="font-mono text-xl text-white">15<span class="text-accent-orange text-sm">min</span> interval</div></div>
+                        </div>
+                    </div>
+                    <div class="border border-border bg-surface p-6 flex flex-col justify-between aspect-[2/1] md:aspect-square group hover:border-white/50 transition-colors blueprint-grid bg-grid-pattern">
+                        <div class="relative z-10">
+                            <div class="font-mono text-[10px] text-zinc-400 mb-1">[ Exp δ ]</div>
+                            <h3 class="font-serif text-lg text-white mb-2 bg-surface/80 inline-block pr-4">Amazon Ads AI Optimization</h3>
+                        </div>
+                        <div class="relative z-10 mt-auto bg-bg/90 border border-border p-3 font-mono text-[10px]">
+                            <div class="text-zinc-500 mb-1">Matrix Factorization Active:</div>
+                            <div class="text-accent-cyan">ROI = f(Bid, CTR, Keyword)</div>
+                            <div class="mt-2 text-zinc-300">Continuous Optimization <span class="text-green-400">[ONLINE]</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="section-4" class="px-6 lg:px-16 py-24 border-b border-border bg-surface2 relative">
+                <div class="mb-12"><div class="font-mono text-[10px] text-zinc-500 tracking-widest flex items-center gap-2 mb-4"><span class="w-2 h-2 bg-zinc-400"></span> SECTION 4.0 / AUTHOR</div></div>
+                <div class="flex flex-col lg:flex-row gap-12 items-start border border-border bg-bg p-8">
+                    <div class="w-full lg:w-1/3 shrink-0">
+                        <div class="w-full aspect-[3/4] bg-zinc-900 border border-zinc-700 relative overflow-hidden saturate-0 contrast-150">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80" alt="Sho Chizawa" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-luminosity">
+                            <div class="absolute inset-0 bg-scan-gradient data-stream pointer-events-none opacity-50"></div>
+                            <div class="absolute top-2 left-2 font-mono text-[8px] bg-black text-white px-1">ID: S.CHIZAWA</div>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-2/3 space-y-6">
+                        <div class="border-b border-border pb-4">
+                            <h2 class="font-serif text-3xl text-white">遅沢 翔 <span class="font-sans text-sm text-zinc-500 ml-2">/ Sho Chizawa</span></h2>
+                            <div class="font-mono text-xs text-accent-cyan mt-1">Principal Investigator & Founder</div>
+                        </div>
+                        <div class="font-sans text-sm text-zinc-400 leading-relaxed space-y-4">
+                            <p>「技術は神学ではなく、工学であるべきだ」という哲学のもと、Veritas AI Partnersを設立。AIとビジネスの境界面に存在する「情報の摩擦」を数理的に解き明かすことを研究の主目的とする。</p>
+                            <p>20代でフェリデンシアキャピタルを創業し、SK本舗（3Dプリンター事業）、7ブランドEC、日本未来技研（SLA装置）、不動産・株式投資など多事業を運営。自社事業を「実験場」として全LLMを実戦投入。</p>
+                        </div>
+                        <div class="mt-8 border border-border">
+                            <div class="bg-surface px-4 py-2 font-mono text-[10px] text-zinc-400 border-b border-border table-caption" data-fig="4.1">Observation Instruments (LLM Stack)</div>
+                            <div class="flex flex-col font-mono text-xs">
+                                <div class="flex border-b border-border/50 hover:bg-surface transition-colors"><div class="w-1/3 p-3 border-r border-border/50 text-zinc-500">Anthropic</div><div class="w-2/3 p-3 text-zinc-300">Claude Opus 4 / Sonnet (主推論器)</div></div>
+                                <div class="flex border-b border-border/50 hover:bg-surface transition-colors"><div class="w-1/3 p-3 border-r border-border/50 text-zinc-500">OpenAI</div><div class="w-2/3 p-3 text-zinc-300">GPT-5 (マルチモーダル観測)</div></div>
+                                <div class="flex border-b border-border/50 hover:bg-surface transition-colors"><div class="w-1/3 p-3 border-r border-border/50 text-zinc-500">Google</div><div class="w-2/3 p-3 text-zinc-300">Gemini 3.1 Pro (長文脈解析)</div></div>
+                                <div class="flex border-b border-border/50 hover:bg-surface transition-colors"><div class="w-1/3 p-3 border-r border-border/50 text-zinc-500">xAI</div><div class="w-2/3 p-3 text-zinc-300">Grok 4.20 (16並列Deep Search)</div></div>
+                                <div class="flex hover:bg-surface transition-colors"><div class="w-1/3 p-3 border-r border-border/50 text-zinc-500">Open Source</div><div class="w-2/3 p-3 text-zinc-300">DeepSeek-V3 / R1 (低コスト推論)</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="section-5" class="px-6 lg:px-16 py-24 border-b border-border bg-bg relative">
+                <div class="font-mono text-[10px] text-zinc-500 tracking-widest flex items-center gap-2 mb-8"><span class="w-2 h-2 bg-accent-cyan"></span> SECTION 5.0 / REFERENCES</div>
+                <h2 class="font-serif text-2xl text-accent-chalk mb-8">演算フレームワークとインフラ</h2>
+                <div class="font-mono text-xs text-zinc-400 max-w-4xl space-y-4">
+                    <div class="flex group cursor-default"><span class="text-zinc-600 mr-4">[1]</span><div class="flex-1 pb-2 border-b border-zinc-800/50 group-hover:border-accent-cyan transition-colors"><span class="text-white">Anthropic Claude Code / Agent SDK.</span> マルチエージェント協調基盤。<i class="opacity-50">Used to define the cognitive vector field.</i> (2026)</div></div>
+                    <div class="flex group cursor-default"><span class="text-zinc-600 mr-4">[2]</span><div class="flex-1 pb-2 border-b border-zinc-800/50 group-hover:border-accent-purple transition-colors"><span class="text-white">TypeScript & Next.js 14.</span> Strictly-typed frontend architectures for state observation.</div></div>
+                    <div class="flex group cursor-default"><span class="text-zinc-600 mr-4">[3]</span><div class="flex-1 pb-2 border-b border-zinc-800/50 group-hover:border-accent-orange transition-colors"><span class="text-white">Python + LangChain / LlamaIndex.</span> Topological data routing and embedded vector memory spaces.</div></div>
+                    <div class="flex group cursor-default"><span class="text-zinc-600 mr-4">[4]</span><div class="flex-1 pb-2 border-b border-zinc-800/50 group-hover:border-white transition-colors"><span class="text-white">Supabase + pgvector / Pinecone.</span> RAG vector retrieval at production scale.</div></div>
+                    <div class="flex group cursor-default"><span class="text-zinc-600 mr-4">[5]</span><div class="flex-1 pb-2 border-b border-zinc-800/50"><span class="text-white">MCP (Model Context Protocol).</span> エージェント↔ツールの標準プロトコル。月間9,700万DL。</div></div>
+                </div>
+                <div class="mt-12 w-full md:w-3/4 lg:w-1/2 p-4 bg-black border border-border rounded-sm">
+                    <div class="font-mono text-[10px] text-zinc-500 mb-2 flex gap-2"><div class="w-2 h-2 rounded-full bg-zinc-600"></div><div class="w-2 h-2 rounded-full bg-zinc-600"></div><div class="w-2 h-2 rounded-full bg-zinc-600"></div><span class="ml-2">system.log</span></div>
+                    <div class="font-mono text-xs text-green-500 leading-relaxed">> loading physics engine... [OK]<br>> compiling references... [OK]<br>> all constraints satisfied.<br><span class="animate-pulse">_</span></div>
+                </div>
+            </section>
+            <section id="section-6" class="px-6 lg:px-16 py-32 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,240,255,0.08)_0%,_#030305_70%)] relative flex flex-col items-center justify-center text-center">
+                <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">さあ、あなたのシステムを<span class="text-accent-cyan">観測</span>しよう。</h2>
+                <p class="font-sans text-sm text-zinc-400 max-w-xl mx-auto mb-12">現状のアーキテクチャのどこに摩擦（非効率）が発生しているか。どのパラメータを調整すれば、システム全体のエントロピーが減少し、強力な推論出力が得られるか。<br>我々が無料で初期診断を計算します。</p>
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-accent-cyan to-accent-purple blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 pointer-events-none"></div>
+                    <a href="mailto:info@veritas-ai.jp" class="relative bg-bg border border-accent-cyan px-8 py-5 flex items-center justify-center gap-4 group-hover:bg-accent-cyan/10 transition-colors duration-300"><i class="ph-bold ph-terminal-window text-2xl text-accent-cyan"></i><div class="flex flex-col items-start"><span class="font-sans font-bold text-white tracking-wide">無料AI診断 30分相談</span><span class="font-mono text-[10px] text-accent-cyan">init_evaluation(system_state)</span></div></a>
+                </div>
+            </section>
+            <footer class="border-t border-border bg-bg/95 backdrop-blur px-6 lg:px-16 py-12 relative z-20">
+                <div class="flex justify-between items-end flex-wrap gap-8">
+                    <div class="flex flex-col gap-2"><span class="text-white font-bold font-mono text-sm flex items-center gap-2"><i class="ph-fill ph-hexagon text-accent-cyan text-lg"></i> Veritas AI Partners</span><span class="font-sans text-xs text-zinc-500">Tokyo, Japan. Building absolute implementations.</span></div>
+                    <div class="font-mono text-[10px] text-zinc-600 text-right space-y-1"><div>© 2026 VERITAS AI PARTNERS. ALL RIGHTS RESERVED.</div><div>SYSTEM_VERSION="2.4.1" / BUILD="PRODUCTION"</div><div>ARCHITECTURE="COMPUTABLE_PHYSICS"</div><div class="text-accent-purple pt-2 font-math italic text-lg tracking-widest mt-2">Q. E. D.</div></div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.getAttribute('id'); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === `#${id}`) link.classList.add('active'); }); } });
+            }, { root: null, rootMargin: '0px', threshold: 0.3 });
+            sections.forEach(sec => observer.observe(sec));
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

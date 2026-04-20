@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Veritas — 20 Concepts Master Gallery v4</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height: 100vh; background: #050505; color: #fff; font-family: 'Inter', -apple-system, sans-serif; overflow: hidden; }
+
+.tabs {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 16px; display: flex; gap: 6px; height: 96px; align-items: center;
+  overflow-x: auto; scrollbar-width: thin;
+}
+.tabs::-webkit-scrollbar { height: 6px; }
+.tabs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+.brand {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5); padding-right: 14px;
+  border-right: 1px solid rgba(255,255,255,0.1); margin-right: 8px;
+  white-space: nowrap; line-height: 1.4; flex-shrink: 0;
+}
+.brand .small { font-size: 8px; opacity: 0.6; display: block; margin-top: 2px; }
+
+.tab {
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.65); cursor: pointer; font-size: 11px; font-weight: 600;
+  transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  font-family: inherit; white-space: nowrap; flex-shrink: 0; line-height: 1.3;
+}
+.tab:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+.tab.active { background: #fff; color: #000; border-color: #fff; }
+.tab .num { font-family: 'JetBrains Mono', monospace; font-size: 9px; opacity: 0.5; font-weight: 400; }
+.tab.active .num { opacity: 0.6; }
+.tab.stub { opacity: 0.55; border-style: dashed; }
+.tab.stub:hover { opacity: 1; }
+
+.divider { width: 1px; height: 32px; background: rgba(255,255,255,0.08); margin: 0 4px; flex-shrink: 0; }
+
+iframe { position: fixed; top: 96px; left: 0; right: 0; bottom: 0; width: 100%; height: calc(100vh - 96px); border: none; background: #000; }
+
+.stub-page { position: fixed; top: 96px; left: 0; right: 0; bottom: 0; width: 100%; height: calc(100vh - 96px); overflow-y: auto; background: linear-gradient(135deg, #0a0a0e, #050505); display: none; }
+.stub-page.active { display: block; }
+.stub-inner { max-width: 900px; margin: 60px auto; padding: 0 32px; }
+.stub-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); margin-bottom: 16px; text-transform: uppercase; }
+.stub-title { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px; }
+.stub-subtitle { font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.5; }
+.stub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+.stub-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; }
+.stub-card h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); margin-bottom: 10px; text-transform: uppercase; }
+.stub-card p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+.stub-cta { padding: 20px; background: rgba(124,92,252,0.08); border: 1px solid rgba(124,92,252,0.3); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+.stub-cta-text { font-size: 13px; color: rgba(255,255,255,0.85); }
+.stub-cta-text strong { color: #fff; }
+.notice { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; color: rgba(245,158,11,0.95); }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="brand">VERITAS<span class="small">20 / FULL+STUB</span></div>
+
+  <button class="tab active" data-src="full/concept-1-operator-full.html"><span class="num">01</span>OPERATOR</button>
+  <button class="tab" data-src="full/concept-2-capital-full.html"><span class="num">02</span>CAPITAL</button>
+  <button class="tab" data-src="full/concept-3-mind-full.html"><span class="num">03</span>MIND</button>
+  <button class="tab" data-src="full/concept-4-physics-full.html"><span class="num">04</span>PHYSICS</button>
+  <button class="tab" data-src="full/concept-5-silent-full.html"><span class="num">05</span>SILENT</button>
+
+  <div class="divider"></div>
+
+  <button class="tab" data-src="full2/concept-1-blacksmith.html"><span class="num">06</span>BLACKSMITH</button>
+  <button class="tab" data-src="full2/concept-2-whisper.html"><span class="num">07</span>WHISPER</button>
+  <button class="tab" data-src="full2/concept-3-living.html"><span class="num">08</span>LIVING</button>
+  <button class="tab" data-src="full2/concept-4-mirror.html"><span class="num">09</span>MIRROR</button>
+  <button class="tab" data-src="full2/concept-5-school.html"><span class="num">10</span>SCHOOL</button>
+
+  <div class="divider"></div>
+
+  <button class="tab" data-src="full3/concept-11-ledger.html"><span class="num">11</span>LEDGER ★</button>
+  <button class="tab stub" data-stub="12"><span class="num">12</span>SHO LETTER</button>
+  <button class="tab" data-src="full3/concept-13-roi.html"><span class="num">13</span>ROI MACHINE ★</button>
+  <button class="tab" data-src="full3/concept-14-openstudio.html"><span class="num">14</span>OPEN STUDIO ★</button>
+  <button class="tab" data-src="full3/concept-15-trial.html"><span class="num">15</span>TRIAL ★</button>
+  <button class="tab" data-src="full3/concept-16-opposition.html"><span class="num">16</span>OPPOSITION ★</button>
+  <button class="tab" data-src="full3/concept-17-evidence.html"><span class="num">17</span>EVIDENCE ★</button>
+  <button class="tab" data-src="full3/concept-18-fieldguide.html"><span class="num">18</span>FIELD GUIDE ★</button>
+  <button class="tab" data-src="full3/concept-19-newsroom.html"><span class="num">19</span>NEWSROOM ★</button>
+  <button class="tab" data-src="full3/concept-20-portfolio.html"><span class="num">20</span>PORTFOLIO ★</button>
+</div>
+
+<iframe id="frame" src="full/concept-1-operator-full.html"></iframe>
+
+<div class="stub-page" id="stub-11"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存。「11フル化して」と言えば即書き出します（残クレ消費なし、再利用）</div><div class="stub-eyebrow">CONCEPT 11 · TRANSPARENCY</div><h1 class="stub-title">THE LEDGER<br><span style="color:#10b981;">家計簿型</span></h1><p class="stub-subtitle">全プロジェクトの料金・納期・NPSを公開スプレッドシート風で全部見せる。Notion/Linear/Stripe Atlas級のクリーン白基調。隠さない誠実さで信頼獲得。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>「全案件、全料金、公開中。」テーブル型ヒーロー、過去30件の請求実績全公開</p></div><div class="stub-card"><h4>UNIQUE</h4><p>請求書サンプル展示、Founder公開プロフィール（年商・社員数も開示）、カレンダー埋込型CTA</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> コンサル業界の不透明さへの反逆</div></div></div></div>
+
+<div class="stub-page" id="stub-12"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 12 · PERSONAL BRAND</div><h1 class="stub-title">THE SHO LETTER<br><span style="color:#c1272d;">遅沢翔の手紙</span></h1><p class="stub-subtitle">Veritasを脱ぎ捨て個人ブランドに振り切る。Founder手紙形式コラム連載、率直な失敗談含む経営者note。Substack/paulgraham.com風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>「ある経営者から、あなたへの手紙」署名・紙質感・Founder顔写真</p></div><div class="stub-card"><h4>UNIQUE</h4><p>5章構成エッセイ（失敗談/コンサル批判/AIスタックレビュー/お客様への手紙集/About me）</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 属人性100%、人間で売る</div></div></div></div>
+
+<div class="stub-page" id="stub-13"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 13 · INSTANT VALUE</div><h1 class="stub-title">THE ROI MACHINE<br><span style="color:#7C5CFC;">即時計算LP</span></h1><p class="stub-subtitle">入力（業界・社員数・売上）→ 即「年間¥XXX削減可能」表示。スライダー動かすとリアルタイム数値変動。Stripe Atlas Calculator風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>巨大インタラクティブROI計算機、3つのスライダー＋即時グラフ更新</p></div><div class="stub-card"><h4>UNIQUE</h4><p>計算ロジック完全開示、競合との試算比較、PDF出力可能、Cal.com風カレンダー予約</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 数字で殴る、感情ではなく計算で説得</div></div></div></div>
+
+<div class="stub-page" id="stub-15"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 15 · ZERO RISK</div><h1 class="stub-title">THE TRIAL<br><span style="color:#f59e0b;">30日無料お試し</span></h1><p class="stub-subtitle">「1業務だけAIに置き換え。30日無料、気に入ったら有料」明快オファーLP。SaaSフリーミアム。Vercel/Linear/Cal.com風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>左コピー＋右申込フォーム、SaaSのお手本UI、即サインアップ動線</p></div><div class="stub-card"><h4>UNIQUE</h4><p>3-Step仕組み、Bento業務リスト12個、3階層料金プラン、FAQ、Trialから移行した事例</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> リスクゼロ、即試せる</div></div></div></div>
+
+<div class="stub-page" id="stub-16"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 16 · DIRECT COMPARISON</div><h1 class="stub-title">THE OPPOSITION<br><span style="color:#dc2626;">競合スペック表</span></h1><p class="stub-subtitle">マッキンゼー/アクセンチュア/PwC vs Veritas を堂々比較表で並べる。「2億 vs 200万、同じものが届く」挑発的だが顧客に便利。Tesla公式比較表風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>「BIG FIRM ¥200,000,000 vs VERITAS ¥2,000,000」巨大対比、赤い斜線</p></div><div class="stub-card"><h4>UNIQUE</h4><p>4社比較表7項目、価格構造の解剖図（中抜き構造可視化）、ケーススタディVS、ブルータルな表組み</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 正面から殴る、選びやすい</div></div></div></div>
+
+<div class="stub-page" id="stub-17"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 17 · MASS EVIDENCE</div><h1 class="stub-title">THE BOOK OF EVIDENCE<br><span style="color:#7C5CFC;">実装図鑑</span></h1><p class="stub-subtitle">「100個のAIシステムが稼働している」博物館的展示。圧倒的物量で信頼獲得。Are.na/Pinterest/Bento.me風グリッド密度。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>背景に100個のサムネイル流れる、中央巨大カウンター「100」</p></div><div class="stub-card"><h4>UNIQUE</h4><p>マゾネリーグリッド、業界/技術フィルタサイドバー、各カードに技術スタック・ROI・稼働年数、最後に「101番目はあなた」</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 物量で殴る、蓄積の重み</div></div></div></div>
+
+<div class="stub-page" id="stub-18"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 18 · INDUSTRY-SPECIFIC</div><h1 class="stub-title">THE FIELD GUIDE<br><span style="color:#0891b2;">業界別ガイド</span></h1><p class="stub-subtitle">飲食/製造/不動産/医療など10業界別にAI実装ガイド。「あなたの業界はこれ」と即パーソナライズ。Stripe Industries/National Geographic風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>10業界グリッド（各業界固有色＋アイコン）から選択 → 専用LP分岐</p></div><div class="stub-card"><h4>UNIQUE</h4><p>業界別実装パターン辞書、Featured業界深掘り（飲食業徹底ガイド雑誌風）、横スクロール業界マトリクス</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 業界文脈の深さ</div></div></div></div>
+
+<div class="stub-page" id="stub-19"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 19 · MEDIA-FIRST</div><h1 class="stub-title">THE NEWSROOM<br><span style="color:#dc2626;">編集部型</span></h1><p class="stub-subtitle">週刊AIメディア。事業はサブで、まずメディアで信頼獲得。The Information/Stratechery/Stripe Press風新聞紙的。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>新聞風マストヘッド「VERITAS WEEKLY 第48号」、特集記事大見出し</p></div><div class="stub-card"><h4>UNIQUE</h4><p>記事リスト6-8本、週次AIインデックス（料金推移ミニグラフ）、Founderコラム連載、購読フォーム</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> 思考リーダー化、思想で信頼</div></div></div></div>
+
+<div class="stub-page" id="stub-20"><div class="stub-inner"><div class="notice">⚠ 生成済み・容量都合で未保存</div><div class="stub-eyebrow">CONCEPT 20 · CREATOR PORTFOLIO</div><h1 class="stub-title">THE SHO PORTFOLIO<br><span style="color:#a855f7;">クリエイター作品集</span></h1><p class="stub-subtitle">Awwwards受賞作家の個人ポートフォリオ風。「私が作ったAIシステム」作品集。brittanychiang.com/worrydream.com風。</p><div class="stub-grid"><div class="stub-card"><h4>HERO</h4><p>「Sho Chizawa / AI System Designer」シンプル、手書き感タイトル、暖色オフホワイト</p></div><div class="stub-card"><h4>UNIQUE</h4><p>作品ケーススタディ（プロセス公開）、8ステップ制作プロセス、受賞ロゴ、人間味のあるFounder紹介</p></div></div><div class="stub-cta"><div class="stub-cta-text"><strong>凄み:</strong> クリエイター人格・作品オーラで信頼</div></div></div></div>
+
+<script>
+const frame = document.getElementById('frame');
+const stubs = document.querySelectorAll('.stub-page');
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    if (t.dataset.src) {
+      frame.style.display = 'block';
+      stubs.forEach(s => s.classList.remove('active'));
+      frame.src = t.dataset.src;
+    } else if (t.dataset.stub) {
+      frame.style.display = 'none';
+      stubs.forEach(s => s.classList.remove('active'));
+      document.getElementById('stub-' + t.dataset.stub).classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
+</content>
+</invoke>

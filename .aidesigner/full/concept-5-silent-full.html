@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | Silent Production</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&family=Noto+Sans+JP:wght@100;200;300&display=swap" rel="stylesheet">
+    <style>
+        :root { --dot-opacity: 1; --dot-scale: 1; --text-en-opacity: 0; --text-en-y: 20px; --text-jp-opacity: 0; --text-jp-y: 20px; --fleet-opacity: 0; --fleet-scale: 0.85; --fleet-z: -100px; }
+        body { background-color: #000000; color: #FFFFFF; font-family: 'Inter', 'Noto Sans JP', sans-serif; margin: 0; overscroll-behavior: none; scroll-behavior: smooth; }
+        ::selection { background-color: #FFFFFF; color: #000000; }
+        .stage { perspective: 1000px; transform-style: preserve-3d; }
+        .breathing-dot { animation: breathe 4s ease-in-out infinite; box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); }
+        @keyframes breathe { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        #fleet-container { display: grid; grid-template-columns: repeat(32, 1fr); gap: 1.5vw; width: 150vw; height: 150vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(var(--fleet-scale)) translateZ(var(--fleet-z)); opacity: var(--fleet-opacity); will-change: transform, opacity; }
+        .node { background-color: #ffffff; border-radius: 1px; opacity: 0.05; transition: opacity 1s ease; }
+        .node.active { opacity: 0.6; box-shadow: 0 0 8px rgba(255,255,255,0.2); }
+        @keyframes microBlink { 0%, 100% { opacity: 0.1; } 5% { opacity: 0.8; } }
+        .node.blink { animation: microBlink 8s infinite; }
+        .map-dot { opacity: var(--dot-opacity); transform: scale(var(--dot-scale)); }
+        .map-text-en { opacity: var(--text-en-opacity); transform: translateY(var(--text-en-y)); }
+        .map-text-jp { opacity: var(--text-jp-opacity); transform: translateY(var(--text-jp-y)); }
+        .arch-line { position: relative; }
+        .arch-line::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); }
+        .thin-border { border-color: #1a1a1a; }
+        .grid-cell-hover { transition: background-color 0.4s ease, border-color 0.4s ease; }
+        .grid-cell-hover:hover { background-color: #080808; border-color: #333333; }
+    </style>
+</head>
+<body class="relative w-full">
+    <div class="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden stage z-0 pointer-events-none">
+        <div class="absolute top-10 left-10 md:top-12 md:left-14 opacity-20 tracking-[0.2em] text-[10px] uppercase font-light">Veritas AI</div>
+        <div class="absolute top-10 right-10 md:top-12 md:right-14 opacity-20 tracking-[0.2em] text-[10px] uppercase font-light">[SYS_RDY]</div>
+        <div class="absolute inset-0 flex items-center justify-center z-40 map-dot"><div class="w-1.5 h-1.5 md:w-[6px] md:h-[6px] bg-[#00FF00] rounded-full breathing-dot"></div></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-30 text-center px-6">
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-[100] tracking-[0.15em] md:tracking-[0.1em] leading-tight text-[#FFFFFF] map-text-en will-change-transform">Production AI is silent.</h1>
+            <p class="mt-8 md:mt-12 text-[10px] md:text-xs font-[200] tracking-[0.6em] md:tracking-[0.8em] text-[#666666] map-text-jp will-change-transform pl-[0.8em]">静かに、稼働している。</p>
+        </div>
+        <div id="fleet-container" class="z-20"></div>
+    </div>
+    <main class="relative z-10 w-full mt-[150vh] bg-[#000000]">
+        <div class="w-full h-[1px] bg-[#222222]"></div>
+        <section class="w-full px-6 md:px-16 py-32 md:py-48 max-w-screen-2xl mx-auto">
+            <div class="mb-24 flex items-center gap-4 opacity-50"><div class="w-1 h-1 bg-white"></div><h2 class="text-[9px] tracking-[0.4em] uppercase">Core Disciplines</h2></div>
+            <div class="flex flex-col border-t thin-border">
+                <div class="grid grid-cols-1 md:grid-cols-12 py-8 md:py-12 border-b thin-border gap-6 md:gap-0 arch-line">
+                    <div class="col-span-1 md:col-span-2 text-[10px] tracking-[0.3em] font-[200] text-[#555]">01</div>
+                    <div class="col-span-1 md:col-span-4 text-xs md:text-sm tracking-[0.3em] font-[200] text-[#FFFFFF]">DIAGNOSTIC</div>
+                    <div class="col-span-1 md:col-span-6 text-[11px] md:text-sm text-[#777] font-[200] tracking-wide leading-relaxed">既存の運用における「沈黙すべきノイズ」を特定する。AIが介入することで、最も静かになる接合部を見つけ出すための構造的解析。</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 py-8 md:py-12 border-b thin-border gap-6 md:gap-0 arch-line">
+                    <div class="col-span-1 md:col-span-2 text-[10px] tracking-[0.3em] font-[200] text-[#555]">02</div>
+                    <div class="col-span-1 md:col-span-4 text-xs md:text-sm tracking-[0.3em] font-[200] text-[#FFFFFF]">IMPLEMENTATION</div>
+                    <div class="col-span-1 md:col-span-6 text-[11px] md:text-sm text-[#777] font-[200] tracking-wide leading-relaxed">PoCとしての玩具ではなく、本番環境で確実に稼働するシステムの実装。プレゼンテーションの華やかさを排し、事実としての出力を担保する。</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 py-8 md:py-12 border-b thin-border gap-6 md:gap-0 arch-line">
+                    <div class="col-span-1 md:col-span-2 text-[10px] tracking-[0.3em] font-[200] text-[#555]">03</div>
+                    <div class="col-span-1 md:col-span-4 text-xs md:text-sm tracking-[0.3em] font-[200] text-[#FFFFFF]">ADVISORY</div>
+                    <div class="col-span-1 md:col-span-6 text-[11px] md:text-sm text-[#777] font-[200] tracking-wide leading-relaxed">一過性の技術トレンドに流されないための羅針盤。引き算の美学をもって、本当に必要な技術スタックと戦略のみを抽出する。</div>
+                </div>
+            </div>
+        </section>
+        <section class="w-full border-t thin-border bg-[#020202]">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                <div class="border-b lg:border-b-0 md:border-r thin-border p-8 md:p-12 h-[400px] flex flex-col justify-between grid-cell-hover group">
+                    <div class="space-y-2"><div class="text-[9px] tracking-[0.3em] text-[#444] uppercase group-hover:text-[#888] transition-colors">Case .01</div><div class="text-xs tracking-[0.1em] font-[200] text-[#AAA]">LINE CRM API Integration</div></div>
+                    <div class="flex items-baseline"><span class="text-7xl lg:text-[7rem] font-[100] tracking-tighter text-[#FFF] leading-none mb-[-8px]">96</span><span class="text-2xl lg:text-4xl font-[200] text-[#555] ml-2">%</span></div>
+                    <div class="text-[10px] tracking-widest text-[#444] font-[200] mt-4">Response Reduction</div>
+                </div>
+                <div class="border-b lg:border-b-0 lg:border-r thin-border p-8 md:p-12 h-[400px] flex flex-col justify-between grid-cell-hover group">
+                    <div class="space-y-2"><div class="text-[9px] tracking-[0.3em] text-[#444] uppercase group-hover:text-[#888] transition-colors">Case .02</div><div class="text-xs tracking-[0.1em] font-[200] text-[#AAA]">AI Site Production</div></div>
+                    <div class="flex items-baseline"><span class="text-7xl lg:text-[7rem] font-[100] tracking-tighter text-[#FFF] leading-none mb-[-8px]">2</span><span class="text-lg lg:text-xl font-[200] text-[#555] ml-4 tracking-widest uppercase">wks</span></div>
+                    <div class="text-[10px] tracking-widest text-[#444] font-[200] mt-4">Time to Production</div>
+                </div>
+                <div class="border-b md:border-b-0 lg:border-r md:border-r thin-border p-8 md:p-12 h-[400px] flex flex-col justify-between grid-cell-hover group">
+                    <div class="space-y-2"><div class="text-[9px] tracking-[0.3em] text-[#444] uppercase group-hover:text-[#888] transition-colors">Case .03</div><div class="text-xs tracking-[0.1em] font-[200] text-[#AAA]">Competitive Monitor</div></div>
+                    <div class="flex items-baseline"><span class="text-7xl lg:text-[7rem] font-[100] tracking-tighter text-[#FFF] leading-none mb-[-8px]">15</span><span class="text-lg lg:text-xl font-[200] text-[#555] ml-4 tracking-widest uppercase">min</span></div>
+                    <div class="text-[10px] tracking-widest text-[#444] font-[200] mt-4">Detection Latency</div>
+                </div>
+                <div class="p-8 md:p-12 h-[400px] flex flex-col justify-between grid-cell-hover group">
+                    <div class="space-y-2"><div class="text-[9px] tracking-[0.3em] text-[#444] uppercase group-hover:text-[#888] transition-colors">Case .04</div><div class="text-xs tracking-[0.1em] font-[200] text-[#AAA]">Amazon Ads AI Dashboard</div></div>
+                    <div class="flex items-baseline"><span class="text-7xl lg:text-[7rem] font-[100] tracking-tighter text-[#FFF] leading-none mb-[-8px]">50</span><span class="text-2xl lg:text-4xl font-[200] text-[#555] ml-2">+</span></div>
+                    <div class="text-[10px] tracking-widest text-[#444] font-[200] mt-4">Simultaneous Campaigns</div>
+                </div>
+            </div>
+        </section>
+        <section class="w-full px-6 md:px-16 py-32 md:py-48 max-w-screen-2xl mx-auto border-t thin-border flex flex-col lg:flex-row gap-24 lg:gap-8">
+            <div class="flex-1">
+                <div class="mb-12 flex items-center gap-4 opacity-50"><div class="w-1 h-1 bg-white"></div><h2 class="text-[9px] tracking-[0.4em] uppercase">The Practitioner</h2></div>
+                <div class="text-sm tracking-[0.2em] font-[200] text-[#FFFFFF] mb-8">Sho Chizawa</div>
+                <p class="text-[10px] md:text-xs text-[#666] font-[200] leading-[2.5] tracking-widest max-w-md text-justify">過剰な説明を伴うコンサルティング手法や、煌びやかなスライドウェアを否定する。システムはただ機能すべきであり、その過程は静かであるべきだという哲学に基づいて設計を行う。徹底した引き算の美学により、ノイズのない強靭なAIアーキテクチャを実装する。</p>
+            </div>
+            <div class="flex-1 lg:pl-32 lg:border-l thin-border">
+                <div class="mb-12 flex items-center gap-4 opacity-50"><div class="w-1 h-1 bg-[#444]"></div><h2 class="text-[9px] tracking-[0.4em] uppercase text-[#888]">Architecture Stack</h2></div>
+                <ul class="flex flex-col gap-4 text-[10px] md:text-xs tracking-[0.3em] font-[200] text-[#999] uppercase">
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Claude Opus 4 / Sonnet</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Claude Code / Agent SDK</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Next.js 14 / TypeScript</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Supabase / pgvector</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Python Data Pipeline</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> MCP Protocol</li>
+                    <li class="flex items-center gap-6"><span class="text-[#333]">/</span> Vercel Infrastructure</li>
+                </ul>
+            </div>
+        </section>
+        <section class="w-full flex flex-col items-center justify-center py-48 md:py-64 border-t thin-border text-center">
+            <a href="#" class="group flex flex-col items-center gap-8 cursor-pointer">
+                <span class="text-[10px] md:text-xs tracking-[0.4em] font-[100] text-[#666] group-hover:text-[#FFF] transition-colors duration-700">one quiet conversation, 30 minutes.</span>
+                <div class="w-[1px] h-12 bg-[#222] group-hover:bg-[#FFF] transition-colors duration-700"></div>
+            </a>
+        </section>
+        <footer class="w-full px-6 md:px-16 py-12 border-t thin-border flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-0">
+            <div class="flex items-center gap-3">
+                <div class="text-[8px] md:text-[9px] text-[#444] tracking-[0.3em] uppercase">Status</div>
+                <div class="flex items-center gap-2"><div class="w-[3px] h-[3px] bg-[#00FF00] rounded-full"></div><span class="text-[8px] md:text-[9px] text-[#777] tracking-[0.2em] font-light">All Systems Quiet</span></div>
+            </div>
+            <div class="text-center md:text-right">
+                <div class="text-[8px] md:text-[9px] uppercase tracking-[0.4em] text-[#333]">Veritas AI Partners Tokyo</div>
+                <div class="text-[8px] md:text-[9px] tracking-[0.2em] text-[#222] mt-2">© 2026 NO DECORATION.</div>
+            </div>
+        </footer>
+    </main>
+    <script>
+        const fleetContainer = document.getElementById('fleet-container');
+        const numNodes = 32 * 24;
+        for (let i = 0; i < numNodes; i++) {
+            const node = document.createElement('div');
+            let classList = 'node ';
+            const rand = Math.random();
+            if (rand > 0.95) classList += '+ active blink ';
+            else if (rand > 0.8) classList += '+ active ';
+            if (rand < 0.1) { node.style.gridColumn = `span ${Math.floor(Math.random()*3)+2}`; node.style.height = '1px'; node.style.alignSelf = 'center'; }
+            else if (rand > 0.1 && rand < 0.2) { node.style.gridRow = `span ${Math.floor(Math.random()*3)+2}`; node.style.width = '1px'; node.style.justifySelf = 'center'; }
+            else { node.style.width = Math.random() > 0.5 ? '1px' : '2px'; node.style.height = node.style.width; node.style.placeSelf = 'center'; }
+            node.className = classList;
+            fleetContainer.appendChild(node);
+        }
+        const root = document.documentElement;
+        function clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
+        function mapRange(val, inMin, inMax, outMin, outMax) { const p = (val-inMin)/(inMax-inMin); const c = clamp(p, 0, 1); return outMin + c * (outMax-outMin); }
+        let ticking = false;
+        function updatePlayhead() {
+            const scrollY = window.scrollY;
+            const introEnd = window.innerHeight * 1.5;
+            const progress = clamp(scrollY/introEnd, 0, 1);
+            root.style.setProperty('--dot-opacity', mapRange(progress, 0.0, 0.2, 1, 0));
+            root.style.setProperty('--dot-scale', mapRange(progress, 0.0, 0.2, 1, 0));
+            let textEnOpacity = 0, textEnY = 20;
+            if (progress < 0.6) { textEnOpacity = mapRange(progress, 0.15, 0.35, 0, 1); textEnY = mapRange(progress, 0.15, 0.40, 20, 0); }
+            else { textEnOpacity = mapRange(progress, 0.6, 0.8, 1, 0); textEnY = mapRange(progress, 0.6, 0.8, 0, -20); }
+            root.style.setProperty('--text-en-opacity', textEnOpacity);
+            root.style.setProperty('--text-en-y', `${textEnY}px`);
+            let textJpOpacity = 0, textJpY = 20;
+            if (progress < 0.65) { textJpOpacity = mapRange(progress, 0.25, 0.45, 0, 1); textJpY = mapRange(progress, 0.25, 0.50, 20, 0); }
+            else { textJpOpacity = mapRange(progress, 0.65, 0.85, 1, 0); textJpY = mapRange(progress, 0.65, 0.85, 0, -20); }
+            root.style.setProperty('--text-jp-opacity', textJpOpacity);
+            root.style.setProperty('--text-jp-y', `${textJpY}px`);
+            root.style.setProperty('--fleet-opacity', mapRange(progress, 0.6, 1.0, 0, 1));
+            root.style.setProperty('--fleet-scale', mapRange(progress, 0.6, 1.0, 1.3, 1.0));
+            ticking = false;
+        }
+        window.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(updatePlayhead); ticking = true; } });
+        updatePlayhead();
+    </script>
+</body>
+</html>
+</content>
+</invoke>

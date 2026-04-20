@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | AIを、実装する。</title>
+
+    <!--
+    AESTHETIC_DNA: Linear/Vercel Dark Luxe + Awwwards Kinetics
+    UI_PARADIGM: Kinetic Immersive Scrollytelling SPA
+    PALETTE: Deep Void (#050505 to #0B0E14), Accents: Neon Violet (#7C5CFC) / Cyan (#00D4AA)
+    -->
+
+    <!-- Fonts: Inter for hyper-clean data/English, Noto Sans JP for grounded Japanese -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        void: '#050505',
+                        surface: '#0B0E14',
+                        panel: '#12161F',
+                        borderline: '#1E232E',
+                        'ai-violet': '#7C5CFC',
+                        'ai-cyan': '#00D4AA',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'ai-gradient': 'linear-gradient(135deg, #7C5CFC 0%, #00D4AA 100%)',
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Reset & Baseline */
+        ::selection { background: rgba(124, 92, 252, 0.3); color: #fff; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1E232E; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2A3140; }
+
+        body {
+            background-color: theme('colors.void');
+            color: #E2E8F0;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor fallback */
+        }
+
+        /* Typography & Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #7C5CFC 0%, #00D4AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Structural Magic */
+        .glass-nav {
+            background: rgba(11, 14, 20, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bento-card {
+            background: linear-gradient(180deg, rgba(18, 22, 31, 1) 0%, rgba(11, 14, 20, 1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(124, 92, 252, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* Ambient Glows */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Custom Cursor */
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        #cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, border-color 0.2s;
+        }
+
+        a:hover ~ #cursor-dot, button:hover ~ #cursor-dot, .hover-target:hover ~ #cursor-dot {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(124, 92, 252, 0.2);
+            mix-blend-mode: screen;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .clip-reveal {
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .clip-reveal.is-visible {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Canvas z-index handling */
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* Grid lines for architectural feel */
+        .bg-grid {
+            background-size: 100px 100px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-ai-violet selection:text-white">
+
+    <!-- Custom Cursor Setup -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-ai-gradient flex items-center justify-center">
+                    <i class="ph ph-cpu text-void text-xl font-bold"></i>
+                </div>
+                <span class="font-inter font-bold tracking-tight text-xl text-white">Veritas<span class="text-gray-500 font-light ml-1">AI</span></span>
+            </div>
+            <div class="hidden md:flex flex-1 justify-center space-x-8 text-sm font-medium text-gray-400">
+                <a href="#manifesto" class="hover:text-white transition-colors duration-200">Philosophy</a>
+                <a href="#impact" class="hover:text-white transition-colors duration-200">Impact</a>
+                <a href="#process" class="hover:text-white transition-colors duration-200">Architecture</a>
+                <a href="#cases" class="hover:text-white transition-colors duration-200">Deployments</a>
+            </div>
+            <div>
+                <a href="#contact" class="group relative px-6 py-2.5 rounded-full overflow-hidden inline-flex items-center gap-2 bg-white text-void font-semibold text-sm transition-transform hover:scale-105">
+                    <span class="relative z-10 flex items-center gap-2">
+                        無料AI診断 <i class="ph ph-arrow-right"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-ai-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ======== HERO SECTION (Macro Architecture) ======== -->
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-void">
+            <!-- WebGL/Canvas Simulation Layer -->
+            <canvas id="network-canvas"></canvas>
+
+            <!-- Ambient Glow to separate text from complex background -->
+            <div class="glow-orb w-[600px] h-[600px] bg-ai-violet top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+
+            <!-- Noise Overlay for texture -->
+            <div class="absolute inset-0 opacity-[0.015] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center mt-12">
+                <!-- Eyebrow -->
+                <div class="reveal-up inline-flex flex-col items-center mb-6">
+                    <div class="px-4 py-1.5 rounded-full border border-borderline bg-panel/50 backdrop-blur-md text-gray-300 text-xs font-semibold tracking-widest uppercase flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-ai-cyan animate-pulse"></span>
+                        Production-Ready AI For Enterprises
+                    </div>
+                </div>
+
+                <!-- Main Headline Matrix -->
+                <h1 class="reveal-up mix-blend-lighten text-6xl md:text-8xl lg:text-[100px] font-bold tracking-tighter leading-[1.1] mb-8" style="transition-delay: 100ms;">
+                    <span class="block text-white">AIを、</span>
+                    <span class="block text-gradient clip-reveal mt-2">実装する。</span>
+                </h1>
+
+                <!-- Subheadline -->
+                <p class="reveal-up text-gray-400 text-lg md:text-xl max-w-2xl font-light leading-relaxed mb-12" style="transition-delay: 200ms;">
+                    提案書で終わるコンサルティングは、過去の遺物。<br class="hidden md:block">
+                    我々は、貴社の業務に深く根を下ろす「動くAIシステム」をワンストップで構築する、実装の専門集団です。
+                </p>
+
+                <!-- Actions -->
+                <div class="reveal-up flex flex-col sm:flex-row items-center gap-6" style="transition-delay: 300ms;">
+                    <a href="#contact" class="group relative px-8 py-4 rounded-full bg-white text-void font-bold text-lg hover:shadow-[0_0_40px_rgba(124,92,252,0.4)] transition-all duration-300">
+                        プロジェクトを始動する
+                    </a>
+                    <a href="#manifesto" class="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-medium transition-colors">
+                        <i class="ph ph-play-circle text-xl"></i> アプローチを見る
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+                <span class="text-[10px] font-inter uppercase tracking-widest text-gray-400">Scroll</span>
+                <div class="w-px h-10 bg-gradient-to-b from-gray-400 to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- ======== MANIFESTO SECTION (Visual Tension & Brutalism) ======== -->
+        <section id="manifesto" class="py-32 md:py-48 relative bg-void bg-grid">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div class="lg:col-span-5 flex flex-col justify-center">
+                        <h2 class="reveal-up text-4xl md:text-5xl font-inter font-bold tracking-tighter text-white mb-6 uppercase">
+                            No PowerPoint.<br>
+                            <span class="text-gray-600">Production AI.</span>
+                        </h2>
+                        <div class="w-12 h-1 bg-ai-violet mb-8 reveal-up"></div>
+                        <p class="reveal-up text-gray-300 text-lg leading-relaxed font-light mb-6">
+                            技術検証（PoC）で息絶えるAIプロジェクトは無数にあります。原因は明確。<br>
+                            「描く者」と「創る者」が分断されているからです。
+                        </p>
+                        <p class="reveal-up text-gray-400 leading-relaxed font-light">
+                            Veritas AI Partnersは、戦略策定から、独自LLMチューニング、バックエンド統合、UI/UX設計まで、社内の精鋭エンジニア陣がシームレスに完遂します。私たちが納品するのは、スライドではなく「結果を出すコード」です。
+                        </p>
+                    </div>
+
+                    <!-- Abstract Tech Representation -->
+                    <div class="lg:col-span-7 relative h-[400px] lg:h-auto rounded-2xl border border-borderline bg-surface/50 overflow-hidden flex items-center justify-center reveal-up">
+                        <!-- Simulated Code/Terminal structure -->
+                        <div class="absolute inset-0 p-6 flex flex-col opacity-60">
+                            <div class="flex gap-2 mb-6">
+                                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                            </div>
+                            <div class="font-mono text-sm text-ai-cyan opacity-80 space-y-2">
+                                <p>> Initializing Veritas.core()</p>
+                                <p>> Compiling enterprise context...</p>
+                                <p>> Bypass legacy_consulting.exe: <span class="text-ai-violet">SUCCESS</span></p>
+                                <p>> Deploying generative model to production cluster.</p>
+                                <div class="mt-4 border-l-2 border-ai-violet pl-4 text-gray-300">
+                                    <p class="animate-pulse">Status: ONLINE - Waiting for queries...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Glass overlay element for depth -->
+                        <div class="absolute right-[-10%] bottom-[-20%] w-[300px] h-[300px] bg-ai-cyan/20 blur-[80px] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== IMPACT / NUMBERS SECTION (Bloomberg Scale) ======== -->
+        <section id="impact" class="pt-10 pb-32 border-y border-borderline bg-surface relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-y-16 gap-x-8 divide-y md:divide-y-0 md:divide-x divide-borderline">
+
+                    <!-- Metric 1 -->
+                    <div class="flex flex-col md:pl-8 pt-8 md:pt-0 reveal-up">
+                        <span class="text-sm font-inter text-gray-500 uppercase tracking-wider mb-2">Total Value Generated</span>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-gray-400 text-3xl md:text-5xl font-inter font-bold">¥</span>
+                            <span class="text-6xl md:text-8xl font-inter font-black tracking-tighter text-white counter" data-target="150">0</span>
+                            <span class="text-2xl md:text-4xl font-inter font-bold text-gray-400">億+</span>
+                        </div>
+                        <p class="mt-4 text-gray-400 text-sm">クライアント企業のコスト削減および新規創出利益の総額（過去2年）</p>
+                    </div>
+
+                    <!-- Metric 2 -->
+                    <div class="flex flex-col md:pl-12 pt-8 md:pt-0 reveal-up" style="transition-delay: 100ms;">
+                        <span class="text-sm font-inter text-gray-500 uppercase tracking-wider mb-2">Production Success Rate</span>
+                        <div class="flex items-baseline gap-1 animate-on-scroll">
+                            <span class="text-6xl md:text-8xl font-inter font-black tracking-tighter text-white counter" data-target="98">0</span>
+                            <span class="text-2xl md:text-4xl font-inter font-bold text-ai-cyan">%</span>
+                        </div>
+                        <p class="mt-4 text-gray-400 text-sm">PoC（概念実証）から本番環境への実装完了率。業界平均を大きく凌駕。</p>
+                    </div>
+
+                    <!-- Metric 3 -->
+                    <div class="flex flex-col md:pl-12 pt-8 md:pt-0 reveal-up" style="transition-delay: 200ms;">
+                        <span class="text-sm font-inter text-gray-500 uppercase tracking-wider mb-2">Delivery Time</span>
+                        <div class="flex items-baseline gap-1 animate-on-scroll">
+                            <span class="text-6xl md:text-8xl font-inter font-black tracking-tighter text-white counter" data-target="8">0</span>
+                            <span class="text-2xl md:text-4xl font-inter font-bold text-ai-violet">Weeks</span>
+                        </div>
+                        <p class="mt-4 text-gray-400 text-sm">MVP（Minimum Viable Product）の平均構築期間。高速な仮説検証サイクルを実現。</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== ARCHITECTURE / PROCESS (Stair-step Layout) ======== -->
+        <section id="process" class="py-32 relative bg-void overflow-hidden">
+            <!-- Background structural lines -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-borderline -translate-x-1/2 opacity-20 hidden lg:block"></div>
+
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-24 reveal-up">
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">The Implementation Architecture</h2>
+                    <p class="text-gray-400 text-lg">着想から稼働まで、最適化された3層のエンジニアリング・プロセス</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-8 relative">
+
+                    <!-- Line connecting steps (Desktop) -->
+                    <div class="absolute top-[20%] left-[15%] right-[15%] h-px bg-gradient-to-r from-void via-ai-violet to-void hidden lg:block opacity-30"></div>
+
+                    <!-- Step 1 -->
+                    <div class="flex-1 reveal-up bento-card p-8 rounded-2xl relative z-10 lg:mt-0">
+                        <div class="w-14 h-14 rounded-full border border-borderline bg-panel flex items-center justify-center mb-6 text-ai-cyan text-2xl font-mono">01</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Strategic Mapping<br><span class="text-sm text-gray-500 font-normal">戦略とデータ基盤の解剖</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            経営課題をアルゴリズムで解決可能なタスクに分解。貴社内に眠る構造化・非構造化データの資産価値を算定し、セキュアなデータパイプラインのアーキテクチャを設計します。
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-ai-cyan"></i> Data Auditing</li>
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-ai-cyan"></i> Compliance & Security Structuring</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex-1 reveal-up bento-card p-8 rounded-2xl relative z-10 lg:mt-24 border-t-ai-violet/30" style="transition-delay: 100ms;">
+                        <div class="w-14 h-14 rounded-full border border-borderline bg-panel flex items-center justify-center mb-6 text-ai-violet text-2xl font-mono">02</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Model Engineering<br><span class="text-sm text-gray-500 font-normal">特化型AIの開発・チューニング</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            汎用LLM（GPT-4/Claude）のプロンプトエンジニアリングから、RAG（検索拡張生成）の構築、あるいはオープンソースモデルを用いたセキュアなオンプレミス・チューニングまでを実装。
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-ai-violet"></i> RAG Architecture Setup</li>
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-ai-violet"></i> Fine-Tuning & Vector DB</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex-1 reveal-up bento-card p-8 rounded-2xl relative z-10 lg:mt-48" style="transition-delay: 200ms;">
+                        <div class="w-14 h-14 rounded-full border border-borderline bg-panel flex items-center justify-center mb-6 text-white text-2xl font-mono">03</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">System Integration<br><span class="text-sm text-gray-500 font-normal">業務システムへの完全統合</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            単なるチャット画面の提供ではなく、既存のERP、CRM、社内チャットツール等とAPI連携。従業員が意識せずにAIの恩恵を受けられるUXを構築し、保守運用までを伴走します。
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-gray-400"></i> Seamless API Integration</li>
+                            <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-gray-400"></i> CI/CD Pipeline Tracking</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== CASE STUDIES (Bento Grid Density) ======== -->
+        <section id="cases" class="py-32 bg-surface">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-up">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Deployments.</h2>
+                        <p class="text-gray-400 text-lg">ビジネスインフラとしてのAI実装実績</p>
+                    </div>
+                    <a href="#" class="hidden md:flex items-center gap-2 text-sm font-semibold text-white hover:text-ai-cyan transition-colors">
+                        View All Cases <i class="ph ph-arrow-up-right"></i>
+                    </a>
+                </div>
+
+                <!-- Bento Box Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4">
+
+                    <!-- Large Feature Card -->
+                    <div class="md:col-span-2 md:row-span-2 bento-card rounded-2xl p-8 relative overflow-hidden group reveal-up flex flex-col justify-between min-h-[400px]">
+                        <!-- Abstract Image placeholder -->
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Server room abstraction" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity group-hover:opacity-30 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent"></div>
+
+                        <div class="relative z-10 flex justify-between items-start">
+                            <div class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-mono border border-white/10 uppercase">Manufacturing</div>
+                            <i class="ph ph-arrow-up-right text-gray-400 text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+
+                        <div class="relative z-10 mt-auto">
+                            <div class="mb-4">
+                                <span class="text-5xl font-inter font-black tracking-tighter text-white">85<span class="text-3xl text-ai-cyan">%</span></span>
+                                <span class="block text-gray-400 text-sm uppercase tracking-wider mt-1">Reduction in QA Time</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">製造ラインにおけるAI視覚検査システムの統合</h3>
+                            <p class="text-gray-400 text-sm max-w-lg">旧式のPLCと最新のエッジAIモデル（YOLOv8ベース）をローカル環境で構築接続。クラウドにデータを送ることなく、超低遅延での不良品検知を実現。</p>
+                        </div>
+                    </div>
+
+                    <!-- Small Card 1 -->
+                    <div class="bento-card rounded-2xl p-6 relative overflow-hidden group reveal-up" style="transition-delay: 100ms;">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-mono border border-white/10 uppercase">Legal Tech</div>
+                            <i class="ph ph-arrow-up-right text-gray-400 text-xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <span class="text-3xl font-inter font-black tracking-tighter text-white">3,000<span class="text-xl text-ai-violet tracking-normal"> hrs/y</span></span>
+                            <h3 class="text-lg font-bold text-white mt-4 mb-2">契約書レビューの自動化</h3>
+                            <p class="text-gray-400 text-xs">独自RAGを構築し、過去20年分の自社契約データを学習。法務部門の一次チェックを完全に自動化。</p>
+                        </div>
+                    </div>
+
+                    <!-- Small Card 2 -->
+                    <div class="bento-card rounded-2xl p-6 relative overflow-hidden group reveal-up" style="transition-delay: 200ms;">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-mono border border-white/10 uppercase">Retail / EC</div>
+                            <i class="ph ph-arrow-up-right text-gray-400 text-xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <span class="text-3xl font-inter font-black tracking-tighter text-white">+24<span class="text-xl text-gray-300 tracking-normal">%</span></span>
+                            <span class="block text-gray-500 text-[10px] uppercase mb-2">Conversion Rate</span>
+                            <h3 class="text-lg font-bold text-white mb-2">動的パーソナライズLLM</h3>
+                            <p class="text-gray-400 text-xs">ユーザーの閲覧履歴とリアルタイム対話から、高精度に商品を推薦するコンシェルジュAPIを実装。</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== FOOTER / CTA (Enveloping Gradient) ======== -->
+        <section id="contact" class="py-32 relative overflow-hidden flex flex-col items-center border-t border-borderline">
+            <!-- Intense Gradient Background -->
+            <div class="absolute inset-0 bg-gradient-to-b from-void to-[#1A1438] z-0"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 reveal-up">
+                    Ready to <span class="text-gradient">Execute?</span>
+                </h2>
+                <p class="text-xl text-gray-300 mb-12 reveal-up" style="transition-delay: 100ms;">
+                    あなたのビジネスに最適なAIアーキテクチャを、わずか30分の診断で青写真にします。<br class="hidden md:block">
+                    実装を前提とした、真のコンサルティングを体験してください。
+                </p>
+
+                <div class="reveal-up" style="transition-delay: 200ms;">
+                    <button class="relative group overflow-hidden rounded-full p-[2px] inline-block">
+                        <span class="absolute inset-0 bg-ai-gradient opacity-70 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></span>
+                        <div class="relative bg-surface px-10 py-5 rounded-full flex items-center gap-3 transition-transform group-hover:scale-[0.98]">
+                            <span class="text-white font-bold text-lg">無料AI診断 — 30分相談を予約</span>
+                            <i class="ph-bold ph-calendar-plus text-ai-cyan text-xl"></i>
+                        </div>
+                    </button>
+                    <p class="mt-4 text-xs font-mono text-gray-500"><i class="ph-fill ph-lock-key"></i> NDA締結可能・機密保持厳守</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-void py-8 border-t border-borderline/50 relative z-10">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-cpu text-gray-500 text-lg"></i>
+                    <span class="font-inter font-bold text-gray-400 text-sm">Veritas<span class="font-light">AI</span> Partners</span>
+                </div>
+                <div class="text-xs text-gray-600 font-inter">
+                    &copy; 2024 Veritas AI Partners K.K. All rights reserved. Tokyo, Japan.
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Custom Cursor Logic ---
+            const dot = document.getElementById('cursor-dot');
+            const ring = document.getElementById('cursor-ring');
+
+            // Only enable on non-touch devices
+            if (window.matchMedia("(pointer: fine)").matches) {
+                let mouseX = 0, mouseY = 0;
+                let ringX = 0, ringY = 0;
+
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    dot.style.left = `${mouseX}px`;
+                    dot.style.top = `${mouseY}px`;
+                });
+
+                // Smooth ring follow using requestAnimationFrame
+                function animateCursor() {
+                    let distX = mouseX - ringX;
+                    let distY = mouseY - ringY;
+                    ringX += distX * 0.15; // Ease factor
+                    ringY += distY * 0.15;
+
+                    ring.style.left = `${ringX}px`;
+                    ring.style.top = `${ringY}px`;
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+            } else {
+                dot.style.display = 'none';
+                ring.style.display = 'none';
+                document.body.style.cursor = 'auto';
+            }
+
+
+            // --- 2. Canvas Neural Network Simulation (Hero Background) ---
+            const canvas = document.getElementById('network-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
+
+            // Configuration
+            const params = {
+                particleCount: (window.innerWidth < 768) ? 40 : 100, // Less on mobile
+                connectionDistance: 120,
+                speed: 0.3
+            };
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.dx = (Math.random() - 0.5) * params.speed;
+                    this.dy = (Math.random() - 0.5) * params.speed;
+                    this.size = Math.random() * 1.5 + 0.5;
+                }
+                update() {
+                    if (this.x < 0 || this.x > canvas.width) this.dx = -this.dx;
+                    if (this.y < 0 || this.y > canvas.height) this.dy = -this.dy;
+                    this.x += this.dx;
+                    this.y += this.dy;
+                    this.draw();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(124, 92, 252, 0.5)'; // Violet dots
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                for (let i = 0; i < params.particleCount; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    for (let j = i; j < particlesArray.length; j++) {
+                        const dx = particlesArray[i].x - particlesArray[j].x;
+                        const dy = particlesArray[i].y - particlesArray[j].y;
+                        const distance = Math.hypot(dx, dy);
+                        if (distance < params.connectionDistance) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(0, 212, 170, ${1 - distance/params.connectionDistance})`; // Cyan lines
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+
+
+            // --- 3. Scroll Reveal & Intersection Observer ---
+            const revealElements = document.querySelectorAll('.reveal-up, .clip-reveal');
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Stop observing once revealed
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+
+            // --- 4. Counter Animation (Impact Section) ---
+            const counters = document.querySelectorAll('.counter');
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = +entry.target.getAttribute('data-target');
+                        const duration = 2000; // ms
+                        const stepTime = 20; // ms
+                        const steps = duration / stepTime;
+                        const increment = target / steps;
+                        let current = 0;
+
+                        const updateCounter = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                entry.target.innerText = target;
+                                clearInterval(updateCounter);
+                            } else {
+                                entry.target.innerText = Math.ceil(current);
+                            }
+                        }, stepTime);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => counterObserver.observe(counter));
+
+
+            // --- 5. Navbar Glassmorphism on Scroll ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(11, 14, 20, 0.8)';
+                    navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+                } else {
+                    navbar.style.background = 'rgba(11, 14, 20, 0.4)';
+                    navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

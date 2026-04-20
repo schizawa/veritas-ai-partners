@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE FIRST PRINCIPLES SCHOOL | Veritas AI Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@700;900&family=Shippori+Mincho:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { 'v-white': '#ffffff', 'v-black': '#000000', 'v-red': '#c1272d', 'v-cream': '#f4ecd8' },
+            fontFamily: { 'serif-en': ['"EB Garamond"', 'serif'], 'serif-ja': ['"Shippori Mincho"', 'serif'], 'sans-brutal': ['"Noto Sans JP"', 'Helvetica', 'sans-serif'], 'hand': ['"Caveat"', 'cursive'] }
+        }}}
+    </script>
+    <style>
+        ::selection { background-color: #c1272d; color: #ffffff; }
+        body { background-color: #ffffff; color: #000000; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #ffffff; border-left: 1px solid #000000; } ::-webkit-scrollbar-thumb { background: #000000; } ::-webkit-scrollbar-thumb:hover { background: #c1272d; }
+        .t-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
+        .marker-red { background: linear-gradient(transparent 60%, rgba(193, 39, 45, 0.8) 60%); display: inline; }
+        .border-t-heavy { border-top: 4px solid #000000; }
+        .hover-invert { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hover-invert:hover { background-color: #000000; color: #ffffff; }
+        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px); }
+        .spine-line { position: fixed; top: 0; bottom: 0; left: 5%; width: 1px; background-color: #000000; z-index: 50; pointer-events: none; }
+        @media (max-width: 768px) { .spine-line { display: none; } }
+        .img-brutal { filter: grayscale(100%) contrast(1.2) brightness(0.9); mix-blend-mode: multiply; }
+        .paper-texture { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"); }
+    </style>
+</head>
+<body class="font-serif-ja antialiased selection:bg-v-red selection:text-v-white relative">
+    <div class="spine-line hidden lg:block opacity-20"></div>
+    <header class="fixed top-0 left-0 w-full z-40 mix-blend-difference text-v-white flex justify-between items-start p-6 lg:px-12 pointer-events-none">
+        <div class="font-sans-brutal text-xs tracking-widest uppercase flex flex-col gap-1 pointer-events-auto"><span>Veritas AI Partners</span><span class="text-v-red font-bold">Vol. 1</span></div>
+        <div class="font-serif-en text-sm text-right pointer-events-auto"><a href="#dialogue" class="hover:text-v-red transition-colors">Initiate Dialogue &rarr;</a></div>
+    </header>
+    <section class="relative min-h-[100svh] flex flex-col justify-center items-center px-6 lg:px-[10%] pt-20 pb-12 bg-v-white bg-grid border-b-8 border-v-black overflow-hidden">
+        <div class="absolute -left-10 top-1/4 font-serif-en text-[15vw] text-v-black opacity-5 leading-none select-none t-vertical whitespace-nowrap">FIRST PRINCIPLES</div>
+        <div class="z-10 w-full max-w-6xl relative">
+            <span class="block font-serif-en text-v-red tracking-[0.2em] uppercase text-sm lg:text-base mb-6 font-bold flex items-center gap-4"><span class="w-12 h-px bg-v-red"></span>The First Principles School</span>
+            <h1 class="font-sans-brutal font-black text-5xl lg:text-[7vw] leading-[1.1] text-v-black tracking-tight mb-8">常識を<span class="text-v-red transform -skew-x-12 inline-block">破壊</span>し、<br>AIで原理から<br class="hidden lg:block"><span class="marker-red">再構築する。</span></h1>
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-24 items-start border-t border-v-black pt-8 mt-12 w-full max-w-4xl">
+                <p class="font-serif-en text-lg lg:text-xl text-v-black/70 flex-shrink-0">Est. 2024 &nbsp; <span class="text-v-red">§</span> &nbsp; Manifesto</p>
+                <div class="space-y-6">
+                    <p class="font-serif-ja text-2xl lg:text-3xl font-bold leading-normal">我々は、常識を疑う。</p>
+                    <p class="font-serif-ja text-lg lg:text-xl text-v-black/80 leading-relaxed text-justify">既存のコンサルティングが説く「ベストプラクティス」は、過去の死骸の寄せ集めに過ぎない。我々はイーロン・マスク的『第一原理思考（First Principles Thinking）』を唯一の教義とし、ビジネスの物理的真理から推論を行い、AIという力を用いてゼロからアーキテクチャを設計・実装する「学派」である。</p>
+                    <div class="absolute -right-10 lg:-right-20 top-1/2 transform rotate-12 font-hand text-v-red text-2xl lg:text-4xl w-48 opacity-90 hidden md:block">* Consultancies are creating illusions. Stop them.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-v-cream paper-texture py-24 lg:py-40 px-6 lg:px-[10%] border-b-8 border-v-black">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+            <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit">
+                <h2 class="font-serif-en text-6xl lg:text-8xl text-v-black opacity-10 font-bold leading-none -ml-2 mb-4">AXIOMS</h2>
+                <h3 class="font-sans-brutal font-black text-3xl lg:text-4xl text-v-black mb-6">学派綱領 <span class="text-v-red">5</span> 箇条</h3>
+                <p class="font-serif-ja text-base leading-relaxed text-v-black/70 border-l-2 border-v-red pl-4">これはサービス体系ではない。我々が世界を認識し、再定義するための絶対的なテーゼである。</p>
+            </div>
+            <div class="lg:w-2/3 flex flex-col border-t-heavy">
+                <article class="py-12 border-b border-v-black/20 flex flex-col md:flex-row gap-6 lg:gap-12 group hover:bg-v-white/50 transition-colors">
+                    <div class="font-serif-en text-5xl lg:text-6xl text-v-black/30 group-hover:text-v-red transition-colors flex-shrink-0">01.</div>
+                    <div><h4 class="font-sans-brutal font-black text-2xl lg:text-3xl mb-4 text-v-black tracking-tight">コンサルは死んだ。</h4><p class="font-serif-ja text-lg leading-loose text-v-black/80">「他社の成功事例」をまとめただけの高額なPowerPointは、自己満足の極みである。我々はベンチマークを否定する。存在するのは「物理的制約」と「目的」のみであり、そこから直接推論せよ。</p></div>
+                </article>
+                <article class="py-12 border-b border-v-black/20 flex flex-col md:flex-row gap-6 lg:gap-12 group hover:bg-v-white/50 transition-colors">
+                    <div class="font-serif-en text-5xl lg:text-6xl text-v-black/30 group-hover:text-v-red transition-colors flex-shrink-0">02.</div>
+                    <div><h4 class="font-sans-brutal font-black text-2xl lg:text-3xl mb-4 text-v-black tracking-tight">AIは魔法ではない。道具だ。</h4><p class="font-serif-ja text-lg leading-loose text-v-black/80">「AIを導入すれば解決する」という幻想を捨てよ。AIは計算資源に過ぎない。重要なのは、その力を用いて業務プロセスを<span class="marker-red font-bold">どう根底から破壊し、再配線するか</span>というアーキテクチャの設計力である。</p></div>
+                </article>
+                <article class="py-12 border-b border-v-black/20 flex flex-col md:flex-row gap-6 lg:gap-12 group hover:bg-v-white/50 transition-colors">
+                    <div class="font-serif-en text-5xl lg:text-6xl text-v-black/30 group-hover:text-v-red transition-colors flex-shrink-0">03.</div>
+                    <div><h4 class="font-sans-brutal font-black text-2xl lg:text-3xl mb-4 text-v-black tracking-tight">実装こそが唯一の証明である。</h4><p class="font-serif-ja text-lg leading-loose text-v-black/80">戦略を語るだけの者は無価値である。我々はコードを書き、システムを動かし、現実の数値を動かすことでしか自らの理論を証明しない。口を動かす前に、手を動かせ。</p></div>
+                </article>
+                <article class="py-12 border-b border-v-black/20 flex flex-col md:flex-row gap-6 lg:gap-12 group hover:bg-v-white/50 transition-colors">
+                    <div class="font-serif-en text-5xl lg:text-6xl text-v-black/30 group-hover:text-v-red transition-colors flex-shrink-0">04.</div>
+                    <div><h4 class="font-sans-brutal font-black text-2xl lg:text-3xl mb-4 text-v-black tracking-tight">顧問書は紙くずである。</h4><p class="font-serif-ja text-lg leading-loose text-v-black/80">レポートのためのレポートは作成しない。納品物は「稼働するAI」「自動化されたプロセス」「学習されたモデル」のみ。</p></div>
+                </article>
+                <article class="py-12 border-b border-v-black/20 flex flex-col md:flex-row gap-6 lg:gap-12 group hover:bg-v-white/50 transition-colors">
+                    <div class="font-serif-en text-5xl lg:text-6xl text-v-black/30 group-hover:text-v-red transition-colors flex-shrink-0 flex items-center">05.<i class="ph-fill ph-asterisk text-v-red text-2xl -ml-2 mb-6"></i></div>
+                    <div><h4 class="font-sans-brutal font-black text-2xl lg:text-3xl mb-4 text-v-black tracking-tight">コードのみが真実を語る。</h4><p class="font-serif-ja text-lg leading-loose text-v-black/80">人間は嘘をつき、忖度し、妥協する。しかしコードは書かれた通りにしか動かない。原理原則に従って書かれたアルゴリズムは、いかなる饒舌なプレゼンよりも雄弁に真理を体現する。</p></div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="bg-v-black text-v-white py-24 lg:py-32 px-6 lg:px-[10%] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-v-red mix-blend-screen opacity-20 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b border-v-white/20 pb-8 mb-16">
+                <div><h2 class="font-serif-en text-sm tracking-[0.3em] text-v-red uppercase mb-4">The Curriculum</h2><h3 class="font-sans-brutal font-black text-4xl lg:text-6xl tracking-tight">三つの教程</h3></div>
+                <p class="font-serif-ja text-v-white/60 text-sm mt-6 md:mt-0 max-w-sm text-right">学派の門を叩く者へ。我々は顧客を「クライアント」と呼ばず「共犯者」と呼ぶ。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-y-16 gap-x-8 lg:gap-x-12 relative">
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 bg-v-black border border-v-red text-v-white flex items-center justify-center font-serif-en text-2xl mb-8 shrink-0 relative">I<div class="absolute -top-2 -right-2 w-3 h-3 bg-v-red"></div></div>
+                    <h4 class="font-serif-en text-2xl font-bold mb-2">Initiation</h4>
+                    <h5 class="font-sans-brutal font-bold text-lg text-v-white/80 mb-2">初講・45分対話</h5>
+                    <p class="font-mono text-xs text-v-white/40 mb-6">¥150k–¥300k / 1–2 weeks</p>
+                    <p class="font-serif-ja text-base text-v-white/60 leading-loose flex-grow">無料のヒアリングではない。Founderとのソクラテス的問答。あなたの抱える課題の「表層」を剥ぎ取り、物理的制約と第一原理まで還元する破壊的セッション。覚悟なき者はここで去れ。</p>
+                </div>
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 bg-v-black border border-v-white/30 text-v-white flex items-center justify-center font-serif-en text-2xl mb-8 shrink-0">II</div>
+                    <h4 class="font-serif-en text-2xl font-bold mb-2">Apprenticeship</h4>
+                    <h5 class="font-sans-brutal font-bold text-lg text-v-white/80 mb-2">実装契約 (PoC ~ 開発)</h5>
+                    <p class="font-mono text-xs text-v-white/40 mb-6">¥500k–¥1.5m / 3–6 weeks</p>
+                    <p class="font-serif-ja text-base text-v-white/60 leading-loose flex-grow">机上の空論を終わらせる。定義された第一原理に基づき、AIを用いたプロトタイプを高速で組み上げる。コードというメスを入れ、組織のプロセスを物理的に再構築する実務的徒弟期間。</p>
+                </div>
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 bg-v-black border border-v-white/30 text-v-white flex items-center justify-center font-serif-en text-2xl mb-8 shrink-0">III</div>
+                    <h4 class="font-serif-en text-2xl font-bold mb-2">Discipleship</h4>
+                    <h5 class="font-sans-brutal font-bold text-lg text-v-white/80 mb-2">顧問・併走契約</h5>
+                    <p class="font-mono text-xs text-v-white/40 mb-6">月額 ¥150k–¥500k</p>
+                    <p class="font-serif-ja text-base text-v-white/60 leading-loose flex-grow">システムの実装後、それを組織の血肉とするための教義的指導。AIの進化に合わせてアーキテクチャを常に純化させ続ける。我々は「外注先」ではなく、中枢の「独立機関」として機能する。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 lg:py-40 px-6 lg:px-[10%] bg-v-white border-b-8 border-v-black bg-grid">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-v-red text-v-red mb-6"><i class="ph ph-microscope text-2xl"></i></span>
+                <h2 class="font-serif-en text-sm tracking-[0.3em] text-v-black uppercase mb-4">Empirical Evidence</h2>
+                <h3 class="font-sans-brutal font-black text-4xl lg:text-5xl text-v-black">実証事件録</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <article class="group relative bg-[#f9f9f9] border border-v-black/10 overflow-hidden">
+                    <div class="aspect-[4/3] overflow-hidden relative border-b border-v-black/10"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data" class="img-brutal object-cover w-full h-full"><div class="absolute top-4 left-4 bg-v-black text-v-white font-sans-brutal text-xs font-bold px-3 py-1">PAPER No. 01</div></div>
+                    <div class="p-8">
+                        <p class="font-serif-en text-v-red text-sm font-bold tracking-widest mb-2 border-b border-v-red pb-2 inline-block">CRM AUTOMATION</p>
+                        <h4 class="font-serif-ja font-bold text-2xl lg:text-3xl text-v-black mb-4 leading-tight">LINE CRM AI · 応答時間96%短縮</h4>
+                        <p class="font-sans-brutal text-sm text-v-black/60 mb-6">[ 課題 ] 27,000名の顧客への手動応答<br>[ 原理 ] 顧客対応とは「文脈応答」である</p>
+                        <div class="font-serif-ja text-base text-v-black/80 leading-relaxed">Claude API × LINE Messaging APIで完全自動化。顧客文脈をベクトル化し、人手介在をゼロに。配信工数も90%削減。</div>
+                    </div>
+                </article>
+                <article class="group relative bg-[#f9f9f9] border border-v-black/10 overflow-hidden">
+                    <div class="aspect-[4/3] overflow-hidden relative border-b border-v-black/10 bg-v-black flex items-center justify-center p-8">
+                        <div class="w-full h-full font-mono text-[0.6rem] leading-none text-v-white/40 break-words opacity-70">def reconstruct(legacy):<br>&nbsp;&nbsp;while True:<br>&nbsp;&nbsp;&nbsp;&nbsp;b = identify_human_limit(legacy)<br>&nbsp;&nbsp;&nbsp;&nbsp;if not b: break<br>&nbsp;&nbsp;&nbsp;&nbsp;agent = Agent(role="optimizer")<br>&nbsp;&nbsp;&nbsp;&nbsp;legacy.replace(b, agent)<br>&nbsp;&nbsp;return pure_architecture</div>
+                        <div class="absolute top-4 left-4 bg-v-black text-v-white border border-v-white/20 font-sans-brutal text-xs font-bold px-3 py-1">PAPER No. 02</div>
+                    </div>
+                    <div class="p-8">
+                        <p class="font-serif-en text-v-red text-sm font-bold tracking-widest mb-2 border-b border-v-red pb-2 inline-block">WEB INFRASTRUCTURE</p>
+                        <h4 class="font-serif-ja font-bold text-2xl lg:text-3xl text-v-black mb-4 leading-tight">AI駆動コーポレートサイト · 2週間実装</h4>
+                        <p class="font-sans-brutal text-sm text-v-black/60 mb-6">[ 課題 ] 制作期間6週間×コスト3倍<br>[ 原理 ] 制作とは「文脈とコードの積分」である</p>
+                        <div class="font-serif-ja text-base text-v-black/80 leading-relaxed">競合20社をAI自動分析、コピー・SEO・実装まで全工程AI化。期間1/3、コスト1/3を達成。</div>
+                    </div>
+                </article>
+                <article class="group relative bg-[#f9f9f9] border border-v-black/10 overflow-hidden">
+                    <div class="aspect-[4/3] overflow-hidden relative border-b border-v-black/10 bg-v-cream paper-texture flex items-center justify-center"><span class="font-sans-brutal text-7xl font-black text-v-red/20">15min</span><div class="absolute top-4 left-4 bg-v-black text-v-white font-sans-brutal text-xs font-bold px-3 py-1">PAPER No. 03</div></div>
+                    <div class="p-8">
+                        <p class="font-serif-en text-v-red text-sm font-bold tracking-widest mb-2 border-b border-v-red pb-2 inline-block">COMPETITIVE INTEL</p>
+                        <h4 class="font-serif-ja font-bold text-2xl lg:text-3xl text-v-black mb-4 leading-tight">競合監視AI · 15分検知</h4>
+                        <p class="font-sans-brutal text-sm text-v-black/60 mb-6">[ 課題 ] 競合変化への検知が遅すぎる<br>[ 原理 ] 監視は「polling頻度の関数」である</p>
+                        <div class="font-serif-ja text-base text-v-black/80 leading-relaxed">Playwright × Claude APIで24時間監視。価格・新商品を15分で検知しSlack通知。手動工数95%削減。</div>
+                    </div>
+                </article>
+                <article class="group relative bg-[#f9f9f9] border border-v-black/10 overflow-hidden">
+                    <div class="aspect-[4/3] overflow-hidden relative border-b border-v-black/10 bg-v-black flex items-center justify-center"><span class="font-sans-brutal text-7xl font-black text-v-red">50+</span><div class="absolute top-4 left-4 bg-v-white text-v-black font-sans-brutal text-xs font-bold px-3 py-1">PAPER No. 04</div></div>
+                    <div class="p-8">
+                        <p class="font-serif-en text-v-red text-sm font-bold tracking-widest mb-2 border-b border-v-red pb-2 inline-block">AD OPTIMIZATION</p>
+                        <h4 class="font-serif-ja font-bold text-2xl lg:text-3xl text-v-black mb-4 leading-tight">Amazon広告AIダッシュボード</h4>
+                        <p class="font-sans-brutal text-sm text-v-black/60 mb-6">[ 課題 ] 50+キャンペーンを手動分析<br>[ 原理 ] 最適化とは「制約付き極値問題」である</p>
+                        <div class="font-serif-ja text-base text-v-black/80 leading-relaxed">SP-API × Perpetua × AIで自動分析。Google Ads統合で全広告チャネルを一元管理。分析工数90%削減。</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="bg-v-cream paper-texture border-b-8 border-v-black">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div class="relative h-[50vh] lg:h-auto overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1000&q=80" alt="Founder" class="w-full h-full object-cover img-brutal">
+                <div class="absolute inset-0 border-[16px] border-v-cream/50 pointer-events-none"></div>
+                <div class="absolute bottom-8 left-8 w-24 h-24 border-4 border-v-red rounded-full flex items-center justify-center -rotate-12 opacity-80 backdrop-blur-sm"><span class="font-sans-brutal text-v-red font-black text-sm text-center leading-none">SEAL OF<br>TRUTH</span></div>
+            </div>
+            <div class="p-10 lg:p-20 flex flex-col justify-center bg-v-cream relative">
+                <div class="absolute top-10 right-10 font-serif-en text-8xl text-v-black/5 leading-none">"</div>
+                <h2 class="font-serif-en text-sm tracking-[0.3em] text-v-red uppercase mb-2">The Headmaster</h2>
+                <h3 class="font-sans-brutal font-black text-4xl lg:text-5xl text-v-black mb-8 border-b-2 border-v-black pb-6 inline-block w-fit">遅沢 翔</h3>
+                <div class="font-serif-ja space-y-6 text-lg text-v-black/80 leading-loose">
+                    <p>コンサルティング産業は、巨大な「借り物競争」の場と化した。彼らは独自の思考を持たず、他人のフレームワークに御社のロゴを貼り付けて高額な請求書を送る。</p>
+                    <p>私はそれに嫌気がさした。テクノロジー、特にAIの台頭は、この中間搾取ビジネスを終わらせるトリガーである。</p>
+                    <p class="font-bold text-v-black">我々は「第一原理」に立ち返る。物事をそれ以上分解できない最小単位まで解体し、そこから論理を積み上げ直す。そこに常識が入る余地はない。</p>
+                    <p>20代でフェリデンシアキャピタル代表、SK本舗・7ブランドEC・3Dプリンター事業を運営。Claude Code・Agent SDK で全LLMを実戦投入する。</p>
+                </div>
+                <div class="mt-12 flex items-center gap-6">
+                    <div class="font-hand text-4xl text-v-black -rotate-6">Sho Chizawa</div>
+                    <div class="h-px bg-v-black/20 flex-grow"></div>
+                    <div class="font-serif-en text-xs uppercase tracking-widest text-v-black/50">Founder / Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="dialogue" class="bg-v-red text-v-white py-32 px-6 lg:px-[10%] relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="font-serif-ja font-bold text-4xl lg:text-6xl mb-8 leading-tight">学派に加わる前に、<br>45分の問答を。</h2>
+            <p class="font-serif-ja text-lg lg:text-xl text-v-white/80 mb-12 max-w-2xl mx-auto">これは単なる「お問い合わせ」ではない。我々はあなたの事業課題を第一原理に還元できるか、そしてあなたが「常識を破壊する」覚悟があるかを見極める。</p>
+            <a href="#" class="inline-block bg-v-white text-v-red font-sans-brutal font-black text-xl lg:text-2xl px-12 py-6 border-4 border-v-white hover:bg-transparent hover:text-v-white transition-colors uppercase tracking-widest shadow-[8px_8px_0px_#000000]">
+                Founderと45分問答
+                <span class="block text-xs font-normal tracking-normal mt-2 opacity-70">Socratic Sessionを申し込む</span>
+            </a>
+            <p class="mt-8 font-serif-en text-sm text-v-white/50">* We do not accept inquiries for mere "consulting" or "general AI knowledge."</p>
+        </div>
+    </section>
+    <footer class="bg-v-cream border-t-8 border-v-black py-16 px-6 lg:px-[10%] font-serif-en relative paper-texture">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+            <div class="border-l-4 border-v-red pl-6">
+                <h4 class="font-sans-brutal font-black text-2xl text-v-black uppercase mb-2">Veritas AI Partners</h4>
+                <p class="text-sm text-v-black/70 font-serif-ja tracking-widest">第一原理学派</p>
+                <div class="mt-6 text-sm text-v-black/60 space-y-1"><p>Tokyo, Japan</p><p>contact@veritas-ai.jp</p></div>
+            </div>
+            <div class="text-left md:text-right text-xs text-v-black/50 space-y-2 uppercase tracking-widest flex flex-col">
+                <span>The First Principles School Manifesto</span>
+                <span>Publication V.1.0</span>
+                <span>&copy; 2026 Veritas AI Partners. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>

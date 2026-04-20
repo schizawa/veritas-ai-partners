@@ -1,0 +1,531 @@
+<!--
+  aesthetic_dna: Apple Product / Stripe / Vercel Ship / Awwwards Typography
+  ui_paradigm: Cinematic Scrollytelling & Editorial Long-form
+  palette: Deep Void (#050505), Pure Black (#000), Cosmic Purple (#7C5CFC), Hyper Cyan (#00D4AA), Neutral Silvers
+-->
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth bg-[#020202] text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas AI Partners | Enterprise AI Implementation</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        void: '#050505',
+                        brand: {
+                            purple: '#7C5CFC',
+                            cyan: '#00D4AA',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #00D4AA33 0deg, #7C5CFC33 180deg, #00D4AA33 360deg)',
+                    },
+                    animation: {
+                        'slow-pan': 'slowPan 30s ease-in-out infinite alternate',
+                        'marquee': 'marquee 25s linear infinite',
+                        'marquee-reverse': 'marquee-reverse 30s linear infinite',
+                        'blob': 'blob 10s infinite',
+                    },
+                    keyframes: {
+                        slowPan: {
+                            '0%': { transform: 'scale(1.05) translate(0, 0)' },
+                            '100%': { transform: 'scale(1.15) translate(-2%, -2%)' }
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        'marquee-reverse': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0%)' }
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Typography Perfection */
+        .text-edge { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020202; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+        /* Utility Blurs & Glows */
+        .glass-panel {
+            background: rgba(10, 10, 12, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-vibrant-gradient {
+            background: linear-gradient(135deg, #FFF 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-brand-gradient {
+            background: linear-gradient(to right, #7C5CFC, #00D4AA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scroll Reveal Logic */
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+
+        /* Full Bleed Image Mask */
+        .img-mask {
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active .img-mask { clip-path: inset(0 0 0 0); }
+
+        /* Outline Text (Apple Style) */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+        }
+
+        /* Sticky Service Cards Setup */
+        .sticky-card {
+            position: sticky;
+            transition: filter 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-edge selection:bg-brand-cyan/30 selection:text-white">
+
+    <!-- Global Nav (Minimal, Fixed) -->
+    <nav class="fixed top-0 inset-x-0 z-50 mix-blend-difference px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-black tracking-tighter uppercase font-display flex items-center gap-2">
+            <i class="ph-fill ph-infinity text-brand-cyan"></i> VERITAS
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest text-white/50">
+            <a href="#manifesto" class="hover:text-white transition-colors duration-300">MANIFESTO</a>
+            <a href="#services" class="hover:text-white transition-colors duration-300">SERVICES</a>
+            <a href="#cases" class="hover:text-white transition-colors duration-300">CASES</a>
+            <a href="#founder" class="hover:text-white transition-colors duration-300">ARSENAL</a>
+        </div>
+        <a href="#contact" class="group relative px-5 py-2 text-xs font-bold tracking-widest overflow-hidden rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-all duration-300">
+            <span class="relative z-10">AI DIAGNOSIS</span>
+            <div class="absolute inset-0 bg-brand-cyan/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </a>
+    </nav>
+
+    <!-- HERO SECTION (Cinematic Full Bleed) -->
+    <header class="relative h-[110vh] w-full overflow-hidden flex flex-col justify-end pb-32">
+        <!-- Abstract Motion Background -->
+        <div class="absolute inset-0 z-0">
+            <!-- High-end abstract dark placeholder image behaving like a video -->
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                 alt="Abstract topological background"
+                 class="w-full h-full object-cover object-center opacity-40 animate-slow-pan mix-blend-screen scale-105">
+            <!-- Extreme Vignette / Gradients -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/50 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#020202] via-transparent to-[#020202]"></div>
+
+            <!-- Atmospheric Glows -->
+            <div class="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] bg-brand-purple/20 rounded-full blur-[120px] animate-blob"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-brand-cyan/20 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+        </div>
+
+        <div class="relative z-10 px-6 md:px-16 max-w-7xl">
+            <div class="overflow-hidden">
+                <h1 class="font-display font-black text-[12vw] md:text-[8vw] leading-[0.8] tracking-tighter text-white mb-6 uppercase reveal">
+                    Intelligence.<br>
+                    <span class="text-brand-gradient">Weaponized.</span>
+                </h1>
+            </div>
+            <div class="overflow-hidden max-w-2xl">
+                <p class="font-jp font-light text-xl md:text-3xl text-neutral-300 leading-relaxed tracking-wide reveal reveal-delay-1">
+                    AIは魔法ではない。<br class="hidden md:block">
+                    市場を制圧するための「物理法則」だ。
+                </p>
+            </div>
+            <div class="mt-8 flex items-center gap-4 reveal reveal-delay-2">
+                <div class="h-[1px] w-12 bg-brand-cyan"></div>
+                <span class="text-xs font-bold tracking-[0.3em] text-white/50 uppercase">Veritas AI Partners</span>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 text-[10px] tracking-widest reveal reveal-delay-3">
+            <span>SCROLL</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- MANIFESTO SECTION (Massive Typography & Contrast) -->
+    <section id="manifesto" class="relative py-40 px-6 md:px-16 max-w-7xl mx-auto z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 text-edge">
+            <div class="lg:col-span-4 reveal">
+                <h2 class="text-xs font-bold tracking-[0.3em] text-brand-purple uppercase flex items-center gap-2">
+                    <i class="ph ph-target"></i> Paradigm Shift
+                </h2>
+            </div>
+            <div class="lg:col-span-8 flex flex-col gap-16">
+                <h3 class="font-jp font-bold text-4xl md:text-6xl leading-[1.3] text-vibrant-gradient tracking-tight reveal">
+                    過去の成功体験が、<br>
+                    明日には巨大な負債に変わる。
+                </h3>
+                <p class="font-jp font-light text-lg md:text-2xl text-neutral-400 leading-loose reveal">
+                    我々は「AIを導入する」という次元で仕事をしていない。<br>
+                    最先端のLLM、自律エージェント、生成AI群をオーケストレーションし、<strong class="text-white font-medium">企業そのものをAI駆動型（AI-Native）へと再定義する。</strong><br><br>
+                    ビジネスの深淵を理解する知略と、世界最速で進化するテクノロジーを実戦投入する狂気。Veritas AI Partnersは、その二刀流で御社の業界地図を塗り替える。
+                </p>
+
+                <!-- Micro-Dashboard Flex -->
+                <div class="border border-white/5 bg-[#0a0a0c] rounded-2xl p-8 flex flex-wrap gap-8 justify-between mt-8 reveal">
+                    <div>
+                        <div class="text-[10px] text-white/40 tracking-widest mb-1">DECISION LATENCY</div>
+                        <div class="font-display font-medium text-3xl text-white">0.01s</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-white/40 tracking-widest mb-1">SYSTEM AUTONOMY</div>
+                        <div class="font-display font-medium text-3xl text-brand-cyan">94.8%</div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-white/40 tracking-widest mb-1">ROI EXCEEDANCE</div>
+                        <div class="font-display font-medium text-3xl text-white">100+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES (Sticky Layered Architecture) -->
+    <section id="services" class="relative pb-40">
+        <div class="px-6 md:px-16 max-w-7xl mx-auto mb-24 reveal">
+            <h2 class="text-6xl md:text-[8vw] font-black font-display text-outline leading-none uppercase tracking-tighter">
+                Architecture<br>of Growth
+            </h2>
+        </div>
+
+        <div class="px-6 md:px-16 max-w-7xl mx-auto relative">
+            <!-- Card 01 -->
+            <div class="sticky-card top-[15vh] z-10 w-full h-[65vh] glass-panel rounded-3xl p-8 md:p-16 flex flex-col justify-between overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/10 reveal bg-[#09090b]">
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-white/5 rounded-full blur-[100px]"></div>
+                <div>
+                    <span class="font-display text-white/20 text-8xl font-black absolute top-10 right-10 leading-none">01</span>
+                    <h3 class="font-display text-xs tracking-[0.3em] text-white/50 mb-4">PHASE I</h3>
+                    <h4 class="font-jp text-4xl md:text-5xl font-bold text-white mb-6">AI診断・戦略策定</h4>
+                    <p class="font-jp text-neutral-400 text-lg md:text-xl max-w-xl leading-relaxed">
+                        経営のボトルネックを特定し、AIで解決・破壊可能な領域を抽出。机上の空論ではなく、MVP（実用最小限のプロダクト）を見据えた最短経路のロードマップを描く。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <span class="px-4 py-2 rounded-full bg-white/5 text-xs text-white/70 border border-white/5">業務プロセス解析</span>
+                    <span class="px-4 py-2 rounded-full bg-white/5 text-xs text-white/70 border border-white/5">技術フィジビリティ検証</span>
+                    <span class="px-4 py-2 rounded-full bg-white/5 text-xs text-white/70 border border-white/5">ROIシミュレーション</span>
+                </div>
+            </div>
+
+            <!-- Card 02 -->
+            <div class="sticky-card top-[20vh] z-20 w-full h-[65vh] glass-panel rounded-3xl p-8 md:p-16 flex flex-col justify-between overflow-hidden shadow-[0_-10px_50px_rgba(0,0,0,0.9)] border border-white/10 reveal bg-[#0b0c10] mt-[5vh]">
+                <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-cyan/10 rounded-full blur-[100px]"></div>
+                <div>
+                    <span class="font-display text-white/20 text-8xl font-black absolute top-10 right-10 leading-none">02</span>
+                    <h3 class="font-display text-xs tracking-[0.3em] text-brand-cyan mb-4">PHASE II</h3>
+                    <h4 class="font-jp text-4xl md:text-5xl font-bold text-white mb-6">プロトタイプ実装・開発</h4>
+                    <p class="font-jp text-neutral-400 text-lg md:text-xl max-w-xl leading-relaxed">
+                        モックアップではなく「動く本物」を開発。RAGベースの独自LLM環境構築から、複数AIが連動する自律型ワークフローまで、既存のレガシーシステムとシームレスに統合する。
+                    </p>
+                </div>
+                <!-- Mini Tech Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 border border-white/10 rounded-xl overflow-hidden mt-8 w-fit">
+                    <div class="bg-[#0b0c10] px-4 py-3 text-xs text-white/80 font-display flex items-center gap-2"><i class="ph-fill ph-database text-brand-cyan"></i> Vector DBs</div>
+                    <div class="bg-[#0b0c10] px-4 py-3 text-xs text-white/80 font-display flex items-center gap-2"><i class="ph-fill ph-code text-brand-cyan"></i> API Integ</div>
+                    <div class="bg-[#0b0c10] px-4 py-3 text-xs text-white/80 font-display flex items-center gap-2"><i class="ph-fill ph-robot text-brand-cyan"></i> Agentic UI</div>
+                    <div class="bg-[#0b0c10] px-4 py-3 text-xs text-white/80 font-display flex items-center gap-2"><i class="ph-fill ph-cloud text-brand-cyan"></i> Edge AI</div>
+                </div>
+            </div>
+
+            <!-- Card 03 -->
+            <div class="sticky-card top-[25vh] z-30 w-full h-[65vh] glass-panel rounded-3xl p-8 md:p-16 flex flex-col justify-between overflow-hidden shadow-[0_-10px_50px_rgba(0,0,0,0.9)] border border-brand-purple/30 reveal bg-[#0f0918] mt-[5vh]">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none"></div>
+                <div>
+                    <span class="font-display text-white/20 text-8xl font-black absolute top-10 right-10 leading-none">03</span>
+                    <h3 class="font-display text-xs tracking-[0.3em] text-brand-purple mb-4">PHASE III</h3>
+                    <h4 class="font-jp text-4xl md:text-5xl font-bold text-white mb-6">AI経営顧問・伴走支援</h4>
+                    <p class="font-jp text-neutral-300 text-lg md:text-xl max-w-xl leading-relaxed">
+                        システムは導入して終わりではない。日進月歩のAIモデル（GPT-5, Opus等）のアップデートへの対応、プロンプトの高度化、そして社内AI人材の育成に至るまで、経営の外部ブレインとして機能する。
+                    </p>
+                </div>
+                <div class="mt-8 flex items-center justify-between border-t border-white/10 pt-8">
+                    <div class="text-sm font-jp text-white/60">月次定例 / 最新AIブリーフィング / システム保守チューニング</div>
+                    <i class="ph-light ph-arrow-right text-3xl text-brand-purple"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES (Editorial Showcase) -->
+    <section id="cases" class="py-32 relative bg-[#020202]">
+        <div class="px-6 md:px-16 max-w-7xl mx-auto border-t border-white/5 pt-16">
+            <h2 class="text-xs font-bold tracking-[0.3em] text-white/50 uppercase mb-24 reveal">Proven Implementations</h2>
+
+            <div class="space-y-32">
+
+                <!-- Case 01 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center reveal">
+                    <div class="md:col-span-7 relative h-[60vh] overflow-hidden rounded-2xl bg-[#0a0a0c]">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Cyber security network interface" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[1.5s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-void via-transparent to-transparent opacity-80"></div>
+                        <!-- UI Overlay Element -->
+                        <div class="absolute bottom-6 left-6 right-6 border border-white/10 bg-black/50 backdrop-blur-md p-4 rounded-xl flex justify-between items-end">
+                            <div>
+                                <div class="w-16 h-1 bg-brand-cyan mb-2"></div>
+                                <div class="text-xs text-white/50 font-display">LATENCY</div>
+                            </div>
+                            <div class="text-xl font-display font-bold">45ms</div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-5 flex flex-col gap-6">
+                        <span class="text-brand-cyan font-display text-4xl font-light">01</span>
+                        <h3 class="text-3xl font-jp font-bold text-white">自律型 LINE CRM AIエージェント</h3>
+                        <p class="text-neutral-400 font-jp leading-relaxed">
+                            ルールベースのチャットボットを廃棄し、LLMベースの自律対話エージェントをLINEに実装。顧客の曖昧な要望から文脈を察知し、最適商品のアサインと在庫確認を完全自動化。CVRが従来比340%向上。
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">GPT-4o</span>
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">Vector Search</span>
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">LINE API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 02 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center reveal">
+                    <div class="md:col-span-5 flex flex-col gap-6 md:order-1 order-2">
+                        <span class="text-brand-purple font-display text-4xl font-light">02</span>
+                        <h3 class="text-3xl font-jp font-bold text-white">AI生成・自律更新 コーポレートサイト</h3>
+                        <p class="text-neutral-400 font-jp leading-relaxed">
+                            CMSという概念を破壊。業界ニュースや自社プレスリリースをAIが自動クローリングし、SEO最適化されたオウンドメディア記事と、それに紐づく美麗なアイキャッチ画像を完全無人で日次生成・公開するシステム。
+                        </p>
+                        <div class="flex gap-2 text-brand-purple/80">
+                            <span class="px-3 py-1 bg-brand-purple/10 rounded border border-brand-purple/20 text-[10px] uppercase">Claude Opus</span>
+                            <span class="px-3 py-1 bg-brand-purple/10 rounded border border-brand-purple/20 text-[10px] uppercase">Midjourney API</span>
+                            <span class="px-3 py-1 bg-brand-purple/10 rounded border border-brand-purple/20 text-[10px] uppercase">Next.js</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-7 relative h-[60vh] overflow-hidden rounded-2xl bg-[#0a0a0c] md:order-2 order-1">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Abstract connection points in space" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[1.5s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
+                        <div class="absolute inset-0 bg-brand-purple/20 mix-blend-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Case 03 -->
+                <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center reveal">
+                    <div class="md:col-span-7 relative h-[60vh] overflow-hidden rounded-2xl bg-[#0a0a0c]">
+                        <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070&auto=format&fit=crop" alt="Data dashboard and analytics code" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[1.5s] ease-out mix-blend-luminosity group-hover:mix-blend-normal object-left">
+                    </div>
+                    <div class="md:col-span-5 flex flex-col gap-6">
+                        <span class="text-white/30 font-display text-4xl font-light">03</span>
+                        <h3 class="text-3xl font-jp font-bold text-white">競合データ リアルタイム監視網</h3>
+                        <p class="text-neutral-400 font-jp leading-relaxed">
+                            競合他社100社以上のWebサイト更新、SNS発信、価格変動をAIエージェントが24時間監視。異常値や戦略変更の兆しを検知した瞬間、要約レポートと対抗策草案をSlackへ通知する経営の「レーダー兵器」。
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">Scraping</span>
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">LangChain</span>
+                            <span class="px-3 py-1 bg-white/5 rounded text-[10px] text-white/60">Slack Bot</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER & ARSENAL (The Surreal Tech Flex) -->
+    <section id="founder" class="relative py-40 bg-void overflow-hidden">
+        <!-- Deep Background Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-brand-purple/5 blur-[150px] rounded-full pointer-events-none"></div>
+
+        <div class="px-6 md:px-16 max-w-7xl mx-auto mb-20 text-center reveal">
+            <h2 class="text-[5vw] font-black font-display text-white uppercase tracking-tighter mb-4">The Architect</h2>
+            <p class="text-white/40 font-jp">全AI技術を実戦投入する経営者</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center px-6 md:px-16 max-w-7xl mx-auto">
+
+            <!-- Founder Profile -->
+            <div class="relative z-10 glass-panel p-8 md:p-12 rounded-3xl reveal">
+                <div class="w-24 h-24 rounded-full overflow-hidden mb-8 border border-white/20">
+                    <!-- Moody placeholder for founder -->
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1287&auto=format&fit=crop" alt="Silhouette of a person" class="w-full h-full object-cover grayscale contrast-150 brightness-75">
+                </div>
+                <h3 class="text-2xl font-bold font-jp text-white mb-2">Ren K.</h3>
+                <p class="text-sm font-display text-brand-cyan tracking-widest mb-8 uppercase">Founder / Chief AI Architect</p>
+                <p class="text-neutral-400 font-jp leading-loose text-sm md:text-base">
+                    日本の20代起業家でありながら、世界のAI進化速度と完全に同期する異端のアーキテクト。<br><br>
+                    戦略コンサルティングの抽象思考と、泥臭いコード実装能力を併せ持つ。Claude OpusからDeepSeekまで、あらゆるLLMの特徴を細胞レベルで理解し、適材適所で組み上げる。生成AIを「面白いツール」としてではなく、「資本主義の致死兵器」として扱う。<br><br>
+                    「コードを書くのではない。AIにシステムを創らせ、AIに業務を回させる構造をデザインしている」
+                </p>
+            </div>
+
+            <!-- The Tech Arsenal Marquees -->
+            <div class="relative h-[500px] flex flex-col justify-center gap-6 overflow-hidden mask-image-fade reveal reveal-delay-2" style="-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+
+                <!-- Marquee 1 (LLMs) -->
+                <div class="flex whitespace-nowrap animate-marquee gap-4">
+                    <div class="flex gap-4 font-display font-bold text-4xl text-white/10 uppercase tracking-tight items-center">
+                        <span>Claude 3.5 Sonnet</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span class="text-white/40">GPT-4o</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Gemini 1.5 Pro</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span class="text-brand-purple/50">Claude Opus</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Grok 1.5</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>DeepSeek Coder V2</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Llama 3 70B</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                    </div>
+                    <!-- Duplicate for infinite loop -->
+                    <div class="flex gap-4 font-display font-bold text-4xl text-white/10 uppercase tracking-tight items-center" aria-hidden="true">
+                        <span>Claude 3.5 Sonnet</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span class="text-white/40">GPT-4o</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Gemini 1.5 Pro</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span class="text-brand-purple/50">Claude Opus</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Grok 1.5</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>DeepSeek Coder V2</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                        <span>Llama 3 70B</span> <i class="ph-fill ph-sparkle text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Marquee 2 (Dev Tools) -->
+                <div class="flex whitespace-nowrap animate-marquee-reverse gap-4">
+                    <div class="flex gap-4 font-display font-black text-6xl text-white/5 uppercase tracking-tighter items-center">
+                        <span class="text-white/30 text-outline">Cursor</span> <span class="text-brand-cyan/20">/</span>
+                        <span>Windsurf</span> <span class="text-brand-cyan/20">/</span>
+                        <span class="text-white/30 text-outline">Devin</span> <span class="text-brand-cyan/20">/</span>
+                        <span>Copilot Workspace</span> <span class="text-brand-cyan/20">/</span>
+                        <span>V0.dev</span> <span class="text-brand-cyan/20">/</span>
+                        <span class="text-white/30 text-outline">MCP Protocol</span> <span class="text-brand-cyan/20">/</span>
+                    </div>
+                    <!-- Duplicate -->
+                    <div class="flex gap-4 font-display font-black text-6xl text-white/5 uppercase tracking-tighter items-center" aria-hidden="true">
+                        <span class="text-white/30 text-outline">Cursor</span> <span class="text-brand-cyan/20">/</span>
+                        <span>Windsurf</span> <span class="text-brand-cyan/20">/</span>
+                        <span class="text-white/30 text-outline">Devin</span> <span class="text-brand-cyan/20">/</span>
+                        <span>Copilot Workspace</span> <span class="text-brand-cyan/20">/</span>
+                        <span>V0.dev</span> <span class="text-brand-cyan/20">/</span>
+                        <span class="text-white/30 text-outline">MCP Protocol</span> <span class="text-brand-cyan/20">/</span>
+                    </div>
+                </div>
+
+                <!-- Marquee 3 (Generative / Video / Voice) -->
+                <div class="flex whitespace-nowrap animate-marquee gap-4">
+                    <div class="flex gap-4 font-display font-medium text-3xl text-white/10 tracking-widest items-center">
+                        <span class="border border-white/10 rounded-full px-6 py-2">ComfyUI</span>
+                        <span class="border border-brand-purple/20 rounded-full px-6 py-2 text-brand-purple/50">Flux.1</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">LoRA Training</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">Kling 1.0</span>
+                        <span class="border border-brand-cyan/20 rounded-full px-6 py-2 text-brand-cyan/50">Runway Gen-3</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">ElevenLabs</span>
+                    </div>
+                    <!-- Duplicate -->
+                    <div class="flex gap-4 font-display font-medium text-3xl text-white/10 tracking-widest items-center" aria-hidden="true">
+                        <span class="border border-white/10 rounded-full px-6 py-2">ComfyUI</span>
+                        <span class="border border-brand-purple/20 rounded-full px-6 py-2 text-brand-purple/50">Flux.1</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">LoRA Training</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">Kling 1.0</span>
+                        <span class="border border-brand-cyan/20 rounded-full px-6 py-2 text-brand-cyan/50">Runway Gen-3</span>
+                        <span class="border border-white/10 rounded-full px-6 py-2">ElevenLabs</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CTA (Immersive Conclusion) -->
+    <footer id="contact" class="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-black py-32">
+        <!-- Dramatic Light Beam -->
+        <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent w-full opacity-50"></div>
+        <div class="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-white/5 to-transparent w-full pointer-events-none mix-blend-screen mask-image-fade"></div>
+
+        <div class="relative z-10 text-center px-6 reveal flex flex-col items-center">
+            <h2 class="font-display font-black text-7xl md:text-[10vw] leading-[0.8] tracking-tighter text-white mb-8 uppercase">
+                Ready to<br>
+                <span class="text-outline">Scale?</span>
+            </h2>
+            <p class="font-jp text-neutral-400 max-w-xl mx-auto mb-12 text-lg">
+                現状のビジネス課題と、最新AIによる突破口を提示する30分の無料診断。本気の経営者のみ受け付けます。
+            </p>
+
+            <button class="group relative px-12 py-5 bg-white text-black font-display font-bold text-lg tracking-widest uppercase overflow-hidden rounded-full hover:scale-105 transition-transform duration-500 ease-out">
+                <span class="relative z-10 flex items-center gap-3">
+                    Book AI Diagnosis <i class="ph-bold ph-arrow-right transition-transform group-hover:translate-x-1"></i>
+                </span>
+                <!-- Hover Glow -->
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-cyan to-brand-purple opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+            </button>
+        </div>
+
+        <div class="absolute bottom-6 w-full flex justify-between items-center px-10 text-[10px] text-white/30 font-display tracking-widest">
+            <div>&copy; 2024 VERITAS AI PARTNERS.</div>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white transition">X (TWITTER)</a>
+                <a href="#" class="hover:text-white transition">LINKEDIN</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer Script for Reveal Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

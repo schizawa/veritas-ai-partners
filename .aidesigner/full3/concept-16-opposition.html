@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE OPPOSITION | Veritas AI Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+            colors: { veritas: { red: '#dc2626', black: '#0a0a0a', border: '#e5e7eb' } },
+            boxShadow: { 'brutal': '4px 4px 0px 0px rgba(0,0,0,1)', 'brutal-red': '4px 4px 0px 0px rgba(220,38,38,1)' }
+        }}}
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f9fafb; border-left: 1px solid #e5e7eb; } ::-webkit-scrollbar-thumb { background: #000; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+        .comparison-table-wrapper { max-height: 80vh; overflow: auto; border: 1px solid #000; }
+        .comparison-table th { position: sticky; top: 0; background: #fff; z-index: 10; border-bottom: 2px solid #000; }
+        .comparison-table th:first-child { z-index: 11; }
+        .comparison-table td:first-child, .comparison-table th:first-child { position: sticky; left: 0; background: #f9fafb; border-right: 1px dashed #d1d5db; }
+        .comparison-table tr:hover td { background-color: #f3f4f6; }
+        .comparison-table tr:hover td.veritas-col { background-color: #fff1f2; }
+        .text-fluid-hero { font-size: clamp(3rem, 8vw, 8rem); line-height: 1.05; letter-spacing: -0.04em; }
+        .text-fluid-sub { font-size: clamp(1.5rem, 4vw, 3rem); line-height: 1.2; letter-spacing: -0.02em; }
+        .pattern-diagonal { background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #e5e7eb 10px, #e5e7eb 11px); }
+    </style>
+</head>
+<body class="bg-white text-veritas-black antialiased selection:bg-veritas-red selection:text-white">
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-black">
+        <div class="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 font-mono font-bold tracking-tight text-xl"><i class="ph-fill ph-code text-veritas-red"></i>VERITAS<span class="text-gray-400 font-normal">.AI</span></div>
+            <a href="#cta" class="font-mono text-sm font-bold bg-black text-white px-5 py-2.5 hover:bg-veritas-red transition-colors flex items-center gap-2">FOUNDER対話 <i class="ph ph-arrow-right"></i></a>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-20 px-6 max-w-[1400px] mx-auto min-h-[90vh] flex flex-col justify-center">
+        <div class="font-mono text-veritas-red text-sm font-bold tracking-widest mb-6 uppercase border border-veritas-red px-3 py-1 inline-flex self-start">Industry Reality Check</div>
+        <h1 class="font-black text-fluid-hero leading-none tracking-tighter w-full max-w-6xl">BIG FIRM: <span class="font-mono text-gray-300 line-through decoration-black decoration-[8px]">¥200,000,000</span><br>VERITAS: <span class="font-mono text-veritas-red">¥2,000,000</span></h1>
+        <p class="text-fluid-sub font-bold mt-8 max-w-4xl tracking-tight text-gray-800">同じものが届く。<br>違いは、あなたが「誰の高級オフィス代」を払うかだけだ。</p>
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-black divide-y md:divide-y-0 md:divide-x divide-black font-mono">
+            <div class="p-6"><div class="text-xs text-gray-500 uppercase mb-2">Outcome</div><div class="text-2xl font-bold">100% Working Code</div></div>
+            <div class="p-6 bg-black text-white"><div class="text-xs text-gray-400 uppercase mb-2">PowerPoint Slides</div><div class="text-2xl font-bold">0 Pages generated</div></div>
+            <div class="p-6"><div class="text-xs text-gray-500 uppercase mb-2">Avg. Time to MVP</div><div class="text-2xl font-bold text-veritas-red">21 Days</div></div>
+        </div>
+    </header>
+
+    <section class="max-w-[1400px] mx-auto px-6 py-24 border-t border-black">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-4">
+                <h2 class="text-3xl font-black uppercase tracking-tight">The Mark-up<br>Architecture</h2>
+                <p class="font-mono text-sm text-gray-500 mt-4">01. THE PROBLEM DEFINITION<br>02. RESOURCE ALLOCATION<br>03. MARKET INEFFICIENCY</p>
+            </div>
+            <div class="lg:col-span-8 space-y-8 text-xl font-medium leading-relaxed">
+                <p>コンサル業界の構造はシンプルだ。トップパートナーが案件を獲得し、シニアがパワポを書き、ジュニアがリサーチをし、<strong class="bg-yellow-200 text-black px-1">実際の実装は外部のSIerや開発会社に丸投げされる。</strong></p>
+                <p>結果として、あなたが支払う2億円のうち、実際にAIシステムを書いているエンジニアに渡るのは1,000万円にも満たない。残りの1億9,000万円は「ブランド代」「階層化されたマージン」「彼らのオフィス賃料」として消える。</p>
+                <p class="text-veritas-red font-bold">我々は、この中抜き構造を破壊する。フルスタックのAIアーキテクトが直接ヒアリングし、直接コードを書き、2週間で動くものを納品する。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-y border-black" id="comparison">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="flex items-end justify-between mb-8">
+                <div><h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase">The Spec Sheet</h2><p class="font-mono text-gray-500 mt-2">Competitor Analysis Matrix v1.4</p></div>
+                <div class="hidden md:flex font-mono text-xs items-center gap-2"><span class="w-3 h-3 bg-veritas-red border border-black"></span> Veritas Advantage</div>
+            </div>
+            <div class="comparison-table-wrapper bg-white">
+                <table class="w-full comparison-table text-left border-collapse min-w-[900px]">
+                    <thead class="font-mono text-sm uppercase tracking-wider text-gray-900">
+                        <tr><th class="p-6 w-1/4 font-bold">Evaluation Metric</th><th class="p-6 font-bold border-r border-dashed border-gray-300">McKinsey / BCG<br><span class="text-xs text-gray-400 font-normal">Strategy Consulting</span></th><th class="p-6 font-bold border-r border-dashed border-gray-300">Accenture / PwC<br><span class="text-xs text-gray-400 font-normal">IT/Big4 Consulting</span></th><th class="p-6 font-black text-veritas-red bg-[#fff1f2] border-x-2 border-t-2 border-veritas-red text-lg w-1/4">Veritas AI<br><span class="text-xs text-veritas-red font-normal block mt-1">Implementation Native</span></th></tr>
+                    </thead>
+                    <tbody class="text-base font-medium divide-y divide-gray-200">
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">PoC / MVP 費用相場</td><td class="p-6 font-mono text-gray-500 border-r border-dashed border-gray-300">¥100M - ¥300M</td><td class="p-6 font-mono text-gray-500 border-r border-dashed border-gray-300">¥30M - ¥80M</td><td class="p-6 font-mono font-black text-veritas-red text-2xl bg-[#fff1f2] border-x-2 border-veritas-red veritas-col">¥2M - ¥5M</td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">リードタイム (納品まで)</td><td class="p-6 border-r border-dashed border-gray-300">3〜6ヶ月<br><span class="text-xs text-gray-500 font-mono">Mostly research phase</span></td><td class="p-6 border-r border-dashed border-gray-300">2〜4ヶ月<br><span class="text-xs text-gray-500 font-mono">Includes requirements doc</span></td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-veritas-red veritas-col">2〜3週間<br><span class="text-xs font-mono">Direct to development</span></td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">メインの納品物</td><td class="p-6 border-r border-dashed border-gray-300">戦略スライド (50-100枚)</td><td class="p-6 border-r border-dashed border-gray-300">要件定義書、アーキテクチャ図</td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-veritas-red veritas-col">本番想定で動くソースコード<br>+ デプロイ済環境</td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">実際の開発・実装担当</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">外部SIerへ再委託 (100%)</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">オフショア / 下請け企業</td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-veritas-red veritas-col"><div class="flex items-center gap-2"><i class="ph-fill ph-check-circle"></i> In-house AI Architects</div></td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">最新LLM/AI技術への追従</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">遅い</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">標準的 (Azure OpenAI等)</td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-veritas-red veritas-col">即時 (Claude Opus 4 / GPT-5 / Gemini 3.1 / Grok 4.20)</td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">フロント対応者</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">ジュニアコンサルタント</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">マネージャー級</td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-veritas-red veritas-col">Founder (元コンサル・現役エンジニア) が直接議論・設計</td></tr>
+                        <tr><td class="p-6 font-mono text-sm font-bold bg-white">契約形態・課金</td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">Time & Material<br><span class="font-mono text-sm">¥5M - ¥10M / month</span></td><td class="p-6 border-r border-dashed border-gray-300 text-gray-500">Time & Material<br><span class="font-mono text-sm">¥3M - ¥6M / month</span></td><td class="p-6 font-bold text-veritas-red bg-[#fff1f2] border-x-2 border-b-2 border-veritas-red veritas-col">Fixed Price (機能・成果物ベース)<br><span class="font-mono text-sm">Zero hidden costs.</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="font-mono text-xs text-gray-400 mt-4 text-right">※自社および業界ヒアリングに基づく推定値。</p>
+        </div>
+    </section>
+
+    <section class="py-24 max-w-[1400px] mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="relative h-[600px] flex items-end justify-center gap-8 bg-gray-50 p-8 border border-gray-200">
+                <div class="absolute inset-0 pattern-diagonal opacity-20"></div>
+                <div class="relative w-32 h-[90%] flex flex-col justify-end z-10 shadow-brutal bg-white border border-black group">
+                    <div class="h-[45%] bg-gray-800 text-white flex flex-col justify-center items-center text-center p-2 group-hover:bg-black"><span class="text-xs font-mono font-bold">45%</span><span class="text-[10px] uppercase mt-1">Partner/Brand</span></div>
+                    <div class="h-[25%] bg-gray-500 text-white flex flex-col justify-center items-center text-center p-2 border-t border-black"><span class="text-xs font-mono">25%</span><span class="text-[10px] uppercase mt-1">Overhead</span></div>
+                    <div class="h-[20%] bg-gray-300 text-black flex flex-col justify-center items-center text-center p-2 border-t border-black"><span class="text-xs font-mono">20%</span><span class="text-[10px] uppercase mt-1">Jr. Consulting (PPT)</span></div>
+                    <div class="h-[10%] bg-white text-black flex flex-col justify-center items-center text-center p-2 border-t border-black"><span class="text-xs font-mono font-bold text-veritas-red">10%</span><span class="text-[10px] uppercase mt-1 font-bold">Subcontracted Dev</span></div>
+                    <div class="absolute -bottom-8 w-full text-center font-mono text-sm font-bold">Big Firm</div>
+                </div>
+                <div class="relative w-32 h-[15%] flex flex-col justify-end z-10 shadow-brutal-red bg-white border-2 border-veritas-red">
+                    <div class="h-[80%] bg-veritas-red text-white flex flex-col justify-center items-center text-center p-2"><span class="text-xs font-mono font-bold">80% Architect</span></div>
+                    <div class="h-[20%] bg-white text-veritas-red flex flex-col justify-center items-center text-center p-1 border-t border-veritas-red"><span class="text-[10px] font-mono font-bold">20% API/Infra</span></div>
+                    <div class="absolute -bottom-8 w-full text-center font-mono text-sm text-veritas-red font-bold">Veritas</div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-3xl font-black uppercase tracking-tight mb-6">The Anatomy of Price</h3>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed">大手コンサルの見積書に含まれる「システム開発費」は、全体のわずか10%に過ぎない。残りの90%は、プロジェクト完了には直接寄与しない階層的オーバーヘッドだ。</p>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed">Veritasは、この「無駄な90%」を完全に削ぎ落とした。我々はコードを書くAIアーキテクトのみで構成されている。だからこそ、<strong>1/10の価格で、本質的に同じシステムを納品できる。</strong></p>
+                <ul class="space-y-4 font-mono text-sm">
+                    <li class="flex gap-4 items-start border-b border-gray-200 pb-4"><i class="ph-fill ph-x-square text-gray-400 text-xl"></i><div><strong class="text-black block mb-1">NO MIDDLEMEN</strong>再委託による伝言ゲームとマージン搾取を排除。</div></li>
+                    <li class="flex gap-4 items-start border-b border-gray-200 pb-4"><i class="ph-fill ph-x-square text-gray-400 text-xl"></i><div><strong class="text-black block mb-1">NO EMPTY SLIDES</strong>「AIとは何か」スライドに数百万円課金しない。</div></li>
+                    <li class="flex gap-4 items-start pt-2"><i class="ph-fill ph-check-square text-veritas-red text-xl"></i><div class="text-veritas-red font-bold"><span class="block mb-1">PURE IMPLEMENTATION</span>1日目から御社のデータセットを基に、RAGプロトタイプ構築を開始。</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-black text-white py-24 border-y border-gray-800">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-16 text-center">Output Comparison</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-800 border border-gray-800">
+                <div class="bg-black p-8 md:p-12">
+                    <div class="font-mono text-sm text-gray-500 mb-4">CASE 01: LINE CRM AI 96%短縮</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-1/2 p-4 border border-gray-800"><div class="text-xs text-gray-500 mb-1">Big Consulting</div><div class="font-mono text-xl text-red-500 line-through decoration-gray-500">¥45,000,000</div><div class="text-sm mt-2">6 months. Slide deck. No real deploy.</div></div>
+                        <div class="w-1/2 p-4 border border-veritas-red bg-[#1a0505]"><div class="text-xs text-veritas-red mb-1">Veritas AI</div><div class="font-mono text-xl font-bold">¥1,450,000</div><div class="text-sm mt-2 text-gray-300">3 weeks. Claude API + LINE Messaging. Production.</div></div>
+                    </div>
+                </div>
+                <div class="bg-black p-8 md:p-12">
+                    <div class="font-mono text-sm text-gray-500 mb-4">CASE 02: AI駆動コーポレートサイト 2週間</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-1/2 p-4 border border-gray-800"><div class="text-xs text-gray-500 mb-1">Traditional SIer</div><div class="font-mono text-xl text-red-500 line-through decoration-gray-500">¥80,000,000</div><div class="text-sm mt-2">1 year. Legacy keyword matching, slow UI.</div></div>
+                        <div class="w-1/2 p-4 border border-veritas-red bg-[#1a0505]"><div class="text-xs text-veritas-red mb-1">Veritas AI</div><div class="font-mono text-xl font-bold">¥2,800,000</div><div class="text-sm mt-2 text-gray-300">2 weeks. Vector search + Claude Opus 4 + Next.js.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-[1400px] mx-auto px-6 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 relative">
+                <div class="aspect-[3/4] bg-gray-200 w-full max-w-md mx-auto grayscale contrast-125 relative">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800" alt="Founder" class="w-full h-full object-cover shadow-brutal">
+                    <div class="absolute bottom-4 left-4 bg-black text-white font-mono text-xs p-2">SHO CHIZAWA / FOUNDER</div>
+                </div>
+            </div>
+            <div class="order-1 md:order-2">
+                <i class="ph-fill ph-quotes text-4xl text-veritas-red mb-6 block"></i>
+                <h3 class="text-3xl font-black tracking-tight mb-6 leading-tight">私はコンサル業界の内側にいた。<br>だからこそ、この「理不尽な値付け」を終わらせる。</h3>
+                <div class="space-y-6 text-gray-700 font-medium">
+                    <p>フェリデンシアキャピタル代表として、SK本舗・7ブランドEC・3Dプリンター事業を運営。Claude Code・Agent SDK・全LLMを実戦投入する経営者として、コンサル業界の構造的な無駄を内側から見てきた。</p>
+                    <p>LLMの登場により、AI開発のパラダイムは変わった。少数のトップエンジニアが最新のモデルを叩けば、数日でプロトタイプは完成する。</p>
+                    <p class="text-black font-bold border-l-4 border-veritas-red pl-4 py-1">「戦略」を語る暇があるなら、コードを書くべきです。<br>Veritas AI Partnersは、実行（Implementation）にのみ価値を置きます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="bg-veritas-red text-white py-32 border-t-[16px] border-black">
+        <div class="max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="font-mono text-sm font-bold bg-black px-4 py-1 inline-block mb-8">INITIATE SWITCH-OVER</div>
+            <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8">Stop paying for<br>PowerPoints.</h2>
+            <p class="text-xl md:text-2xl font-medium mb-12">大手ファームから乗り換える理由を、Founder自ら45分で解説します。<br>（現在の見積書をお持ちいただければ、その場でコストダウン設計を提示します）</p>
+            <button class="bg-black text-white hover:bg-white hover:text-black hover:shadow-brutal text-xl font-bold py-6 px-12 border-2 border-transparent hover:border-black font-mono flex items-center gap-3 group">FOUNDERと45分対話 <i class="ph-bold ph-arrow-up-right group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i></button>
+            <p class="mt-6 font-mono text-xs text-red-200">Free 45-min consultation. Direct with Founder.</p>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-400 py-12 border-t border-gray-800 font-mono text-xs">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-8">
+            <div class="max-w-lg">
+                <div class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="ph-fill ph-code"></i> VERITAS.AI</div>
+                <p class="leading-relaxed mb-4">Veritas AI Partners is an elite implementation group specializing in LLM/RAG integration. We do not write slides. We ship code.</p>
+                <div class="text-[10px] text-gray-600 space-y-2">
+                    <p>DISCLAIMER:</p>
+                    <p>(※) 記載の競合他社名は、市場における一般的な価格帯・サービスモデルの参照点として比較目的で使用。</p>
+                    <p>(※) 「2億」「200万」は、大規模AI基盤構築の市場相場と当社の特定機能MVP構築型の対比的な象徴数値。</p>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-[1400px] mx-auto px-6 mt-12 pt-8 border-t border-gray-800 text-center text-gray-600">&copy; 2026 Veritas AI Partners. All rights reserved.</div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>

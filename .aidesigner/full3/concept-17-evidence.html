@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE BOOK OF EVIDENCE | Veritas AI Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'Noto Sans JP', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+            colors: { void: '#0a0a0a', violet: { 500: '#7C5CFC', 900: '#3A2090' }, cyan: { 500: '#00D4AA', 900: '#005947' }, surface: '#121212', border: 'rgba(255,255,255,0.08)' },
+            backgroundImage: { 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))' }
+        }}}
+    </script>
+    <style>
+        body { background-color: #0a0a0a; color: #ededed; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #0a0a0a; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7C5CFC; }
+        .masonry-grid { column-count: 1; column-gap: 16px; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1536px) { .masonry-grid { column-count: 4; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 16px; transform: translateZ(0); }
+        .scrolling-grid-wrapper { display: flex; width: max-content; animation: scrolly 40s linear infinite; }
+        @keyframes scrolly { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .hover-glow:hover { box-shadow: 0 0 20px rgba(124, 92, 252, 0.15); border-color: rgba(124, 92, 252, 0.5); }
+        .img-mono { filter: grayscale(100%) contrast(1.2) brightness(0.8); transition: filter 0.5s ease; }
+        .masonry-item:hover .img-mono { filter: grayscale(0%) contrast(1.1) brightness(1); }
+        .text-x-huge { font-size: clamp(8rem, 20vw, 24rem); line-height: 0.8; letter-spacing: -0.05em; }
+    </style>
+</head>
+<body class="antialiased selection:bg-violet-500 selection:text-white">
+    <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-surface/80 backdrop-blur-md border border-border px-4 py-2 rounded-full font-mono text-xs text-zinc-400">
+        <div class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span></div>
+        <span>SYSTEM.OP: 100/100 ONLINE</span>
+    </div>
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center mix-blend-difference text-white">
+        <div class="font-bold text-sm tracking-widest">VERITAS <span class="text-violet-500">AI</span> PARTNERS</div>
+        <a href="#cta" class="bg-white text-void px-5 py-2 rounded font-bold text-xs uppercase tracking-wider hover:bg-cyan-500 hidden md:block">FOUNDERと45分対話</a>
+    </header>
+
+    <section class="relative h-screen w-full overflow-hidden bg-void flex flex-col justify-center items-center">
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none flex flex-col justify-center">
+            <div class="scrolling-grid-wrapper gap-2 mb-2">
+                <script>for(let i=0; i<40; i++) document.write(`<img src="https://picsum.photos/seed/${i+100}/300/200" class="w-[300px] h-[200px] object-cover grayscale opacity-50">`);</script>
+            </div>
+            <div class="scrolling-grid-wrapper gap-2 mb-2" style="animation-direction: reverse; animation-duration: 50s;">
+                <script>for(let i=0; i<40; i++) document.write(`<img src="https://picsum.photos/seed/${i+200}/300/200" class="w-[300px] h-[200px] object-cover grayscale opacity-50">`);</script>
+            </div>
+            <div class="scrolling-grid-wrapper gap-2">
+                <script>for(let i=0; i<40; i++) document.write(`<img src="https://picsum.photos/seed/${i+300}/300/200" class="w-[300px] h-[200px] object-cover grayscale opacity-50">`);</script>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-gradient-radial from-transparent via-void/80 to-void z-10 pointer-events-none"></div>
+        <div class="relative z-20 text-center flex flex-col items-center">
+            <p class="font-mono text-cyan-500 text-sm mb-4 tracking-[0.2em] uppercase">The Book of Evidence</p>
+            <h1 class="font-black text-x-huge text-white drop-shadow-2xl">100</h1>
+            <p class="font-sans text-xl md:text-3xl font-bold mt-[-2rem] md:mt-[-4rem] text-zinc-300">個のAIシステムが、稼働している。</p>
+        </div>
+        <div class="absolute bottom-10 z-20 flex flex-col items-center gap-2 opacity-50 font-mono text-[10px] tracking-widest text-zinc-400"><span>SCROLL TO VERIFY</span><div class="w-[1px] h-[40px] bg-gradient-to-b from-zinc-400 to-transparent"></div></div>
+    </section>
+
+    <section class="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-border">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div class="lg:col-span-4 font-mono text-sm text-zinc-500 uppercase tracking-widest leading-relaxed">
+                <p>[ SYS.REQ / PARADIGM SHIFT ]</p>
+                <p class="mt-4">We reject theoretical AI. We only acknowledge code that ships, processes that optimize, and revenue that scales.</p>
+            </div>
+            <div class="lg:col-span-8">
+                <h2 class="text-3xl md:text-5xl font-black leading-[1.3] text-white">我々は語らない。<br><span class="text-violet-500">100個の動く証拠</span>で、語らせる。</h2>
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 font-mono border-t border-border pt-8">
+                    <div><div class="text-3xl font-bold text-cyan-500">8.4B</div><div class="text-xs text-zinc-500 mt-2 uppercase">Tokens Processed</div></div>
+                    <div><div class="text-3xl font-bold text-cyan-500">100</div><div class="text-xs text-zinc-500 mt-2 uppercase">Custom Models</div></div>
+                    <div><div class="text-3xl font-bold text-cyan-500">99.9%</div><div class="text-xs text-zinc-500 mt-2 uppercase">System Uptime</div></div>
+                    <div><div class="text-3xl font-bold text-cyan-500">2.1M</div><div class="text-xs text-zinc-500 mt-2 uppercase">Manual Hours Saved</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative w-full border-t border-border bg-[#050505]">
+        <div class="flex flex-col lg:flex-row">
+            <aside class="w-full lg:w-[320px] lg:shrink-0 border-r border-border border-b lg:border-b-0 p-6 lg:p-8 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
+                <div class="mb-10"><h3 class="font-black text-xl mb-1">INDEX DIRECTORY</h3><p class="font-mono text-xs text-zinc-500">Showing 100/100 Implementations</p></div>
+                <div class="space-y-8 font-mono text-xs">
+                    <div>
+                        <p class="text-zinc-300 font-bold mb-4 border-b border-border pb-2">INDUSTRY</p>
+                        <div class="space-y-3 text-zinc-500">
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="accent-violet-500"><span>E-Commerce (24)</span></label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="accent-violet-500"><span>Finance (18)</span></label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="accent-violet-500"><span>Healthcare (12)</span></label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="accent-violet-500"><span>Manufacturing (15)</span></label>
+                            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked class="accent-violet-500"><span>SaaS (31)</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-zinc-300 font-bold mb-4 border-b border-border pb-2">CORE TECH STACK</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-surface border border-border rounded text-zinc-300">Claude Opus 4</span>
+                            <span class="px-2 py-1 bg-violet-900/30 border border-violet-500/50 text-violet-300 rounded">GPT-5</span>
+                            <span class="px-2 py-1 bg-surface border border-border rounded text-zinc-300">Gemini 3.1</span>
+                            <span class="px-2 py-1 bg-surface border border-border rounded text-zinc-300">Pinecone</span>
+                            <span class="px-2 py-1 bg-surface border border-border rounded text-zinc-300">Next.js</span>
+                            <span class="px-2 py-1 bg-cyan-900/30 border border-cyan-500/50 text-cyan-300 rounded">Supabase</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <div class="flex-1 p-4 lg:p-8">
+                <div class="masonry-grid" id="evidence-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const gridData = [
+            { id: "SYS-001", name: "LINE CRM AI Agent", ind: "Retail", tech: ["Claude Opus", "LINE API", "Supabase"], roi: "応答-96%", time: "24mo", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600", calls: "1.2M/mo" },
+            { id: "SYS-014", name: "Dynamic Pricing Engine", ind: "E-Commerce", tech: ["XGBoost", "Python"], roi: "+18% Rev", time: "18mo", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600", calls: "500K/sec" },
+            { id: "SYS-042", name: "Legal Document Parser", ind: "Legal", tech: ["Claude Opus", "OCR"], roi: "-80% Time", time: "12mo", img: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600", calls: "45K/mo" },
+            { id: "SYS-087", name: "Competitor Monitor", ind: "SaaS", tech: ["Playwright", "Claude API"], roi: "15min検知", time: "32mo", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600", calls: "20M/mo" },
+            { id: "SYS-023", name: "Amazon Ads AI Dashboard", ind: "E-Commerce", tech: ["SP-API", "Perpetua"], roi: "50+ Campaigns", time: "16mo", img: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?auto=format&fit=crop&w=600", calls: "Active 24/7" },
+            { id: "SYS-055", name: "AI Driven Site Builder", ind: "Web", tech: ["Next.js", "Claude API"], roi: "2 weeks", time: "8mo", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600", calls: "400K/mo" },
+            { id: "SYS-091", name: "Medical Triage AI", ind: "Healthcare", tech: ["Vision Transformer"], roi: "99.8% Acc", time: "20mo", img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600", calls: "80K/mo" },
+            { id: "SYS-011", name: "Video Auto-Clipper", ind: "Media", tech: ["Whisper", "FFmpeg"], roi: "10x Output", time: "14mo", img: "https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?auto=format&fit=crop&w=600", calls: "3K hrs/mo" },
+            { id: "SYS-036", name: "Supply Chain Optimizer", ind: "Logistics", tech: ["Graph NN", "GCP"], roi: "-14% Fuel", time: "40mo", img: "https://images.unsplash.com/photo-1586528116311-ad8c738759be?auto=format&fit=crop&w=600", calls: "Realtime" },
+            { id: "SYS-073", name: "Voice Warehouse Picking", ind: "Logistics", tech: ["Custom ASR"], roi: "+22% Speed", time: "11mo", img: "https://images.unsplash.com/photo-1553413002-9a4cce461d36?auto=format&fit=crop&w=600", calls: "Constant" },
+            { id: "SYS-088", name: "Real-estate Predictor", ind: "Finance", tech: ["CatBoost"], roi: "<3% Margin", time: "6mo", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600", calls: "10K/mo" },
+            { id: "SYS-004", name: "AI Ad Creative Workflow", ind: "Agency", tech: ["Midjourney", "ComfyUI"], roi: "Zero Stock", time: "9mo", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600", calls: "20K Img/mo" },
+            { id: "SYS-062", name: "Churn Prediction", ind: "SaaS", tech: ["Snowflake", "Slack API"], roi: "-4% Churn", time: "28mo", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600", calls: "Daily" },
+            { id: "SYS-099", name: "Autonomous QA Bot", ind: "DevTools", tech: ["Selenium", "LLM DOM"], roi: "0 Manual QA", time: "5mo", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600", calls: "On Every PR" }
+        ];
+        const gridContainer = document.getElementById('evidence-grid');
+        let htmlContent = '';
+        const extendedData = [...gridData, ...gridData, ...gridData.slice(0, 5)].map((item, idx) => ({...item, id: `SYS-${String(idx + 1).padStart(3, '0')}`}));
+        extendedData.forEach((item) => {
+            const techPills = item.tech.map(t => `<span class="px-1.5 py-0.5 bg-zinc-900 border border-border rounded text-[10px] text-zinc-300 font-mono">${t}</span>`).join('');
+            const imgHeights = ['h-32', 'h-48', 'h-64'];
+            const randomHeight = imgHeights[Math.floor(Math.random() * imgHeights.length)];
+            htmlContent += `<article class="masonry-item bg-surface border border-border p-[3px] rounded-lg hover-glow group cursor-pointer">
+                <div class="relative w-full ${randomHeight} overflow-hidden rounded-[5px] mb-3">
+                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover img-mono absolute inset-0">
+                    <div class="absolute top-2 left-2 bg-black/60 text-white text-[10px] font-mono px-2 py-1 rounded border border-white/10 z-10 flex items-center gap-1"><i class="ph-fill ph-circle text-cyan-500 text-[8px] animate-pulse"></i> ACTIVE</div>
+                </div>
+                <div class="px-3 pb-3">
+                    <div class="flex justify-between items-start mb-2"><span class="font-mono text-violet-400 text-xs font-bold">${item.id}</span><span class="font-mono text-[10px] text-zinc-500 uppercase">${item.ind}</span></div>
+                    <h4 class="text-white font-bold text-base leading-tight mb-3">${item.name}</h4>
+                    <div class="flex flex-wrap gap-1 mb-3">${techPills}</div>
+                    <div class="flex items-center justify-between border-t border-border pt-3 mt-auto">
+                        <div class="flex flex-col"><span class="text-[9px] text-zinc-500 font-mono uppercase">Key Metric</span><span class="text-xs text-white font-mono font-bold">${item.roi}</span></div>
+                        <div class="flex flex-col text-right"><span class="text-[9px] text-zinc-500 font-mono uppercase">Vol /mo</span><span class="text-xs text-white font-mono font-bold">${item.calls}</span></div>
+                    </div>
+                </div>
+            </article>`;
+        });
+        gridContainer.innerHTML = htmlContent;
+    </script>
+
+    <section class="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-border">
+        <div class="mb-16"><h2 class="text-3xl font-black text-white mb-2">Deep Dives.</h2><p class="font-mono text-zinc-500 text-sm">Examining 4 transformative sub-systems</p></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-surface border border-border p-8 hover-glow group rounded-xl">
+                <h3 class="font-mono text-xs text-violet-400 mb-4">VAP-SYS-001</h3>
+                <h4 class="text-2xl font-black text-white mb-4">LINE CRM AI Automation</h4>
+                <p class="text-zinc-400 text-sm mb-8">Claude API × LINE Messaging APIで27,000名の顧客対応を完全自動化。応答時間96%短縮。</p>
+                <div class="flex justify-between font-mono"><div><div class="text-[10px] text-zinc-600 mb-1">IMPACT</div><div class="text-xl text-white">CSAT 94%, -96% Response Time</div></div></div>
+            </div>
+            <div class="bg-surface border border-border p-8 hover-glow group rounded-xl">
+                <h3 class="font-mono text-xs text-cyan-500 mb-4">VAP-SYS-014</h3>
+                <h4 class="text-2xl font-black text-white mb-4">AI-Driven Corporate Site</h4>
+                <p class="text-zinc-400 text-sm mb-8">競合20社をAI分析、コピー・SEO・実装を全工程AI化。制作期間2週間に圧縮。</p>
+                <div class="flex justify-between font-mono"><div><div class="text-[10px] text-zinc-600 mb-1">IMPACT</div><div class="text-xl text-white">2 weeks, 1/3 Cost</div></div></div>
+            </div>
+            <div class="bg-surface border border-border p-8 hover-glow group rounded-xl">
+                <h3 class="font-mono text-xs text-zinc-500 mb-4">VAP-SYS-087</h3>
+                <h4 class="text-2xl font-black text-white mb-4">Competitor Monitor AI</h4>
+                <p class="text-zinc-400 text-sm mb-8">Playwright × Claude APIで24時間監視。価格変動を15分で検知しSlack即通知。</p>
+                <div class="flex justify-between font-mono"><div><div class="text-[10px] text-zinc-600 mb-1">IMPACT</div><div class="text-xl text-white">15min Detect, -95% Effort</div></div></div>
+            </div>
+            <div class="bg-surface border border-border p-8 hover-glow group rounded-xl">
+                <h3 class="font-mono text-xs text-zinc-500 mb-4">VAP-SYS-023</h3>
+                <h4 class="text-2xl font-black text-white mb-4">Amazon Ads AI Dashboard</h4>
+                <p class="text-zinc-400 text-sm mb-8">SP-API × Perpetua × AIで50+キャンペーン自動分析。Google Ads統合で全広告一元管理。</p>
+                <div class="flex justify-between font-mono"><div><div class="text-[10px] text-zinc-600 mb-1">IMPACT</div><div class="text-xl text-white">50+ Campaigns, -90% Effort</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-t border-border bg-void">
+        <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen md:min-h-[80vh]">
+            <div class="relative bg-zinc-900 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200" alt="Sho Chizawa" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-75">
+                <div class="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent"></div>
+                <div class="absolute bottom-8 left-8">
+                    <p class="font-mono text-cyan-500 text-xs mb-1">FOUNDER / CHIEF ARCHITECT</p>
+                    <h2 class="text-4xl font-black text-white">遅沢 翔</h2>
+                    <p class="text-zinc-400 font-mono text-sm uppercase tracking-widest mt-1">Sho Chizawa</p>
+                </div>
+            </div>
+            <div class="p-12 md:p-24 flex flex-col justify-center">
+                <i class="ph-fill ph-quotes text-5xl text-violet-900/50 mb-8"></i>
+                <h3 class="text-3xl md:text-5xl font-black text-white leading-tight mb-8">「100個全部、<br>私が作りました。」</h3>
+                <p class="text-zinc-400 text-lg leading-relaxed mb-12">フェリデンシアキャピタル代表として、SK本舗・7ブランドEC・3Dプリンター事業を運営しながら Claude Code・Agent SDK で全LLMを実戦投入。コンサルファームの「提言」に価値はない。AIは実装環境にデプロイされ、エラーを吐き、プロンプトを調整し、既存DBと繋がり、ようやくROIを生み出す。</p>
+                <div class="font-mono text-xs text-zinc-600 space-y-2 border-l-2 border-violet-500 pl-4">
+                    <p>STACK: Claude Opus 4 / GPT-5 / Gemini 3.1 Pro / Grok 4.20</p>
+                    <p>FRAMEWORKS: RAG, Vector DB, Multi-Agent</p>
+                    <p>STATUS: ACCEPTING NEW DEPLOYMENTS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-32 px-6 relative bg-[#050505] border-t border-border overflow-hidden flex flex-col items-center text-center">
+        <div class="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        <div class="relative z-10 w-full max-w-4xl mx-auto">
+            <h2 class="text-[12rem] md:text-[18rem] font-black text-transparent bg-clip-text bg-gradient-to-b from-zinc-800 to-void leading-none mt-[-5rem] select-none tracking-tighter">101</h2>
+            <div class="mt-[-6rem] md:mt-[-8rem] mb-12">
+                <h3 class="text-4xl md:text-6xl font-black text-white mb-6 drop-shadow-xl">次は、あなたの会社。</h3>
+                <p class="text-zinc-400 font-mono text-sm md:text-base max-w-xl mx-auto leading-relaxed">System 101 deployment initiated.<br>Stop planning. Start building. Book a technical scoping with the Founder.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-4 bg-white text-void px-10 py-5 rounded-sm font-black text-lg md:text-xl uppercase tracking-widest hover:bg-violet-500 hover:text-white hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(124,92,252,0.3)]">Founderと45分対話する <i class="ph-bold ph-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <footer class="bg-void border-t border-border py-8 px-6 md:flex md:justify-between md:items-center">
+        <div class="font-bold text-sm tracking-widest text-zinc-500 mb-4 md:mb-0">VERITAS <span class="text-violet-900">AI</span> PARTNERS</div>
+        <div class="font-mono text-zinc-600 text-xs flex items-center justify-center gap-4"><span>© 2026</span><div class="w-1 h-1 bg-zinc-600 rounded-full"></div><span>TOTAL DEPLOYMENTS: <span class="text-cyan-500 font-bold" id="footer-counter">000</span></span></div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let count = 0; const target = 100; const counterElement = document.getElementById('footer-counter');
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    const interval = setInterval(() => {
+                        if(count < target) { count++; counterElement.innerText = String(count).padStart(3, '0'); }
+                        else clearInterval(interval);
+                    }, 20);
+                    observer.disconnect();
+                }
+            });
+            observer.observe(counterElement);
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

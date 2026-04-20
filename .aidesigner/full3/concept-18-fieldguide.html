@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE FIELD GUIDE | Veritas AI Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['"Noto Serif JP"', 'serif'] },
+            colors: { industry: { fb: '#ef4444', mfg: '#2563eb', re: '#ea580c', med: '#10b981', ret: '#8b5cf6', bea: '#f43f5e', leg: '#1e3a8a', edu: '#eab308', log: '#06b6d4', fin: '#22c55e' } }
+        }}}
+    </script>
+    <style>
+        body { background-color: #fff; color: #000; -webkit-font-smoothing: antialiased; }
+        .jp-leading { line-height: 1.8; } .jp-tracking { letter-spacing: 0.05em; }
+        .ledger-border-b { border-bottom: 1px solid #e5e7eb; }
+        .ledger-border-r { border-right: 1px solid #e5e7eb; }
+        .ind-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .ind-card:hover .ind-icon { transform: scale(1.1) translateY(-4px); }
+        .ind-card:hover .ind-arrow { opacity: 1; transform: translateX(0); }
+        .ind-arrow { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px); }
+        .drop-cap::first-letter { font-size: 4.5rem; line-height: 0.8; float: left; margin-right: 0.15em; margin-top: 0.05em; font-family: "Inter", sans-serif; font-weight: 300; color: #ef4444; }
+        .mag-columns { column-count: 1; column-gap: 3rem; }
+        @media (min-width: 768px) { .mag-columns { column-count: 2; } }
+    </style>
+</head>
+<body class="bg-white text-black font-sans selection:bg-black selection:text-white">
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 ledger-border-b flex items-center justify-between px-6 py-4">
+        <div class="flex items-center gap-2"><i class="ph ph-cube-transparent text-xl"></i><span class="font-sans font-semibold tracking-tight text-sm uppercase">Veritas AI Partners</span></div>
+        <div class="hidden md:flex items-center gap-8 font-sans text-[11px] font-medium tracking-widest uppercase text-gray-500">
+            <a href="#manifesto" class="hover:text-black">Manifesto</a><a href="#directory" class="hover:text-black">Industry Index</a><a href="#deep-dive" class="hover:text-black">Journal</a><a href="#case-studies" class="hover:text-black">Cases</a>
+        </div>
+        <a href="#contact" class="font-sans text-xs font-medium bg-black text-white px-4 py-2 hover:bg-gray-800">Founderと45分対話</a>
+    </nav>
+
+    <header id="directory" class="pt-32 pb-24 px-6 md:px-12 max-w-[1600px] mx-auto min-h-screen flex flex-col justify-center bg-grid relative">
+        <div class="mb-16">
+            <p class="font-sans text-xs tracking-[0.2em] uppercase text-gray-500 mb-6 flex items-center gap-3"><span class="w-8 h-[1px] bg-gray-400"></span>The Field Guide / 業界別AI実装ディレクトリ</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight jp-tracking mb-4 text-black w-full max-w-5xl">あなたの業界を<br class="hidden md:block">解剖してください。</h1>
+            <p class="font-serif text-lg md:text-xl text-gray-600 jp-leading max-w-2xl mt-8">AIは万能の魔法ではありません。業界特有の構造、データの偏り、暗黙知をハックするための「専門的なメス」です。対象となる業界を選択し、実装の設計図を確認してください。</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-[1px] bg-gray-200 border border-gray-200">
+            <a href="#guide-fb" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-fb hover:text-white relative overflow-hidden">
+                <i class="ph ph-fork-knife text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 01</p><h3 class="font-serif text-xl md:text-2xl font-bold">飲食</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-mfg" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-mfg hover:text-white relative">
+                <i class="ph ph-factory text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 02</p><h3 class="font-serif text-xl md:text-2xl font-bold">製造</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-re" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-re hover:text-white relative">
+                <i class="ph ph-buildings text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 03</p><h3 class="font-serif text-xl md:text-2xl font-bold">不動産</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-med" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-med hover:text-white relative">
+                <i class="ph ph-first-aid text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 04</p><h3 class="font-serif text-xl md:text-2xl font-bold">医療</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-ret" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-ret hover:text-white relative">
+                <i class="ph ph-shopping-bag text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 05</p><h3 class="font-serif text-xl md:text-2xl font-bold">小売</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-bea" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-bea hover:text-white relative">
+                <i class="ph ph-sparkle text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 06</p><h3 class="font-serif text-xl md:text-2xl font-bold">美容</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-leg" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-leg hover:text-white relative">
+                <i class="ph ph-scales text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 07</p><h3 class="font-serif text-xl md:text-2xl font-bold">法務</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-edu" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-edu hover:text-white relative">
+                <i class="ph ph-book-open text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 08</p><h3 class="font-serif text-xl md:text-2xl font-bold">教育</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-log" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-log hover:text-white relative">
+                <i class="ph ph-truck text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 09</p><h3 class="font-serif text-xl md:text-2xl font-bold">物流</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+            <a href="#guide-fin" class="ind-card group bg-white p-8 md:p-10 flex flex-col justify-between aspect-square hover:bg-industry-fin hover:text-white relative">
+                <i class="ph ph-bank text-4xl mb-8 text-black group-hover:text-white ind-icon"></i>
+                <div class="mt-auto"><p class="font-sans text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-white/70 mb-1">Sector 10</p><h3 class="font-serif text-xl md:text-2xl font-bold">金融</h3></div>
+                <i class="ph ph-arrow-right absolute bottom-8 right-8 text-xl ind-arrow"></i>
+            </a>
+        </div>
+    </header>
+
+    <section id="manifesto" class="py-32 bg-black text-white">
+        <div class="max-w-4xl mx-auto px-6 md:px-12">
+            <p class="font-sans text-xs tracking-[0.2em] uppercase text-gray-400 mb-8 border-b border-gray-800 pb-4 inline-block">The Manifesto</p>
+            <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl font-medium jp-leading tracking-tight mb-12">「AIは魔法」という嘘から、<br>業界の解剖学へ。</h2>
+            <div class="font-serif text-lg md:text-xl text-gray-300 jp-leading space-y-8 ml-0 md:ml-12 border-l-0 md:border-l border-gray-700 pl-0 md:pl-8">
+                <p>現在市販されている「汎用AIツール」は、あなたの業務を根本的には変えません。なぜなら、飲食業の歩留まり管理と、製造業の歩留まり管理は、計算式も、関与する変数の数も、現場の空気感も全く異なるからです。</p>
+                <p>Veritas AI Partnersは、テクノロジーを売る会社ではありません。我々は、各業界のドメイン知識（暗黙知）を構造化し、AIという計算資源を流し込むための「配管工事」を行うアーキテクトです。</p>
+                <p class="text-white font-medium">表面的な「効率化」ではなく、業界特有の「歩留まり」「稼働率」「LTV」の数式を書き換える実装を行います。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto">
+        <div class="flex items-end justify-between mb-12 ledger-border-b pb-6">
+            <div><h2 class="font-serif text-3xl font-medium">Implementation Archetypes</h2><p class="font-sans text-sm text-gray-500 mt-2">10業界における典型的課題とアーキテクチャ</p></div>
+        </div>
+        <div class="flex overflow-x-auto hide-scroll gap-6 pb-8 snap-x">
+            <div class="min-w-[340px] border border-gray-200 bg-[#f9fafb] p-6 snap-start flex flex-col aspect-[4/5]">
+                <div class="flex justify-between items-start mb-8"><span class="font-sans text-xs font-bold text-white bg-industry-fb px-2 py-1 tracking-wider uppercase">F&B</span><i class="ph ph-database text-gray-400 text-xl"></i></div>
+                <h3 class="font-serif text-lg font-bold mb-1 border-b border-gray-300 pb-2">フードロス予測 &<br>ダイナミック発注</h3>
+                <div class="text-sm text-gray-600 mt-4 space-y-4 flex-grow"><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Variable</span> POS + Weather API</div><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Model</span> Time Series Forecasting</div></div>
+                <div class="mt-auto border-t border-gray-300 pt-4 flex justify-between items-end"><span class="text-[10px] text-gray-500 uppercase">Margin Lift</span><span class="text-2xl font-bold text-industry-fb">+4.2%</span></div>
+            </div>
+            <div class="min-w-[340px] border border-gray-200 bg-[#f9fafb] p-6 snap-start flex flex-col aspect-[4/5]">
+                <div class="flex justify-between items-start mb-8"><span class="font-sans text-xs font-bold text-white bg-industry-mfg px-2 py-1 tracking-wider uppercase">Mfg</span><i class="ph ph-microscope text-gray-400 text-xl"></i></div>
+                <h3 class="font-serif text-lg font-bold mb-1 border-b border-gray-300 pb-2">外観検査の自動化</h3>
+                <div class="text-sm text-gray-600 mt-4 space-y-4 flex-grow"><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Variable</span> High-Res Camera</div><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Model</span> Computer Vision (YOLO)</div></div>
+                <div class="mt-auto border-t border-gray-300 pt-4 flex justify-between items-end"><span class="text-[10px] text-gray-500 uppercase">Catch Rate</span><span class="text-2xl font-bold text-industry-mfg">99.8%</span></div>
+            </div>
+            <div class="min-w-[340px] border border-gray-200 bg-[#f9fafb] p-6 snap-start flex flex-col aspect-[4/5]">
+                <div class="flex justify-between items-start mb-8"><span class="font-sans text-xs font-bold text-white bg-industry-re px-2 py-1 tracking-wider uppercase">Real Est</span><i class="ph ph-map-trifold text-gray-400 text-xl"></i></div>
+                <h3 class="font-serif text-lg font-bold mb-1 border-b border-gray-300 pb-2">賃料推定査定</h3>
+                <div class="text-sm text-gray-600 mt-4 space-y-4 flex-grow"><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Variable</span> GIS + Demographics</div><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Model</span> Spatial Regression</div></div>
+                <div class="mt-auto border-t border-gray-300 pt-4 flex justify-between items-end"><span class="text-[10px] text-gray-500 uppercase">Variance</span><span class="text-2xl font-bold text-industry-re">&lt;3.0%</span></div>
+            </div>
+            <div class="min-w-[340px] border border-gray-200 bg-[#f9fafb] p-6 snap-start flex flex-col aspect-[4/5]">
+                <div class="flex justify-between items-start mb-8"><span class="font-sans text-xs font-bold text-white bg-industry-med px-2 py-1 tracking-wider uppercase">Medical</span><i class="ph ph-heartbeat text-gray-400 text-xl"></i></div>
+                <h3 class="font-serif text-lg font-bold mb-1 border-b border-gray-300 pb-2">電子カルテ要約</h3>
+                <div class="text-sm text-gray-600 mt-4 space-y-4 flex-grow"><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Variable</span> EHR + Voice-to-Text</div><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Model</span> RAG (Medical LLM)</div></div>
+                <div class="mt-auto border-t border-gray-300 pt-4 flex justify-between items-end"><span class="text-[10px] text-gray-500 uppercase">Time Cut</span><span class="text-2xl font-bold text-industry-med">65%</span></div>
+            </div>
+            <div class="min-w-[340px] border border-gray-200 bg-[#f9fafb] p-6 snap-start flex flex-col aspect-[4/5]">
+                <div class="flex justify-between items-start mb-8"><span class="font-sans text-xs font-bold text-white bg-industry-ret px-2 py-1 tracking-wider uppercase">Retail</span><i class="ph ph-barcode text-gray-400 text-xl"></i></div>
+                <h3 class="font-serif text-lg font-bold mb-1 border-b border-gray-300 pb-2">レコメンデーション生成</h3>
+                <div class="text-sm text-gray-600 mt-4 space-y-4 flex-grow"><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Variable</span> Purchase Hist.</div><div><span class="block text-[10px] uppercase text-gray-400 mb-1">Model</span> Collaborative Filter + Generative</div></div>
+                <div class="mt-auto border-t border-gray-300 pt-4 flex justify-between items-end"><span class="text-[10px] text-gray-500 uppercase">Conv. Lift</span><span class="text-2xl font-bold text-industry-ret">2.8x</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="deep-dive" class="border-t border-b border-black md:mx-12 mx-6 my-24 bg-white relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-industry-fb"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+            <div class="lg:col-span-4 p-8 md:p-12 ledger-border-r flex flex-col justify-between bg-gray-50/50">
+                <div>
+                    <span class="font-sans text-xs font-bold text-industry-fb tracking-widest uppercase mb-4 block">Featured Anatomical Study — 001</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-medium jp-leading tracking-tight text-black mb-6">飲食業界の<br>歩留まりを<br>書き換える。</h2>
+                    <p class="font-serif text-gray-600 mb-8 jp-leading text-sm">なぜ、多くの飲食店がSaaSを導入しても原価率（FL比率）が下がらないのか。</p>
+                </div>
+                <div class="font-sans text-xs text-gray-500 border-t border-gray-300 pt-4 uppercase tracking-wider">Author: Sho Chizawa<br>Data Period: Q1-Q3 2026</div>
+            </div>
+            <div class="lg:col-span-8 p-8 md:p-16">
+                <figure class="mb-12 relative w-full h-[400px] overflow-hidden bg-gray-100 mix-blend-multiply">
+                    <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1200" alt="Restaurant" class="object-cover w-full h-full grayscale">
+                    <figcaption class="absolute bottom-0 left-0 bg-black text-white p-3 font-sans text-[10px]">Fig 1. Real-time POS bridging.</figcaption>
+                </figure>
+                <div class="font-serif text-gray-800 text-base md:text-lg jp-leading mag-columns text-justify">
+                    <p class="drop-cap">飲</p>食ビジネスの利益は、キッチンのゴミ箱の中にある。<br><br>一般的なミドルクラスのレストランにおける原価率の目標は30%とされるが、実際には発注ミス、天候予測の見誤りによって、実態は32%〜34%。営業利益率5%前後の構造において、原価2%上昇は利益40%喪失を意味する。
+                    <blockquote class="my-8 font-serif text-2xl font-medium text-black border-l-4 border-industry-fb pl-6 italic">「AIに発注を任せる恐怖」を乗り越えた日、原価率は劇的に2.8%低下した。</blockquote>
+                    都内12店舗を展開するカフェ・チェーンで、過去3年間のPOSデータ、気象庁API、近隣イベントカレンダーを使用し、商品別販売数を確率分布として出力するモデルを構築。フードロスは導入前比で52%削減され、利益率は構造的に押し上げられた。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-studies" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto bg-gray-50/30">
+        <div class="mb-16 border-b border-black pb-4 flex justify-between items-end">
+            <h2 class="font-sans text-xl uppercase tracking-[0.1em] font-medium text-black">Implementation Log<br><span class="text-gray-400 text-sm">/ 既知の実装事例録</span></h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+            <article class="group">
+                <div class="w-full aspect-[4/3] bg-gray-200 mb-6 overflow-hidden"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0"></div>
+                <div class="flex gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-industry-ret mt-1"></span><span class="font-sans text-[10px] uppercase font-bold text-gray-500 tracking-wider">Retail / 3 weeks</span></div>
+                <h3 class="font-serif text-lg font-bold mb-2">SK本舗 LINE CRM AI（応答96%短縮）</h3>
+                <div class="font-sans text-xs text-gray-600 block border-t border-gray-200 pt-3 mt-4"><strong class="text-black">Stack:</strong> Claude API, LINE Messaging<br><strong class="text-black">Result:</strong> 27,000名対応自動化、CS工数90%削減</div>
+            </article>
+            <article class="group">
+                <div class="w-full aspect-[4/3] bg-gray-200 mb-6 overflow-hidden"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0"></div>
+                <div class="flex gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-industry-mfg mt-1"></span><span class="font-sans text-[10px] uppercase font-bold text-gray-500 tracking-wider">Web / 2 weeks</span></div>
+                <h3 class="font-serif text-lg font-bold mb-2">AI駆動コーポレートサイト</h3>
+                <div class="font-sans text-xs text-gray-600 block border-t border-gray-200 pt-3 mt-4"><strong class="text-black">Stack:</strong> Next.js, Claude Opus 4<br><strong class="text-black">Result:</strong> 競合20社AI分析、制作期間1/3</div>
+            </article>
+            <article class="group">
+                <div class="w-full aspect-[4/3] bg-gray-200 mb-6 overflow-hidden"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0"></div>
+                <div class="flex gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-industry-mfg mt-1"></span><span class="font-sans text-[10px] uppercase font-bold text-gray-500 tracking-wider">B2B / 2 weeks</span></div>
+                <h3 class="font-serif text-lg font-bold mb-2">競合監視AI（15分検知）</h3>
+                <div class="font-sans text-xs text-gray-600 block border-t border-gray-200 pt-3 mt-4"><strong class="text-black">Stack:</strong> Playwright, Claude API<br><strong class="text-black">Result:</strong> 価格変動15分検知、Slack即通知、工数95%削減</div>
+            </article>
+            <article class="group">
+                <div class="w-full aspect-[4/3] bg-gray-200 mb-6 overflow-hidden"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600" alt="" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0"></div>
+                <div class="flex gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-industry-ret mt-1"></span><span class="font-sans text-[10px] uppercase font-bold text-gray-500 tracking-wider">EC / 5 weeks</span></div>
+                <h3 class="font-serif text-lg font-bold mb-2">Amazon広告AIダッシュボード</h3>
+                <div class="font-sans text-xs text-gray-600 block border-t border-gray-200 pt-3 mt-4"><strong class="text-black">Stack:</strong> SP-API, Perpetua, AI<br><strong class="text-black">Result:</strong> 50+キャンペーン自動分析、工数90%削減</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 md:px-0">
+        <div class="max-w-6xl mx-auto border border-gray-200 bg-white grid grid-cols-1 md:grid-cols-2">
+            <div class="relative h-[400px] md:h-auto border-b md:border-b-0 md:border-r border-gray-200">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800" alt="Sho Chizawa" class="w-full h-full object-cover filter grayscale brightness-110">
+                <div class="absolute bottom-6 left-6 bg-white px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider">Founder</div>
+            </div>
+            <div class="p-12 md:p-16 flex flex-col justify-center">
+                <h2 class="font-serif text-3xl font-bold mb-2">遅沢 翔</h2>
+                <p class="font-sans text-sm text-gray-500 uppercase tracking-widest mb-8">Sho Chizawa</p>
+                <div class="font-serif text-gray-700 jp-leading text-sm md:text-base space-y-6">
+                    <p>フェリデンシアキャピタル代表として、SK本舗（3Dプリンター）、7ブランドEC、産業用SLA装置（日本未来技研）、不動産・株式投資など複数業界を内側から経営。</p>
+                    <p>「外からのシステム導入」が現場でいかに死蔵されるかを骨の髄まで経験。AI民主化が叫ばれる現在、ボトルネックは「技術力」ではなく「ドメイン知識の解像度」にあることを確信。</p>
+                    <p>「バズワードとしてのDXを殺し、損益計算書に直結するAI実装だけを遂行する」が信条。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 bg-[#0a0a0a] text-white px-6">
+        <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
+            <i class="ph ph-stethoscope text-5xl mb-6 text-gray-500"></i>
+            <h2 class="font-serif text-4xl md:text-6xl font-medium jp-leading mb-6">あなたの業界の深部で、<br>対話しましょう。</h2>
+            <p class="font-sans text-gray-400 mb-12 max-w-xl text-sm">汎用的な会社案内は行いません。あなたが属する業界の構造、抱えているデータの質、ボトルネックについて、45分間の「解剖学的対話」を実施します。</p>
+            <div class="w-full max-w-md bg-white text-black p-8 text-left shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-industry-fb via-industry-mfg to-industry-med"></div>
+                <h3 class="font-sans uppercase text-xs font-bold tracking-widest mb-6 border-b border-gray-200 pb-2">Founderと45分対話</h3>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block font-sans text-[10px] uppercase text-gray-500 mb-1">業界を選択</label>
+                        <select class="w-full border border-gray-300 p-3 font-sans text-sm bg-gray-50">
+                            <option>飲食</option><option>製造</option><option>不動産</option><option>医療</option><option>小売</option><option>その他</option>
+                        </select>
+                    </div>
+                    <div><label class="block font-sans text-[10px] uppercase text-gray-500 mb-1">Email</label><input type="email" class="w-full border border-gray-300 p-3 font-sans text-sm bg-gray-50" placeholder="name@company.com"></div>
+                    <button type="button" class="w-full bg-black text-white font-sans text-sm uppercase font-bold py-4 hover:bg-gray-800 mt-4 flex justify-between items-center px-6"><span>Founderと45分対話</span><i class="ph ph-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-12 px-6 md:px-12">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-2 mb-6"><i class="ph ph-cube-transparent text-2xl"></i><span class="font-semibold tracking-tight uppercase">Veritas AI Partners</span></div>
+                <p class="text-xs text-gray-500 uppercase tracking-wider mb-6">Architectural Blueprints For Specific Domains.</p>
+                <div class="text-sm text-black jp-leading font-serif border-l-2 border-black pl-4">東京・恵比寿<br><a href="mailto:info@veritas-ai.jp" class="underline hover:text-gray-500 mt-2 block font-sans">info@veritas-ai.jp</a></div>
+            </div>
+            <div class="flex flex-col gap-3"><h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-200 pb-2">Physical Industries</h4><a href="#" class="text-sm hover:text-industry-mfg flex justify-between"><span>Manufacturing</span><span class="text-gray-300">02</span></a><a href="#" class="text-sm hover:text-industry-re flex justify-between"><span>Real Estate</span><span class="text-gray-300">03</span></a><a href="#" class="text-sm hover:text-industry-log flex justify-between"><span>Logistics</span><span class="text-gray-300">09</span></a></div>
+            <div class="flex flex-col gap-3"><h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-200 pb-2">Consumer / Service</h4><a href="#" class="text-sm hover:text-industry-fb flex justify-between"><span>Food & Beverage</span><span class="text-gray-300">01</span></a><a href="#" class="text-sm hover:text-industry-ret flex justify-between"><span>Retail</span><span class="text-gray-300">05</span></a><a href="#" class="text-sm hover:text-industry-bea flex justify-between"><span>Beauty</span><span class="text-gray-300">06</span></a></div>
+            <div class="flex flex-col gap-3"><h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-200 pb-2">Professional</h4><a href="#" class="text-sm hover:text-industry-med flex justify-between"><span>Medical</span><span class="text-gray-300">04</span></a><a href="#" class="text-sm hover:text-industry-leg flex justify-between"><span>Legal</span><span class="text-gray-300">07</span></a><a href="#" class="text-sm hover:text-industry-edu flex justify-between"><span>Education</span><span class="text-gray-300">08</span></a><a href="#" class="text-sm hover:text-industry-fin flex justify-between"><span>Finance</span><span class="text-gray-300">10</span></a></div>
+        </div>
+        <div class="max-w-[1600px] mx-auto mt-20 border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400 uppercase tracking-widest"><p>&copy; 2026 Veritas AI Partners Inc.</p></div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>

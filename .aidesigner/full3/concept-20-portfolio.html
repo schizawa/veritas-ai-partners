@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sho Chizawa — AI System Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { 'canvas': '#fafaf7', 'ink': '#111111', 'ink-light': '#4a4a4a', 'accent-purple': '#a855f7', 'accent-gold': '#fde68a' },
+            fontFamily: { 'sans': ['Inter', 'sans-serif'], 'serif': ['"Noto Serif JP"', 'serif'], 'hand': ['Caveat', 'cursive'] },
+            boxShadow: { 'brutal': '4px 4px 0px 0px rgba(17,17,17,1)', 'floating': '0 20px 40px -10px rgba(0,0,0,0.08)' }
+        }}}
+    </script>
+    <style>
+        ::selection { background-color: #fde68a; color: #111111; }
+        body { background-color: #fafaf7; color: #111111; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #fafaf7; } ::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+        .highlight-marker { position: relative; z-index: 1; display: inline-block; }
+        .highlight-marker::after { content: ''; position: absolute; bottom: 10%; left: -2%; width: 104%; height: 40%; background-color: #fde68a; z-index: -1; transform: rotate(-1deg); border-radius: 2px; }
+        .marginalia { position: absolute; font-family: 'Caveat', cursive; color: #a855f7; font-size: 1.5rem; transform: rotate(-3deg); pointer-events: none; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .mask-image-hover { transition: transform 0.5s ease-out; }
+        .group:hover .mask-image-hover { transform: scale(1.03); }
+        .bp-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px); }
+    </style>
+</head>
+<body class="font-sans antialiased text-ink">
+    <nav class="fixed top-0 w-full p-6 md:p-10 flex justify-between tracking-tight z-50 mix-blend-difference text-canvas">
+        <a href="#" class="font-medium text-sm uppercase group flex items-center gap-2"><span class="w-2 h-2 bg-accent-gold rounded-full group-hover:scale-150 transition-transform"></span>Veritas AI Partners</a>
+        <div class="flex gap-6 text-sm font-medium">
+            <a href="#works" class="hover:text-accent-gold">Works</a>
+            <a href="#process" class="hover:text-accent-gold">Process</a>
+            <a href="#about" class="hover:text-accent-gold">Profile</a>
+            <a href="#contact" class="hover:text-accent-gold">Dialogue</a>
+        </div>
+    </nav>
+
+    <section class="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-20 lg:px-32 pt-32 pb-20">
+        <div class="max-w-5xl mx-auto w-full relative z-10">
+            <h2 class="font-hand text-accent-purple text-2xl md:text-4xl mb-4 ml-1 md:-ml-8 transform -rotate-2">The Architect's Portfolio</h2>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] tracking-tighter mb-8 max-w-4xl text-ink">Sho<br>Chizawa.</h1>
+            <div class="relative flex flex-col md:flex-row gap-8 md:items-end justify-between border-t border-ink/10 pt-8 mt-12 w-full lg:w-4/5">
+                <p class="font-serif text-xl md:text-2xl text-ink-light leading-relaxed max-w-lg">AIをシステムではなく、<br><span class="text-ink font-bold">人間と対話する「空間」</span>として設計する専門家。</p>
+                <div class="text-sm font-medium uppercase tracking-widest text-ink-light flex flex-col gap-1 items-end">
+                    <span>Founder / Designer</span><span>Tokyo, Japan</span>
+                    <i class="ph ph-arrow-down-right text-2xl mt-4 text-accent-purple animate-bounce"></i>
+                </div>
+            </div>
+            <div class="hidden lg:block absolute top-[15%] right-[5%] w-64 h-64 pointer-events-none opacity-80">
+                <svg viewBox="0 0 200 200" stroke="#a855f7" stroke-width="1" fill="none" class="w-full h-full">
+                    <path d="M 40,100 C 40,40 160,40 160,100 C 160,160 40,160 40,100" stroke-dasharray="10 5"/>
+                    <path d="M 20,120 Q 80,20 180,120" stroke-width="2"/>
+                    <text x="140" y="70" font-family="Caveat" font-size="20" stroke="none" fill="#a855f7" transform="rotate(15)">not magic,</text>
+                    <text x="150" y="90" font-family="Caveat" font-size="20" stroke="none" fill="#a855f7" transform="rotate(15)">just logic.</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 md:px-20 lg:px-32 bg-ink text-canvas relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="marginalia text-accent-gold -left-12 md:-left-24 top-0 text-3xl">My Philosophy</span>
+            <h3 class="font-serif text-3xl md:text-5xl leading-[1.4] relative z-10">私は、プロンプトを書くのではない。<br><span class="italic font-light">企業の思考プロセスを、アルゴリズムという建築物へと変換する。</span><br>これらは、私が実装を手がけた<br>「知能のショーケース」である。</h3>
+        </div>
+        <span class="absolute top-10 left-10 text-[20rem] font-serif text-canvas/5 leading-none select-none">"</span>
+    </section>
+
+    <section id="works" class="py-32 px-6 md:px-10 lg:px-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20 flex justify-between items-end border-b border-ink/20 pb-8 reveal">
+                <h2 class="font-sans text-xs uppercase tracking-[0.2em] font-bold text-ink">Selected Archives [25-26]</h2>
+                <span class="font-hand text-2xl text-ink-light">Designed & Coded by Sho.</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-x-12">
+                <article class="col-span-1 md:col-span-12 group cursor-pointer reveal">
+                    <div class="flex flex-col md:flex-row gap-10 items-center">
+                        <div class="w-full md:w-3/5 overflow-hidden bg-gray-200">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1200" alt="LINE CRM AI" class="w-full h-[500px] object-cover mask-image-hover filter grayscale group-hover:grayscale-0">
+                        </div>
+                        <div class="w-full md:w-2/5 flex flex-col justify-center space-y-6 relative">
+                            <span class="marginalia -top-10 -left-10 text-3xl hidden lg:block">Flagship</span>
+                            <div class="flex gap-2 text-xs font-mono text-ink-light uppercase tracking-wider"><span class="bg-ink/5 px-2 py-1 rounded">Claude API</span><span class="bg-ink/5 px-2 py-1 rounded">LINE Messaging</span></div>
+                            <h3 class="font-serif text-4xl font-bold leading-tight group-hover:text-accent-purple">SK本舗 LINE CRM AI</h3>
+                            <p class="font-sans text-ink-light text-sm leading-relaxed">3Dプリンター ECサイトの27,000名顧客対応をClaude APIで完全自動化。応答時間を96%短縮、配信工数90%削減。</p>
+                            <div class="pt-4 border-t border-ink/10"><span class="block text-xs uppercase font-bold text-ink mb-1">Outcome</span><span class="font-serif text-lg text-ink-light">応答時間 -96%、配信工数 -90%</span></div>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-span-1 md:col-span-6 group cursor-pointer reveal">
+                    <div class="overflow-hidden mb-6 bg-gray-200 relative">
+                        <div class="absolute inset-0 bg-accent-gold/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="AI駆動サイト" class="w-full h-[400px] object-cover mask-image-hover">
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex gap-2 text-xs font-mono text-ink-light uppercase tracking-wider"><span class="bg-ink/5 px-2 py-1 rounded">Next.js</span><span class="bg-ink/5 px-2 py-1 rounded">Claude Opus 4</span></div>
+                        <h3 class="font-serif text-2xl font-bold group-hover:-translate-y-1 transition-transform">AI駆動コーポレートサイト</h3>
+                        <p class="font-sans text-ink-light text-sm">競合20社をAI自動分析、コピー・SEO・実装を全工程AI化。制作期間2週間に圧縮、コスト1/3。</p>
+                    </div>
+                </article>
+                <article class="col-span-1 md:col-span-6 group cursor-pointer lg:mt-24 reveal">
+                    <div class="overflow-hidden mb-6 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&q=80&w=800" alt="競合監視" class="w-full h-[400px] object-cover mask-image-hover filter sepia-[0.3]">
+                    </div>
+                    <div class="space-y-4 relative">
+                        <span class="marginalia top-0 -right-20 hidden lg:block opacity-50">Stealth</span>
+                        <div class="flex gap-2 text-xs font-mono text-ink-light uppercase tracking-wider"><span class="bg-ink/5 px-2 py-1 rounded">Playwright</span><span class="bg-ink/5 px-2 py-1 rounded">Claude API</span></div>
+                        <h3 class="font-serif text-2xl font-bold group-hover:-translate-y-1 transition-transform">競合モニタリングAI</h3>
+                        <p class="font-sans text-ink-light text-sm">24時間競合監視、価格変動・新商品を15分で検知してSlack即通知。マニュアル工数を95%削減。</p>
+                    </div>
+                </article>
+                <article class="col-span-1 md:col-span-12 group cursor-pointer reveal">
+                    <div class="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div class="w-full md:w-3/5 overflow-hidden bg-gray-200">
+                            <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?auto=format&fit=crop&q=80&w=1200" alt="Amazon広告" class="w-full h-[500px] object-cover mask-image-hover filter grayscale group-hover:grayscale-0">
+                        </div>
+                        <div class="w-full md:w-2/5 flex flex-col justify-center space-y-6">
+                            <div class="flex gap-2 text-xs font-mono text-ink-light uppercase tracking-wider"><span class="bg-ink/5 px-2 py-1 rounded">SP-API</span><span class="bg-ink/5 px-2 py-1 rounded">Perpetua</span></div>
+                            <h3 class="font-serif text-4xl font-bold leading-tight">Amazon広告 AI分析ダッシュボード</h3>
+                            <p class="font-sans text-ink-light text-sm leading-relaxed">SP-API × Perpetua × AIで50以上のキャンペーンを統合分析。Google Ads統合で全広告チャネル一元管理。</p>
+                            <div class="pt-4 border-t border-ink/10"><span class="block text-xs uppercase font-bold text-ink mb-1">Outcome</span><span class="font-serif text-lg text-ink-light">分析工数 -90%、50+キャンペーン管理</span></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-32 px-6 md:px-10 lg:px-20 bp-grid border-y border-ink/10 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-16 relative">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink"><span class="highlight-marker">The Architecture<br>of Thought.</span></h2>
+                <p class="mt-6 font-sans text-ink-light max-w-xl">私がAIシステムをデザインする際の思考の痕跡。単なるAPI呼び出しではなく、認知のモデリングを行います。</p>
+                <div class="absolute right-0 top-0 hidden md:block w-32 h-32 border border-ink/20 rounded-full flex items-center justify-center -rotate-12"><span class="font-hand text-xl text-ink-light">8 Steps</span></div>
+            </div>
+            <div class="relative p-4 md:p-10">
+                <div class="absolute border-opacity-20 border-ink h-full border-l-2 left-8 md:left-1/2 top-0 transform md:-translate-x-1/2"></div>
+                <div class="space-y-16">
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full reveal">
+                        <div class="order-1 w-full md:w-5/12 pl-16 md:pl-0 md:text-right">
+                            <h4 class="mb-1 font-mono text-xs uppercase tracking-widest text-accent-purple md:text-right">Step 01 <i class="ph-fill ph-eyeglasses ml-2"></i></h4>
+                            <h3 class="mb-2 font-serif text-xl font-bold text-ink">ドメイン知識の「憑依」</h3>
+                            <p class="text-sm text-ink-light">顧客の業務フローを解剖し、言語化されていない暗黙知を徹底的にインプット。人間がどこで「思考」しているかを見極める。</p>
+                        </div>
+                        <div class="z-20 absolute left-4 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center bg-canvas border-2 border-ink w-8 h-8 rounded-full"><span class="w-2 h-2 bg-accent-gold rounded-full"></span></div>
+                    </div>
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full reveal">
+                        <div class="order-1 w-full md:w-5/12 hidden md:block"></div>
+                        <div class="z-20 absolute left-4 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center bg-canvas border-2 border-ink w-8 h-8 rounded-full"><span class="w-2 h-2 bg-ink rounded-full"></span></div>
+                        <div class="order-1 w-full md:w-5/12 pl-16 md:pl-8 text-left">
+                            <h4 class="mb-1 font-mono text-xs uppercase tracking-widest text-accent-purple"><i class="ph-fill ph-intersect mr-2"></i>Step 02</h4>
+                            <h3 class="mb-2 font-serif text-xl font-bold text-ink">データ構造の立体化</h3>
+                            <p class="text-sm text-ink-light">LLMが理解しやすい形（ベクトルDB、グラフ構造）へ既存データを解体・再構築。RAG設計の勝敗はここで決まる。</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full reveal">
+                        <div class="order-1 w-full md:w-5/12 pl-16 md:pl-0 md:text-right">
+                            <h4 class="mb-1 font-mono text-xs uppercase tracking-widest text-accent-purple md:text-right">Step 03 <i class="ph-fill ph-magic-wand ml-2"></i></h4>
+                            <h3 class="mb-2 font-serif text-xl font-bold text-ink">プロンプト・アーキテクチャ構築</h3>
+                            <p class="text-sm text-ink-light">単発の指示ではなく、思考の連鎖（CoT）や自己反省を組み込んだ複数エージェント処理網を設計。</p>
+                        </div>
+                        <div class="z-20 absolute left-4 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center bg-canvas border-2 border-ink w-8 h-8 rounded-full"><span class="w-2 h-2 bg-ink rounded-full"></span></div>
+                    </div>
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full reveal">
+                        <div class="order-1 w-full md:w-5/12 hidden md:block"></div>
+                        <div class="z-20 absolute left-4 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center bg-canvas border-2 border-ink w-8 h-8 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]"><span class="w-2 h-2 bg-accent-purple rounded-full"></span></div>
+                        <div class="order-1 w-full md:w-5/12 pl-16 md:pl-8 text-left">
+                            <h4 class="mb-1 font-mono text-xs uppercase tracking-widest text-accent-purple"><i class="ph-fill ph-bounding-box mr-2"></i>Step 04</h4>
+                            <h3 class="mb-2 font-serif text-xl font-bold text-ink">体験（UI）への統合</h3>
+                            <p class="text-sm text-ink-light">生成結果をチャットに押し込めるのではなく、ユーザーのワークスペース上に「文脈を持ったコンポーネント」として自然に発生させる。</p>
+                            <div class="mt-4 p-3 bg-white border border-ink/10 text-xs font-mono text-ink-light rounded shadow-sm relative">
+                                <code>&lt;GenerativeCanvas data={mappedResponse} /&gt;</code>
+                                <i class="ph-fill ph-pencil-simple absolute -bottom-2 -right-2 text-xl text-accent-gold transform rotate-12"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-b border-ink/10 bg-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h4 class="font-sans text-xs uppercase tracking-widest text-ink-light mb-10">Recognition & Mentions</h4>
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
+                <div class="font-serif font-bold text-2xl tracking-tighter">Awwwards.</div>
+                <div class="font-sans font-bold text-xl flex items-center"><i class="ph-fill ph-behance-logo text-3xl mr-1"></i>Behance</div>
+                <div class="font-mono text-lg border-2 border-ink p-1 font-bold">CSS DA</div>
+                <div class="font-serif italic text-xl">The FWA.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 md:px-10 lg:px-20 bg-canvas">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+                <div class="w-full lg:w-5/12 relative reveal">
+                    <div class="absolute -inset-4 bg-accent-gold/10 transform -rotate-3 z-0 rounded-lg"></div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" alt="Sho Chizawa" class="relative z-10 w-full h-[500px] object-cover rounded shadow-floating grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-6 -right-6 bg-ink text-canvas p-4 hidden md:block z-20 shadow-xl">
+                        <span class="block font-mono text-xs uppercase tracking-widest opacity-70">Working from</span>
+                        <span class="font-serif text-lg">Ebisu, Tokyo</span>
+                    </div>
+                </div>
+                <div class="w-full lg:w-7/12 relative reveal">
+                    <h2 class="font-serif text-4xl mb-6">遅沢 翔 <span class="font-sans text-lg text-ink-light ml-4 font-normal">Sho Chizawa</span></h2>
+                    <div class="space-y-6 font-sans text-ink leading-relaxed">
+                        <p>UI/UXデザイナーとフルスタックエンジニアの境界線を歩き続け、「Claude Code/Agent SDKを用いた生成AI機能の組み込み」と「人間中心のインターフェース設計」を一つの頭脳で実行する稀有なロール。</p>
+                        <p>テクノロジー単体では世界は変わらない。それが人間の業務や感情のコンテキストにどれだけ滑らかに溶け込むか。<span class="highlight-marker">「接点のエレガンス」</span>に偏執狂的なこだわりを持つ。</p>
+                        <p>暇な時は、タイポグラフィの美しさについて語るか、古本屋で古い建築雑誌をめくっています。システム設計は、建築と似ているから。</p>
+                    </div>
+                    <div class="mt-10 flex gap-4 flex-wrap">
+                        <span class="px-4 py-2 border border-ink rounded-full text-xs font-mono uppercase tracking-widest hover:bg-ink hover:text-canvas">Claude Opus 4</span>
+                        <span class="px-4 py-2 border border-ink rounded-full text-xs font-mono uppercase tracking-widest hover:bg-ink hover:text-canvas">LLM Integration</span>
+                        <span class="px-4 py-2 border border-ink rounded-full text-xs font-mono uppercase tracking-widest hover:bg-ink hover:text-canvas">Frontend Arch</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 bg-canvas relative overflow-hidden border-t border-ink/10">
+        <div class="absolute right-[-10%] top-[-20%] w-[50%] h-[150%] bg-accent-purple/5 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="font-hand text-3xl text-accent-purple mb-4 block">Let's craft it together.</span>
+            <h2 class="font-serif text-5xl md:text-7xl font-bold mb-8 leading-tight">次の作品を、<br>あなたと作る。</h2>
+            <p class="font-sans text-ink-light text-lg mb-12 max-w-xl mx-auto">あなたのビジネスの課題を、美しいAIシステムへと昇華させます。<br>まずは45分、Founder同士で非公式な対話をしませんか。</p>
+            <a href="mailto:hello@example.com" class="group relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 text-sm font-medium rounded-lg bg-gradient-to-br from-ink to-ink-light group-hover:from-accent-purple text-white shadow-brutal hover:shadow-[6px_6px_0px_0px_rgba(168,85,247,1)] hover:-translate-y-1 transition-all duration-300">
+                <span class="relative px-8 py-4 transition-all ease-in duration-75 rounded-md flex items-center font-sans tracking-widest uppercase text-base">Founderと45分対話 <i class="ph ph-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i></span>
+            </a>
+            <p class="mt-4 text-xs font-mono text-ink-light">※現在、新規開発の枠は月1枠のみ受付しています。</p>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 md:px-12 border-t border-ink/10 bg-canvas text-ink relative">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
+            <div class="text-center md:text-left">
+                <h2 class="font-serif text-2xl font-bold mb-2">Sho Chizawa</h2>
+                <p class="font-sans text-sm text-ink-light">Veritas AI Partners — Founder & AI System Designer.</p>
+                <div class="mt-4 font-mono text-xs text-ink/40"><span id="datetime">Loading...</span>, Tokyo (JST)</div>
+            </div>
+            <div class="flex gap-6 items-center">
+                <a href="#" class="text-ink-light hover:text-ink hover:-translate-y-1 transition-all"><i class="ph ph-file-text text-2xl"></i></a>
+                <a href="#" class="text-ink-light hover:text-ink hover:-translate-y-1 transition-all"><i class="ph ph-twitter-logo text-2xl"></i></a>
+                <a href="#" class="text-ink-light hover:text-ink hover:-translate-y-1 transition-all"><i class="ph ph-github-logo text-2xl"></i></a>
+                <a href="#" class="text-ink-light hover:text-ink hover:-translate-y-1 transition-all"><i class="ph ph-envelope text-2xl"></i></a>
+            </div>
+        </div>
+        <div class="text-center mt-16 pb-4"><span class="font-mono text-[10px] uppercase text-ink/30 tracking-widest">© 2026 Sho Chizawa / Veritas AI Partners. Handcrafted with logic.</span></div>
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 -z-10 w-full overflow-hidden flex justify-center opacity-[0.03] select-none pointer-events-none"><span class="font-serif text-[15vw] leading-none whitespace-nowrap">SYSTEM DESIGN</span></div>
+    </footer>
+
+    <script>
+        function updateTime() { const now = new Date(); const opts = { timeZone: 'Asia/Tokyo', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }; document.getElementById('datetime').textContent = now.toLocaleTimeString('en-US', opts); }
+        setInterval(updateTime, 1000); updateTime();
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => { reveals.forEach(r => { if (r.getBoundingClientRect().top < window.innerHeight - 100) r.classList.add('active'); }); };
+            window.addEventListener('scroll', revealOnScroll); revealOnScroll();
+        });
+    </script>
+</body>
+</html>
+</content>
+</invoke>

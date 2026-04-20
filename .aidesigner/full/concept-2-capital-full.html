@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERITAS CAPITAL | AI Implementation Fund</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@100..800&family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            fontFamily: { serif: ['"Cormorant Garamond"', '"Shippori Mincho"', 'serif'], sans: ['"Inter"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'], ja: ['"Shippori Mincho"', 'serif'] },
+            colors: { paper: '#F7F6F2', ink: { DEFAULT: '#111111', 700: '#333333', 500: '#666666' }, oxblood: '#721C24', ledger: '#D4D2C6' }
+        }}}
+    </script>
+    <style>
+        body { background-color: #F7F6F2; color: #111111; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"); -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #F7F6F2; border-left: 1px solid #D4D2C6; } ::-webkit-scrollbar-thumb { background: #111111; }
+        .ledger-border { border-color: #D4D2C6; }
+        .lining-nums { font-feature-settings: "lnum"; }
+        .portfolio-row { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .portfolio-row:hover { background-color: #ffffff; transform: scale(1.01); z-index: 10; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); border-color: transparent; }
+        .portfolio-arrow { transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; transform: translateX(-10px); }
+        .portfolio-row:hover .portfolio-arrow { opacity: 1; transform: translateX(0); }
+        .tier-card { transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; }
+        .tier-card:hover { border-color: #721C24; box-shadow: 0 15px 40px -10px rgba(114, 28, 36, 0.1); transform: translateY(-2px); }
+        ::selection { background: #721C24; color: #F7F6F2; }
+    </style>
+</head>
+<body class="font-serif selection:bg-oxblood selection:text-paper">
+    <nav class="fixed top-0 w-full z-50 bg-paper/90 backdrop-blur-md border-b ledger-border">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <div class="flex flex-col"><a href="#" class="text-xl md:text-2xl font-semibold tracking-tighter text-ink leading-none">VERITAS CAPITAL</a><span class="font-mono text-[9px] uppercase tracking-widest text-ink-500 mt-1">An AI Implementation Fund</span></div>
+            <div class="hidden lg:flex items-center space-x-8 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-700"><a href="#thesis" class="hover:text-oxblood transition-colors">Thesis</a><a href="#portfolio" class="hover:text-oxblood transition-colors">Portfolio</a><a href="#allocation" class="hover:text-oxblood transition-colors">Allocation</a><a href="#partner" class="hover:text-oxblood transition-colors">Partner</a></div>
+            <a href="#diagnostic" class="group flex items-center gap-3"><span class="font-sans text-xs font-medium uppercase tracking-wider text-ink group-hover:text-oxblood transition-colors hidden sm:block">Diagnostic</span><div class="w-8 h-8 rounded-full border border-ink flex items-center justify-center group-hover:bg-oxblood group-hover:border-oxblood group-hover:text-paper transition-all"><i class="ph ph-arrow-right text-sm"></i></div></a>
+        </div>
+    </nav>
+    <header class="relative pt-40 pb-24 md:pt-56 md:pb-32 px-6 md:px-12 max-w-[1400px] mx-auto min-h-[90vh] flex flex-col justify-center">
+        <div class="absolute top-32 left-6 md:left-12 font-mono text-[10px] text-ink-500 uppercase tracking-widest flex flex-col gap-1"><span>Report: Q4 2026</span><span>Loc: Tokyo, JPN</span><span>Entity: Veritas AI Partners</span></div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-end mt-12">
+            <div class="md:col-span-9 lg:col-span-8">
+                <h2 class="font-sans text-xs md:text-sm uppercase tracking-[0.3em] text-oxblood mb-8 font-semibold">Annual Letter to Founders</h2>
+                <h1 class="text-4xl md:text-6xl lg:text-[4.5rem] leading-[1.2] font-ja font-medium tracking-tight text-ink mb-10">我々はAIコンサルではない。<br><span class="italic font-serif">AI実装</span>に投資する資本家だ。</h1>
+                <p class="font-serif text-xl md:text-2xl text-ink-700 leading-relaxed max-w-2xl">"The era of advisory is over." <br>スライドデッキを描く時代は終わった。我々が投下するのは「エンジニアリング資本」と「実装力」。企業の根幹事業にAIを組み込み、圧倒的なROIとして回収する。</p>
+            </div>
+            <div class="md:col-span-3 lg:col-span-4 flex md:justify-end">
+                <div class="border-l border-ink pl-6 pb-2"><p class="font-mono text-[11px] text-ink-500 uppercase tracking-widest mb-4">Immediate Action Required</p><a href="#diagnostic" class="inline-flex items-center gap-4 text-ink hover:text-oxblood transition-colors group"><span class="font-serif text-lg italic">Read Prospectus</span><div class="h-[1px] w-12 bg-ink group-hover:bg-oxblood group-hover:w-16 transition-all duration-300"></div></a></div>
+            </div>
+        </div>
+    </header>
+    <section id="metrics" class="border-y ledger-border bg-paper">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x ledger-border">
+            <div class="p-8 md:p-12 hover:bg-white transition-colors duration-500"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 mb-6">Capital Deployed (Hours)</p><div class="flex items-baseline gap-2"><span class="font-serif text-5xl md:text-6xl lining-nums tracking-tighter">42,500</span><span class="font-sans text-sm text-ink-500">+</span></div><p class="font-ja text-sm text-ink-700 mt-4 leading-relaxed">総投下エンジニアリング時間。机上の空論ではなく、コードとインフラ構築に費やされた純粋な開発資本。</p></div>
+            <div class="p-8 md:p-12 hover:bg-white transition-colors duration-500 relative overflow-hidden group"><div class="absolute inset-0 bg-oxblood transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 origin-bottom"></div><div class="relative z-10 group-hover:text-paper transition-colors duration-500"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 group-hover:text-paper/70 mb-6">Internal Portfolio Value</p><div class="flex items-baseline gap-2 -ml-1"><span class="font-serif text-4xl text-ink-500 group-hover:text-paper/70">¥</span><span class="font-serif text-5xl md:text-6xl lining-nums tracking-tighter">18.4</span><span class="font-serif text-2xl">B</span></div><p class="font-ja text-sm text-ink-700 group-hover:text-paper/90 mt-4 leading-relaxed">実装による業務削減コスト・自己展開事業群（Eコマース・不動産等）からの推定創出価値。</p></div></div>
+            <div class="p-8 md:p-12 hover:bg-white transition-colors duration-500"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 mb-6">Active Entities</p><div class="flex items-baseline gap-2"><span class="font-serif text-5xl md:text-6xl lining-nums tracking-tighter">14</span></div><p class="font-ja text-sm text-ink-700 mt-4 leading-relaxed">現在並行して実装投資（フェリデンシアグループ傘下事業および外部パートナー）を行っている事業体数。</p></div>
+            <div class="p-8 md:p-12 hover:bg-white transition-colors duration-500"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 mb-6">Target ROI Multiple</p><div class="flex items-baseline gap-2"><span class="font-serif text-5xl md:text-6xl lining-nums tracking-tighter">5.0</span><span class="font-serif text-3xl italic">x</span></div><p class="font-ja text-sm text-ink-700 mt-4 leading-relaxed">アロケーションに対する最低目標リターン。我々はコストセンターではなく、プロフィットを創る。</p></div>
+        </div>
+    </section>
+    <section id="thesis" class="py-32 px-6 md:px-12 max-w-[1000px] mx-auto">
+        <div class="flex items-center gap-6 mb-16"><h3 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-500">Section I</h3><div class="h-[1px] flex-grow bg-ledger-border"></div><h3 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-500">The Thesis</h3></div>
+        <div class="space-y-12 font-ja text-lg md:text-xl text-ink-700 leading-[2] tracking-wide columns-1 md:columns-2 gap-16">
+            <p class="first-letter:text-7xl first-letter:font-serif first-letter:text-ink first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] break-inside-avoid">多くの「AIコンサルティング」は、企業の課題をヒアリングし、美しいPowerPointを納品して終わる。それはAIの恩恵を企業にもたらさない。ただの高額な勉強代である。<br><br>現代の企業に必要なのは、助言ではない。自社のデータ基盤に接続され、日々のオペレーションを自動化し、意思決定の精度を根底から引き上げる「実稼働するソフトウェア」である。我々は自社グループ内での過酷な実証を経て、その確信に至った。</p>
+            <p class="break-inside-avoid">Veritas AI Partnersは、自らをコンサルタントとは定義しない。我々は「AI実装」という資本を企業に投下する資本家である。<br><br>我々の利益は、事業成長・コスト削減という明確なリターンから創出される。卓越したエンジニアリングチームを組成し、事業の深部に入り込み、レガシーシステムを解体し、最新のLLMアーキテクチャやエージェント群を埋め込む。すべてのプロジェクトを「出資」と捉え、圧倒的な投資回収（ROI）にコミットする。</p>
+        </div>
+    </section>
+    <section id="portfolio" class="py-32 px-6 md:px-12 max-w-[1400px] mx-auto">
+        <div class="flex items-center justify-between mb-16">
+            <div><h2 class="font-serif text-4xl md:text-5xl text-ink tracking-tight mb-2">Portfolio Entities</h2><p class="font-ja text-ink-500 text-sm">我々は単なる外部ベンダではない。フェリデンシアグループ傘下の実業に対し、自らAI実装を投下し成果を証明している。</p></div>
+            <p class="font-mono text-xs uppercase tracking-widest text-ink-500 hidden lg:block text-right">Self-Deployed Capital<br>Internal Holdings</p>
+        </div>
+        <div class="w-full border-t border-ink">
+            <div class="hidden lg:flex py-4 border-b ledger-border font-mono text-[10px] uppercase tracking-[0.15em] text-ink-500"><div class="w-16">Origin</div><div class="w-1/4">Entity / Sector</div><div class="w-1/3">Capital Deployed (Implementation Focus)</div><div class="flex-grow">Realized Return (Outcome)</div><div class="w-8"></div></div>
+            <div class="portfolio-row flex flex-col lg:flex-row py-8 border-b ledger-border gap-4 lg:gap-0 cursor-pointer relative group"><div class="lg:w-16 font-mono text-xs text-ink-500 pt-1">Fund I</div><div class="lg:w-1/4 pr-8"><h4 class="font-serif text-2xl text-ink mb-1 group-hover:text-oxblood transition-colors">SK本舗</h4><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500">3D Printing Solutions</p></div><div class="lg:w-1/3 pr-8 font-ja text-sm text-ink-700 leading-relaxed">独自ナレッジベースを用いたCS（カスタマーサポート）AIエージェントの構築。複雑な3DプリンターのトラブルシューティングをLLMが自律的に対応する構造を実装。</div><div class="flex-grow font-ja text-sm text-ink font-medium leading-relaxed">問い合わせ対応工数を劇的に削減。高度な技術的質問に対する一次応答精度が向上。<span class="inline-block mt-2 font-mono text-[10px] text-oxblood bg-oxblood/5 px-2 py-1 rounded border border-oxblood/10">CS Efficiency +300%</span></div><div class="hidden lg:flex w-8 items-center justify-end portfolio-arrow"><i class="ph ph-arrow-right text-oxblood text-xl"></i></div></div>
+            <div class="portfolio-row flex flex-col lg:flex-row py-8 border-b ledger-border gap-4 lg:gap-0 cursor-pointer relative group"><div class="lg:w-16 font-mono text-xs text-ink-500 pt-1">Fund I</div><div class="lg:w-1/4 pr-8"><h4 class="font-serif text-2xl text-ink mb-1 group-hover:text-oxblood transition-colors">Retail Syndicate</h4><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500">7-Brand E-Commerce Entity</p></div><div class="lg:w-1/3 pr-8 font-ja text-sm text-ink-700 leading-relaxed">マルチブランド展開における商品データ、在庫管理、マーケティングコピー生成のAIパイプライン自動化。Agent SDKを活用した商品展開プロセスの高速化。</div><div class="flex-grow font-ja text-sm text-ink font-medium leading-relaxed">新商品ローンチまでのリードタイムを数週間から数日へ短縮。バックオフィスの完全な人員スケーリングからの解放。<span class="inline-block mt-2 font-mono text-[10px] text-oxblood bg-oxblood/5 px-2 py-1 rounded border border-oxblood/10">Ops Margin Optimized</span></div><div class="hidden lg:flex w-8 items-center justify-end portfolio-arrow"><i class="ph ph-arrow-right text-oxblood text-xl"></i></div></div>
+            <div class="portfolio-row flex flex-col lg:flex-row py-8 border-b ledger-border gap-4 lg:gap-0 cursor-pointer relative group"><div class="lg:w-16 font-mono text-xs text-ink-500 pt-1">Fund I</div><div class="lg:w-1/4 pr-8"><h4 class="font-serif text-2xl text-ink mb-1 group-hover:text-oxblood transition-colors">日本未来技研</h4><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500">SLA Equipment / R&D</p></div><div class="lg:w-1/3 pr-8 font-ja text-sm text-ink-700 leading-relaxed">製造・研究開発プロセスにおけるデータ構造化および技術文書の生成AIアシスト。ハードウェア開発の制約をソフトウェア・インテリジェンスで補完。</div><div class="flex-grow font-ja text-sm text-ink font-medium leading-relaxed">技術文書作成や研究データの照会スピードを飛躍的に向上させ、R&Dコア業務への集中環境を構築。<span class="inline-block mt-2 font-mono text-[10px] text-oxblood bg-oxblood/5 px-2 py-1 rounded border border-oxblood/10">R&D Acceleration</span></div><div class="hidden lg:flex w-8 items-center justify-end portfolio-arrow"><i class="ph ph-arrow-right text-oxblood text-xl"></i></div></div>
+            <div class="portfolio-row flex flex-col lg:flex-row py-8 border-b ledger-border gap-4 lg:gap-0 cursor-pointer relative group"><div class="lg:w-16 font-mono text-xs text-ink-500 pt-1">Fund II</div><div class="lg:w-1/4 pr-8"><h4 class="font-serif text-2xl text-ink mb-1 group-hover:text-oxblood transition-colors">Asset Holdings</h4><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500">Real Estate & Equity</p></div><div class="lg:w-1/3 pr-8 font-ja text-sm text-ink-700 leading-relaxed">金融・不動産市場の膨大なデータスクレイピングと、LLMによる定性情報の定量化モデル実装。マクロ市場環境の常時監視とシグナル抽出。</div><div class="flex-grow font-ja text-sm text-ink font-medium leading-relaxed">投資判断の非対称性をAIによって確保。属人的なリサーチからデータドリブンな自律型ファンドマネジメントへ移行。<span class="inline-block mt-2 font-mono text-[10px] text-oxblood bg-oxblood/5 px-2 py-1 rounded border border-oxblood/10">Alpha Generation</span></div><div class="hidden lg:flex w-8 items-center justify-end portfolio-arrow"><i class="ph ph-arrow-right text-oxblood text-xl"></i></div></div>
+        </div>
+    </section>
+    <section id="allocation" class="py-24 px-6 md:px-12 bg-[#F2F1EC] border-y ledger-border">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="text-center mb-20"><h3 class="font-mono text-xs uppercase tracking-[0.2em] text-oxblood font-semibold mb-4">Capital Allocation Profiles</h3><h2 class="font-serif text-3xl md:text-5xl text-ink">Investment Structures</h2><p class="font-ja mt-6 text-ink-500 max-w-2xl mx-auto text-sm">我々は一過性の受託開発を行わない。貴社のフェーズに応じた「実装投資」と「継続的なアドバイザリ」の枠組みを定義する。</p></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <div class="tier-card bg-paper p-8 lg:p-10 border ledger-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6"><span class="font-mono text-xs uppercase tracking-widest text-ink-500">Profile A</span><i class="ph ph-magnifying-glass text-oxblood/50 text-2xl"></i></div>
+                        <h4 class="font-serif text-2xl text-ink mb-2">Diagnostic Investment</h4>
+                        <p class="font-ja text-xs text-ink-500 mb-8 border-b ledger-border pb-6">AI導入の前段階。事業構造を解剖し、どこにAI資本を投下すべきか、ROIの算出と要件定義を行う投資。</p>
+                        <div class="mb-8"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 mb-1">Required Capital</p><p class="font-serif text-3xl lining-nums text-ink">¥150k <span class="font-sans text-lg text-ink-500 font-light mx-1">-</span> ¥300k</p></div>
+                        <ul class="font-ja text-sm text-ink-700 space-y-4">
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> オペレーションの解剖と診断</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> 実装ROIのシミュレーション</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> アーキテクチャの初期設計</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tier-card bg-ink text-paper p-8 lg:p-10 border border-ink flex flex-col justify-between relative overflow-hidden transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-oxblood flex items-center justify-center translate-x-8 -translate-y-8 rotate-45"><i class="ph ph-star-four text-paper text-sm -rotate-45 translate-y-3 translate-x-[-10px]"></i></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-6"><span class="font-mono text-xs uppercase tracking-widest text-paper/60">Profile B</span></div>
+                        <h4 class="font-serif text-2xl text-paper mb-2">Implementation Capital</h4>
+                        <p class="font-ja text-xs text-paper/70 mb-8 border-b border-paper/20 pb-6">システムのコア部分への本格的なエンジニアリング投下。机上の空論を終わらせ、実稼働するプロダクトを納品する。</p>
+                        <div class="mb-8"><p class="font-mono text-[10px] uppercase tracking-widest text-paper/50 mb-1">Required Capital</p><p class="font-serif text-3xl lining-nums text-paper">¥500k <span class="font-sans text-lg text-paper/50 font-light mx-1">-</span> ¥1.5m<span class="text-xs font-sans text-paper/50 ml-1">/project</span></p></div>
+                        <ul class="font-ja text-sm text-paper/90 space-y-4">
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> Claude Code / Agent SDK 実装</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> レガシー基盤のAPI連携・解体</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> カスタムLLMエージェント構築</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> 社内データ・ナレッジのベクトル化</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tier-card bg-paper p-8 lg:p-10 border ledger-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6"><span class="font-mono text-xs uppercase tracking-widest text-ink-500">Profile C</span><i class="ph ph-arrows-clockwise text-oxblood/50 text-2xl"></i></div>
+                        <h4 class="font-serif text-2xl text-ink mb-2">Advisory Retainer</h4>
+                        <p class="font-ja text-xs text-ink-500 mb-8 border-b ledger-border pb-6">実装後の継続的なモデル最適化と、経営レイヤーへのAI戦略アップデートを提供するリテーナー契約。</p>
+                        <div class="mb-8"><p class="font-mono text-[10px] uppercase tracking-widest text-ink-500 mb-1">Required Capital</p><p class="font-serif text-3xl lining-nums text-ink">¥150k <span class="font-sans text-lg text-ink-500 font-light mx-1">-</span> ¥500k<span class="text-xs font-sans text-ink-500 ml-1">/mo</span></p></div>
+                        <ul class="font-ja text-sm text-ink-700 space-y-4">
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> 実稼働モデルのプロンプト最適化</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> 新規LLMバージョンへの追従対応</li>
+                            <li class="flex items-start gap-3"><i class="ph ph-check text-oxblood mt-0.5"></i> 経営陣向けAI戦略ボードミーティング</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="partner" class="py-32 px-6 md:px-12 max-w-[1200px] mx-auto border-b ledger-border">
+        <div class="flex items-center gap-6 mb-16"><h3 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-500">Section II</h3><div class="h-[1px] flex-grow bg-ledger-border"></div><h3 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-500">The General Partner</h3></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-7">
+                <h2 class="font-serif text-4xl md:text-5xl text-ink mb-2">遅沢 翔</h2>
+                <p class="font-mono text-xs uppercase tracking-widest text-oxblood mb-8">Sho Chizawa — Founder & Managing Partner</p>
+                <div class="font-ja text-ink-700 leading-loose space-y-6 text-[15px] md:text-base">
+                    <p>フェリデンシアキャピタル代表。20代にしてSK本舗（3Dプリンター事業）、7つのECブランド、日本未来技研（SLA装置R&D）、そして不動産・株式投資ファンドなど多岐にわたる事業を所有・運営する実業家。</p>
+                    <p>自らのコングロマリットを「巨大な実験場」とし、<strong>Claude Code、Agent SDK、Claude Opus 4 / GPT-5 / Gemini 3.1 Pro / Grok 4.20 / DeepSeek</strong>をはじめとする最先端のLLM・自律型エージェント技術を全事業の深部へ実戦投入。バックオフィスの完全自動化から、研究開発の加速、さらには金融資産のアルファ探索まで、AI実装による非連続的な成長とコスト圧縮を「自らの血を流して」証明してきた。</p>
+                    <p>Veritas AI Partnersは、外部に対する単なるコンサルティング事業ではない。彼が自社グループ内で培った「泥臭い実装力」と「最速のアーキテクチャ統合術」を、選ばれたパートナー企業に解放するためのキャピタル機関である。</p>
+                </div>
+                <div class="mt-12 flex flex-col items-start gap-2"><span class="font-serif text-3xl italic text-ink">Sho Chizawa</span><span class="font-mono text-[9px] uppercase tracking-widest text-ink-500">Signed: Q4 2026 / Tokyo</span></div>
+            </div>
+            <div class="lg:col-span-5 relative">
+                <div class="absolute inset-0 border border-ledger-border translate-x-4 translate-y-4 pointer-events-none"></div>
+                <div class="bg-[#e0dfd5] aspect-[3/4] relative overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80&sat=-100" alt="Sho Chizawa" class="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-paper/10"></div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-paper px-4 py-2 border ledger-border font-mono text-[10px] uppercase tracking-widest text-ink-500 shadow-sm">Fig 1. Managing Partner</div>
+            </div>
+        </div>
+    </section>
+    <section id="diagnostic" class="py-32 px-6 md:px-12 bg-ink text-paper relative">
+        <div class="max-w-[1000px] mx-auto text-center flex flex-col items-center">
+            <i class="ph ph-seal-check text-oxblood text-4xl mb-8"></i>
+            <h2 class="font-serif text-3xl md:text-5xl mb-6">Schedule a Diagnostic Conversation</h2>
+            <p class="font-ja text-paper/70 mb-12 max-w-2xl text-sm md:text-base leading-loose">実装の余地のない企業への提案は行いません。まずは貴社のオペレーションとデータアセットを診断し、AI資本を投下することで非連続な成長が見込めるか、投資家の目線で率直なフィードバックを提供します。</p>
+            <form class="w-full max-w-md flex flex-col gap-6 text-left">
+                <div class="relative"><input type="email" id="email" class="peer w-full bg-transparent border-b border-paper/30 pb-3 pt-5 text-paper font-sans focus:outline-none focus:border-oxblood transition-colors placeholder-transparent" placeholder="Corporate Email"><label for="email" class="absolute left-0 top-0 text-paper/50 font-mono text-[10px] uppercase tracking-widest peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-[10px] peer-focus:text-oxblood transition-all">Corporate Email</label></div>
+                <div class="relative"><input type="text" id="company" class="peer w-full bg-transparent border-b border-paper/30 pb-3 pt-5 text-paper font-sans focus:outline-none focus:border-oxblood transition-colors placeholder-transparent" placeholder="Company Name"><label for="company" class="absolute left-0 top-0 text-paper/50 font-mono text-[10px] uppercase tracking-widest peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-[10px] peer-focus:text-oxblood transition-all">Company Name / Entity</label></div>
+                <button type="button" class="mt-8 bg-oxblood hover:bg-[#8B222C] text-paper py-5 px-8 flex items-center justify-center gap-4 transition-all duration-300 group"><span class="font-mono text-xs uppercase tracking-[0.2em]">Initiate Diagnostic</span><i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i></button>
+            </form>
+            <p class="font-mono text-[9px] text-paper/40 tracking-widest uppercase mt-12 max-w-xs text-center border border-paper/10 py-3 px-4">Strict confidentiality maintained. We do not accept projects without clear ROI pathways.</p>
+        </div>
+    </section>
+    <footer class="bg-paper border-t ledger-border py-12 md:py-24 px-6 md:px-12 font-mono text-[10px] uppercase text-ink-500 tracking-widest">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6">
+            <div class="col-span-1 md:col-span-2"><span class="text-ink font-semibold mb-4 block text-xs">VERITAS CAPITAL</span><p class="opacity-70 normal-case tracking-normal font-ja leading-relaxed max-w-sm mb-6 text-xs">A wholly owned subsidiary entity concept within Veritas AI Partners, operating exclusively as an implementation-first technical capital deployment team under the Felidentia Capital umbrella.</p></div>
+            <div><span class="text-ink font-semibold mb-4 block">Locations</span><ul class="space-y-2 opacity-70"><li>Tokyo, Minato-ku</li><li>Engineering Hub (Remote)</li></ul></div>
+            <div><span class="text-ink font-semibold mb-4 block">Legal & Documents</span><ul class="space-y-2 opacity-70"><li><a href="#" class="hover:text-ink">Privacy Policy</a></li><li><a href="#" class="hover:text-ink">Terms of Service</a></li><li><a href="#" class="hover:text-ink">Implementation Agreement</a></li></ul></div>
+        </div>
+        <div class="max-w-[1400px] mx-auto mt-16 pt-8 border-t ledger-border flex flex-col md:flex-row justify-between items-center opacity-50 gap-4">
+            <p>&copy; 2026 VERITAS AI PARTNERS. ALL RIGHTS RESERVED.</p>
+            <p>NOT A REGISTERED FINANCIAL BROKER/DEALER. CAPITAL DEPLOYMENT METAPHORICAL.</p>
+        </div>
+    </footer>
+</body>
+</html>
+</content>
+</invoke>
