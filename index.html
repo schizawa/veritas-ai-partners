@@ -242,7 +242,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
     <canvas id="neural-bg"></canvas>
 
     <!-- Top fixed AI Live Inference Counter (bottom-left HUD) -->
-    <div class="fixed bottom-4 left-4 z-50 flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
+    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
         <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
         <span class="text-gray-400">Inferences/sec:</span>
         <span class="token-counter font-bold text-base" id="hud-inferences">847</span>
@@ -261,7 +261,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 <span class="text-white font-bold text-sm font-sans tracking-wide">VERITAS AI PARTNERS</span>
                 <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">v2.4.0-production</span>
             </div>
-            
+
             <nav class="hidden md:flex items-center gap-6">
                 <a href="#dashboard" class="hover:text-white transition-colors">Dashboard</a>
                 <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
@@ -271,11 +271,24 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             </nav>
 
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
                     <span class="tracking-wider">SYSTEM ONLINE</span>
                 </div>
+                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
+                    <i class="ph-bold ph-list text-2xl"></i>
+                </button>
             </div>
+        </div>
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
+            <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
+                <a href="#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
+                <a href="#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
+                <a href="#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
+                <a href="#team" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Team Matrix</a>
+                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white">> About</a>
+            </nav>
         </div>
     </header>
 
@@ -1269,6 +1282,16 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
     <script>
         // Simple script to update 'time ago' or server time to make it feel slightly alive
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle
+            (function() {
+                const btn = document.getElementById('mobile-menu-toggle');
+                const menu = document.getElementById('mobile-menu');
+                if (!btn || !menu) return;
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+                // Close on link click
+                menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+            })();
+
             const timeElements = document.querySelectorAll('.server-time');
             setInterval(() => {
                 const now = new Date();

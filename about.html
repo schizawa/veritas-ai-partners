@@ -72,7 +72,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     <canvas id="neural-bg"></canvas>
 
     <!-- Bottom-left HUD (same as index) -->
-    <div class="fixed bottom-4 left-4 z-50 flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
+    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
         <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
         <span class="text-gray-400">Inferences/sec:</span>
         <span class="token-counter font-bold text-base" id="hud-inferences">847</span>
@@ -97,11 +97,24 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 <a href="#" class="text-white">About</a>
             </nav>
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
                     <span class="tracking-wider">SYSTEM ONLINE</span>
                 </div>
+                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
+                    <i class="ph-bold ph-list text-2xl"></i>
+                </button>
             </div>
+        </div>
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
+            <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
+                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Home</a>
+                <a href="index.html#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
+                <a href="index.html#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
+                <a href="index.html#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
+                <a href="#" class="py-2.5 text-white">> About</a>
+            </nav>
         </div>
     </header>
 
@@ -384,6 +397,16 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const $ = id => document.getElementById(id);
+
+            // Mobile menu toggle
+            (function() {
+                const btn = $('mobile-menu-toggle');
+                const menu = $('mobile-menu');
+                if (!btn || !menu) return;
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+                menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+            })();
+
             const fmt = n => n.toLocaleString('en-US');
 
             // Neural canvas (same as index)
