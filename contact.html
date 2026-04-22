@@ -1,14 +1,385 @@
+<!--
+Contact form — same aesthetic as index/about.
+Backend: Web3Forms (https://web3forms.com)
+Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
+       Get one by entering your email at https://web3forms.com/
+-->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <title>Contact — Veritas AI Partners</title>
-    <link rel="canonical" href="/index.html#cta">
-    <meta http-equiv="refresh" content="0; url=/index.html#cta">
-    <script>location.replace('/index.html#cta');</script>
-    <style>body{background:#0a0a0e;color:#fff;font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;}a{color:#00ff88;}</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Veritas AI Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#0a0a0e',
+                        surface: '#13131a',
+                        surface_hover: '#1a1a24',
+                        line: '#22222f',
+                        terminal: '#00ff88',
+                        sysblue: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #22222f 1px, transparent 1px), linear-gradient(to bottom, #22222f 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0a0a0e; color: #ffffff; -webkit-font-smoothing: antialiased; }
+        section[id] { scroll-margin-top: 80px; }
+        .bg-grid { background-size: 40px 40px; mask-image: radial-gradient(circle at center, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0e; }
+        ::-webkit-scrollbar-thumb { background: #22222f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        @keyframes pulse-ai { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+        .ai-pulse { animation: pulse-ai 2s ease-in-out infinite; }
+        @keyframes data-flow { 0% { transform: translateX(-100%); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
+        .data-stream { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #00ff88, transparent); animation: data-flow 3s linear infinite; }
+        .ai-status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.3); color: #00ff88; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; border-radius: 999px; }
+        .ai-status-chip .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 10px #00ff88; animation: pulse-ai 1.2s ease-in-out infinite; }
+        ::selection { background-color: #00ff88; color: #0a0a0e; }
+        #neural-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4; }
+
+        /* Form input styling — terminal aesthetic */
+        .field {
+            background: #0a0a0e;
+            border: 1px solid #22222f;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            padding: 12px 14px;
+            border-radius: 4px;
+            width: 100%;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .field:focus {
+            outline: none;
+            border-color: #00ff88;
+            background: #13131a;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.08);
+        }
+        .field::placeholder { color: #4b5563; }
+        textarea.field { resize: vertical; min-height: 140px; line-height: 1.6; }
+        .field-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .field-label .req { color: #00ff88; font-size: 9px; }
+        .field-label .opt { color: #4b5563; font-size: 9px; }
+
+        /* Honeypot — hide from real users */
+        .botcheck { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+    </style>
 </head>
-<body>
-    <p>Redirecting to <a href="/index.html#cta">無料AI診断</a>…</p>
+<body class="relative min-h-screen flex flex-col font-sans">
+    <canvas id="neural-bg"></canvas>
+
+    <!-- Bottom-left HUD -->
+    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
+        <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
+        <span class="text-gray-400">Inferences/sec:</span>
+        <span class="font-bold text-base text-terminal" id="hud-inferences">847</span>
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
+
+    <!-- Top Bar -->
+    <header class="fixed top-0 w-full bg-void/90 backdrop-blur-md border-b border-line z-50">
+        <div class="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-white font-bold text-sm font-sans tracking-wide hover:text-terminal transition-colors">VERITAS AI PARTNERS</a>
+                <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">/contact</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="index.html#dashboard" class="hover:text-white transition-colors">Dashboard</a>
+                <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                <a href="index.html#repos" class="hover:text-white transition-colors">Public Repos</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="#" class="text-white">Contact</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
+                    <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
+                    <span class="tracking-wider">SYSTEM ONLINE</span>
+                </div>
+                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
+                    <i class="ph-bold ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
+            <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
+                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Home</a>
+                <a href="index.html#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
+                <a href="index.html#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
+                <a href="index.html#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
+                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> About</a>
+                <a href="#" class="py-2.5 text-white">> Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-32 relative z-10">
+        <!-- HERO -->
+        <section class="max-w-[900px] mx-auto px-6 mb-16 pt-10">
+            <div class="flex items-center gap-3 flex-wrap mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 border border-line rounded bg-surface font-mono text-xs text-gray-400">
+                    <i class="ph-fill ph-envelope text-sysblue"></i>
+                    <span>/contact · 無料 AI 診断 (45 分)</span>
+                </div>
+                <span class="ai-status-chip"><span class="live-dot"></span>RECEIVING</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] text-white mb-6">
+                話を、<br>
+                <span class="bg-gradient-to-r from-terminal via-white to-sysblue bg-clip-text text-transparent">聞かせてください</span>。
+            </h1>
+
+            <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
+                返信は代表が直接、原則 24 時間以内に。<br>
+                内容次第で、初回 45 分の無料オンライン対話の枠をご案内します。
+            </p>
+        </section>
+
+        <!-- FORM -->
+        <section class="max-w-[900px] mx-auto px-6 mb-16">
+            <div class="bg-surface border border-line rounded-md p-6 md:p-8 relative overflow-hidden">
+                <div class="data-stream"></div>
+
+                <form id="contact-form" class="space-y-6">
+                    <!-- Web3Forms config -->
+                    <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+                    <input type="hidden" name="subject" value="[Veritas AI Partners] 新規お問い合わせ">
+                    <input type="hidden" name="from_name" value="Veritas AI Partners Contact Form">
+                    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="field-label" for="company">会社名 <span class="req">[REQUIRED]</span></label>
+                            <input id="company" type="text" name="会社名" class="field" placeholder="株式会社..." required>
+                        </div>
+                        <div>
+                            <label class="field-label" for="name">お名前 <span class="req">[REQUIRED]</span></label>
+                            <input id="name" type="text" name="お名前" class="field" placeholder="山田 太郎" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="field-label" for="email">メール <span class="req">[REQUIRED]</span></label>
+                            <input id="email" type="email" name="メール" class="field" placeholder="you@company.com" required>
+                        </div>
+                        <div>
+                            <label class="field-label" for="phone">電話 <span class="opt">[OPTIONAL]</span></label>
+                            <input id="phone" type="tel" name="電話" class="field" placeholder="03-XXXX-XXXX">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="schedule">希望日程 <span class="opt">[OPTIONAL]</span></label>
+                        <input id="schedule" type="text" name="希望日程" class="field" placeholder="例: 5/8 (木) 14:00〜 / 5/10 (土) 10:00〜">
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="message">相談内容 <span class="req">[REQUIRED]</span></label>
+                        <textarea id="message" name="相談内容" class="field" placeholder="現状の業務 / 動かしたい AI のイメージ / 既存システム / 想定予算など、わかる範囲で。" required></textarea>
+                    </div>
+
+                    <!-- Submit + status -->
+                    <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between">
+                        <p class="font-mono text-xs text-gray-500">送信ボタンを押すと、Veritas AI Partners 宛にメールが飛びます。</p>
+                        <button type="submit" id="submit-btn" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-3 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="ph-bold ph-paper-plane-tilt text-lg"></i>
+                            <span id="submit-text">送信する</span>
+                        </button>
+                    </div>
+
+                    <!-- Status messages -->
+                    <div id="form-status" class="hidden font-mono text-sm rounded p-4 border"></div>
+                </form>
+            </div>
+
+            <!-- Fallback contact -->
+            <div class="mt-6 text-center font-mono text-xs text-gray-500">
+                フォームが動かない場合は <a href="mailto:schizawa@felidentia.com" class="text-terminal hover:underline">schizawa@felidentia.com</a> まで直接ご連絡ください。
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 w-full h-8 bg-void border-t border-line z-50 flex items-center justify-between px-4 font-mono text-[10px] text-gray-500">
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:inline">Veritas AI Partners © 2026 · フェリデンシアキャピタル株式会社</span>
+            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
+                <i class="ph ph-git-branch text-sysblue"></i><span>main</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span>Uptime: 99.98%</span>
+            <button class="hover:text-white transition-colors" onclick="window.scrollTo(0,0)"><i class="ph-bold ph-caret-up"></i> TOP</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $ = id => document.getElementById(id);
+
+            // Mobile menu toggle
+            (function() {
+                const btn = $('mobile-menu-toggle');
+                const menu = $('mobile-menu');
+                if (!btn || !menu) return;
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+                menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+            })();
+
+            // Neural canvas
+            const canvas = $('neural-bg');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let mouse = { x: -9999, y: -9999 };
+                function resize() {
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    canvas.width = window.innerWidth * dpr;
+                    canvas.height = window.innerHeight * dpr;
+                    canvas.style.width = window.innerWidth + 'px';
+                    canvas.style.height = window.innerHeight + 'px';
+                    ctx.scale(dpr, dpr);
+                }
+                resize();
+                window.addEventListener('resize', resize);
+                window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+                const NODE_COUNT = window.innerWidth < 768 ? 35 : 70;
+                const nodes = Array.from({length: NODE_COUNT}, () => ({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    r: Math.random() * 1.5 + 0.5,
+                    pulse: Math.random() * Math.PI * 2,
+                }));
+                function frame() {
+                    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                    nodes.forEach(n => {
+                        n.x += n.vx; n.y += n.vy;
+                        if (n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
+                        if (n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
+                    });
+                    for (let i = 0; i < nodes.length; i++) {
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            const a = nodes[i], b = nodes[j];
+                            const dx = a.x - b.x, dy = a.y - b.y;
+                            const dist = Math.hypot(dx, dy);
+                            if (dist < 140) {
+                                const alpha = (1 - dist / 140) * 0.25;
+                                const mDistA = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+                                const mDistB = Math.hypot(b.x - mouse.x, b.y - mouse.y);
+                                const mouseBoost = (mDistA < 200 || mDistB < 200) ? 2.5 : 1;
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                                ctx.strokeStyle = `rgba(0, 255, 136, ${alpha * mouseBoost})`;
+                                ctx.lineWidth = mouseBoost > 1 ? 0.8 : 0.4;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    nodes.forEach(n => {
+                        n.pulse += 0.03;
+                        const pulseR = n.r + Math.sin(n.pulse) * 0.5;
+                        const mDist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+                        const isNearMouse = mDist < 150;
+                        ctx.beginPath();
+                        ctx.arc(n.x, n.y, isNearMouse ? pulseR * 2.5 : pulseR, 0, Math.PI * 2);
+                        ctx.fillStyle = isNearMouse ? '#00ff88' : `rgba(0, 255, 136, 0.6)`;
+                        if (isNearMouse) { ctx.shadowBlur = 12; ctx.shadowColor = '#00ff88'; }
+                        else { ctx.shadowBlur = 0; }
+                        ctx.fill();
+                    });
+                    ctx.shadowBlur = 0;
+                    requestAnimationFrame(frame);
+                }
+                frame();
+            }
+
+            // HUD jitter
+            (function() {
+                const inf = $('hud-inferences');
+                if (inf) setInterval(() => { inf.textContent = (847 + Math.round((Math.random() - 0.5) * 100)).toLocaleString(); }, 800);
+            })();
+
+            // ===== FORM SUBMISSION via Web3Forms =====
+            const form = $('contact-form');
+            const status = $('form-status');
+            const btn = $('submit-btn');
+            const btnText = $('submit-text');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const accessKey = form.querySelector('input[name="access_key"]').value;
+                if (!accessKey || accessKey === 'WEB3FORMS_ACCESS_KEY') {
+                    showStatus('error', '⚠ アクセスキー未設定です。<br>contact.html の <code>WEB3FORMS_ACCESS_KEY</code> を https://web3forms.com で取得した値に置き換えてください。');
+                    return;
+                }
+                btn.disabled = true;
+                btnText.textContent = '送信中…';
+                status.classList.add('hidden');
+
+                try {
+                    const formData = new FormData(form);
+                    const res = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.success) {
+                        showStatus('ok', '✓ 送信完了。<br>代表が原則 24 時間以内に schizawa@felidentia.com から直接ご返信します。');
+                        form.reset();
+                        btnText.textContent = '送信完了';
+                    } else {
+                        showStatus('error', '✗ 送信に失敗しました。<br>少し時間を空けて再度お試しいただくか、<a href="mailto:schizawa@felidentia.com" class="underline">schizawa@felidentia.com</a> まで直接ご連絡ください。');
+                        btn.disabled = false;
+                        btnText.textContent = '送信する';
+                    }
+                } catch (err) {
+                    showStatus('error', '✗ ネットワークエラー: ' + err.message);
+                    btn.disabled = false;
+                    btnText.textContent = '送信する';
+                }
+            });
+
+            function showStatus(type, html) {
+                status.classList.remove('hidden');
+                if (type === 'ok') {
+                    status.className = 'font-mono text-sm rounded p-4 border bg-terminal/10 border-terminal/40 text-terminal';
+                } else {
+                    status.className = 'font-mono text-sm rounded p-4 border bg-[#ef4444]/10 border-[#ef4444]/40 text-[#ef4444]';
+                }
+                status.innerHTML = html;
+                status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
 </body>
 </html>
