@@ -151,7 +151,7 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
             <div class="flex items-center gap-3 flex-wrap mb-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1 border border-line rounded bg-surface font-mono text-xs text-gray-400">
                     <i class="ph-fill ph-envelope text-sysblue"></i>
-                    <span>/contact · 無料 AI 診断 (45 分)</span>
+                    <span>/contact · 無料相談（45分）</span>
                 </div>
                 <span class="ai-status-chip"><span class="live-dot"></span>RECEIVING</span>
             </div>
@@ -163,7 +163,7 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
 
             <p class="text-lg text-gray-400 leading-relaxed max-w-2xl">
                 返信は代表から直接お送りします。<br>
-                内容次第で、初回 45 分の無料オンライン対話の枠をご案内します。
+                そのまま、初回45分の無料相談（オンライン）の日程をご案内します。
             </p>
         </section>
 
@@ -360,7 +360,7 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
                     });
                     const data = await res.json();
                     if (res.ok && data.success) {
-                        showStatus('ok', '✓ 送信完了。');
+                        showStatus('ok', '✓ 送信完了。代表からメールで折り返します。');
                         form.reset();
                         btnText.textContent = '送信完了';
                     } else {
