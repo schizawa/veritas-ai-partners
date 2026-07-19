@@ -10,6 +10,8 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Veritas AI Partners</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0e'/%3E%3Ctext x='6' y='22' font-family='monospace' font-size='16' fill='%2300ff88'%3E%26%238250;_%3C/text%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,22 +88,15 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
             text-transform: uppercase;
             letter-spacing: 0.08em;
         }
-        .field-label .req { color: #00ff88; font-size: 9px; }
-        .field-label .opt { color: #4b5563; font-size: 9px; }
+        .field-label .req { color: #00ff88; font-size: 10px; }
+        .field-label .opt { color: #9ca3af; font-size: 10px; }
 
         /* Honeypot — hide from real users */
         .botcheck { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body class="relative min-h-screen flex flex-col font-sans">
-    <canvas id="neural-bg"></canvas>
-
-    <!-- Bottom-left HUD -->
-    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
-        <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
-        <span class="text-gray-400">Inferences/sec:</span>
-        <span class="font-bold text-base text-terminal" id="hud-inferences">847</span>
-    </div>
+    <canvas id="neural-bg" aria-hidden="true"></canvas>
 
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
 
@@ -113,16 +108,16 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
                 <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">/contact</span>
             </div>
             <nav class="hidden md:flex items-center gap-6">
-                <a href="index.html#dashboard" class="hover:text-white transition-colors">Dashboard</a>
-                <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
-                <a href="index.html#repos" class="hover:text-white transition-colors">Public Repos</a>
-                <a href="about.html" class="hover:text-white transition-colors">About</a>
-                <a href="#" class="text-white">Contact</a>
+                <a href="index.html#services" class="hover:text-white transition-colors">サービスと料金</a>
+                <a href="index.html#works" class="hover:text-white transition-colors">実装実績</a>
+                <a href="index.html#system" class="hover:text-white transition-colors">体制</a>
+                <a href="about.html" class="hover:text-white transition-colors">会社情報</a>
+                <span class="text-white" aria-current="page">無料相談</span>
             </nav>
             <div class="flex items-center gap-3">
                 <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
-                    <span class="tracking-wider">SYSTEM ONLINE</span>
+                    <span class="tracking-wider">受付中</span>
                 </div>
                 <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
                     <i class="ph-bold ph-list text-2xl"></i>
@@ -131,12 +126,12 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
         </div>
         <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
             <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
-                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Home</a>
-                <a href="index.html#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
-                <a href="index.html#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
-                <a href="index.html#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
-                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> About</a>
-                <a href="#" class="py-2.5 text-white">> Contact</a>
+                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> ホーム</a>
+                <a href="index.html#services" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> サービスと料金</a>
+                <a href="index.html#works" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> 実装実績</a>
+                <a href="index.html#system" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> 体制</a>
+                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> 会社情報</a>
+                <span class="py-2.5 text-white" aria-current="page">> 無料相談</span>
             </nav>
         </div>
     </header>
@@ -147,7 +142,7 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
             <div class="flex items-center gap-3 flex-wrap mb-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1 border border-line rounded bg-surface font-mono text-xs text-gray-400">
                     <i class="ph-fill ph-envelope text-sysblue"></i>
-                    <span>/contact · 無料 AI 診断 (45 分)</span>
+                    <span>/contact · 無料相談（45分）</span>
                 </div>
                 <span class="ai-status-chip"><span class="live-dot"></span>RECEIVING</span>
             </div>
@@ -177,39 +172,40 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="field-label" for="company">会社名 <span class="req">[REQUIRED]</span></label>
+                            <label class="field-label" for="company">会社名 <span class="req">必須</span></label>
                             <input id="company" type="text" name="Company" class="field" placeholder="株式会社..." required>
                         </div>
                         <div>
-                            <label class="field-label" for="name">お名前 <span class="req">[REQUIRED]</span></label>
+                            <label class="field-label" for="name">お名前 <span class="req">必須</span></label>
                             <input id="name" type="text" name="Full_Name" class="field" placeholder="山田 太郎" required>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="field-label" for="email">メール <span class="req">[REQUIRED]</span></label>
+                            <label class="field-label" for="email">メール <span class="req">必須</span></label>
                             <input id="email" type="email" name="Email" class="field" placeholder="you@company.com" required>
                         </div>
                         <div>
-                            <label class="field-label" for="phone">電話 <span class="opt">[OPTIONAL]</span></label>
+                            <label class="field-label" for="phone">電話 <span class="opt">任意</span></label>
                             <input id="phone" type="tel" name="Phone" class="field" placeholder="03-XXXX-XXXX">
                         </div>
                     </div>
 
                     <div>
-                        <label class="field-label" for="schedule">希望日程 <span class="opt">[OPTIONAL]</span></label>
-                        <input id="schedule" type="text" name="Preferred_Schedule" class="field" placeholder="例: 5/8 (木) 14:00〜 / 5/10 (土) 10:00〜">
+                        <label class="field-label" for="schedule">希望日程 <span class="opt">任意</span></label>
+                        <input id="schedule" type="text" name="Preferred_Schedule" class="field" placeholder="例: 来週の火曜 14:00〜 / 平日の午前 など">
                     </div>
 
                     <div>
-                        <label class="field-label" for="message">相談内容 <span class="req">[REQUIRED]</span></label>
+                        <label class="field-label" for="message">相談内容 <span class="req">必須</span></label>
                         <textarea id="message" name="Message" class="field" placeholder="現状の業務 / 動かしたい AI のイメージ / 既存システム / 想定予算など、わかる範囲で。" required></textarea>
+                        <p class="mt-2 text-[12px] text-gray-400 leading-relaxed">※ 機密情報（顧客データ・財務数値等）はフォームに記載せず、相談の場で直接お伝えください。NDAの締結にも対応します。</p>
                     </div>
 
                     <!-- Submit + status -->
                     <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between">
-                        <p class="font-mono text-xs text-gray-500">送信ボタンを押すと、Veritas AI Partners 宛にメールが飛びます。</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">ご入力いただいた情報はお問い合わせ対応のみに利用します。<br class="hidden sm:block">詳細は<a href="privacy.html" class="text-terminal hover:underline">プライバシーポリシー</a>をご確認ください。</p>
                         <button type="submit" id="submit-btn" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-3 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
                             <i class="ph-bold ph-paper-plane-tilt text-lg"></i>
                             <span id="submit-text">送信する</span>
@@ -229,16 +225,10 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
     </main>
 
     <!-- Footer -->
-    <footer class="fixed bottom-0 w-full h-8 bg-void border-t border-line z-50 flex items-center justify-between px-4 font-mono text-[10px] text-gray-500">
-        <div class="flex items-center gap-4">
-            <span class="hidden sm:inline">Veritas AI Partners © 2026 · フェリデンシアキャピタル株式会社</span>
-            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
-                <i class="ph ph-git-branch text-sysblue"></i><span>main</span>
-            </div>
-        </div>
-        <div class="flex items-center gap-4">
-            <span>Uptime: 99.98%</span>
-            <button class="hover:text-white transition-colors" onclick="window.scrollTo(0,0)"><i class="ph-bold ph-caret-up"></i> TOP</button>
+    <footer class="border-t border-line bg-void relative z-10">
+        <div class="max-w-[1200px] mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between gap-2 font-mono text-[11px] text-gray-500">
+            <p>© 2026 Veritas AI Partners · 運営：フェリデンシア・キャピタル株式会社 · <a href="privacy.html" class="hover:text-white transition-colors underline-offset-2 hover:underline">プライバシーポリシー</a></p>
+            <button class="hover:text-white transition-colors text-left sm:text-right" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ ページ上部へ</button>
         </div>
     </footer>
 
@@ -257,7 +247,8 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
 
             // Neural canvas
             const canvas = $('neural-bg');
-            if (canvas) {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (canvas && !reduceMotion) {
                 const ctx = canvas.getContext('2d');
                 let mouse = { x: -9999, y: -9999 };
                 function resize() {
@@ -322,12 +313,6 @@ Setup: replace WEB3FORMS_ACCESS_KEY value below with your own access key.
                 }
                 frame();
             }
-
-            // HUD jitter
-            (function() {
-                const inf = $('hud-inferences');
-                if (inf) setInterval(() => { inf.textContent = (847 + Math.round((Math.random() - 0.5) * 100)).toLocaleString(); }, 800);
-            })();
 
             // ===== FORM SUBMISSION via Web3Forms =====
             const form = $('contact-form');

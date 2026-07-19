@@ -8,6 +8,8 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Veritas AI Partners</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0e'/%3E%3Ctext x='6' y='22' font-family='monospace' font-size='16' fill='%2300ff88'%3E%26%238250;_%3C/text%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,17 +71,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     </style>
 </head>
 <body class="relative min-h-screen flex flex-col font-sans">
-    <canvas id="neural-bg"></canvas>
-
-    <!-- Bottom-left HUD (same as index) -->
-    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
-        <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
-        <span class="text-gray-400">Inferences/sec:</span>
-        <span class="token-counter font-bold text-base" id="hud-inferences">847</span>
-        <span class="text-gray-600">|</span>
-        <span class="text-gray-400">Tokens:</span>
-        <span class="token-counter font-bold text-base" id="hud-tokens">12.4K</span>
-    </div>
+    <canvas id="neural-bg" aria-hidden="true"></canvas>
 
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
 
@@ -91,17 +83,17 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">/about</span>
             </div>
             <nav class="hidden md:flex items-center gap-6">
-                <a href="index.html#dashboard" class="hover:text-white transition-colors">Dashboard</a>
-                <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
-                <a href="index.html#repos" class="hover:text-white transition-colors">Public Repos</a>
-                <a href="#" class="text-white">About</a>
-                <a href="contact.html" class="text-terminal hover:text-white transition-colors">Contact</a>
+                <a href="index.html#services" class="hover:text-white transition-colors">サービスと料金</a>
+                <a href="index.html#works" class="hover:text-white transition-colors">実装実績</a>
+                <a href="index.html#system" class="hover:text-white transition-colors">体制</a>
+                <span class="text-white" aria-current="page">会社情報</span>
+                <a href="contact.html" class="text-terminal hover:text-white transition-colors">無料相談</a>
             </nav>
             <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
+                <a href="contact.html" class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal hover:bg-terminal/20 transition-colors">
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
-                    <span class="tracking-wider">SYSTEM ONLINE</span>
-                </div>
+                    <span class="tracking-wider">無料相談 受付中</span>
+                </a>
                 <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
                     <i class="ph-bold ph-list text-2xl"></i>
                 </button>
@@ -110,12 +102,12 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
         <!-- Mobile Menu Drawer -->
         <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
             <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
-                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Home</a>
-                <a href="index.html#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
-                <a href="index.html#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
-                <a href="index.html#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
-                <a href="#" class="py-2.5 text-white border-b border-line">> About</a>
-                <a href="contact.html" class="py-2.5 text-terminal hover:text-white">> Contact</a>
+                <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> ホーム</a>
+                <a href="index.html#services" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> サービスと料金</a>
+                <a href="index.html#works" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> 実装実績</a>
+                <a href="index.html#system" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> 体制</a>
+                <span class="py-2.5 text-white border-b border-line" aria-current="page">> 会社情報</span>
+                <a href="contact.html" class="py-2.5 text-terminal hover:text-white">> 無料相談</a>
             </nav>
         </div>
     </header>
@@ -160,8 +152,8 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                     <div class="shrink-0 px-2.5 py-1 bg-sysblue/10 border border-sysblue/30 rounded font-mono text-[10px] text-sysblue tracking-widest uppercase">HOLD</div>
                     <div class="flex-1">
                         <div class="flex items-baseline gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold">フェリデンシアキャピタル株式会社</h3>
-                            <span class="font-mono text-xs text-gray-500">Felidentia Capital Inc. · 持株会社</span>
+                            <h3 class="text-lg font-bold">フェリデンシア・キャピタル株式会社</h3>
+                            <span class="font-mono text-xs text-gray-500">Felidentia Capital · 持株会社</span>
                         </div>
                         <p class="text-sm text-gray-400 mt-1">M&A・製造業・医療歯科・AIの4本柱を持つ事業ポートフォリオ。Veritas AI Partnersは、その中のAI実装事業ブランド。</p>
                     </div>
@@ -234,7 +226,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                     <h2 class="text-2xl font-bold tracking-tight mb-2">Founder Profile</h2>
                     <p class="text-gray-400 text-sm font-mono tracking-tight">>> The person actually shipping the code.</p>
                 </div>
-                <span class="ai-status-chip"><span class="live-dot"></span><span id="founder-status">CODING</span></span>
+                <span class="ai-status-chip"><span class="live-dot"></span>BUILDING DAILY</span>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -250,8 +242,8 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                         <div class="border-b border-line pb-2">
                             <div class="text-gray-500 mb-1">Models</div>
                             <div class="text-white text-right leading-relaxed">
-                                Claude Opus 4.7 · GPT-5<br>
-                                Gemini 3.1 Pro · Grok 4
+                                Claude Fable 5 · Opus 4.8<br>
+                                GPT-5.6 · Gemini 2.5 Pro · Grok 4.3
                             </div>
                         </div>
                         <div class="border-b border-line pb-2">
@@ -278,7 +270,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 <div class="lg:col-span-2 bg-surface border border-line rounded-md p-8">
                     <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest mb-4">// bio.md</h4>
                     <p class="text-gray-300 leading-relaxed mb-6">
-                        フェリデンシアキャピタル代表。EC・製造・投資の3領域に複数事業を持つホールディングスを経営しながら、Claude Code を中心に Cursor / Codex CLI / 自作 MCP サーバー群を駆使し、社内では 20 以上の AI システム、月間数千万トークン規模の本番運用が毎日稼働している異色の経営者。「使う側」と「作る側」が同一人物。<span class="text-terminal">この実装経験そのものが、Veritas の差別化資産。</span>
+                        フェリデンシア・キャピタル代表。EC・製造・投資の3領域に複数事業を持つホールディングスを経営しながら、Claude Code を中心に Cursor / Codex CLI / 自作 MCP サーバー群を駆使し、社内では 20 以上の AI システム、月間数千万トークン規模の本番運用が毎日稼働している異色の経営者。「使う側」と「作る側」が同一人物。<span class="text-terminal">この実装経験そのものが、Veritas の差別化資産。</span>
                     </p>
 
                     <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest mb-4">// timeline.log</h4>
@@ -298,7 +290,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                         <div class="relative">
                             <div class="tl-dot"></div>
                             <div class="font-mono text-[10px] text-gray-500 mb-1">2020 — </div>
-                            <p class="text-sm text-white font-medium">フェリデンシアキャピタル / 事業ポートフォリオ拡大</p>
+                            <p class="text-sm text-white font-medium">フェリデンシア・キャピタル / 事業ポートフォリオ拡大</p>
                             <p class="text-xs text-gray-400">EC・製造業・投資の3領域に展開。経営者として実装現場を持ち続ける。</p>
                         </div>
                         <div class="relative">
@@ -354,15 +346,15 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 bg-surface border border-line rounded-md p-8 font-mono text-sm">
                 <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">事業ブランド</span><span class="text-white">Veritas AI Partners</span></div>
-                <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">運営法人</span><span class="text-white">フェリデンシアキャピタル株式会社</span></div>
+                <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">運営法人</span><span class="text-white">フェリデンシア・キャピタル株式会社</span></div>
                 <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">代表</span><span class="text-white">遅沢 翔 (Sho Chizawa)</span></div>
                 <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">本拠</span><span class="text-white">東京都</span></div>
                 <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">事業内容</span><span class="text-white">AI実装コンサル / システム開発</span></div>
                 <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">対象</span><span class="text-white">中小企業 / EC / 小売</span></div>
                 <div class="md:col-span-2 border-b border-line pb-2">
-                    <div class="flex justify-between flex-wrap gap-2"><span class="text-gray-500 shrink-0">主要技術</span><span class="text-white text-right max-w-[85%] leading-relaxed" style="text-wrap: pretty;">Claude Opus 4.7 · GPT-5 · Gemini 3.1 Pro · Grok 4 / Claude Code · Cursor · Codex CLI · Agent SDK · MCP / Next.js · TypeScript · Python · Go · pgvector · Supabase · Vercel · AWS Lambda</span></div>
+                    <div class="flex justify-between flex-wrap gap-2"><span class="text-gray-500 shrink-0">主要技術</span><span class="text-white text-right max-w-[85%] leading-relaxed" style="text-wrap: pretty;">Claude Fable 5 · Claude Opus 4.8 · GPT-5.6 · Gemini 2.5 Pro · Grok 4.3 / Claude Code · Cursor · Codex CLI · Agent SDK · MCP / Next.js · TypeScript · Python · Go · pgvector · Supabase · Vercel · AWS Lambda（2026年7月時点）</span></div>
                 </div>
-                <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">問い合わせ</span><span class="text-terminal">無料AI診断 (30分)</span></div>
+                <div class="flex justify-between border-b border-line pb-2"><span class="text-gray-500">問い合わせ</span><span class="text-terminal">無料相談 (45分)</span></div>
             </div>
         </section>
 
@@ -372,7 +364,7 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 <div class="data-stream"></div>
                 <div class="font-mono text-xs text-gray-500 mb-3">// next-step.sh</div>
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">プロセスを<span class="text-terminal">公開</span>する以前に、<br>まずは話を聞いてみる。</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">30分の無料AI診断で、貴社の業務に「動くAI」がハマるかを判定する。提案書は出ない。動かす前提の対話のみ。</p>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">45分の無料相談で、貴社の業務に「動くAI」がハマるかを判定する。提案書は出ない。動かす前提の対話のみ。</p>
                 <a href="contact.html" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-4 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98]">
                     <i class="ph-bold ph-calendar-plus text-xl"></i>
                     <span>代表に直接、45分話す（無料）</span>
@@ -382,17 +374,10 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     </main>
 
     <!-- Footer -->
-    <footer class="fixed bottom-0 w-full h-8 bg-void border-t border-line z-50 flex items-center justify-between px-4 font-mono text-[10px] text-gray-500">
-        <div class="flex items-center gap-4">
-            <span class="hidden sm:inline">Veritas AI Partners © 2026 · フェリデンシアキャピタル株式会社</span>
-            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
-                <i class="ph ph-git-branch text-sysblue"></i><span>main</span>
-            </div>
-        </div>
-        <div class="flex items-center gap-4">
-            <span>Uptime: 99.98%</span>
-            <span class="text-gray-400">UTF-8</span>
-            <button class="hover:text-white transition-colors" onclick="window.scrollTo(0,0)"><i class="ph-bold ph-caret-up"></i> TOP</button>
+    <footer class="border-t border-line bg-void relative z-10">
+        <div class="max-w-[1200px] mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between gap-2 font-mono text-[11px] text-gray-500">
+            <p>© 2026 Veritas AI Partners · 運営：フェリデンシア・キャピタル株式会社 · <a href="privacy.html" class="hover:text-white transition-colors underline-offset-2 hover:underline">プライバシーポリシー</a></p>
+            <button class="hover:text-white transition-colors text-left sm:text-right" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ ページ上部へ</button>
         </div>
     </footer>
 
@@ -409,11 +394,10 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
             })();
 
-            const fmt = n => n.toLocaleString('en-US');
-
             // Neural canvas (same as index)
             const canvas = $('neural-bg');
-            if (canvas) {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (canvas && !reduceMotion) {
                 const ctx = canvas.getContext('2d');
                 let W, H;
                 let mouse = { x: -9999, y: -9999 };
@@ -480,25 +464,6 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                 frame();
             }
 
-            // HUD jitter
-            (function() {
-                const inf = $('hud-inferences');
-                if (inf) setInterval(() => { inf.textContent = fmt(847 + Math.round((Math.random() - 0.5) * 100)); }, 800);
-                const tok = $('hud-tokens');
-                if (tok) {
-                    let total = 12400;
-                    setInterval(() => { total += Math.round(Math.random() * 80); tok.textContent = (total / 1000).toFixed(1) + 'K'; }, 600);
-                }
-            })();
-
-            // Founder status rotator
-            (function() {
-                const el = $('founder-status');
-                if (!el) return;
-                const states = ['CODING', 'REVIEWING', 'ARCHITECTING', 'CODING', 'SHIPPING'];
-                let i = 0;
-                setInterval(() => { i = (i + 1) % states.length; el.textContent = states[i]; }, 5000);
-            })();
         });
     </script>
 </body>

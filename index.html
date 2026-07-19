@@ -1,18 +1,41 @@
-<!-- 
-aesthetic_dna: GitHub Profile / Linear Changelog / Terminal Dashboard Matrix. Open Studio transparent execution.
-ui_paradigm: IDE / System Monitor Hybrid. Intense data density, bento-box grid mechanics, vertical timeline storytelling.
-palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), Foundry Grey (#13131a), Wireframe Lines (#22222f). 
+<!--
+aesthetic_dna: Terminal / IDE accent on a quiet Japanese B2B page. Deep Void + Terminal Green kept as brand.
+principle: すべての表示は事実のみ。ライブ風の演出・架空の人物/実績/メトリクスを置かない。
+palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), Foundry Grey (#13131a), Wireframe Lines (#22222f).
 -->
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas AI Partners | THE OPEN STUDIO</title>
+    <title>Veritas AI Partners — AIを、実装する。中小企業向けAI実装</title>
+    <meta name="description" content="提案書で終わらない、動くAIを納品する実装特化型。EC・小売を中心とした中小企業向けに、無料相談からAI診断・実装・運用顧問まで代表が直接伴走します。">
+    <!-- 商標クリアランス完了までは検索エンジンに載せない（2026-07-19 判断。解除は index/about/contact/privacy の robots メタを削除） -->
+    <meta name="robots" content="noindex">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Veritas AI Partners">
+    <meta property="og:title" content="Veritas AI Partners — AIを、実装する。">
+    <meta property="og:description" content="提案書で終わらない、動くAIを納品する実装特化型。中小企業向けAI実装。">
+    <meta property="og:url" content="https://veritas-ai-partners.vercel.app/">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0e'/%3E%3Ctext x='6' y='22' font-family='monospace' font-size='16' fill='%2300ff88'%3E%26%238250;_%3C/text%3E%3C/svg%3E">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Veritas AI Partners",
+      "description": "中小企業向けのAI実装。無料相談からAI診断・実装・運用顧問まで。",
+      "url": "https://veritas-ai-partners.vercel.app/",
+      "areaServed": "JP",
+      "address": { "@type": "PostalAddress", "addressRegion": "東京都", "addressCountry": "JP" },
+      "founder": { "@type": "Person", "name": "遅沢 翔" },
+      "parentOrganization": { "@type": "Organization", "name": "フェリデンシア・キャピタル株式会社" }
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script>
         tailwind.config = {
@@ -27,7 +50,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                         sysblue: '#3b82f6',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     backgroundImage: {
@@ -44,70 +67,21 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed-header offset for anchor jumps */
-        section[id], div[id="roadmap"] { scroll-margin-top: 80px; }
+        section[id] { scroll-margin-top: 80px; }
 
-        /* Ambient Grid */
         .bg-grid {
             background-size: 40px 40px;
             mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
             -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0e;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #22222f;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3b82f6;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0e; }
+        ::-webkit-scrollbar-thumb { background: #22222f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
 
-        /* Animations */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .animate-blink {
-            animation: blink 1.2s step-end infinite;
-        }
-
-        @keyframes feed-scroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
-        .live-feed-container {
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-        }
-        .live-feed-container::before, .live-feed-container::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 40px;
-            z-index: 10;
-            pointer-events: none;
-        }
-        .live-feed-container::before {
-            top: 0;
-            background: linear-gradient(to bottom, #0a0a0e 0%, transparent 100%);
-        }
-
-        /* === AI ENHANCEMENT GIMMICKS === */
-        #neural-bg {
-            position: fixed; inset: 0; z-index: 0;
-            pointer-events: none;
-            opacity: 0.4;
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1.2s step-end infinite; }
 
         @keyframes pulse-ai {
             0%, 100% { opacity: 0.5; transform: scale(1); }
@@ -124,1131 +98,436 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
         .data-stream {
             position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, #00ff88, transparent);
-            animation: data-flow 3s linear infinite;
-        }
-
-        @keyframes thinking {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-4px); opacity: 1; }
-        }
-        .thinking-dot { display: inline-block; width: 4px; height: 4px; background: #00ff88; border-radius: 50%; margin: 0 1px; animation: thinking 1.4s ease-in-out infinite; }
-        .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
-        .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes glow-line {
-            0%, 100% { box-shadow: 0 0 10px rgba(0,255,136,0.3); }
-            50% { box-shadow: 0 0 20px rgba(0,255,136,0.8), 0 0 40px rgba(0,255,136,0.3); }
-        }
-        .glow-active { animation: glow-line 2s ease-in-out infinite; }
-
-        .ai-metric-card {
-            background: linear-gradient(135deg, rgba(0,255,136,0.04) 0%, rgba(59,130,246,0.04) 100%);
-            border: 1px solid #22222f;
-            position: relative; overflow: hidden;
-        }
-        .ai-metric-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, #00ff88, transparent);
             animation: data-flow 4s linear infinite;
         }
 
-        @keyframes typewriter-cursor {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-        .tw-cursor::after {
-            content: '▊'; color: #00ff88;
-            animation: typewriter-cursor 1s step-end infinite;
-            margin-left: 2px;
+        #neural-bg {
+            position: fixed; inset: 0; z-index: 0;
+            pointer-events: none;
+            opacity: 0.35;
         }
 
-        @keyframes agent-think {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .agent-active {
-            background: linear-gradient(90deg, #13131a, #1a1a24, #13131a);
-            background-size: 200% 100%;
-            animation: agent-think 3s ease-in-out infinite;
-        }
-
-        .attention-arc {
-            position: absolute; pointer-events: none;
-            border-top: 1px dashed rgba(0,255,136,0.3);
-            border-radius: 50% 50% 0 0;
-            animation: pulse-ai 3s ease-in-out infinite;
-        }
-
-        .ai-status-chip {
+        .status-chip {
             display: inline-flex; align-items: center; gap: 6px;
-            padding: 4px 10px;
+            padding: 4px 12px;
             background: rgba(0,255,136,0.08);
             border: 1px solid rgba(0,255,136,0.3);
             color: #00ff88;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px; letter-spacing: 0.1em;
+            font-family: 'JetBrains Mono', 'Noto Sans JP', monospace;
+            font-size: 11px; letter-spacing: 0.06em;
             border-radius: 999px;
         }
-        .ai-status-chip .live-dot {
+        .status-chip .live-dot {
             width: 6px; height: 6px; border-radius: 50%;
             background: #00ff88;
             box-shadow: 0 0 10px #00ff88;
-            animation: pulse-ai 1.2s ease-in-out infinite;
+            animation: pulse-ai 1.6s ease-in-out infinite;
         }
 
-        /* Token counter monospace gradient */
-        .token-counter {
+        ::selection { background-color: #00ff88; color: #0a0a0e; }
+
+        /* FAQ: Safariのデフォルト三角マーカーを消す */
+        summary::-webkit-details-marker { display: none; }
+
+        /* 事実データを目立たせる数値スタイル */
+        .fact-number {
             font-variant-numeric: tabular-nums;
             background: linear-gradient(180deg, #00ff88 0%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .live-feed-container::after {
-            bottom: 0;
-            background: linear-gradient(to top, #0a0a0e 0%, transparent 100%);
-        }
-        .live-feed-content {
-            animation: feed-scroll 30s linear infinite;
-        }
-        .live-feed-container:hover .live-feed-content {
-            animation-play-state: paused;
-        }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
-            50% { box-shadow: 0 0 8px 2px rgba(0, 255, 136, 0.1); }
-        }
-        .status-dot-active {
-            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes progress-load {
-            from { width: 0%; }
-        }
-        .progress-bar-fill {
-            animation: progress-load 1.5s ease-out forwards;
-        }
-
-        /* Utility selection */
-        ::selection {
-            background-color: #00ff88;
-            color: #0a0a0e;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            #neural-bg { display: none; }
         }
     </style>
 </head>
 <body class="relative min-h-screen flex flex-col font-sans">
-    <!-- AI Neural Network Background (Canvas, mouse-reactive) -->
-    <canvas id="neural-bg"></canvas>
+    <canvas id="neural-bg" aria-hidden="true"></canvas>
 
-    <!-- Top fixed AI Live Inference Counter (bottom-left HUD) -->
-    <div class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-3 bg-void/90 backdrop-blur-md border border-line px-4 py-2 rounded-full font-mono text-xs">
-        <span class="ai-status-chip"><span class="live-dot"></span>AI ACTIVE</span>
-        <span class="text-gray-400">Inferences/sec:</span>
-        <span class="token-counter font-bold text-base" id="hud-inferences">847</span>
-        <span class="text-gray-600">|</span>
-        <span class="text-gray-400">Tokens:</span>
-        <span class="token-counter font-bold text-base" id="hud-tokens">12.4K</span>
-    </div>
-    
     <!-- Ambient Background -->
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
 
     <!-- Global Top Bar -->
     <header class="fixed top-0 w-full bg-void/90 backdrop-blur-md border-b border-line z-50">
-        <div class="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
-            <div class="flex items-center gap-4">
-                <span class="text-white font-bold text-sm font-sans tracking-wide">VERITAS AI PARTNERS</span>
-                <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">v2.4.0-production</span>
-            </div>
+        <div class="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between text-xs text-gray-400">
+            <a href="#" class="text-white font-bold text-sm tracking-wide hover:text-terminal transition-colors">VERITAS AI PARTNERS</a>
 
-            <nav class="hidden md:flex items-center gap-6">
-                <a href="#dashboard" class="hover:text-white transition-colors">Dashboard</a>
-                <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
-                <a href="#repos" class="hover:text-white transition-colors">Public Repos</a>
-                <a href="#team" class="hover:text-white transition-colors">Team Matrix</a>
-                <a href="about.html" class="hover:text-white transition-colors">About</a>
-                <a href="contact.html" class="text-terminal hover:text-white transition-colors">Contact</a>
+            <nav class="hidden md:flex items-center gap-7 text-[13px]">
+                <a href="#services" class="hover:text-white transition-colors">サービスと料金</a>
+                <a href="#works" class="hover:text-white transition-colors">実装実績</a>
+                <a href="#system" class="hover:text-white transition-colors">体制</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+                <a href="about.html" class="hover:text-white transition-colors">会社情報</a>
+                <a href="contact.html" class="text-terminal hover:text-white transition-colors">無料相談</a>
             </nav>
 
             <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
-                    <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
-                    <span class="tracking-wider">SYSTEM ONLINE</span>
-                </div>
-                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
+                <a href="contact.html" class="hidden sm:inline-flex status-chip hover:bg-terminal/20 transition-colors">
+                    <span class="live-dot"></span>無料相談 受付中
+                </a>
+                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="メニュー">
                     <i class="ph-bold ph-list text-2xl"></i>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu Drawer -->
         <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
-            <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
-                <a href="#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
-                <a href="#roadmap" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Roadmap</a>
-                <a href="#repos" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Public Repos</a>
-                <a href="#team" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Team Matrix</a>
-                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> About</a>
-                <a href="contact.html" class="py-2.5 text-terminal hover:text-white">> Contact</a>
+            <nav class="flex flex-col px-6 py-4 gap-1 text-sm">
+                <a href="#services" class="py-2.5 text-gray-300 hover:text-white border-b border-line">サービスと料金</a>
+                <a href="#works" class="py-2.5 text-gray-300 hover:text-white border-b border-line">実装実績</a>
+                <a href="#system" class="py-2.5 text-gray-300 hover:text-white border-b border-line">体制</a>
+                <a href="#faq" class="py-2.5 text-gray-300 hover:text-white border-b border-line">FAQ</a>
+                <a href="about.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">会社情報</a>
+                <a href="contact.html" class="py-2.5 text-terminal hover:text-white">無料相談（45分）</a>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow pt-24 pb-32 relative z-10">
-        <!-- SECTION 1: HERO / THE OPEN STUDIO -->
-        <section class="max-w-[1400px] mx-auto px-6 mb-32 pt-10">
+    <main class="flex-grow pt-24 relative z-10">
+
+        <!-- SECTION 1: HERO -->
+        <section class="max-w-[1200px] mx-auto px-6 mb-28 pt-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Left: Ideology -->
-                <div class="lg:col-span-7 space-y-8 relative">
+
+                <!-- Left: Value proposition -->
+                <div class="lg:col-span-7 space-y-8">
                     <div class="flex items-center gap-3 flex-wrap">
                         <div class="inline-flex items-center gap-2 px-3 py-1 border border-line rounded bg-surface font-mono text-xs text-gray-400">
-                            <i class="ph-fill ph-broadcast text-sysblue"></i>
-                            <span>THE OPEN STUDIO</span>
-                            <span class="text-line mx-2">|</span>
-                            <span>CONFIDENTIALITY: ZERO</span>
+                            <i class="ph-fill ph-terminal-window text-sysblue"></i>
+                            <span>IMPLEMENTATION-FIRST</span>
                         </div>
-                        <span class="ai-status-chip"><span class="live-dot"></span>47 AGENTS RUNNING</span>
                     </div>
 
-                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[1.15] text-white">
                         語るより、<br>
                         <span class="bg-gradient-to-r from-terminal via-white to-sysblue bg-clip-text text-transparent">動かす</span>。
                     </h1>
 
-                    <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
-                        この画面で動いているのは、我々が普段使う<span class="text-white">AIエージェントの縮図</span>だ。<br>
-                        パワポではなく、こういう「動くAI」を最短で納品する。<br>
-                        それが、Veritas AI Partnersの<span class="text-terminal">実装力</span>。
+                    <p class="text-lg md:text-xl text-gray-300 font-medium leading-relaxed max-w-2xl">
+                        提案書で終わらせず、<span class="text-white">動くAIシステム</span>を納品する実装特化型。<br class="hidden md:block">
+                        EC・小売を中心とした中小企業向けに、無料相談から診断・実装・運用まで<span class="text-terminal">代表が直接</span>伴走します。
                     </p>
 
-                    <!-- AI Live Metrics Bar -->
+                    <!-- 実績サマリー（すべて自社グループ内の実運用実績） -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
-                        <div class="ai-metric-card p-4 rounded">
-                            <div class="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">GPU Utilization</div>
-                            <div class="font-mono text-2xl token-counter font-bold" id="m-gpu">87%</div>
-                            <div class="mt-2 h-1 bg-line rounded overflow-hidden"><div id="m-gpu-bar" class="h-full bg-terminal" style="width:87%"></div></div>
+                        <div class="bg-surface border border-line rounded p-4">
+                            <div class="font-mono text-[11px] text-gray-400 mb-1">顧客対応AIの応答時間</div>
+                            <div class="font-mono text-2xl md:text-3xl fact-number font-bold">−96%</div>
+                            <div class="mt-1 text-[11px] text-gray-400">LINE CRM連携Bot</div>
                         </div>
-                        <div class="ai-metric-card p-4 rounded">
-                            <div class="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Tokens/sec</div>
-                            <div class="font-mono text-2xl token-counter font-bold" id="m-tps">2,847</div>
-                            <div class="mt-1 font-mono text-[10px] text-gray-500"><span class="text-terminal">▲</span> +12.4% vs avg</div>
+                        <div class="bg-surface border border-line rounded p-4">
+                            <div class="font-mono text-[11px] text-gray-400 mb-1">競合の変化検知→通知</div>
+                            <div class="font-mono text-2xl md:text-3xl fact-number font-bold">15<span class="text-lg">分</span></div>
+                            <div class="mt-1 text-[11px] text-gray-400">常時モニタリング</div>
                         </div>
-                        <div class="ai-metric-card p-4 rounded">
-                            <div class="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Active Models</div>
-                            <div class="font-mono text-2xl token-counter font-bold">12</div>
-                            <div class="mt-1 font-mono text-[9px] text-gray-500">Opus 4.7·GPT5·Gemini 3.1·Grok 4.20·DSv3·+7</div>
+                        <div class="bg-surface border border-line rounded p-4">
+                            <div class="font-mono text-[11px] text-gray-400 mb-1">コーポレートサイト制作</div>
+                            <div class="font-mono text-2xl md:text-3xl fact-number font-bold">2<span class="text-lg">週間</span></div>
+                            <div class="mt-1 text-[11px] text-gray-400">AI駆動の設計・実装</div>
                         </div>
-                        <div class="ai-metric-card p-4 rounded">
-                            <div class="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Latency p50</div>
-                            <div class="font-mono text-2xl token-counter font-bold" id="m-lat">42ms</div>
-                            <div class="mt-1 font-mono text-[10px] text-gray-500"><span class="text-terminal">●</span> Sub-100ms target</div>
+                        <div class="bg-surface border border-line rounded p-4">
+                            <div class="font-mono text-[11px] text-gray-400 mb-1">社内で実運用中のAI</div>
+                            <div class="font-mono text-2xl md:text-3xl fact-number font-bold">20<span class="text-lg">+</span></div>
+                            <div class="mt-1 text-[11px] text-gray-400">月間数千万トークン</div>
                         </div>
                     </div>
+                    <p class="font-mono text-[11px] text-gray-500">※ いずれも運営会社グループ（3DプリンターEC「SK本舗」ほか）での実運用実績です（2026年7月時点）。測定条件は相談時にそのままお見せします。</p>
 
-                    <div class="flex flex-wrap items-center gap-4 pt-4 font-mono">
-                        <a href="#cta" class="group relative px-6 py-3 bg-white text-void font-bold text-sm hover:bg-gray-200 transition-colors flex items-center gap-2 rounded-sm">
-                            <i class="ph-bold ph-terminal-window text-lg"></i>
-                            <span>Initialize Project</span>
-                            <div class="absolute inset-0 border border-transparent group-hover:border-white scale-105 transition-transform duration-300 pointer-events-none"></div>
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="contact.html" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-void font-bold text-sm hover:bg-gray-200 transition-colors rounded-sm whitespace-nowrap">
+                            <i class="ph-bold ph-calendar-plus text-lg"></i>
+                            <span>無料相談を予約する（45分）</span>
                         </a>
-                        <a href="#repos" class="px-6 py-3 bg-surface border border-line text-gray-300 font-bold text-sm hover:border-gray-500 hover:text-white transition-colors flex items-center gap-2 rounded-sm">
-                            <i class="ph-bold ph-github-logo text-lg"></i>
-                            <span>View Source</span>
+                        <a href="#works" class="inline-flex items-center gap-2 px-7 py-3.5 bg-surface border border-line text-gray-300 font-bold text-sm hover:border-gray-500 hover:text-white transition-colors rounded-sm whitespace-nowrap">
+                            <i class="ph-bold ph-stack text-lg"></i>
+                            <span>実装実績を見る</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Right: Live Execution Feed -->
-                <div class="lg:col-span-5 border border-line bg-void rounded-md shadow-[0_0_40px_rgba(0,255,136,0.05)] flex flex-col font-mono text-xs relative overflow-hidden">
+                <!-- Right: 自己紹介ターミナル（静的・事実のみ） -->
+                <div class="lg:col-span-5 border border-line bg-void rounded-md shadow-[0_0_40px_rgba(0,255,136,0.05)] font-mono text-[13px] relative overflow-hidden">
+                    <div class="data-stream"></div>
                     <div class="bg-surface border-b border-line px-4 py-2 flex justify-between items-center text-gray-400">
                         <div class="flex items-center gap-2">
                             <i class="ph ph-terminal"></i>
-                            <span>global_activity.log</span>
+                            <span>veritas --profile</span>
                         </div>
                         <div class="flex gap-1.5">
                             <div class="w-2 h-2 rounded-full bg-line"></div>
                             <div class="w-2 h-2 rounded-full bg-line"></div>
-                            <div class="w-2 h-2 rounded-full bg-terminal status-dot-active"></div>
+                            <div class="w-2 h-2 rounded-full bg-terminal"></div>
                         </div>
                     </div>
-                    
-                    <div class="p-4 live-feed-container">
-                        <!-- Duplicated content for seamless scroll marqee -->
-                        <div class="live-feed-content flex flex-col gap-3">
-                            <!-- Feed block 1 -->
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:42:01</span>
-                                <div><span class="text-terminal">SYS</span> Push to <span class="text-sysblue">main</span> at veritas/crm-ai-engine <span class="text-gray-500">#a1b2c3d</span></div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:41:15</span>
-                                <div><span class="text-[#eab308]">SLK</span> [Chizawa] Reviewing architecture docs for Q4 scale.</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:35:22</span>
-                                <div><span class="text-[#f24e1e]">FIG</span> [Kento] Updated "LLM Dashboard Admin UI" frames.</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:28:44</span>
-                                <div><span class="text-terminal">SYS</span> Deploy successful (Production) - 1.2s</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:15:00</span>
-                                <div><span class="text-terminal">SYS</span> Commit <span class="text-gray-500">#9f8e7d6</span>: "fix: token leak in RAG pipeline"</div>
-                            </div>
-                             <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">10:02:11</span>
-                                <div><span class="text-[#eab308]">SLK</span> [Yuki] API testing completed. All green. ✅</div>
-                            </div>
-                            <!-- Feed block 2 (Copy for loop) -->
-                            <div class="flex gap-3 text-gray-300 mt-3">
-                                <span class="text-gray-500 shrink-0">09:55:01</span>
-                                <div><span class="text-terminal">SYS</span> Push to <span class="text-sysblue">staging</span> at veritas/demo-environment</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">09:40:15</span>
-                                <div><span class="text-[#eab308]">SLK</span> [Chizawa] Client sync starting.</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">09:12:22</span>
-                                <div><span class="text-[#f24e1e]">FIG</span> [Kento] Exporting assets for frontend integration.</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">08:58:44</span>
-                                <div><span class="text-terminal">SYS</span> Vercel build started (Preview)</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">08:30:00</span>
-                                <div><span class="text-terminal">SYS</span> Commit <span class="text-gray-500">#3a4b5c6</span>: "feat: intialize new vector DB"</div>
-                            </div>
-                            <div class="flex gap-3 text-gray-300">
-                                <span class="text-gray-500 shrink-0">08:15:11</span>
-                                <div><span class="text-[#eab308]">SLK</span> [Yuki] Morning standup notes posted.</div>
-                            </div>
+                    <div class="p-5 leading-relaxed text-gray-300">
+                        <p class="mb-3"><span class="text-terminal">$</span> veritas --profile</p>
+                        <div class="grid grid-cols-[6.5rem_1fr] gap-x-2 gap-y-2">
+                            <span class="text-gray-500">├─ 事業</span><span>AI実装（相談 → 診断 → 実装 → 運用顧問）</span>
+                            <span class="text-gray-500">├─ 対象</span><span>中小企業 / EC / 小売</span>
+                            <span class="text-gray-500">├─ 体制</span><span>代表1名 ＋ AIワークフロー16業務領域</span>
+                            <span class="text-gray-500">├─ models</span><span class="text-sysblue">Claude Fable 5 · Opus 4.8 · GPT-5.6 · Gemini 2.5 Pro · Grok 4.3</span>
+                            <span class="text-gray-500">├─ tools</span><span>Claude Code · Codex CLI · MCP</span>
+                            <span class="text-gray-500">├─ stack</span><span>Next.js · TypeScript · Python · Supabase</span>
+                            <span class="text-gray-500">└─ updated</span><span>2026-07<span class="animate-blink text-terminal">▊</span></span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 1.5: AI BRAIN LIVE (Multi-agent visualization) -->
-        <section class="max-w-[1400px] mx-auto px-6 mb-32">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-line pb-4">
-                <div>
-                    <h2 class="text-2xl font-bold tracking-tight mb-2 flex items-center gap-3">
-                        <i class="ph-fill ph-brain text-terminal animate-pulse"></i>
-                        AI Brain · Live Inference
-                    </h2>
-                    <p class="text-gray-400 text-sm font-mono">>> Multi-agent orchestration. What our AI is thinking, right now.</p>
-                </div>
-                <div class="flex items-center gap-2 mt-4 md:mt-0">
-                    <span class="ai-status-chip"><span class="live-dot"></span>47 AGENTS · STREAMING</span>
-                </div>
+        <!-- SECTION 2: SERVICES -->
+        <section id="services" class="max-w-[1200px] mx-auto px-6 mb-28 pt-10 border-t border-line">
+            <div class="mb-10">
+                <p class="font-mono text-xs text-terminal mb-2">// services</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">サービスと料金</h2>
+                <p class="text-gray-300 leading-relaxed max-w-2xl">まず45分の無料相談で、貴社の業務にAIがハマるかどうかを率直にお答えします。合わなければ、そうお伝えして終わりです。</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Agent 1: Claude Opus 4.7 -->
-                <div class="agent-active border border-line rounded p-5 relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- STEP 1 -->
+                <div class="bg-surface border border-line rounded-md p-7 flex flex-col hover:border-terminal/40 transition-colors relative overflow-hidden">
                     <div class="data-stream"></div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-terminal ai-pulse"></div>
-                            <span class="font-mono text-xs text-gray-300">Agent_001</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-terminal">CLAUDE OPUS 4.7</span>
-                    </div>
-                    <div id="ag1-msg" class="font-mono text-[11px] text-gray-300 leading-relaxed mb-3 min-h-[44px]">
-                        > Analyzing customer schema...<br>> Building RAG pipeline<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>
-                    </div>
-                    <div class="border-t border-line pt-2 flex justify-between font-mono text-[10px] text-gray-500">
-                        <span>tok: <span class="text-terminal" id="ag1-tok">847</span></span>
-                        <span>ctx: <span id="ag1-ctx">128K</span></span>
+                    <p class="font-mono text-xs text-gray-500 mb-4">STEP 01</p>
+                    <h3 class="font-bold text-xl mb-1">AI診断</h3>
+                    <p class="font-mono text-terminal text-sm mb-4">15〜30万円 · 1〜2週間</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5 flex-grow">業務フローを分析し、AIで効く箇所と効かない箇所を切り分けます。導入余地と費用対効果を数値で提示。</p>
+                    <div class="border-t border-line pt-4 text-[13px] text-gray-400 space-y-1.5">
+                        <p><span class="text-gray-500">成果物：</span>診断レポート＋動くプロトタイプ</p>
+                        <p><span class="text-gray-500">含まない：</span>本番システムの実装</p>
                     </div>
                 </div>
-
-                <!-- Agent 2: GPT-5 -->
-                <div class="agent-active border border-line rounded p-5 relative overflow-hidden">
-                    <div class="data-stream" style="animation-delay: 0.7s"></div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-sysblue ai-pulse"></div>
-                            <span class="font-mono text-xs text-gray-300">Agent_002</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-sysblue">GPT-5</span>
-                    </div>
-                    <div id="ag2-msg" class="font-mono text-[11px] text-gray-300 leading-relaxed mb-3 min-h-[44px]">
-                        > Generating React component<br>> <span class="text-sysblue">function</span> Dashboard()<span class="tw-cursor"></span>
-                    </div>
-                    <div class="border-t border-line pt-2 flex justify-between font-mono text-[10px] text-gray-500">
-                        <span>tok: <span class="text-sysblue" id="ag2-tok">1,243</span></span>
-                        <span>fn-call: <span id="ag2-fn">12</span></span>
-                    </div>
-                </div>
-
-                <!-- Agent 3: Gemini 3.1 Pro -->
-                <div class="agent-active border border-line rounded p-5 relative overflow-hidden">
-                    <div class="data-stream" style="animation-delay: 1.4s; background: linear-gradient(90deg, transparent, #f59e0b, transparent);"></div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-[#f59e0b] ai-pulse"></div>
-                            <span class="font-mono text-xs text-gray-300">Agent_003</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-[#f59e0b]">GEMINI 3.1 PRO</span>
-                    </div>
-                    <div id="ag3-msg" class="font-mono text-[11px] text-gray-300 leading-relaxed mb-3 min-h-[44px]">
-                        > Long-context analysis<br>> 487K tokens loaded<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>
-                    </div>
-                    <div class="border-t border-line pt-2 flex justify-between font-mono text-[10px] text-gray-500">
-                        <span>tok: <span class="text-[#f59e0b]" id="ag3-tok">487K</span></span>
-                        <span>ctx: <span id="ag3-ctx">1M</span></span>
-                    </div>
-                </div>
-
-                <!-- Agent 4: Grok 4.20 -->
-                <div class="agent-active border border-line rounded p-5 relative overflow-hidden">
-                    <div class="data-stream" style="animation-delay: 2.1s; background: linear-gradient(90deg, transparent, #ec4899, transparent);"></div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-[#ec4899] ai-pulse"></div>
-                            <span class="font-mono text-xs text-gray-300">Agent_004</span>
-                        </div>
-                        <span class="font-mono text-[10px] text-[#ec4899]">GROK 4.20</span>
-                    </div>
-                    <div id="ag4-msg" class="font-mono text-[11px] text-gray-300 leading-relaxed mb-3 min-h-[44px]">
-                        > 16-parallel deep search<br>> Scanning X feed<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>
-                    </div>
-                    <div class="border-t border-line pt-2 flex justify-between font-mono text-[10px] text-gray-500">
-                        <span>parallel: <span class="text-[#ec4899]" id="ag4-par">16</span></span>
-                        <span>sources: <span id="ag4-src">247</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Inference Stream Terminal -->
-            <div class="mt-6 border border-line bg-void rounded-md font-mono text-xs relative overflow-hidden">
-                <div class="bg-surface border-b border-line px-4 py-2 flex justify-between items-center text-gray-400">
-                    <div class="flex items-center gap-2">
-                        <i class="ph ph-cpu text-terminal"></i>
-                        <span>orchestrator.live → veritas_brain</span>
-                    </div>
-                    <span class="text-terminal">● STREAMING</span>
-                </div>
-                <div class="p-5 space-y-2 leading-relaxed text-gray-300" id="ai-stream">
-                    <div><span class="text-gray-500">[14:23:01]</span> <span class="text-terminal">orchestrator</span> route.classify(input) → <span class="text-sysblue">claude-opus-4-7</span></div>
-                    <div><span class="text-gray-500">[14:23:01]</span> <span class="text-sysblue">claude-opus-4-7</span> → context_window: 8421 tokens</div>
-                    <div><span class="text-gray-500">[14:23:02]</span> <span class="text-sysblue">claude-opus-4-7</span> → reasoning step 1/4: parsing customer intent...</div>
-                    <div><span class="text-gray-500">[14:23:02]</span> <span class="text-sysblue">claude-opus-4-7</span> → reasoning step 2/4: retrieving from vector_db (pinecone)...</div>
-                    <div><span class="text-gray-500">[14:23:03]</span> <span class="text-terminal">retriever</span> top_k=5 found, similarity 0.94</div>
-                    <div><span class="text-gray-500">[14:23:03]</span> <span class="text-sysblue">claude-opus-4-7</span> → reasoning step 3/4: synthesizing response with retrieved context</div>
-                    <div><span class="text-gray-500">[14:23:04]</span> <span class="text-sysblue">claude-opus-4-7</span> → reasoning step 4/4: format as JSON for LINE Messaging API</div>
-                    <div><span class="text-gray-500">[14:23:04]</span> <span class="text-terminal">success</span> response.length=487, latency=2.1s, cost=$0.012</div>
-                    <div><span class="text-gray-500">[14:23:05]</span> <span class="text-terminal">orchestrator</span> <span class="tw-cursor">awaiting next inference</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: LIVE DASHBOARD -->
-        <section id="dashboard" class="max-w-[1400px] mx-auto px-6 mb-32">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-line pb-4">
-                <div>
-                    <h2 class="text-2xl font-bold tracking-tight mb-2">Active Execution State</h2>
-                    <p class="text-gray-400 text-sm font-mono tracking-tight">>> Currently running implementations. Real-time telemetry.</p>
-                </div>
-                <div class="mt-4 md:mt-0 font-mono text-xs text-gray-500 flex gap-4 items-center">
-                    <span><span class="live-dot inline-block"></span> 4 ACTV</span>
-                    <span>LOAD: <span id="dash-load" class="text-terminal">NORMAL</span></span>
-                    <span>QUEUE: <span id="dash-queue" class="text-white">0</span></span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                <!-- Project Card 1 -->
-                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <span id="prj1-code" class="font-mono text-xs text-terminal bg-terminal/10 px-2 py-0.5 rounded border border-terminal/20">PRJ-089</span>
-                        <i id="prj1-icon" class="ph ph-database text-gray-500 group-hover:text-white transition-colors"></i>
-                    </div>
-                    <h3 id="prj1-title" class="font-bold text-lg mb-1">RAG Document Analyzer</h3>
-                    <p id="prj1-desc" class="text-sm text-gray-400 mb-6 flex-grow">金融機関向け非構造化データ抽出AIの構築。チャンク最適化フェーズ。</p>
-                    
-                    <div class="space-y-2 mb-4">
-                        <div class="flex justify-between text-xs font-mono">
-                            <span class="text-gray-400">Completion</span>
-                            <span class="text-white"><span id="prj1-pct">78</span>%</span>
-                        </div>
-                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
-                            <div id="prj1-bar" class="h-full bg-sysblue progress-bar-fill transition-all duration-700" style="width: 78%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
-                        <div class="flex -space-x-2">
-                            <img src="team/kenji.jpg" alt="Kenji" class="w-7 h-7 rounded-full border border-surface" title="Kenji Tanaka">
-                            <img src="team/sarah.jpg" alt="Sarah" class="w-7 h-7 rounded-full border border-surface relative z-10" title="Dr. Sarah Lindqvist">
-                        </div>
-                        <span class="font-mono text-[10px] text-gray-500">Last commit: <span id="prj1-time">12m ago</span></span>
-                    </div>
-                </div>
-
-                <!-- Project Card 2 -->
-                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <span id="prj2-code" class="font-mono text-xs text-sysblue bg-sysblue/10 px-2 py-0.5 rounded border border-sysblue/20">PRJ-092</span>
-                        <i id="prj2-icon" class="ph ph-robot text-gray-500 group-hover:text-white transition-colors"></i>
-                    </div>
-                    <h3 id="prj2-title" class="font-bold text-lg mb-1">LINE Customer Success AI</h3>
-                    <p id="prj2-desc" class="text-sm text-gray-400 mb-6 flex-grow">CRM連動型自動応答ボット。プロンプトインジェクション対策実装中。</p>
-                    
-                    <div class="space-y-2 mb-4">
-                        <div class="flex justify-between text-xs font-mono">
-                            <span class="text-gray-400">Completion</span>
-                            <span class="text-white"><span id="prj2-pct">45</span>%</span>
-                        </div>
-                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
-                            <div id="prj2-bar" class="h-full bg-[#f24e1e] progress-bar-fill transition-all duration-700" style="width: 45%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
-                        <div class="flex -space-x-2">
-                            <img src="team/hiroto.jpg" alt="Hiroto" class="w-7 h-7 rounded-full border border-surface" title="Hiroto Yamazaki">
-                            <img src="team/aoi.jpg" alt="Aoi" class="w-7 h-7 rounded-full border border-surface relative z-10" title="Aoi Nakamura">
-                        </div>
-                        <span class="font-mono text-[10px] text-gray-500">Last commit: <span id="prj2-time">2h ago</span></span>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group relative overflow-hidden">
-                    <div class="absolute inset-0 bg-terminal/5 z-0 pointer-events-none"></div>
-                    <div class="relative z-10 flex justify-between items-start mb-4">
-                        <span class="font-mono text-xs text-white bg-white/10 px-2 py-0.5 rounded border border-white/20 flex gap-2 items-center"><span class="w-1.5 h-1.5 bg-terminal rounded-full animate-pulse"></span>DEPLOYING</span>
-                        <i class="ph ph-rocket-launch text-terminal"></i>
-                    </div>
-                    <h3 id="prj3-title" class="font-bold text-lg mb-1 relative z-10">AI-Driven E-Comm Matrix</h3>
-                    <p id="prj3-desc" class="text-sm text-gray-400 mb-6 flex-grow relative z-10">商品推薦アルゴリズムの本番環境デプロイ。A/Bテスト準備。</p>
-                    
-                    <div class="space-y-2 mb-4 relative z-10">
-                        <div class="flex justify-between text-xs font-mono">
-                            <span class="text-gray-400">Completion</span>
-                            <span class="text-terminal"><span id="prj3-pct">99</span>%</span>
-                        </div>
-                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
-                            <div id="prj3-bar" class="h-full bg-terminal progress-bar-fill transition-all duration-700" style="width: 99%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto relative z-10">
-                        <div class="flex -space-x-2">
-                            <img src="team/sho.jpg" alt="Sho" class="w-7 h-7 rounded-full border border-surface" title="Sho Chizawa">
-                            <img src="team/kenji.jpg" alt="Kenji" class="w-7 h-7 rounded-full border border-surface relative z-10" title="Kenji Tanaka">
-                            <img src="team/sarah.jpg" alt="Sarah" class="w-7 h-7 rounded-full border border-surface relative z-20" title="Dr. Sarah Lindqvist">
-                        </div>
-                        <span class="font-mono text-[10px] text-terminal flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-terminal rounded-full animate-pulse"></span><span id="prj3-status">Deploying<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></span></span>
-                    </div>
-                </div>
-
-                <!-- Project Card 4 -->
-                <div class="bg-surface border border-line rounded-md p-5 flex flex-col hover:border-gray-600 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <span id="prj4-code" class="font-mono text-xs text-gray-400 bg-line px-2 py-0.5 rounded border border-gray-600">PRJ-098</span>
-                        <i id="prj4-icon" class="ph ph-magnifying-glass text-gray-500 group-hover:text-white transition-colors"></i>
-                    </div>
-                    <h3 id="prj4-title" class="font-bold text-lg mb-1">Competitor Scraping Bot</h3>
-                    <p id="prj4-desc" class="text-sm text-gray-400 mb-6 flex-grow">競合サイトの価格・在庫変動を監視するETLパイプラインアーキテクチャ設計。</p>
-                    
-                    <div class="space-y-2 mb-4">
-                        <div class="flex justify-between text-xs font-mono">
-                            <span class="text-gray-400">Completion</span>
-                            <span class="text-white"><span id="prj4-pct">12</span>%</span>
-                        </div>
-                        <div class="w-full bg-void h-1.5 rounded-full overflow-hidden">
-                            <div id="prj4-bar" class="h-full bg-white progress-bar-fill transition-all duration-700" style="width: 12%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-3 border-t border-line mt-auto">
-                        <div class="flex -space-x-2">
-                            <img src="team/ren.jpg" alt="Ren" class="w-7 h-7 rounded-full border border-surface" title="Ren Fujimoto">
-                            <img src="team/aoi.jpg" alt="Aoi" class="w-7 h-7 rounded-full border border-surface relative z-10" title="Aoi Nakamura">
-                        </div>
-                        <span class="font-mono text-[10px] text-gray-500">Last commit: <span id="prj4-time">1d ago</span></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3 & 4: SLACK COMMS & ROADMAP (Split Layout) -->
-        <section class="max-w-[1400px] mx-auto px-6 mb-32">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-                <!-- Internal Comms (Slack style) -->
-                <div>
-                    <div class="flex justify-between items-end mb-2">
-                        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
-                            <i class="ph-fill ph-slack-logo text-gray-300"></i> Internal Workspace
-                        </h2>
-                        <span class="ai-status-chip"><span class="live-dot"></span>LIVE</span>
-                    </div>
-                    <p class="text-gray-400 text-sm font-mono tracking-tight mb-4">>> Unfiltered engineering logs. Channel: #dev-general</p>
-
-                    <!-- Online members bar -->
-                    <div class="flex items-center gap-2 mb-3 text-xs font-mono text-gray-500">
-                        <div class="flex -space-x-2">
-                            <img src="team/sho.jpg" class="w-6 h-6 rounded-full border-2 border-void" title="Sho">
-                            <img src="team/kenji.jpg" class="w-6 h-6 rounded-full border-2 border-void" title="Kenji">
-                            <img src="team/sarah.jpg" class="w-6 h-6 rounded-full border-2 border-void" title="Sarah">
-                            <img src="team/hiroto.jpg" class="w-6 h-6 rounded-full border-2 border-void" title="Hiroto">
-                            <img src="team/ren.jpg" class="w-6 h-6 rounded-full border-2 border-void" title="Ren">
-                        </div>
-                        <span><span class="text-terminal">●</span> <span id="ch-active">5</span> active now</span>
-                        <span class="text-gray-600">·</span>
-                        <span><span id="ch-typing">2</span> typing<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></span>
-                    </div>
-
-                    <div class="bg-surface border border-line rounded-md p-1 h-[440px] flex flex-col">
-                        <div class="bg-void/50 border-b border-line p-3 flex justify-between items-center text-sm font-mono">
-                            <div class="flex gap-4 text-gray-400">
-                                <span class="text-white"># dev-general</span>
-                                <span class="hidden sm:inline">| System alerts & team sync</span>
-                            </div>
-                            <span class="text-xs text-gray-500"><span id="ch-members">12</span> members</span>
-                        </div>
-                        
-                        <div id="slack-feed" class="flex-grow p-4 overflow-y-auto space-y-5 text-sm scroll-smooth">
-                            <!-- Message 1 -->
-                            <div class="flex gap-4 slack-msg">
-                                <img src="team/sho.jpg" alt="Sho" class="w-10 h-10 rounded shadow-sm shrink-0">
-                                <div class="min-w-0 flex-1">
-                                    <div class="flex items-baseline gap-2 mb-1 flex-wrap">
-                                        <span class="font-bold font-mono">Sho Chizawa</span>
-                                        <span class="text-gray-500 font-mono text-[10px]">09:42 AM</span>
-                                    </div>
-                                    <p class="text-gray-300 leading-relaxed mb-2">A社のAPIレート制限回避ロジック、キューイングシステムをRedisに移行完了。レイテンシ200ms低下。ドキュメントは <span class="text-sysblue hover:underline cursor-pointer">/docs/arch-v2</span> に。</p>
-                                    <div class="flex gap-2">
-                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-0.5 rounded text-xs border border-[#3b3b4f]"><span class="text-base">🚀</span> <span class="text-gray-300 font-mono" id="rx-rocket">3</span></div>
-                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-0.5 rounded text-xs border border-[#3b3b4f]"><span class="text-base">🔥</span> <span class="text-gray-300 font-mono" id="rx-fire">1</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Message 2: GitHub Bot -->
-                            <div class="flex gap-4 slack-msg">
-                                <div class="w-10 h-10 rounded shadow-sm shrink-0 bg-terminal/20 flex items-center justify-center border border-terminal/30">
-                                    <i class="ph-fill ph-github-logo text-terminal text-xl"></i>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <div class="flex items-baseline gap-2 mb-1 flex-wrap">
-                                        <span class="font-bold font-mono text-terminal">GitHub</span>
-                                        <span class="text-gray-500 font-mono text-[10px]">10:15 AM</span>
-                                        <span class="bg-gray-800 text-[9px] px-1 rounded text-gray-400">APP</span>
-                                    </div>
-                                    <p class="text-gray-300 leading-relaxed"><span class="font-mono text-sysblue">PR <span id="pr-num">#128</span></span> merged into <span class="font-mono bg-line px-1 rounded">main</span> by <span class="font-mono">@kenji</span></p>
-                                    <div class="mt-2 bg-void border border-line rounded p-2 text-xs font-mono text-gray-400 border-l-2 border-l-terminal">
-                                        feat: parallel embedding processing for large PDF batch uploads
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Message 3 -->
-                            <div class="flex gap-4 slack-msg">
-                                <img src="team/kenji.jpg" alt="Kenji" class="w-10 h-10 rounded shadow-sm shrink-0">
-                                <div class="min-w-0 flex-1">
-                                    <div class="flex items-baseline gap-2 mb-1 flex-wrap">
-                                        <span class="font-bold font-mono">Kenji Tanaka</span>
-                                        <span class="text-gray-500 font-mono text-[10px]">11:02 AM</span>
-                                    </div>
-                                    <p class="text-gray-300 leading-relaxed">バッチ処理確認しました。UI側でステータスのプログレスバーをポーリングする部分、WebSocketに切り替えておきます。</p>
-                                    <div class="flex gap-2 mt-2">
-                                        <div class="inline-flex items-center gap-1 bg-line px-2 py-0.5 rounded text-xs border border-[#3b3b4f]"><span class="text-base">👀</span> <span class="text-gray-300 font-mono" id="rx-eyes">2</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-3 border-t border-line bg-void/50">
-                            <div class="flex items-center gap-2 mb-2 px-1 text-[10px] font-mono text-gray-500 h-3">
-                                <span id="typing-indicator" class="opacity-0 transition-opacity duration-300"><span class="text-terminal">●</span> <span id="typing-name">Sarah</span> is typing<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></span>
-                            </div>
-                            <div class="w-full bg-void border border-line rounded p-2 text-gray-500 text-sm font-mono flex gap-2 items-center">
-                                <i class="ph ph-plus-circle"></i>
-                                <span>Message #dev-general... (Read Only · Live Feed)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Linear Style Roadmap -->
-                <div id="roadmap">
-                    <div class="flex justify-between items-end mb-2">
-                        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
-                            <i class="ph-fill ph-kanban text-gray-300"></i> Public Roadmap
-                        </h2>
-                        <span class="ai-status-chip"><span class="live-dot"></span>SYNCED <span id="rm-sync" class="text-gray-500 ml-1">just now</span></span>
-                    </div>
-                    <p class="text-gray-400 text-sm font-mono tracking-tight mb-3">>> Scheduled releases and upcoming architectural changes.</p>
-
-                    <!-- Velocity bar -->
-                    <div class="flex items-center gap-3 mb-5 text-[10px] font-mono text-gray-500">
-                        <span>Velocity:</span>
-                        <div class="flex-grow bg-void border border-line rounded h-1.5 overflow-hidden">
-                            <div id="rm-velocity" class="h-full bg-terminal transition-all duration-700" style="width: 67%"></div>
-                        </div>
-                        <span><span id="rm-vel-pct" class="text-terminal">67</span>% Sprint</span>
-                        <span class="text-gray-600">·</span>
-                        <span><span id="rm-burn" class="text-sysblue">23</span>/34 issues closed</span>
-                    </div>
-
-                    <div class="space-y-6">
-                        <!-- Column: In Progress -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="w-2.5 h-2.5 bg-[#f24e1e] rounded-sm transform rotate-45 animate-pulse"></div>
-                                <h3 class="font-mono text-sm font-bold text-white uppercase tracking-wider">This Week (v2.4.1)</h3>
-                                <div class="h-[1px] flex-grow bg-line ml-2"></div>
-                                <span class="text-[10px] font-mono text-gray-500">ETA <span id="rm-eta1">2d 4h</span></span>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="bg-surface border border-line rounded p-3 flex items-start gap-3 hover:border-gray-500 transition-colors">
-                                    <i class="ph-bold ph-check-circle text-terminal mt-0.5"></i>
-                                    <div class="flex-grow min-w-0">
-                                        <div class="flex justify-between items-baseline gap-2">
-                                            <p id="rm-task1-title" class="text-sm text-gray-200">LLMオーケストレーターのマルチエージェント対応</p>
-                                            <span class="font-mono text-[10px] text-terminal shrink-0"><span id="rm-task1-pct">94</span>%</span>
-                                        </div>
-                                        <div class="w-full bg-void h-1 rounded-full overflow-hidden my-2">
-                                            <div id="rm-task1-bar" class="h-full bg-terminal transition-all duration-700" style="width: 94%"></div>
-                                        </div>
-                                        <div class="flex gap-2 items-center">
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 rounded">Feature</span>
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">AI Core</span>
-                                            <span class="text-[10px] font-mono text-gray-500 ml-auto">@sho · @kenji</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-surface border border-line rounded p-3 flex items-start gap-3 hover:border-gray-500 transition-colors">
-                                    <i class="ph-bold ph-circle-dashed text-[#f59e0b] mt-0.5 animate-spin" style="animation-duration: 4s"></i>
-                                    <div class="flex-grow min-w-0">
-                                        <div class="flex justify-between items-baseline gap-2">
-                                            <p id="rm-task2-title" class="text-sm text-gray-200">RAG処理パイプラインのメモリリーク修正</p>
-                                            <span class="font-mono text-[10px] text-[#f59e0b] shrink-0"><span id="rm-task2-pct">62</span>%</span>
-                                        </div>
-                                        <div class="w-full bg-void h-1 rounded-full overflow-hidden my-2">
-                                            <div id="rm-task2-bar" class="h-full bg-[#f59e0b] transition-all duration-700" style="width: 62%"></div>
-                                        </div>
-                                        <div class="flex gap-2 items-center">
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/20 rounded">Bug</span>
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">High Priority</span>
-                                            <span class="text-[10px] font-mono text-gray-500 ml-auto">@sarah</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-surface border border-line rounded p-3 flex items-start gap-3 hover:border-gray-500 transition-colors">
-                                    <i class="ph-bold ph-circle text-gray-500 mt-0.5"></i>
-                                    <div class="flex-grow min-w-0">
-                                        <div class="flex justify-between items-baseline gap-2">
-                                            <p id="rm-task3-title" class="text-sm text-gray-200">Streaming UI for /chat endpoint (Vercel AI SDK)</p>
-                                            <span class="font-mono text-[10px] text-gray-500 shrink-0"><span id="rm-task3-pct">28</span>%</span>
-                                        </div>
-                                        <div class="w-full bg-void h-1 rounded-full overflow-hidden my-2">
-                                            <div id="rm-task3-bar" class="h-full bg-sysblue transition-all duration-700" style="width: 28%"></div>
-                                        </div>
-                                        <div class="flex gap-2 items-center">
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 rounded">Feature</span>
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">UI</span>
-                                            <span class="text-[10px] font-mono text-gray-500 ml-auto">@hiroto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Column: Next Month -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="w-2.5 h-2.5 border-2 border-sysblue rounded-sm transform rotate-45"></div>
-                                <h3 class="font-mono text-sm font-bold text-gray-400 uppercase tracking-wider">Q3 Phase 2 (Backlog)</h3>
-                                <div class="h-[1px] flex-grow bg-line ml-2"></div>
-                                <span class="text-[10px] font-mono text-gray-600">ETA 3w</span>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="bg-void border border-line rounded p-3 flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
-                                    <i class="ph-bold ph-circle text-gray-600 mt-0.5"></i>
-                                    <div class="flex-grow">
-                                        <p class="text-sm text-gray-300">各社独自データの自動ベクトル化基盤のSaaS化</p>
-                                        <div class="flex gap-2 mt-2 items-center">
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#8b5cf6]/10 text-[#8b5cf6] border border-[#8b5cf6]/20 rounded">Epic</span>
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">Infra</span>
-                                            <span class="text-[10px] font-mono text-gray-600 ml-auto">+12 sub-issues</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-void border border-line rounded p-3 flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
-                                    <i class="ph-bold ph-circle text-gray-600 mt-0.5"></i>
-                                    <div class="flex-grow">
-                                        <p class="text-sm text-gray-300">音声入力対応 (Whisper v3 + リアルタイム議事録)</p>
-                                        <div class="flex gap-2 mt-2 items-center">
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 rounded">Feature</span>
-                                            <span class="text-[10px] font-mono px-1.5 py-[1px] bg-line text-gray-400 rounded">Voice</span>
-                                            <span class="text-[10px] font-mono text-gray-600 ml-auto">unestimated</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: PUBLIC REPOS (Case Studies) -->
-        <section id="repos" class="max-w-[1400px] mx-auto px-6 mb-32 pt-10 border-t border-line">
-            <div class="mb-10 text-center md:text-left">
-                <h2 class="text-3xl font-bold tracking-tight mb-2">Public Repositories</h2>
-                <p class="text-gray-400 text-sm font-mono tracking-tight max-w-2xl">>> Past implementations reframed as repositories. We don't do "case studies". We display functional architectures.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Repo 1 -->
-                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-book-bookmark text-gray-400"></i>
-                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / line-crm-ai-engine</h3>
-                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
-                        </div>
-                    </div>
-                    <p class="text-sm text-[#8b949e] mb-6 pr-4">LINEを通じた顧客対応を完全自動化するAIエンジン。既存CRM（Salesforce等）とシームレスに同期し、パーソナライズされた接客を実現。導入後、対応工数80%削減。</p>
-                    
-                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#3178c6]"></span>
-                            <span>TypeScript</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-trend-up"></i>
-                            <span>ROI 450%</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-clock"></i>
-                            <span>Impl: 2 Months</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Repo 2 -->
-                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-book-bookmark text-gray-400"></i>
-                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / auto-update-media</h3>
-                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
-                        </div>
-                    </div>
-                    <p class="text-sm text-[#8b949e] mb-6 pr-4">海外ニュースをスクレイピングし、AIが翻訳・要約・画像生成を行い、CMS（WordPress/MicroCMS）に自動投稿する完全無人メディア運用システム。</p>
-                    
-                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#3572A5]"></span>
-                            <span>Python</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-article"></i>
-                            <span>1.2k posts/mo</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-clock"></i>
-                            <span>Impl: 3 Weeks</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Repo 3 -->
-                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-book-bookmark text-gray-400"></i>
-                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / competitor-monitor</h3>
-                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
-                        </div>
-                    </div>
-                    <p class="text-sm text-[#8b949e] mb-6 pr-4">Eコマースサイト向け、競合他社の価格変動や商品追加を24時間監視する分散型スクレイピングアーキテクチャ。差分データをSlackに即時通知。</p>
-                    
-                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#f1e05a]"></span>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#e34c26]"></span>
-                            <span>HTML/DOM</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-lightning"></i>
-                            <span>Latency <100ms</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Repo 4 -->
-                <div class="bg-void border border-[#30363d] rounded-md p-5 hover:bg-surface/50 transition-colors cursor-pointer group">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-book-bookmark text-gray-400"></i>
-                            <h3 class="font-sans font-semibold text-[#58a6ff] text-lg group-hover:underline">veritas / amazon-ads-optimizer</h3>
-                            <span class="px-2 py-0.5 border border-[#30363d] text-[#8b949e] text-xs font-mono rounded-full">Public</span>
-                        </div>
-                    </div>
-                    <p class="text-sm text-[#8b949e] mb-6 pr-4">Amazon Advertising APIを活用した広告入札の自動最適化エンジン。ROAS（広告費用対効果）の目標値に向けて、キーワード入札額を機械学習で動的コントロール。</p>
-                    
-                    <div class="flex items-center gap-5 text-xs text-[#8b949e] font-mono">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#3572A5]"></span>
-                            <span>Python</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3 h-3 rounded-full bg-[#b07219]"></span>
-                            <span>Java</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="ph ph-chart-line-up"></i>
-                            <span>ROAS +120%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 6: TEAM MATRIX -->
-        <section id="team" class="max-w-[1400px] mx-auto px-6 mb-32">
-            <div class="mb-10 flex flex-col md:flex-row justify-between items-end border-b border-line pb-4">
-                <div>
-                    <h2 class="text-2xl font-bold tracking-tight mb-2">Team Matrix & Live Status</h2>
-                    <p class="text-gray-400 text-sm font-mono tracking-tight">>> Current node states. Who is doing what, right now.</p>
-                </div>
-                <div class="mt-4 md:mt-0 flex gap-4 text-xs font-mono">
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-terminal"></div><span class="text-gray-400">Coding</span></div>
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-[#eab308]"></div><span class="text-gray-400">Meeting</span></div>
-                    <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400">Offline</span></div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 1. Founder -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-sysblue transition-colors">
-                    <div class="absolute inset-0 bg-sysblue/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                <!-- STEP 2 -->
+                <div class="bg-surface border border-terminal/30 rounded-md p-7 flex flex-col relative overflow-hidden">
                     <div class="data-stream"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/sho.jpg" alt="Sho Chizawa" class="w-16 h-16 rounded-full object-cover border-2 border-sysblue/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="sho-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">遅沢 翔</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Sho Chizawa</p>
-                            <p class="text-sysblue text-[10px] font-mono uppercase tracking-wider">Founder · Lead Architect</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="sho-status" class="text-[9px] font-mono text-terminal">● CODING</span>
-                        </div>
-                        <p id="sho-process" class="text-xs text-gray-300 font-mono leading-relaxed">$ claude-code edit veritas/rag-engine<br>→ tool_call: search_codebase("auth flow")<br>→ Generating types & integration tests</p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>commits/wk: <span class="text-terminal">42</span></span>
-                        <span>PRs: <span class="text-sysblue">128</span></span>
-                        <span class="text-gray-600">Tokyo</span>
+                    <p class="font-mono text-xs text-gray-500 mb-4">STEP 02</p>
+                    <h3 class="font-bold text-xl mb-1">AI実装</h3>
+                    <p class="font-mono text-terminal text-sm mb-4">50〜150万円 · 3〜6週間</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5 flex-grow">顧客対応AI、社内ナレッジ検索、業務レポート自動化など、診断で決めたシステムを本番投入まで実装します。代表が自らコードを書きます。</p>
+                    <div class="border-t border-line pt-4 text-[13px] text-gray-400 space-y-1.5">
+                        <p><span class="text-gray-500">成果物：</span>本番稼働するシステム＋手順書</p>
+                        <p><span class="text-gray-500">含まない：</span>AI API利用料等の実費（別途・見積時に目安提示）</p>
                     </div>
                 </div>
-
-                <!-- 2. Principal AI Engineer -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-terminal transition-colors">
-                    <div class="data-stream" style="animation-delay: 0.5s"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/kenji.jpg" alt="Kenji Tanaka" class="w-16 h-16 rounded-full object-cover border-2 border-terminal/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="kenji-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">田中 健司</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Kenji Tanaka</p>
-                            <p class="text-terminal text-[10px] font-mono uppercase tracking-wider">Principal AI Engineer</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="kenji-status" class="text-[9px] font-mono text-terminal">● CODING</span>
-                        </div>
-                        <p id="kenji-process" class="text-xs text-terminal font-mono leading-relaxed">$ cursor agent --model claude-opus-4-7<br>→ Refactoring multi-agent orchestrator<br>→ <span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>commits/wk: <span class="text-terminal">187</span></span>
-                        <span>LoC: <span class="text-sysblue">12.4K</span></span>
-                        <span class="text-gray-600">Tokyo</span>
-                    </div>
-                </div>
-
-                <!-- 3. ML Researcher (International) -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-[#f59e0b] transition-colors">
-                    <div class="data-stream" style="animation-delay: 1.2s; background: linear-gradient(90deg, transparent, #f59e0b, transparent);"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/sarah.jpg" alt="Dr. Sarah Lindqvist" class="w-16 h-16 rounded-full object-cover border-2 border-[#f59e0b]/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="sarah-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">Dr. Sarah Lindqvist</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Stanford NLP · ex-Cohere</p>
-                            <p class="text-[#f59e0b] text-[10px] font-mono uppercase tracking-wider">ML Researcher · RAG/Vector</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="sarah-status" class="text-[9px] font-mono text-terminal">● RESEARCH</span>
-                        </div>
-                        <p id="sarah-process" class="text-xs text-gray-300 font-mono leading-relaxed">→ Tuning pgvector embeddings<br>→ Benchmarking bge-m3 vs OpenAI v3-large<br>→ recall@10: <span class="text-[#f59e0b]">0.94</span> ↑ vs baseline</p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>papers: <span class="text-terminal">14</span></span>
-                        <span>citations: <span class="text-sysblue">2.4K</span></span>
-                        <span class="text-gray-600">SF · Tokyo</span>
-                    </div>
-                </div>
-
-                <!-- 4. Frontend Engineer -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-[#ec4899] transition-colors">
-                    <div class="data-stream" style="animation-delay: 1.8s; background: linear-gradient(90deg, transparent, #ec4899, transparent);"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/hiroto.jpg" alt="Hiroto Yamazaki" class="w-16 h-16 rounded-full object-cover border-2 border-[#ec4899]/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="hiroto-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">山崎 大翔</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Hiroto Yamazaki</p>
-                            <p class="text-[#ec4899] text-[10px] font-mono uppercase tracking-wider">Frontend Eng · Next.js / React</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="hiroto-status" class="text-[9px] font-mono text-terminal">● CODING</span>
-                        </div>
-                        <p id="hiroto-process" class="text-xs text-gray-300 font-mono leading-relaxed">→ Streaming UI w/ Vercel AI SDK<br>→ Next.js 15 + Server Components<br>→ Lighthouse: <span class="text-terminal">98/100</span></p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>deploys/wk: <span class="text-terminal">34</span></span>
-                        <span>UI tests: <span class="text-sysblue">312</span></span>
-                        <span class="text-gray-600">Osaka</span>
-                    </div>
-                </div>
-
-                <!-- 5. DevOps -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-sysblue transition-colors">
-                    <div class="data-stream" style="animation-delay: 2.5s"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/aoi.jpg" alt="Aoi Nakamura" class="w-16 h-16 rounded-full object-cover border-2 border-sysblue/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="aoi-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-terminal rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">中村 葵</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Aoi Nakamura</p>
-                            <p class="text-sysblue text-[10px] font-mono uppercase tracking-wider">DevOps · Infra · MLOps</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="aoi-status" class="text-[9px] font-mono text-terminal">● MONITORING</span>
-                        </div>
-                        <p id="aoi-process" class="text-xs text-gray-300 font-mono leading-relaxed">$ kubectl get pods -A<br>→ 47 pods running, 0 errors<br>→ Vercel + AWS Lambda · uptime <span class="text-terminal">99.99%</span></p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>incidents: <span class="text-terminal">0</span></span>
-                        <span>SLA: <span class="text-sysblue">99.99%</span></span>
-                        <span class="text-gray-600">Fukuoka</span>
-                    </div>
-                </div>
-
-                <!-- 6. Designer -->
-                <div class="bg-surface border border-line rounded-md p-6 relative overflow-hidden group hover:border-[#f24e1e] transition-colors">
-                    <div class="data-stream" style="animation-delay: 3.2s; background: linear-gradient(90deg, transparent, #f24e1e, transparent);"></div>
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="relative shrink-0">
-                            <img src="team/ren.jpg" alt="Ren Fujimoto" class="w-16 h-16 rounded-full object-cover border-2 border-[#f24e1e]/50 grayscale group-hover:grayscale-0 transition-all">
-                            <div id="ren-dot" class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#eab308] rounded-full border-2 border-surface ai-pulse"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base leading-tight">藤本 蓮</h3>
-                            <p class="text-gray-500 text-xs font-mono mb-1">Ren Fujimoto</p>
-                            <p class="text-[#f24e1e] text-[10px] font-mono uppercase tracking-wider">UX/UI Designer · Figma</p>
-                        </div>
-                    </div>
-                    <div class="bg-void border border-line rounded p-3 mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Current Process</p>
-                            <span id="ren-status" class="text-[9px] font-mono text-[#eab308]">● DESIGN REVIEW</span>
-                        </div>
-                        <p id="ren-process" class="text-xs text-gray-300 font-mono leading-relaxed">→ Figma: LLM Dashboard v3<br>→ 47 components, 12 prototypes<br>→ Handoff to <span class="text-[#ec4899]">Hiroto</span> in 2h</p>
-                    </div>
-                    <div class="flex items-center justify-between font-mono text-[10px] text-gray-500 border-t border-line pt-3">
-                        <span>frames: <span class="text-terminal">847</span></span>
-                        <span>figma: <span class="text-sysblue">live</span></span>
-                        <span class="text-gray-600">Tokyo</span>
+                <!-- STEP 3 -->
+                <div class="bg-surface border border-line rounded-md p-7 flex flex-col hover:border-sysblue/40 transition-colors relative overflow-hidden">
+                    <div class="data-stream" style="background: linear-gradient(90deg, transparent, #3b82f6, transparent);"></div>
+                    <p class="font-mono text-xs text-gray-500 mb-4">STEP 03</p>
+                    <h3 class="font-bold text-xl mb-1">AI顧問</h3>
+                    <p class="font-mono text-terminal text-sm mb-4">月額15〜50万円</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5 flex-grow">月次レビュー、プロンプト改善、新モデルへの追随、チャットでの相談対応。実装後も置き去りにしません。</p>
+                    <div class="border-t border-line pt-4 text-[13px] text-gray-400 space-y-1.5">
+                        <p><span class="text-gray-500">成果物：</span>月次改善レポート＋随時の改修</p>
+                        <p><span class="text-gray-500">契約：</span>月単位・いつでも解約可</p>
                     </div>
                 </div>
             </div>
+            <p class="font-mono text-[11px] text-gray-500 mt-5">※ 料金は税別の目安です。内容により変動するため、正式には無料相談のうえ見積をご提示します。</p>
+        </section>
 
-            <!-- Hiring banner -->
-            <div class="mt-6 bg-surface border border-dashed border-line rounded-md p-5 flex flex-col md:flex-row justify-between items-center gap-4 hover:border-terminal transition-colors group cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-void border border-line flex items-center justify-center group-hover:border-terminal transition-colors">
-                        <i class="ph ph-plus text-2xl text-gray-500 group-hover:text-terminal transition-colors"></i>
+        <!-- SECTION 3: WORKS -->
+        <section id="works" class="max-w-[1200px] mx-auto px-6 mb-28 pt-10 border-t border-line">
+            <div class="mb-10">
+                <p class="font-mono text-xs text-terminal mb-2">// build-log</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">実装実績</h2>
+                <p class="text-gray-300 leading-relaxed max-w-2xl">運営会社グループ（3DプリンターEC「SK本舗」ほか）で実際に本番稼働しているシステムです。外部顧客への導入実績ではなく、自社の現場で毎日使っているものをそのままお見せします。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Case 1 -->
+                <div class="bg-void border border-line rounded-md p-6 hover:border-gray-600 transition-colors">
+                    <div class="flex justify-between items-start mb-3 gap-3">
+                        <h3 class="font-bold text-lg">LINE 顧客対応AI（CRM連携）</h3>
+                        <span class="font-mono text-[11px] text-terminal border border-terminal/30 bg-terminal/5 px-2 py-0.5 rounded-full whitespace-nowrap">稼働中</span>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-base">7th seat is open.</h4>
-                        <p class="text-gray-500 text-sm font-mono">we_are_hiring · Senior AI Engineer (LLM Agent / Multi-Agent Orchestration)</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5">LINE経由の問い合わせにAIが一次応答し、顧客情報と連携してパーソナライズ。有人対応が必要なものだけを引き継ぎます。</p>
+                    <div class="flex items-center justify-between border-t border-line pt-4">
+                        <p class="font-mono text-sm"><span class="text-gray-500">応答時間</span> <span class="fact-number font-bold text-lg">−96%</span></p>
+                        <p class="font-mono text-[11px] text-gray-500">Claude API × LINE Messaging API</p>
                     </div>
                 </div>
-                <a href="mailto:schizawa@felidentia.com?subject=%5BVeritas%20AI%20Partners%5D%20Senior%20AI%20Engineer%20%E5%BF%9C%E5%8B%9F&body=%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0AGitHub%2FX%2FLinkedIn%EF%BC%9A%0A%E3%81%93%E3%82%8C%E3%81%BE%E3%81%A7%E3%81%AB%E5%87%BA%E3%81%97%E3%81%9F%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%88%EF%BC%9A%0A" class="font-mono text-xs text-terminal border border-terminal/50 px-4 py-2 rounded hover:bg-terminal/10 transition-all whitespace-nowrap">apply.now() →</a>
+                <!-- Case 2 -->
+                <div class="bg-void border border-line rounded-md p-6 hover:border-gray-600 transition-colors">
+                    <div class="flex justify-between items-start mb-3 gap-3">
+                        <h3 class="font-bold text-lg">AI競合モニタリング</h3>
+                        <span class="font-mono text-[11px] text-terminal border border-terminal/30 bg-terminal/5 px-2 py-0.5 rounded-full whitespace-nowrap">稼働中</span>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5">競合サイトの価格・商品・キャンペーンの変化を常時監視し、AIが要約してチャットに通知。人が巡回する運用をなくしました。</p>
+                    <div class="flex items-center justify-between border-t border-line pt-4">
+                        <p class="font-mono text-sm"><span class="text-gray-500">検知→通知</span> <span class="fact-number font-bold text-lg">15分</span></p>
+                        <p class="font-mono text-[11px] text-gray-500">Playwright × Claude API</p>
+                    </div>
+                </div>
+                <!-- Case 3 -->
+                <div class="bg-void border border-line rounded-md p-6 hover:border-gray-600 transition-colors">
+                    <div class="flex justify-between items-start mb-3 gap-3">
+                        <h3 class="font-bold text-lg">AI駆動コーポレートサイト制作</h3>
+                        <span class="font-mono text-[11px] text-gray-400 border border-line bg-surface px-2 py-0.5 rounded-full whitespace-nowrap">納品済</span>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5">競合20社の構成をAIが自動分析し、設計からコーディングまでAIワークフローで実施。人手のみの想定より大幅に短縮しました。</p>
+                    <div class="flex items-center justify-between border-t border-line pt-4">
+                        <p class="font-mono text-sm"><span class="text-gray-500">制作期間</span> <span class="fact-number font-bold text-lg">2週間</span></p>
+                        <p class="font-mono text-[11px] text-gray-500">競合20社 自動分析</p>
+                    </div>
+                </div>
+                <!-- Case 4 -->
+                <div class="bg-void border border-line rounded-md p-6 hover:border-gray-600 transition-colors">
+                    <div class="flex justify-between items-start mb-3 gap-3">
+                        <h3 class="font-bold text-lg">Amazon広告 AI分析ダッシュボード</h3>
+                        <span class="font-mono text-[11px] text-terminal border border-terminal/30 bg-terminal/5 px-2 py-0.5 rounded-full whitespace-nowrap">稼働中</span>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5">Amazon SP-API と連携し、広告キャンペーンの成果をAIが分析・レポート。判断材料が毎朝そろう状態を作りました。</p>
+                    <div class="flex items-center justify-between border-t border-line pt-4">
+                        <p class="font-mono text-sm"><span class="text-gray-500">一元分析</span> <span class="fact-number font-bold text-lg">50+</span><span class="font-mono text-xs text-gray-400"> キャンペーン</span></p>
+                        <p class="font-mono text-[11px] text-gray-500">Amazon SP-API 連携</p>
+                    </div>
+                </div>
+            </div>
+            <p class="font-mono text-[11px] text-gray-500 mt-5">※ 数値は自社グループ内での測定値です（2026年7月時点）。測定条件・実際の画面は無料相談時にご覧いただけます。</p>
+        </section>
+
+        <!-- SECTION 4: SYSTEM（体制） -->
+        <section id="system" class="max-w-[1200px] mx-auto px-6 mb-28 pt-10 border-t border-line">
+            <div class="mb-10">
+                <p class="font-mono text-xs text-terminal mb-2">// system</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">体制 — 責任者1名＋AIワークフロー</h2>
+                <p class="text-gray-300 leading-relaxed max-w-2xl">大人数のチームは在籍していません。代わりに、社内16の業務領域で毎日動いているAIワークフローがあります。責任と最終確認はすべて人間の代表が担い、この運用ノウハウをそのまま貴社の実装に使います。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <!-- Founder card（唯一の人間） -->
+                <div class="bg-surface border border-sysblue/30 rounded-md p-7 relative overflow-hidden">
+                    <div class="data-stream" style="background: linear-gradient(90deg, transparent, #3b82f6, transparent);"></div>
+                    <p class="font-mono text-[11px] text-sysblue mb-4 tracking-wider">HUMAN · 責任者</p>
+                    <img src="team/sho.jpg" alt="代表 遅沢 翔" class="w-20 h-20 rounded-full object-cover border-2 border-sysblue/50 mb-4">
+                    <h3 class="font-bold text-xl">遅沢 翔</h3>
+                    <p class="text-gray-400 text-sm font-mono mb-4">Sho Chizawa · Founder</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-5">複数事業を持つホールディングスの代表であり、現役の実装者。窓口・設計・実装・最終確認まで同一人物が責任を持ちます。</p>
+                    <a href="about.html" class="font-mono text-xs text-terminal hover:underline">プロフィールを見る →</a>
+                </div>
+
+                <!-- AI workflows -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+                        <p class="font-mono text-[11px] text-terminal tracking-wider">AI WORKFLOWS · 16業務領域</p>
+                        <p class="font-mono text-[11px] text-gray-500">※ ソフトウェアであり、従業員ではありません</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">dev</p><p class="text-[13px] text-gray-200">開発</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">ec-ops</p><p class="text-[13px] text-gray-200">EC運用</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">marketing</p><p class="text-[13px] text-gray-200">マーケティング</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">content</p><p class="text-[13px] text-gray-200">コンテンツ制作</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">support</p><p class="text-[13px] text-gray-200">カスタマーサポート</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">sales</p><p class="text-[13px] text-gray-200">法人営業</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">strategy</p><p class="text-[13px] text-gray-200">経営戦略</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">brand</p><p class="text-[13px] text-gray-200">ブランド戦略</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">procurement</p><p class="text-[13px] text-gray-200">調達</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">logistics</p><p class="text-[13px] text-gray-200">物流</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">partnerships</p><p class="text-[13px] text-gray-200">パートナー開拓</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">hr</p><p class="text-[13px] text-gray-200">人事・労務</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">finance</p><p class="text-[13px] text-gray-200">財務</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">investment</p><p class="text-[13px] text-gray-200">投資分析</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">3d-modeling</p><p class="text-[13px] text-gray-200">3Dモデリング</p></div>
+                        <div class="bg-void border border-line rounded p-3"><p class="font-mono text-[10px] text-gray-500 mb-0.5">media</p><p class="text-[13px] text-gray-200">メディア制作</p></div>
+                    </div>
+
+                    <!-- 承認フロー -->
+                    <div class="mt-5 bg-void border border-line rounded-md p-5">
+                        <p class="font-mono text-[11px] text-gray-500 mb-3">WORKFLOW · 案件の進み方</p>
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-[13px]">
+                            <span class="px-3 py-1.5 bg-surface border border-line rounded text-gray-200">調査</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1.5 bg-surface border border-line rounded text-gray-200">設計</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1.5 bg-surface border border-line rounded text-gray-200">実装</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1.5 bg-surface border border-terminal/40 rounded text-terminal">代表による確認</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1.5 bg-surface border border-sysblue/40 rounded text-sysblue">お客様の承認</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1.5 bg-surface border border-line rounded text-gray-200">本番反映</span>
+                        </div>
+                        <p class="text-[12px] text-gray-400 mt-3 leading-relaxed">AIが作った成果物をそのまま納品することはありません。各工程の結果は代表が確認し、お客様の承認を経てから本番に反映します。</p>
+                    </div>
+                </div>
+            </div>
+            <p class="font-mono text-[11px] text-gray-500 mt-5">※ 実際に社内で運用している業務領域の構成です（2026年7月時点）。</p>
+        </section>
+
+        <!-- SECTION 5: FAQ -->
+        <section id="faq" class="max-w-[900px] mx-auto px-6 mb-28 pt-10 border-t border-line">
+            <div class="mb-10">
+                <p class="font-mono text-xs text-terminal mb-2">// faq</p>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">よくある質問</h2>
+            </div>
+            <div class="space-y-3">
+                <details class="bg-surface border border-line rounded-md p-5 group">
+                    <summary class="font-bold cursor-pointer select-none list-none flex justify-between items-center gap-4">
+                        <span>実際には誰が対応するのですか？</span>
+                        <i class="ph-bold ph-plus text-terminal group-open:rotate-45 transition-transform shrink-0"></i>
+                    </summary>
+                    <p class="text-sm text-gray-300 leading-relaxed mt-4">代表の遅沢が直接対応します。営業窓口と実装者が同一人物のため、伝言ゲームがありません。AIワークフローは道具であり、判断と責任は人間が持ちます。</p>
+                </details>
+                <details class="bg-surface border border-line rounded-md p-5 group">
+                    <summary class="font-bold cursor-pointer select-none list-none flex justify-between items-center gap-4">
+                        <span>機密情報の取り扱いは？</span>
+                        <i class="ph-bold ph-plus text-terminal group-open:rotate-45 transition-transform shrink-0"></i>
+                    </summary>
+                    <p class="text-sm text-gray-300 leading-relaxed mt-4">NDA（秘密保持契約）の締結に対応します。AIモデルの利用はAPI経由を標準とし、入力データがモデルの学習に使われない設定で運用します。データの保管場所・範囲は案件ごとに合意のうえ進めます。なお、お問い合わせフォームには機密情報を記載しないでください。</p>
+                </details>
+                <details class="bg-surface border border-line rounded-md p-5 group">
+                    <summary class="font-bold cursor-pointer select-none list-none flex justify-between items-center gap-4">
+                        <span>納品後、御社に依存し続けることになりませんか？</span>
+                        <i class="ph-bold ph-plus text-terminal group-open:rotate-45 transition-transform shrink-0"></i>
+                    </summary>
+                    <p class="text-sm text-gray-300 leading-relaxed mt-4">原則として、コード・設定・運用手順書の一式をお客様側の環境とアカウントに引き渡します。顧問契約がなくても運用を継続できる状態で納品するのが標準です（詳細な帰属・利用条件は契約時に定めます）。</p>
+                </details>
+                <details class="bg-surface border border-line rounded-md p-5 group">
+                    <summary class="font-bold cursor-pointer select-none list-none flex justify-between items-center gap-4">
+                        <span>表示料金以外にかかる費用は？</span>
+                        <i class="ph-bold ph-plus text-terminal group-open:rotate-45 transition-transform shrink-0"></i>
+                    </summary>
+                    <p class="text-sm text-gray-300 leading-relaxed mt-4">AIのAPI利用料やサーバー費用などの実費が別途かかります（多くの場合、月数千円〜数万円の規模）。見積時に目安と上限の設計をあわせて提示します。</p>
+                </details>
+                <details class="bg-surface border border-line rounded-md p-5 group">
+                    <summary class="font-bold cursor-pointer select-none list-none flex justify-between items-center gap-4">
+                        <span>対応地域は？</span>
+                        <i class="ph-bold ph-plus text-terminal group-open:rotate-45 transition-transform shrink-0"></i>
+                    </summary>
+                    <p class="text-sm text-gray-300 leading-relaxed mt-4">拠点は東京ですが、打ち合わせはオンライン中心のため全国に対応します。</p>
+                </details>
             </div>
         </section>
 
-        <!-- SECTION 7: CTA -->
-        <section id="cta" class="max-w-[800px] mx-auto px-6 mb-20 text-center">
+        <!-- SECTION 6: CTA -->
+        <section id="cta" class="max-w-[800px] mx-auto px-6 mb-24 text-center">
             <div class="bg-surface border border-line p-10 rounded-lg shadow-2xl relative overflow-hidden">
-                <!-- Abstract BG for CTA -->
                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-sysblue/20 rounded-full blur-[80px] pointer-events-none"></div>
                 <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-terminal/10 rounded-full blur-[80px] pointer-events-none"></div>
-                
+
                 <div class="relative z-10">
-                    <div class="inline-block p-4 bg-void border border-line rounded-full mb-6">
-                        <i class="ph-fill ph-rocket-launch text-3xl text-white"></i>
-                    </div>
-                    
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">次のRepoは、<br>あなたの案件。</h2>
-                    <p class="text-gray-400 mb-8 max-w-lg mx-auto leading-relaxed">
-                        要件定義の美辞麗句はもういらない。私たちは手を動かし、形にする。<br>
-                        現状の課題と実現したいシステムを、Founderに直接ぶつけてください。
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">次に動くのは、<br>あなたの業務。</h2>
+                    <p class="text-gray-300 mb-8 max-w-lg mx-auto leading-relaxed">
+                        現状の課題と実現したいことを、代表に直接ぶつけてください。<br>
+                        45分の無料相談で、AIがハマる業務かどうかを率直にお答えします。
                     </p>
 
-                    <div class="bg-void border border-line rounded-md p-4 text-left font-mono text-xs text-gray-300 mb-8 max-w-md mx-auto shadow-inner">
-                        <p><span class="text-sysblue">~/veritas</span> $ init project-discovery \</p>
-                        <p class="ml-4">--client="you" \</p>
+                    <div class="bg-void border border-line rounded-md p-4 text-left font-mono text-xs text-gray-300 mb-8 max-w-md mx-auto shadow-inner" aria-hidden="true">
+                        <p><span class="text-sysblue">~/veritas</span> $ init 無料相談 \</p>
+                        <p class="ml-4">--client="あなた" \</p>
                         <p class="ml-4">--type="45min-video-call" \</p>
                         <p class="ml-4 animate-blink text-terminal">_</p>
                     </div>
 
-                    <a href="contact.html" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-4 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <a href="contact.html" class="inline-flex items-center justify-center gap-3 bg-white text-void font-bold px-8 py-4 rounded hover:bg-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap">
                         <i class="ph-bold ph-calendar-plus text-xl"></i>
-                        <span>代表に直接、45分話す（無料）</span>
+                        <span>無料相談を予約する（45分）</span>
                     </a>
                 </div>
             </div>
@@ -1256,33 +535,31 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
 
     </main>
 
-    <!-- Global Footer / Status Bar -->
-    <footer class="fixed bottom-0 w-full h-8 bg-void border-t border-line z-50 flex items-center justify-between px-4 font-mono text-[10px] text-gray-500">
-        <div class="flex items-center gap-4">
-            <span class="hidden sm:inline">Veritas AI Partners © 2026</span>
-            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
-                <i class="ph ph-git-branch text-sysblue"></i>
-                <span>main</span>
+    <!-- Footer（静的・法的表示） -->
+    <footer class="border-t border-line bg-void relative z-10">
+        <div class="max-w-[1200px] mx-auto px-6 py-10">
+            <div class="flex flex-col md:flex-row justify-between gap-6">
+                <div>
+                    <p class="text-white font-bold text-sm tracking-wide mb-1">VERITAS AI PARTNERS</p>
+                    <p class="font-mono text-xs text-gray-500">語るより、動かす。— 中小企業向けAI実装</p>
+                </div>
+                <nav class="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-gray-400">
+                    <a href="#services" class="hover:text-white transition-colors">サービスと料金</a>
+                    <a href="#works" class="hover:text-white transition-colors">実装実績</a>
+                    <a href="#system" class="hover:text-white transition-colors">体制</a>
+                    <a href="about.html" class="hover:text-white transition-colors">会社情報</a>
+                    <a href="contact.html" class="hover:text-white transition-colors">無料相談</a>
+                    <a href="privacy.html" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </nav>
             </div>
-            <div class="flex items-center gap-1.5 hover:text-white cursor-pointer transition-colors">
-                <i class="ph ph-arrows-clockwise text-terminal"></i>
-                <span>Sync: Active</span>
+            <div class="border-t border-line mt-8 pt-6 flex flex-col sm:flex-row justify-between gap-2 font-mono text-[11px] text-gray-500">
+                <p>© 2026 Veritas AI Partners · 運営：フェリデンシア・キャピタル株式会社</p>
+                <button class="hover:text-white transition-colors text-left sm:text-right" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ ページ上部へ</button>
             </div>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="hidden md:flex items-center gap-1">
-                <i class="ph-fill ph-check-circle text-terminal"></i>
-                <span>Build passing</span>
-            </div>
-            <span>Uptime: 99.98%</span>
-            <span class="text-gray-400">UTF-8</span>
-            <button class="hover:text-white transition-colors" onclick="window.scrollTo(0,0)"><i class="ph-bold ph-caret-up"></i> TOP</button>
         </div>
     </footer>
 
-    <!-- Interactive Script for small UX details -->
     <script>
-        // Simple script to update 'time ago' or server time to make it feel slightly alive
         document.addEventListener('DOMContentLoaded', () => {
             // Mobile menu toggle
             (function() {
@@ -1290,37 +567,29 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 const menu = document.getElementById('mobile-menu');
                 if (!btn || !menu) return;
                 btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-                // Close on link click
                 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
             })();
 
-            const timeElements = document.querySelectorAll('.server-time');
-            setInterval(() => {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('en-US', { hour12: false });
-                timeElements.forEach(el => el.textContent = timeString);
-            }, 1000);
-
-            // === AI NEURAL NETWORK BACKGROUND (mouse-reactive) ===
+            // Neural network background（装飾のみ。reduced-motion時と非表示タブでは停止）
             const canvas = document.getElementById('neural-bg');
-            if (canvas) {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (canvas && !reduceMotion) {
                 const ctx = canvas.getContext('2d');
-                let W, H;
                 let mouse = { x: -9999, y: -9999 };
 
                 function resize() {
                     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                    W = canvas.width = window.innerWidth * dpr;
-                    H = canvas.height = window.innerHeight * dpr;
+                    canvas.width = window.innerWidth * dpr;
+                    canvas.height = window.innerHeight * dpr;
                     canvas.style.width = window.innerWidth + 'px';
                     canvas.style.height = window.innerHeight + 'px';
-                    ctx.scale(dpr, dpr);
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 }
                 resize();
                 window.addEventListener('resize', resize);
                 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-                const NODE_COUNT = window.innerWidth < 768 ? 40 : 90;
+                const NODE_COUNT = window.innerWidth < 768 ? 30 : 80;
                 const nodes = Array.from({length: NODE_COUNT}, () => ({
                     x: Math.random() * window.innerWidth,
                     y: Math.random() * window.innerHeight,
@@ -1330,667 +599,50 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                     pulse: Math.random() * Math.PI * 2,
                 }));
 
-                let t = 0;
-                function frame() {
-                    t += 0.01;
-                    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                let running = true;
+                document.addEventListener('visibilitychange', () => {
+                    running = !document.hidden;
+                    if (running) requestAnimationFrame(frame);
+                });
 
-                    // Update nodes
+                function frame() {
+                    if (!running) return;
+                    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                     nodes.forEach(n => {
                         n.x += n.vx; n.y += n.vy;
                         if (n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
                         if (n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
                     });
-
-                    // Connections (with mouse highlighting)
                     for (let i = 0; i < nodes.length; i++) {
                         for (let j = i + 1; j < nodes.length; j++) {
                             const a = nodes[i], b = nodes[j];
-                            const dx = a.x - b.x, dy = a.y - b.y;
-                            const dist = Math.hypot(dx, dy);
+                            const dist = Math.hypot(a.x - b.x, a.y - b.y);
                             if (dist < 140) {
                                 const alpha = (1 - dist / 140) * 0.25;
-                                // Mouse proximity boosts
-                                const mDistA = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-                                const mDistB = Math.hypot(b.x - mouse.x, b.y - mouse.y);
-                                const mouseBoost = (mDistA < 200 || mDistB < 200) ? 2.5 : 1;
+                                const near = Math.hypot(a.x - mouse.x, a.y - mouse.y) < 200 || Math.hypot(b.x - mouse.x, b.y - mouse.y) < 200;
                                 ctx.beginPath();
-                                ctx.moveTo(a.x, a.y);
-                                ctx.lineTo(b.x, b.y);
-                                ctx.strokeStyle = `rgba(0, 255, 136, ${alpha * mouseBoost})`;
-                                ctx.lineWidth = mouseBoost > 1 ? 0.8 : 0.4;
+                                ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                                ctx.strokeStyle = `rgba(0, 255, 136, ${alpha * (near ? 2.5 : 1)})`;
+                                ctx.lineWidth = near ? 0.8 : 0.4;
                                 ctx.stroke();
                             }
                         }
                     }
-
-                    // Nodes
                     nodes.forEach(n => {
                         n.pulse += 0.03;
                         const pulseR = n.r + Math.sin(n.pulse) * 0.5;
-                        const mDist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-                        const isNearMouse = mDist < 150;
-
+                        const nearMouse = Math.hypot(n.x - mouse.x, n.y - mouse.y) < 150;
                         ctx.beginPath();
-                        ctx.arc(n.x, n.y, isNearMouse ? pulseR * 2.5 : pulseR, 0, Math.PI * 2);
-                        ctx.fillStyle = isNearMouse ? '#00ff88' : `rgba(0, 255, 136, 0.6)`;
-                        if (isNearMouse) {
-                            ctx.shadowBlur = 12;
-                            ctx.shadowColor = '#00ff88';
-                        } else {
-                            ctx.shadowBlur = 0;
-                        }
+                        ctx.arc(n.x, n.y, nearMouse ? pulseR * 2.5 : pulseR, 0, Math.PI * 2);
+                        ctx.fillStyle = nearMouse ? '#00ff88' : 'rgba(0, 255, 136, 0.6)';
+                        ctx.shadowBlur = nearMouse ? 12 : 0;
+                        ctx.shadowColor = '#00ff88';
                         ctx.fill();
                     });
                     ctx.shadowBlur = 0;
                     requestAnimationFrame(frame);
                 }
                 frame();
-            }
-
-            // === LIVE METRICS JITTER ===
-            const fmt = n => n.toLocaleString('en-US');
-            const $ = id => document.getElementById(id);
-            const rand = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
-            const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-            const shuffle = arr => arr.slice().sort(() => Math.random() - 0.5);
-
-            // === RANDOMIZE INITIAL STATE (different on every page load) ===
-            const projectPool = [
-                { code: 'PRJ-089', icon: 'database', title: 'RAG Document Analyzer', desc: '金融機関向け非構造化データ抽出AIの構築。チャンク最適化フェーズ。' },
-                { code: 'PRJ-103', icon: 'chat-circle-text', title: 'AI コールセンター応答ボット', desc: '保険業向け 24時間応答エンジン。Whisper v3 + GPT-5 統合。' },
-                { code: 'PRJ-117', icon: 'shopping-bag-open', title: 'EC 商品レコメンド v3', desc: 'Shopify 連携の協調フィルタリング刷新。CTR +18%。' },
-                { code: 'PRJ-122', icon: 'envelope-open', title: 'メール返信自動化エンジン', desc: 'B社向け Outlook 連携、ドラフト精度 87% 達成。' },
-                { code: 'PRJ-131', icon: 'chart-line-up', title: '営業 SFA AI 議事録', desc: 'Salesforce 連携、商談要約とアクション抽出。' },
-                { code: 'PRJ-145', icon: 'translate', title: '多言語契約書解析パイプライン', desc: '日英中 PDF を構造化、リスク条項を自動抽出。' },
-                { code: 'PRJ-152', icon: 'file-pdf', title: '社内 Wiki 横断検索 RAG', desc: 'Notion + GDrive + Slack 統合。社内QA即答エンジン。' },
-                { code: 'PRJ-158', icon: 'video-camera', title: 'YouTube 動画自動編集AI', desc: 'ハイライト抽出 + 字幕生成。1時間素材を5分で。' },
-                { code: 'PRJ-164', icon: 'currency-jpy', title: '請求書 OCR + 仕訳エンジン', desc: '会計freee連携、月3,000枚を完全自動処理。' },
-                { code: 'PRJ-171', icon: 'graph', title: '需要予測 LSTM モデル', desc: '小売チェーン週次発注最適化。在庫回転 1.3x 改善。' },
-                { code: 'PRJ-178', icon: 'shield-check', title: 'AI 不正検知エンジン', desc: 'クレカ取引リアルタイム検知。誤検知率 0.4%。' },
-                { code: 'PRJ-184', icon: 'megaphone', title: 'SNS 炎上アラート Bot', desc: 'X / Reddit 監視、ネガセンチメント検知 5分以内。' },
-            ];
-
-            const deployingPool = [
-                { title: 'AI-Driven E-Comm Matrix', desc: '商品推薦アルゴリズムの本番環境デプロイ。A/Bテスト準備。' },
-                { title: 'Autonomous Sales Agent v2', desc: 'B2B リード自動アウトリーチの本番ロールアウト。' },
-                { title: 'Multi-Modal Search API', desc: '画像 + テキスト統合検索エンドポイントの段階リリース。' },
-                { title: 'Realtime Translation Gateway', desc: '12言語ストリーミング翻訳プロキシの本番投入。' },
-            ];
-
-            const teamMap = {
-                sho: { url: 'team/sho.jpg', name: 'Sho Chizawa' },
-                kenji: { url: 'team/kenji.jpg', name: 'Kenji Tanaka' },
-                sarah: { url: 'team/sarah.jpg', name: 'Dr. Sarah Lindqvist' },
-                hiroto: { url: 'team/hiroto.jpg', name: 'Hiroto Yamazaki' },
-                aoi: { url: 'team/aoi.jpg', name: 'Aoi Nakamura' },
-                ren: { url: 'team/ren.jpg', name: 'Ren Fujimoto' },
-            };
-
-            // Randomize the 3 non-deploying project cards
-            (function() {
-                const ids = [1, 2, 4];
-                const ranges = { 1: [62, 84], 2: [28, 58], 4: [4, 22] };
-                const picks = shuffle(projectPool).slice(0, 3);
-                ids.forEach((id, i) => {
-                    const p = picks[i];
-                    const code = $(`prj${id}-code`); if (code) code.textContent = p.code;
-                    const icon = $(`prj${id}-icon`); if (icon) icon.className = `ph ph-${p.icon} ${id===4?'text-gray-500':id===1?'text-gray-500':'text-gray-500'} group-hover:text-white transition-colors`;
-                    const title = $(`prj${id}-title`); if (title) title.textContent = p.title;
-                    const desc = $(`prj${id}-desc`); if (desc) desc.textContent = p.desc;
-                    const v = rand(ranges[id][0], ranges[id][1]);
-                    const pct = $(`prj${id}-pct`); if (pct) pct.textContent = v;
-                    const bar = $(`prj${id}-bar`); if (bar) bar.style.width = v + '%';
-                });
-
-                // Card 3 (DEPLOYING)
-                const dp = pick(deployingPool);
-                const t3 = $('prj3-title'); if (t3) t3.textContent = dp.title;
-                const d3 = $('prj3-desc'); if (d3) d3.textContent = dp.desc;
-                const v3 = rand(94, 99);
-                const p3 = $('prj3-pct'); if (p3) p3.textContent = v3;
-                const b3 = $('prj3-bar'); if (b3) b3.style.width = v3 + '%';
-            })();
-
-            // === ROADMAP: deterministic per sprint (no per-reload shuffle) ===
-            // Real roadmaps don't reshuffle on every refresh. Tasks are fixed for the active sprint;
-            // only completion % drifts upward as the sprint progresses.
-            (function() {
-                // Sprint cycle: 2 weeks. Pin tasks for the current sprint window.
-                const SPRINT_DAYS = 14;
-                const epochDay = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
-                const sprintIdx = Math.floor(epochDay / SPRINT_DAYS);
-                const dayInSprint = epochDay % SPRINT_DAYS; // 0..13
-                const progressOfSprint = dayInSprint / SPRINT_DAYS; // 0..1
-
-                // Active sprint tasks. Could rotate via sprintIdx if you want each sprint to show different items,
-                // but keep it stable within a sprint regardless of reload.
-                const sprintTasks = [
-                    {
-                        title: 'LLM オーケストレーターのマルチエージェント対応',
-                        startedAt: 0.10,  // started 10% into sprint
-                        targetDoneAt: 0.85, // expected done at 85% of sprint
-                    },
-                    {
-                        title: 'RAG パイプラインのメモリリーク修正',
-                        startedAt: 0.25,
-                        targetDoneAt: 0.95,
-                    },
-                    {
-                        title: 'Streaming UI for /chat endpoint (Vercel AI SDK)',
-                        startedAt: 0.40,
-                        targetDoneAt: 1.10,
-                    },
-                ];
-
-                sprintTasks.forEach((t, i) => {
-                    const id = i + 1;
-                    const titleEl = $(`rm-task${id}-title`); if (titleEl) titleEl.textContent = t.title;
-                    let pct = 0;
-                    if (progressOfSprint > t.startedAt) {
-                        const span = t.targetDoneAt - t.startedAt;
-                        pct = Math.min(99, Math.max(0, ((progressOfSprint - t.startedAt) / span) * 100));
-                    }
-                    pct = Math.round(pct);
-                    const pctEl = $(`rm-task${id}-pct`); if (pctEl) pctEl.textContent = pct;
-                    const barEl = $(`rm-task${id}-bar`); if (barEl) barEl.style.width = pct + '%';
-                });
-
-                // Velocity / burn — deterministic per sprint
-                // Velocity grows through the sprint (team picks up speed mid-sprint, plateaus near end)
-                const velocity = Math.round(45 + progressOfSprint * 40 + Math.sin(progressOfSprint * Math.PI) * 8);
-                const totalIssues = 34;
-                const burn = Math.round(progressOfSprint * totalIssues * 0.85); // closes ~85% by end
-                const vb = $('rm-velocity'); if (vb) vb.style.width = velocity + '%';
-                const vp = $('rm-vel-pct'); if (vp) vp.textContent = velocity;
-                const bn = $('rm-burn'); if (bn) bn.textContent = burn;
-                // ETA = days until sprint end
-                const daysLeft = SPRINT_DAYS - dayInSprint;
-                const etaEl = $('rm-eta1');
-                if (etaEl) etaEl.textContent = daysLeft >= 1 ? `${daysLeft}d` : 'today';
-            })();
-
-            // Randomize PR # + reactions + channel meta
-            const prInit = rand(108, 184);
-            const prEl = $('pr-num'); if (prEl) prEl.textContent = '#' + prInit;
-            ['rx-rocket', 'rx-fire', 'rx-eyes'].forEach(id => {
-                const el = $(id); if (el) el.textContent = rand(1, 9);
-            });
-            const chMembers = $('ch-members'); if (chMembers) chMembers.textContent = rand(8, 16);
-            const chActive = $('ch-active'); if (chActive) chActive.textContent = rand(3, 7);
-            const chTyping = $('ch-typing'); if (chTyping) chTyping.textContent = rand(1, 3);
-
-            // Randomize the initial 3 Slack messages
-            const slackPool = [
-                { who: 'sho', text: 'A社のorchestrator、Redisキュー噛ませたら p99 <span class="font-mono text-terminal">−200ms</span>。元々 sequential awaitで詰まってただけだった。設計負債の典型', reactions: { '🚀': rand(3, 8), '🔥': rand(1, 4) } },
-                { who: 'sho', text: 'B社、要件聞く前に既存の業務オペ全部スクレイピングして渡す方針に変更。「動くもの」見せる方が速い。<span class="text-sysblue">@kenji</span> RAG パイプ準備', reactions: { '🫡': rand(2, 6), '🎯': rand(1, 3) } },
-                { who: 'sho', text: 'Claude Opus 4.7 の long-horizon タスク、想像より普通に強い。これまでHumanがレビューで止めてた多段推論、ある程度自走できる。コスト要相談', reactions: { '🧠': rand(2, 5) } },
-                { who: 'kenji', text: 'WebSocket 検討してたけど SSE で十分っぽい。bidirectional いらないし、再接続のロジック書きたくない', reactions: { '👀': rand(2, 5) } },
-                { who: 'kenji', text: 'tool_call ログ漁ってたら、search_codebase が同じクエリ3回叩いてた。prompt 側で memoize ヒント入れたら 1回に収束。地味に効く', reactions: { '🪄': rand(1, 4) } },
-                { who: 'kenji', text: 'Cursor agent モード、claude-opus-4-7 で multi-file refactor 投げると普通にPR上げてくる。レビュー側の負荷が増えるのが現代の課題', reactions: { '😅': rand(2, 6) } },
-                { who: 'sarah', text: 'bge-m3 vs OpenAI v3-large on recall@10: <span class="font-mono text-[#f59e0b]">0.94 vs 0.91</span>. OpenAI is ~2× faster though. Recommending hybrid retriever for prod', reactions: { '📈': rand(3, 7), '🎯': rand(1, 4) } },
-                { who: 'sarah', text: 'Added 47 red-team cases to the prompt-injection eval suite. CI <span class="font-mono text-terminal">100% pass</span>. One false negative on a jailbreak edge case — boundary condition, not a regression', reactions: { '🛡': rand(2, 5) } },
-                { who: 'sarah', text: 'Middle-loss in long-context (200K+) was real. Recursive summarization gives +18pt on recall, but 1.4× cost. Worth discussing the trade-off', reactions: { '🤔': rand(1, 4) } },
-                { who: 'hiroto', text: 'Vercel AI SDK の useChat、内部で AbortController 持ってないの罠すぎる。自前 wrapper 書いた。誰か同じ目に遭ってる', reactions: { '😩': rand(2, 6), '🙏': rand(1, 3) } },
-                { who: 'hiroto', text: 'SSE 統一で <span class="font-mono text-terminal">312ms → 47ms</span>。token-by-token の体感が完全に別物になった。リッチテキストのストリーミング描画は要追加対応', reactions: { '⚡': rand(3, 8) } },
-                { who: 'hiroto', text: 'Lighthouse <span class="font-mono text-terminal">98/100</span>。残り 2pt は LCP の hero 画像。AVIF + responsive で潰す予定', reactions: { '👏': rand(2, 5) } },
-                { who: 'aoi', text: 'k8s 自動スケール 47 → 64 pods。/api/chat にスパイク来てるけど SLA 内で吸収中。Sentry に偽陽性 4本飛んだのでルール調整しとく', reactions: { '💪': rand(2, 5) } },
-                { who: 'aoi', text: 'Lambda cold start、provisioned concurrency 入れて p99 <span class="font-mono text-terminal">2.1s → 380ms</span>。月のコスト +$120。CFO案件にしないで', reactions: { '✅': rand(2, 5), '💸': rand(1, 3) } },
-                { who: 'aoi', text: 'pgvector の index、HNSW で 8M ベクトル乗せても普通に動く。M=24, ef=200 で recall/latency バランス良い', reactions: { '🎯': rand(1, 4) } },
-                { who: 'ren', text: 'Streaming UI、token-cursor の点滅同期がズレてた。物理ベース spring に切り替えて自然になった → <span class="text-sysblue underline cursor-pointer">/files/dashboard-v3</span>', reactions: { '🎨': rand(2, 6) } },
-                { who: 'ren', text: 'design tokens v2 完了。color / spacing / typography 全部 CSS var に集約。dark mode WCAG 4.5:1 通過済み', reactions: { '✨': rand(2, 5) } },
-                { who: 'github', text: '<span class="font-mono text-sysblue">PR #' + rand(110, 180) + '</span> merged into <span class="font-mono bg-line px-1 rounded">main</span> by <span class="font-mono">@' + pick(['sho', 'kenji', 'hiroto', 'aoi', 'sarah']) + '</span>', commit: 'feat: ' + pick(['hybrid retriever (BM25 + dense) for /chat endpoint', 'switch /chat streaming from polling to SSE', 'rebuild HNSW index with M=24, ef_construction=200', 'wire Sentry webhook with severity-based routing', 'cold-start mitigation via provisioned concurrency', 'agent.tool_call memoization layer to dedupe redundant calls', 'stream UI: physics-based token cursor (replaces blink)']) },
-                { who: 'sentry', text: '<span class="font-mono text-[#f59e0b]">⚠ 1 new issue</span> in <span class="font-mono">veritas-api</span>: ' + pick(['rate limit hit on upstream Anthropic API (handled, retry-after honored)', 'tool_call timeout in agent.search_codebase (root cause: cold cache, mitigated)', 'memory spike during embedding batch (>2GB), batch size halved', 'edge case: malformed function_call JSON from gpt-5 (1 in 47K reqs)', 'p99 latency drift on /chat endpoint (within SLO)']) },
-            ];
-
-            (function() {
-                const slackFeed = $('slack-feed');
-                if (!slackFeed) return;
-                slackFeed.innerHTML = '';
-                const picks = shuffle(slackPool).slice(0, 3);
-                const baseHour = 9 + rand(0, 2);
-                picks.forEach((m, i) => {
-                    const ts = `${String(baseHour + i).padStart(2, '0')}:${String(rand(0, 59)).padStart(2, '0')} AM`;
-                    let avatarHtml, nameClass = '', botBadge = '';
-                    if (m.who === 'github') {
-                        avatarHtml = `<div class="w-10 h-10 rounded shadow-sm shrink-0 bg-terminal/20 flex items-center justify-center border border-terminal/30"><i class="ph-fill ph-github-logo text-terminal text-xl"></i></div>`;
-                        nameClass = 'text-terminal';
-                        botBadge = '<span class="bg-gray-800 text-[9px] px-1 rounded text-gray-400">APP</span>';
-                    } else if (m.who === 'sentry') {
-                        avatarHtml = `<div class="w-10 h-10 rounded shadow-sm shrink-0 bg-[#f59e0b]/20 flex items-center justify-center border border-[#f59e0b]/30"><i class="ph-fill ph-warning-octagon text-[#f59e0b] text-xl"></i></div>`;
-                        nameClass = 'text-[#f59e0b]';
-                        botBadge = '<span class="bg-gray-800 text-[9px] px-1 rounded text-gray-400">APP</span>';
-                    } else {
-                        const t = teamMap[m.who];
-                        avatarHtml = `<img src="${t.url}" alt="${t.name}" class="w-10 h-10 rounded shadow-sm shrink-0">`;
-                    }
-                    const displayName = (m.who === 'github') ? 'GitHub' : (m.who === 'sentry') ? 'Sentry' : teamMap[m.who].name;
-
-                    let reactionsHtml = '';
-                    if (m.reactions) {
-                        reactionsHtml = '<div class="flex gap-2 mt-2">' + Object.entries(m.reactions).map(([emoji, n]) =>
-                            `<div class="inline-flex items-center gap-1 bg-line px-2 py-0.5 rounded text-xs border border-[#3b3b4f]"><span class="text-base">${emoji}</span> <span class="text-gray-300 font-mono">${n}</span></div>`
-                        ).join('') + '</div>';
-                    }
-                    const commitHtml = m.commit ? `<div class="mt-2 bg-void border border-line rounded p-2 text-xs font-mono text-gray-400 border-l-2 border-l-terminal">${m.commit}</div>` : '';
-
-                    const div = document.createElement('div');
-                    div.className = 'flex gap-4 slack-msg';
-                    div.innerHTML = `
-                        ${avatarHtml}
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-baseline gap-2 mb-1 flex-wrap">
-                                <span class="font-bold font-mono ${nameClass}">${displayName}</span>
-                                <span class="text-gray-500 font-mono text-[10px]">${ts}</span>
-                                ${botBadge}
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">${m.text}</p>
-                            ${commitHtml}
-                            ${reactionsHtml}
-                        </div>
-                    `;
-                    slackFeed.appendChild(div);
-                });
-            })();
-            // === END RANDOMIZATION ===
-
-
-            function jitter(elId, base, range, suffix = '') {
-                const el = $(elId);
-                if (!el) return;
-                setInterval(() => {
-                    const v = Math.round(base + (Math.random() - 0.5) * range);
-                    el.textContent = fmt(v) + suffix;
-                }, 800 + Math.random() * 600);
-            }
-
-            // GPU
-            (function() {
-                const el = $('m-gpu'), bar = $('m-gpu-bar');
-                if (!el) return;
-                setInterval(() => {
-                    const v = Math.round(80 + Math.random() * 18);
-                    el.textContent = v + '%';
-                    if (bar) bar.style.width = v + '%';
-                }, 1200);
-            })();
-
-            // Tokens/sec, Latency, HUD
-            jitter('m-tps', 2847, 600);
-            jitter('m-lat', 42, 14, 'ms');
-            jitter('hud-inferences', 847, 100);
-            (function() {
-                const el = $('hud-tokens');
-                if (!el) return;
-                let total = 12400;
-                setInterval(() => {
-                    total += Math.round(Math.random() * 80);
-                    el.textContent = (total / 1000).toFixed(1) + 'K';
-                }, 600);
-            })();
-
-            // Agent token counters increment (1 & 2)
-            ['ag1-tok', 'ag2-tok'].forEach((id, i) => {
-                const el = $(id);
-                if (!el) return;
-                let v = parseInt(el.textContent.replace(/,/g, ''));
-                setInterval(() => {
-                    v += Math.round(Math.random() * 30 + 5);
-                    el.textContent = v.toLocaleString();
-                }, 500 + i * 200);
-            });
-
-            // Agent 3 (Gemini) - K tokens incremental
-            (function() {
-                const el = $('ag3-tok');
-                if (!el) return;
-                let v = 487;
-                setInterval(() => {
-                    v += Math.random() * 2;
-                    if (v > 980) v = 487;
-                    el.textContent = v.toFixed(0) + 'K';
-                }, 700);
-            })();
-
-            // Agent 4 (Grok) - parallel & sources
-            (function() {
-                const par = $('ag4-par'), src = $('ag4-src');
-                if (!par || !src) return;
-                let s = 247;
-                setInterval(() => {
-                    par.textContent = (12 + Math.floor(Math.random() * 6)); // 12-17
-                    s += Math.floor(Math.random() * 8);
-                    if (s > 9999) s = 247;
-                    src.textContent = s;
-                }, 900);
-            })();
-
-            // Agent 2 fn-call counter
-            (function() {
-                const el = $('ag2-fn');
-                if (!el) return;
-                let v = 12;
-                setInterval(() => {
-                    if (Math.random() > 0.6) v++;
-                    el.textContent = v;
-                }, 1500);
-            })();
-
-            // === Agent message rotation (typewriter feel) ===
-            const agentMessages = {
-                'ag1-msg': [
-                    '> Analyzing customer schema...<br>> Building RAG pipeline<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> tool_call: search_codebase("auth")<br>> 47 results retrieved, ranking<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> Generating type definitions<br>> <span class="text-terminal">interface</span> User { id: string }<span class="tw-cursor"></span>',
-                    '> Reasoning chain: 4/7 steps<br>> Synthesizing response<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> ✓ Implementation ready<br>> <span class="text-terminal">commit:</span> "feat: add user auth flow"',
-                ],
-                'ag2-msg': [
-                    '> Generating React component<br>> <span class="text-sysblue">function</span> Dashboard()<span class="tw-cursor"></span>',
-                    '> Streaming UI tokens...<br>> <span class="text-sysblue">return</span> &lt;Card data={data} /&gt;<span class="tw-cursor"></span>',
-                    '> Vision input: image_847.png<br>> Detected: 12 UI components<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> tool_call: web_search("Next.js 15")<br>> Synthesizing best practices<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> ✓ Component generated<br>> <span class="text-sysblue">export default</span> Dashboard',
-                ],
-                'ag3-msg': [
-                    '> Long-context analysis<br>> 487K tokens loaded<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> Indexing 2 years of meetings<br>> Vector embedding 8,421 chunks<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> Cross-reference 47 documents<br>> Found 12 contradictions<span class="text-[#f59e0b]"> ⚠</span>',
-                    '> 2x reasoning boost active<br>> Compressing context<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> ✓ Knowledge graph built<br>> <span class="text-[#f59e0b]">nodes:</span> 4,287 / edges: 12,840',
-                ],
-                'ag4-msg': [
-                    '> 16-parallel deep search<br>> Scanning X feed<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> Real-time market signal<br>> 247 sources, 12 trending<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> Detected viral pattern<br>> Sentiment shift: <span class="text-[#ec4899]">+34%</span> last 6h',
-                    '> Cross-checking 16 agents<br>> Consensus reached: 14/16<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>',
-                    '> ✓ Intel report ready<br>> <span class="text-[#ec4899]">priority:</span> HIGH · Slack notify',
-                ],
-            };
-
-            Object.keys(agentMessages).forEach((id, i) => {
-                const el = $(id);
-                if (!el) return;
-                let idx = 0;
-                const messages = agentMessages[id];
-                setInterval(() => {
-                    idx = (idx + 1) % messages.length;
-                    el.style.opacity = '0.3';
-                    setTimeout(() => {
-                        el.innerHTML = messages[idx];
-                        el.style.opacity = '1';
-                    }, 200);
-                }, 3500 + i * 600); // staggered
-            });
-
-            // === TEAM STATUS ROTATOR (1-hour granularity, reload-stable) ===
-            // Same hour → same state regardless of how many times you refresh.
-            // Each member offset so they don't all flip at the same moment.
-            (function() {
-                const teamStates = {
-                    sho: [
-                        { label: 'CODING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '$ claude-code edit veritas/rag-engine<br>→ tool_call: search_codebase("auth flow")<br>→ Generating types & integration tests' },
-                        { label: 'REVIEWING', color: 'text-sysblue', dotBg: 'bg-sysblue', proc: '→ Reviewing PR #142 (Kenji)<br>→ 4 comments · approving<br>→ Architecture decision logged' },
-                        { label: 'ARCHITECTING', color: 'text-[#8b5cf6]', dotBg: 'bg-[#8b5cf6]', proc: '→ Drafting system diagram<br>→ /docs/arch-v3 · sketching trade-offs<br>→ Async vs sync processing' },
-                        { label: 'SHIPPING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '$ git push origin main<br>→ Vercel build passed<br>→ Production deploy: <span class="text-terminal">live</span>' },
-                        { label: 'MEETING', color: 'text-[#eab308]', dotBg: 'bg-[#eab308]', proc: '→ Client A: implementation handoff<br>→ Slack: #client-a · 12 unread<br>→ ETA back to keyboard: 18min' },
-                    ],
-                    kenji: [
-                        { label: 'CODING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '$ cursor agent --model claude-opus-4-7<br>→ Refactoring multi-agent orchestrator<br>→ <span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>' },
-                        { label: 'DEBUGGING', color: 'text-[#ef4444]', dotBg: 'bg-[#ef4444]', proc: '$ pdb attach orchestrator.py<br>→ Race condition in tool_call queue<br>→ Reproducible at concurrency=8' },
-                        { label: 'BENCHMARKING', color: 'text-sysblue', dotBg: 'bg-sysblue', proc: '→ Latency p99: <span class="text-terminal">847ms</span> → <span class="text-terminal">312ms</span><br>→ Tokens/sec +47%<br>→ Cost/req -38%' },
-                        { label: 'PAIRING', color: 'text-[#8b5cf6]', dotBg: 'bg-[#8b5cf6]', proc: '→ Pair with @sho on RAG pipeline<br>→ Tuned chunk_size=420<br>→ recall@10 holding at 0.94' },
-                        { label: 'OFFLINE', color: 'text-gray-500', dotBg: 'bg-gray-500', proc: '→ AFK · back at 14:30 JST<br>→ Notifications muted<br>→ Slack on-call rotation: @aoi' },
-                    ],
-                    sarah: [
-                        { label: 'RESEARCH', color: 'text-terminal', dotBg: 'bg-terminal', proc: '→ Tuning pgvector embeddings<br>→ Benchmarking bge-m3 vs OpenAI v3-large<br>→ recall@10: <span class="text-[#f59e0b]">0.94</span> ↑' },
-                        { label: 'WRITING', color: 'text-[#f59e0b]', dotBg: 'bg-[#f59e0b]', proc: '→ Drafting technical memo<br>→ "On hybrid retrieval for low-recall corpora"<br>→ /docs/research/2026-Q2.md' },
-                        { label: 'TRAINING', color: 'text-sysblue', dotBg: 'bg-sysblue', proc: '$ python finetune.py --base bge-m3<br>→ epoch 4/10 · loss 0.087<br>→ ETA 47min · GPU 94%' },
-                        { label: 'REVIEWING', color: 'text-[#8b5cf6]', dotBg: 'bg-[#8b5cf6]', proc: '→ Reviewing arXiv paper for <i>Anthropic</i><br>→ Long-context retrieval evaluation<br>→ 3 of 12 sections done' },
-                        { label: 'OFFLINE', color: 'text-gray-500', dotBg: 'bg-gray-500', proc: '→ Conference (NeurIPS prep)<br>→ Async-only · slow reply<br>→ Back to ops: tomorrow JST' },
-                    ],
-                    hiroto: [
-                        { label: 'CODING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '→ Streaming UI w/ Vercel AI SDK<br>→ Next.js 15 + Server Components<br>→ Lighthouse: <span class="text-terminal">98/100</span>' },
-                        { label: 'SHIPPING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '$ vercel deploy --prod<br>→ Build: 47s · Cache hit 92%<br>→ Edge regions: <span class="text-terminal">12</span> active' },
-                        { label: 'PAIRING', color: 'text-[#8b5cf6]', dotBg: 'bg-[#8b5cf6]', proc: '→ Pair with @ren on dashboard v3<br>→ Storybook stories: 47 → 64<br>→ A11y audit: AA passing' },
-                        { label: 'DEBUGGING', color: 'text-[#ef4444]', dotBg: 'bg-[#ef4444]', proc: '→ Hydration mismatch on /chat<br>→ Server vs client tz drift<br>→ Fix in PR #' + (132 + Math.floor(Math.random() * 30)) },
-                        { label: 'OFFLINE', color: 'text-gray-500', dotBg: 'bg-gray-500', proc: '→ AFK · personal time<br>→ On-call: @aoi<br>→ Back: 09:00 JST' },
-                    ],
-                    aoi: [
-                        { label: 'MONITORING', color: 'text-terminal', dotBg: 'bg-terminal', proc: '$ kubectl get pods -A<br>→ 47 pods running, 0 errors<br>→ Vercel + AWS Lambda · uptime <span class="text-terminal">99.99%</span>' },
-                        { label: 'SCALING', color: 'text-sysblue', dotBg: 'bg-sysblue', proc: '$ kubectl scale --replicas=64<br>→ Load spike from /api/chat<br>→ Auto-scale triggered · stable' },
-                        { label: 'INCIDENT', color: 'text-[#ef4444]', dotBg: 'bg-[#ef4444]', proc: '⚠ Sev-3: pgvector latency<br>→ Investigating · 8 min in<br>→ User-facing impact: minimal' },
-                        { label: 'PATCHING', color: 'text-[#f59e0b]', dotBg: 'bg-[#f59e0b]', proc: '$ terraform apply -auto-approve<br>→ AWS provider 5.x → 6.x<br>→ All envs · zero downtime' },
-                        { label: 'OFFLINE', color: 'text-gray-500', dotBg: 'bg-gray-500', proc: '→ End of shift<br>→ On-call rotation: @kenji<br>→ Pager handed off · 0 open incidents' },
-                    ],
-                    ren: [
-                        { label: 'DESIGN REVIEW', color: 'text-[#eab308]', dotBg: 'bg-[#eab308]', proc: '→ Figma: LLM Dashboard v3<br>→ 47 components, 12 prototypes<br>→ Handoff to <span class="text-[#ec4899]">Hiroto</span> in 2h' },
-                        { label: 'PROTOTYPING', color: 'text-[#f24e1e]', dotBg: 'bg-[#f24e1e]', proc: '→ Figma · Streaming chat UX<br>→ 3 variants in test<br>→ Token-cursor animation tuned' },
-                        { label: 'ITERATING', color: 'text-[#ec4899]', dotBg: 'bg-[#ec4899]', proc: '→ Color tokens v2 (terminal+sysblue)<br>→ Dark-mode WCAG 4.5:1 ✓<br>→ Pushing to design system repo' },
-                        { label: 'PAIRING', color: 'text-[#8b5cf6]', dotBg: 'bg-[#8b5cf6]', proc: '→ Pair w/ @hiroto on micro-interactions<br>→ Spring physics tuned<br>→ Reduced motion fallback OK' },
-                        { label: 'OFFLINE', color: 'text-gray-500', dotBg: 'bg-gray-500', proc: '→ Studio day · async<br>→ Slack DM only<br>→ Back: tomorrow morning' },
-                    ],
-                };
-                const seeds = { sho: 0, kenji: 2, sarah: 5, hiroto: 7, aoi: 11, ren: 13 };
-
-                function getEpochHour() { return Math.floor(Date.now() / 3600000); }
-                function applyAll() {
-                    const eh = getEpochHour();
-                    Object.keys(teamStates).forEach(name => {
-                        const states = teamStates[name];
-                        const idx = (eh + seeds[name]) % states.length;
-                        const s = states[idx];
-                        const status = $(`${name}-status`), dot = $(`${name}-dot`), proc = $(`${name}-process`);
-                        if (status) {
-                            status.textContent = '● ' + s.label;
-                            status.className = 'text-[9px] font-mono ' + s.color;
-                        }
-                        if (dot) dot.className = 'absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-surface ai-pulse ' + s.dotBg;
-                        if (proc) proc.innerHTML = s.proc;
-                    });
-                }
-                applyAll();
-                // Re-check each minute — flips state when the hour rolls over
-                let lastHour = getEpochHour();
-                setInterval(() => {
-                    const eh = getEpochHour();
-                    if (eh !== lastHour) { lastHour = eh; applyAll(); }
-                }, 60000);
-            })();
-
-            // === DASHBOARD HUD jitter ===
-            (function() {
-                const load = $('dash-load'), queue = $('dash-queue');
-                const loads = ['NORMAL', 'NORMAL', 'NORMAL', 'ELEVATED', 'NORMAL'];
-                let q = 0;
-                setInterval(() => {
-                    if (load) {
-                        const l = loads[Math.floor(Math.random() * loads.length)];
-                        load.textContent = l;
-                        load.className = l === 'ELEVATED' ? 'text-[#f59e0b]' : 'text-terminal';
-                    }
-                    if (queue) {
-                        q = Math.floor(Math.random() * 4);
-                        queue.textContent = q;
-                        queue.className = q > 2 ? 'text-[#f59e0b]' : 'text-white';
-                    }
-                }, 2400);
-            })();
-
-            // === ACTIVE EXECUTION STATE: live progress + commit times ===
-            const projects = [
-                { id: 1, base: 78, drift: 0.04, max: 92, times: ['12m ago', '8m ago', '4m ago', 'just now', '1m ago', '3m ago'] },
-                { id: 2, base: 45, drift: 0.06, max: 71, times: ['2h ago', '1h ago', '47m ago', '23m ago', '12m ago', '4m ago'] },
-                { id: 3, base: 99, drift: 0.01, max: 100, times: [], statuses: ['Deploying', 'Pushing', 'Verifying', 'Health check', 'Warming pods'] },
-                { id: 4, base: 12, drift: 0.08, max: 31, times: ['1d ago', '14h ago', '6h ago', '2h ago', '38m ago', '11m ago'] },
-            ];
-
-            projects.forEach(p => {
-                const pct = $(`prj${p.id}-pct`);
-                const bar = $(`prj${p.id}-bar`);
-                const time = $(`prj${p.id}-time`);
-                const status = $(`prj${p.id}-status`);
-                let cur = p.base;
-                let timeIdx = 0;
-                setInterval(() => {
-                    if (Math.random() > 0.55 && cur < p.max) {
-                        cur = Math.min(p.max, cur + Math.random() * 0.8);
-                        if (pct) pct.textContent = Math.round(cur);
-                        if (bar) bar.style.width = cur + '%';
-                    }
-                    if (time && p.times.length && Math.random() > 0.7) {
-                        timeIdx = (timeIdx + 1) % p.times.length;
-                        time.textContent = p.times[timeIdx];
-                        time.style.transition = 'color 0.3s';
-                        time.style.color = '#00ff88';
-                        setTimeout(() => time.style.color = '', 600);
-                    }
-                    if (status && p.statuses && Math.random() > 0.6) {
-                        const s = p.statuses[Math.floor(Math.random() * p.statuses.length)];
-                        status.innerHTML = s + '<span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span>';
-                    }
-                }, 1800 + p.id * 400);
-            });
-
-            // === SLACK FEED: append new messages, typing indicator, reactions ===
-            const slackFeed = $('slack-feed');
-            const slackTemplates = [
-                { avatar: 'team/hiroto.jpg', name: 'Hiroto Yamazaki', text: 'SSE 化のあと token-by-token の体感が完全に別物。<span class="font-mono text-terminal">first-byte 47ms</span>。あとはバッファ詰まり対策だけ' },
-                { avatar: null, name: 'GitHub', bot: true, color: 'text-terminal', text: '<span class="font-mono text-sysblue">PR #<span class="pr-rotate">132</span></span> opened by <span class="font-mono">@hiroto</span><br><span class="text-[11px] text-gray-500">+247 −89 · 4 files · ready for review</span>' },
-                { avatar: 'team/sarah.jpg', name: 'Dr. Sarah Lindqvist', text: 'HNSW rebuild done. recall@10 <span class="font-mono text-[#f59e0b]">0.91 → 0.94</span>. M=24 / ef_construction=200 — no latency regression' },
-                { avatar: 'team/aoi.jpg', name: 'Aoi Nakamura', text: 'cold start アラート、provisioned concurrency 当ててから誤検知ゼロ。p99 <span class="font-mono text-terminal">380ms</span> 安定' },
-                { avatar: null, name: 'Sentry', bot: true, color: 'text-[#f59e0b]', icon: 'ph-warning-octagon', iconColor: 'text-[#f59e0b]', text: '<span class="font-mono text-[#f59e0b]">⚠ severity:low</span> in <span class="font-mono">veritas-api</span>: upstream Anthropic API rate limit (retry-after honored, no user impact)' },
-                { avatar: 'team/sho.jpg', name: 'Sho Chizawa', text: 'B社、要件定義スキップして既存業務オペそのまま RAG 化する方針に変えた。動くもの先に出した方が議論早い。<span class="text-sysblue">@kenji</span> spike お願い' },
-                { avatar: 'team/kenji.jpg', name: 'Kenji Tanaka', text: '了解。Cursor agent に投げて PoC スケルトン上げます。明日の朝には触れる状態にする' },
-                { avatar: 'team/ren.jpg', name: 'Ren Fujimoto', text: 'token-cursor の点滅、step-end じゃなくて spring physics に変えたら自然になった → <span class="text-sysblue underline cursor-pointer">/files/dashboard-v3</span>' },
-                { avatar: 'team/sarah.jpg', name: 'Dr. Sarah Lindqvist', text: 'Running long-horizon evals on Claude Opus 4.7. Interim: <span class="font-mono text-terminal">+23%</span> on multi-step reasoning. 4× cost — needs discussion before we route prod traffic' },
-                { avatar: null, name: 'GitHub', bot: true, color: 'text-terminal', text: '<span class="font-mono text-sysblue">PR #<span class="pr-rotate">132</span></span> merged by <span class="font-mono">@sarah</span><br><span class="text-[11px] text-gray-500">feat: hybrid retriever (BM25 + dense) for /chat</span>' },
-                { avatar: 'team/aoi.jpg', name: 'Aoi Nakamura', text: 'k8s 自動スケール、64 pods で頭打ち。HPA の cpu 閾値を 60 → 70 に上げて余裕作っときます' },
-                { avatar: 'team/hiroto.jpg', name: 'Hiroto Yamazaki', text: 'useChat の AbortController バグ、自前で wrapper 書いて解決。同じハマり方してる人いそうなので gist に上げます' },
-                { avatar: 'team/sho.jpg', name: 'Sho Chizawa', text: '今週の inference cost、推定の <span class="font-mono text-terminal">62%</span>。Haiku 4.5 ルーティングが効いてる。Opus 必要なやつだけ昇格させる方針継続' },
-                { avatar: 'team/kenji.jpg', name: 'Kenji Tanaka', text: 'tool_call メモ化、本番で平均 2.3 → 1.1 calls/turn に圧縮。地味に latency と cost 両方効く' },
-                { avatar: null, name: 'Sentry', bot: true, color: 'text-[#f59e0b]', icon: 'ph-warning-octagon', iconColor: 'text-[#f59e0b]', text: '<span class="font-mono text-[#f59e0b]">⚠ severity:medium</span> embedding batch memory spike (>2GB) — batch size halved, mitigated' },
-            ];
-
-            const typingNames = ['Sarah', 'Kenji', 'Hiroto', 'Aoi', 'Sho', 'Ren'];
-            const typingIndicator = $('typing-indicator');
-            const typingNameEl = $('typing-name');
-
-            function showTyping() {
-                if (!typingIndicator || !typingNameEl) return;
-                typingNameEl.textContent = typingNames[Math.floor(Math.random() * typingNames.length)];
-                typingIndicator.style.opacity = '1';
-                setTimeout(() => typingIndicator.style.opacity = '0', 2200 + Math.random() * 1500);
-            }
-
-            let slackIdx = 0;
-            let prNum = 132;
-            function appendSlackMsg() {
-                if (!slackFeed) return;
-                showTyping();
-                setTimeout(() => {
-                    const t = slackTemplates[slackIdx % slackTemplates.length];
-                    slackIdx++;
-                    const now = new Date();
-                    const ts = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
-                    const div = document.createElement('div');
-                    div.className = 'flex gap-4 slack-msg';
-                    div.style.opacity = '0';
-                    div.style.transform = 'translateY(8px)';
-                    div.style.transition = 'opacity 0.4s, transform 0.4s';
-
-                    let avatarHtml;
-                    if (t.bot) {
-                        const ic = t.icon || 'ph-github-logo';
-                        const icCol = t.iconColor || 'text-terminal';
-                        avatarHtml = `<div class="w-10 h-10 rounded shadow-sm shrink-0 bg-terminal/20 flex items-center justify-center border border-terminal/30"><i class="ph-fill ${ic} ${icCol} text-xl"></i></div>`;
-                    } else {
-                        avatarHtml = `<img src="${t.avatar}" alt="${t.name}" class="w-10 h-10 rounded shadow-sm shrink-0">`;
-                    }
-
-                    const text = t.text.replace('<span class="pr-rotate">132</span>', `<span class="pr-rotate">${prNum++}</span>`);
-
-                    div.innerHTML = `
-                        ${avatarHtml}
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-baseline gap-2 mb-1 flex-wrap">
-                                <span class="font-bold font-mono ${t.bot ? (t.color || 'text-terminal') : ''}">${t.name}</span>
-                                <span class="text-gray-500 font-mono text-[10px]">${ts}</span>
-                                ${t.bot ? '<span class="bg-gray-800 text-[9px] px-1 rounded text-gray-400">APP</span>' : ''}
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">${text}</p>
-                        </div>
-                    `;
-                    slackFeed.appendChild(div);
-                    requestAnimationFrame(() => {
-                        div.style.opacity = '1';
-                        div.style.transform = 'translateY(0)';
-                    });
-                    slackFeed.scrollTop = slackFeed.scrollHeight;
-                    while (slackFeed.children.length > 14) slackFeed.removeChild(slackFeed.firstChild);
-                }, 1800);
-            }
-            setInterval(appendSlackMsg, 6500);
-
-            // Reaction counters tick up
-            ['rx-rocket', 'rx-fire', 'rx-eyes'].forEach((id, i) => {
-                const el = $(id);
-                if (!el) return;
-                let v = parseInt(el.textContent);
-                setInterval(() => {
-                    if (Math.random() > 0.7) {
-                        v++;
-                        el.textContent = v;
-                        el.style.transition = 'color 0.3s, transform 0.3s';
-                        el.style.color = '#00ff88';
-                        el.style.transform = 'scale(1.3)';
-                        setTimeout(() => {
-                            el.style.color = '';
-                            el.style.transform = 'scale(1)';
-                        }, 400);
-                    }
-                }, 4000 + i * 1500);
-            });
-
-            // (Roadmap progress is now deterministic per sprint day — no live drift)
-
-            // Roadmap sync timestamp — only thing that ticks (cosmetic)
-            (function() {
-                const sync = $('rm-sync');
-                if (!sync) return;
-                const syncMsgs = ['just now', '12s ago', '34s ago', '1m ago', '2m ago'];
-                let syncIdx = 0;
-                setInterval(() => {
-                    syncIdx = (syncIdx + 1) % syncMsgs.length;
-                    sync.textContent = syncMsgs[syncIdx];
-                }, 8000);
-            })();
-
-            // AI stream — append new lines occasionally
-            const stream = $('ai-stream');
-            if (stream) {
-                const messages = [
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-sysblue">gpt-5</span> → vision input received, parsing image...',
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-[#f59e0b]">gemini-3.1-pro</span> → loading 487K context window',
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-[#ec4899]">grok-4.20</span> → spawned 16 parallel agents',
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-terminal">orchestrator</span> route.classify → cost-optimized: deepseek-v3',
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-sysblue">claude-opus-4-7</span> → tool_call: search_codebase("RAG pipeline")',
-                    '<span class="text-gray-500">[NEW]</span> <span class="text-terminal">success</span> response.length=1247, latency=1.8s, cost=$0.024',
-                ];
-                let idx = 0;
-                setInterval(() => {
-                    const div = document.createElement('div');
-                    const now = new Date();
-                    const ts = now.toTimeString().slice(0, 8);
-                    div.innerHTML = messages[idx % messages.length].replace('[NEW]', `[${ts}]`);
-                    div.style.opacity = '0';
-                    div.style.transition = 'opacity 0.4s';
-                    stream.appendChild(div);
-                    requestAnimationFrame(() => div.style.opacity = '1');
-                    // Keep only last 10
-                    while (stream.children.length > 10) stream.removeChild(stream.firstChild);
-                    idx++;
-                }, 2200);
             }
         });
     </script>
