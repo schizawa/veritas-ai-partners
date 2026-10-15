@@ -10,7 +10,9 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     <title>About | Veritas AI Partners</title>
     <meta name="description" content="Veritas AI Partners の会社概要。AIの戦略を考える人と実際に作る人が同じ、フェリデンシア・キャピタルのAI実装事業です。代表プロフィール、使用モデル、技術構成を掲載しています。">
     <link rel="canonical" href="https://veritasai.jp/about.html">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0e'/%3E%3Ctext x='6' y='22' font-family='monospace' font-size='16' fill='%2300ff88'%3E%26%238250;_%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/veritas-eagle-icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,6 +72,12 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
         .tl-dot::after { content: ''; width: 7px; height: 7px; background: #3b82f6; border-radius: 50%; }
         .tl-dot.terminal::after { background: #00ff88; box-shadow: 0 0 10px #00ff88; }
     </style>
+    <link rel="stylesheet" href="assets/brand/brand.css">
+    <meta property="og:image" content="https://veritasai.jp/assets/brand/veritas-social-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Veritas AI Partners — eagle and wordmark">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="relative min-h-screen flex flex-col font-sans">
     <canvas id="neural-bg" aria-hidden="true"></canvas>
@@ -87,13 +95,13 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-grid-pattern bg-grid opacity-[0.15]"></div>
 
     <!-- Top Bar -->
-    <header class="fixed top-0 w-full bg-void/90 backdrop-blur-md border-b border-line z-50">
-        <div class="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="text-white font-bold text-sm font-sans tracking-wide hover:text-terminal transition-colors">VERITAS AI PARTNERS</a>
-                <span class="hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">/about</span>
+    <header class="brand-header fixed top-0 w-full bg-void/90 backdrop-blur-md border-b border-line z-50">
+        <div class="brand-bar max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
+            <div class="brand-group flex items-center gap-4">
+                <a href="index.html" class="brand-link" aria-label="Veritas AI Partners ホーム"><img class="brand-logo" src="assets/brand/veritas-logo-b-white.svg" alt="Veritas AI Partners" width="885" height="187" fetchpriority="high"></a>
+                <span class="brand-version hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">/about</span>
             </div>
-            <nav class="hidden md:flex items-center gap-6">
+            <nav class="brand-desktop-nav hidden xl:flex items-center gap-6">
                 <a href="index.html#dashboard" class="hover:text-white transition-colors">Dashboard</a>
                 <a href="index.html#services" class="hover:text-white transition-colors">Services</a>
                 <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
@@ -106,13 +114,13 @@ Plan A: Veritas brand under Felidentia Capital (持株会社)
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
                     <span class="tracking-wider">SYSTEM ONLINE</span>
                 </div>
-                <button id="mobile-menu-toggle" class="md:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
+                <button id="mobile-menu-toggle" class="xl:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
                     <i class="ph-bold ph-list text-2xl"></i>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu Drawer -->
-        <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
+        <div id="mobile-menu" class="xl:hidden hidden border-t border-line bg-void/95 backdrop-blur-md">
             <nav class="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
                 <a href="index.html" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Home</a>
                 <a href="index.html#dashboard" class="py-2.5 text-gray-300 hover:text-white border-b border-line">> Dashboard</a>
