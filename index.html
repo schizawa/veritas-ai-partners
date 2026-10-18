@@ -361,6 +361,219 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
 @media (max-width:767px){#sysmodal .panel{max-height:100vh;border-radius:0;margin:0}}
 @media (prefers-reduced-motion:reduce){.mini .bub,.mini .row,.mini .mail,.mini .post{opacity:1;transform:none;transition:none}.mini .prog i,.mini .chart b{transition:none}}
     </style>
+    <style>
+/* === v3.1: command palette, wiring diagrams, open-studio git line, phone carousel, LINE / helpdesk / cockpit skins === */
+/* --- command palette --- */
+#pal{position:fixed;inset:0;z-index:120;display:none}
+#pal.open{display:block}
+#pal .bg{position:absolute;inset:0;background:rgba(10,10,14,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#pal .box{position:relative;margin:10vh auto 0;width:min(680px,calc(100% - 32px));background:#13131a;border:1px solid #2a2a38;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;transform:translateY(8px);opacity:0;transition:transform .18s ease,opacity .18s ease;display:flex;flex-direction:column}
+#pal.open .box{transform:none;opacity:1}
+#pal .in{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #22222f;flex-shrink:0}
+#pal .in>i{color:#00ff88;font-size:18px}
+#pal input{flex:1;background:transparent;border:0;outline:0;color:#fff;font:inherit;font-size:16px;min-width:0}
+#pal input::placeholder{color:#4b5563}
+#pal .in .esc{font:inherit;font-size:10px;color:#6b7280;border:1px solid #2a2a38;border-radius:4px;padding:2px 6px;white-space:nowrap;background:transparent;cursor:pointer}
+#pal .in .esc:focus-visible{outline:2px solid rgba(0,255,136,.6)}
+#pal .out{border-bottom:1px solid #22222f;padding:10px 14px;font-size:12px;color:#9ca3af;max-height:220px;overflow-y:auto;line-height:1.7;overscroll-behavior:contain;flex-shrink:0}
+#pal .out:empty{display:none}
+#pal .out .text-terminal{color:#00ff88}#pal .out .text-sysblue{color:#3b82f6}#pal .out .text-gray-500{color:#6b7280}
+#pal .out pre{white-space:pre-wrap;font-size:11px;line-height:1.5;margin:0}
+#pal .chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px 2px;flex-shrink:0}
+#pal .chips button{font:inherit;font-size:11px;color:#9ca3af;border:1px solid #2a2a38;border-radius:999px;padding:4px 10px;background:transparent;cursor:pointer}
+#pal .chips button:hover,#pal .chips button:active,#pal .chips button:focus-visible{color:#00ff88;border-color:rgba(0,255,136,.5);outline:0}
+#pal .list{max-height:min(50vh,400px);overflow-y:auto;padding:6px;overscroll-behavior:contain}
+#pal .grp{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6b7280;padding:8px 10px 4px}
+#pal .it{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:6px;cursor:pointer;color:#d1d5db;min-height:44px}
+#pal .it>i{color:#6b7280;font-size:16px;width:18px;text-align:center;flex-shrink:0}
+#pal .it .t{flex:1;min-width:0}
+#pal .it .t b{display:block;font-weight:500;color:#fff;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pal .it .t small{display:block;color:#6b7280;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pal .it kbd{font-size:10px;color:#6b7280;border:1px solid #2a2a38;border-radius:4px;padding:1px 6px;white-space:nowrap}
+#pal .it.on{background:#1c1c28;color:#fff}
+#pal .it.on>i,#pal .it.on kbd{color:#00ff88;border-color:rgba(0,255,136,.4)}
+#pal .ft{display:flex;gap:14px;padding:8px 14px;border-top:1px solid #22222f;font-size:10px;color:#6b7280;flex-wrap:wrap;flex-shrink:0}
+#pal .ft kbd{border:1px solid #2a2a38;border-radius:3px;padding:0 4px;color:#9ca3af;margin-right:2px}
+#pal .none{padding:18px 10px;color:#9ca3af;font-size:12px;text-align:center;line-height:1.9}
+#pal .none a{color:#00ff88;text-decoration:underline;text-underline-offset:3px}
+#pal .none .dim{color:#6b7280;font-size:11px}
+#pal-btn{display:none}
+@media (min-width:640px){#pal-btn{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #22222f;border-radius:999px;color:#9ca3af;font-size:11px;background:#13131a;transition:border-color .2s,color .2s;cursor:pointer}#pal-btn:hover{color:#fff;border-color:#4b5563}#pal-btn kbd{font-size:10px;border:1px solid #2a2a38;border-radius:3px;padding:0 4px}}
+@media (max-width:639px){#pal .box{margin:0;width:100%;height:100%;border-radius:0;border:0;transform:translateY(12px)}#pal.open .box{transform:none}#pal .list{max-height:none;flex:1}#pal .in{padding-top:max(12px,env(safe-area-inset-top))}#pal .ft{display:none}#pal .out{max-height:42vh}}
+body.pal-open{overflow:hidden}
+/* --- wiring diagram (detail view) --- */
+.wire-box{margin-top:14px;border:1px solid #22222f;border-radius:6px;background:#0a0a0e;padding:12px 12px 8px;position:relative;overflow:hidden}
+.wire-box .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin-bottom:8px}
+.wire-box .hd span{white-space:nowrap}
+@media (max-width:639px){.wire-box .hd span:last-child{display:none}.wire-box .hd{letter-spacing:.06em}}
+.wire-box svg{display:block;width:100%;max-width:860px;height:auto;margin:0 auto;font-family:'JetBrains Mono',ui-monospace,monospace}
+.wire-box svg.v{display:none}
+@media (max-width:639px){.wire-box svg.h{display:none}.wire-box svg.v{display:block}}
+.wire-box .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
+.wire-box .lg{display:flex;gap:12px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;color:#9ca3af;margin-top:8px}
+.wire-box .lg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.wire-box .node rect{fill:#13131a;stroke:#2a2a38;stroke-width:1}
+.wire-box .node.ai rect{stroke:rgba(0,255,136,.7)}.wire-box .node.human rect{stroke:rgba(234,179,8,.75)}.wire-box .node.rule rect{stroke:rgba(156,163,175,.55)}.wire-box .node.src rect,.wire-box .node.out rect{stroke:rgba(59,130,246,.65)}.wire-box .node.store rect{stroke:rgba(168,85,247,.6)}
+.wire-box .node text{fill:#e5e7eb;font-size:11px}
+.wire-box .node .k{fill:#6b7280;font-size:8px;letter-spacing:.12em}
+.wire-box .node .s{fill:#9ca3af;font-size:8.5px}
+.wire-box svg.v .node .k{font-size:10px}.wire-box svg.v .node .l{font-size:13.5px}.wire-box svg.v .node .s{font-size:11px}.wire-box svg.v .elabel{font-size:10.5px}
+.wire-box .node.ai .k{fill:#00ff88}.wire-box .node.human .k{fill:#fcd34d}.wire-box .node.src .k,.wire-box .node.out .k{fill:#93c5fd}.wire-box .node.store .k{fill:#c084fc}
+.wire-box .edge{fill:none;stroke:#2f2f3d;stroke-width:1.5}
+.wire-box .edge.h{stroke-dasharray:3 3;stroke:rgba(234,179,8,.55)}
+.wire-box .pk{fill:#00ff88;filter:drop-shadow(0 0 4px #00ff88)}
+.wire-box .pk.h{fill:#fcd34d;filter:drop-shadow(0 0 4px #fcd34d)}
+.wire-box .elabel{fill:#9ca3af;font-size:8.5px;paint-order:stroke;stroke:#0a0a0e;stroke-width:3px;stroke-linejoin:round}
+@media (prefers-reduced-motion:reduce){.wire-box .pk{display:none}}
+/* --- open studio: static line, time and sha filled in from the public repo (no layout shift) --- */
+#gitline{display:flex;margin-top:12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#9ca3af;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.6;min-height:1.6em}
+#gitline>i{color:#3b82f6;font-size:14px}
+#gitline .ago{color:#00ff88;min-width:9.5em}
+#gitline .sha{color:#3b82f6;min-width:4.5em;text-decoration:none}
+#gitline a{color:#9ca3af;text-decoration:underline;text-underline-offset:3px}#gitline a:hover{color:#fff}#gitline a.sha{color:#3b82f6;text-decoration:none}
+/* --- big preview controls --- */
+.mini.big .bar .ctl{margin-left:auto;display:flex;gap:4px}
+.mini.big .bar .ctl button{font:inherit;color:#9ca3af;border:1px solid #2a2a38;border-radius:4px;padding:0 7px;line-height:16px;font-size:10px;background:transparent;cursor:pointer}
+.mini.big .bar .ctl button:hover,.mini.big .bar .ctl button:active{color:#00ff88;border-color:rgba(0,255,136,.5)}
+.mini.big .bar .zoom{margin-left:0}
+.mini .body.bleed{padding:0}
+#sysmodal .panel,#pal .list{overscroll-behavior:contain}
+@media (max-width:767px){#sysmodal .panel{max-height:100dvh}}
+/* --- phones: Systems is a swipe carousel of full-width cards with large previews --- */
+#repos-dots{display:none}
+@media (max-width:639px){
+#repos .grid{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -24px;padding:6px 24px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+#repos .grid::-webkit-scrollbar{display:none}
+#repos .grid>[data-sys]{flex:0 0 calc(100% - 20px);max-width:420px;scroll-snap-align:center;transition:border-color .2s}
+#repos-dots{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:2px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;color:#6b7280}
+#repos-dots i{width:6px;height:6px;border-radius:50%;background:#2a2a38;transition:background .2s,transform .2s}
+#repos-dots i.on{background:#00ff88;transform:scale(1.35)}
+#repos-dots span{margin-left:8px}
+}
+@media (pointer:coarse){.tilt{transition:border-color .2s}.tilt:active{transform:scale(.985)!important}}
+/* --- LINE skin (dark theme look-alike; example data) --- */
+.mini .line{display:flex;flex-direction:column;height:100%;overflow:hidden;background:#111c2a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;font-size:10.5px;line-height:1.45}
+.mini .line .lh{display:flex;align-items:center;gap:6px;padding:3px 7px;background:#0d1621;border-bottom:1px solid #1f2d3f;color:#e5e7eb;font-weight:600;flex-shrink:0;white-space:nowrap;overflow:hidden}
+.mini .line .av{width:14px;height:14px;border-radius:50%;background:#06c755;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:8px;font-weight:700;flex-shrink:0}
+.mini .line .lh .st{margin-left:auto;font-weight:400;color:#6b7280;font-size:9px;overflow:hidden;text-overflow:ellipsis}
+.mini .line .lc{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:5px 6px;overflow:hidden}
+.mini .line .msg{display:flex;align-items:flex-end;gap:4px;max-width:92%;opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.mini .line .msg.in{opacity:1;transform:none}
+.mini .line .msg.u{align-self:flex-end;flex-direction:row-reverse}
+.mini .line .msg .bb{padding:4px 7px;border-radius:12px;color:#fff;background:#2a3441;min-width:0}
+.mini .line .msg.u .bb{background:#06c755;color:#06260f;border-bottom-right-radius:3px}
+.mini .line .msg.a .bb{border-bottom-left-radius:3px}
+.mini .line .msg.a.h .bb{background:#3a3220;border:1px solid rgba(234,179,8,.5)}
+.mini .line .msg .tm{font-size:8px;color:#6b7280;white-space:nowrap;line-height:1.25;flex-shrink:0}
+.mini .line .msg .tm b{display:block;font-weight:400}
+.mini .line .typing{display:inline-flex;gap:3px;padding:6px 8px}
+.mini .line .typing i{width:4px;height:4px;border-radius:50%;background:#9ca3af;animation:thinking 1.2s ease-in-out infinite}
+.mini .line .typing i:nth-child(2){animation-delay:.2s}.mini .line .typing i:nth-child(3){animation-delay:.4s}
+.mini .line .ref{display:inline-block;margin:3px 3px 0 0;padding:0 6px;border:1px solid rgba(147,197,253,.5);color:#93c5fd;border-radius:999px;font-size:8.5px}
+.mini .line .msg.a.h .ref{border-color:rgba(234,179,8,.6);color:#fcd34d}
+.mini .line .lf{display:flex;align-items:center;gap:6px;padding:3px 7px;background:#0d1621;border-top:1px solid #1f2d3f;color:#4b5563;font-size:9px;flex-shrink:0}
+.mini .line .lf .ip{flex:1;border:1px solid #1f2d3f;border-radius:999px;padding:1px 7px;background:#111c2a}
+.mini.big .line{font-size:13px}
+.mini.big .line .lh{padding:6px 12px}.mini.big .line .av{width:22px;height:22px;font-size:11px}.mini.big .line .lh .st{font-size:11px}
+.mini.big .line .lc{padding:10px 12px;gap:8px}
+.mini.big .line .msg{gap:6px;max-width:82%}
+.mini.big .line .msg .bb{padding:7px 12px;border-radius:16px}
+.mini.big .line .msg .tm{font-size:10px}
+.mini.big .line .ref{font-size:11px;padding:1px 9px;margin-top:5px}
+.mini.big .line .lf{padding:7px 12px;font-size:12px}.mini.big .line .lf .ip{padding:3px 10px}
+/* --- helpdesk (ticket) skin --- */
+.mini .tk{display:flex;height:100%;font-family:Inter,-apple-system,"Hiragino Sans",sans-serif;font-size:10px;line-height:1.45}
+.mini .tk .tl{width:38%;border-right:1px solid #22222f;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.mini .tk .tl .th{padding:3px 6px;font-size:8px;letter-spacing:.1em;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #1a1a24;white-space:nowrap}
+.mini .tk .tl .ti{display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid #1a1a24;color:#9ca3af;white-space:nowrap;overflow:hidden;opacity:0;transition:opacity .25s,background .25s}
+.mini .tk .tl .ti.in{opacity:1}
+.mini .tk .tl .ti.on{background:#161622;color:#fff}
+.mini .tk .tl .ti .t{flex:1;overflow:hidden;text-overflow:ellipsis}
+.mini .tk .pill{font-size:7.5px;font-weight:700;letter-spacing:.06em;padding:0 5px;border-radius:3px;color:#fff;text-transform:uppercase;flex-shrink:0;transition:background .3s}
+.mini .tk .pill.new{background:#ff6224}.mini .tk .pill.open{background:#e34f32}.mini .tk .pill.pend{background:#3091ec}.mini .tk .pill.solv{background:#6b7280}
+.mini .tk .tr{flex:1;display:flex;flex-direction:column;padding:4px 7px;gap:4px;overflow:hidden;min-width:0}
+.mini .tk .tr .sub{color:#fff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .tk .tr .meta{color:#6b7280;font-size:8.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .tk .draft{border:1px solid rgba(0,255,136,.35);border-radius:4px;padding:4px 6px;background:rgba(0,255,136,.04);color:#d1d5db;flex:1;overflow:hidden;min-height:0;opacity:0;transition:opacity .3s}
+.mini .tk .draft.in{opacity:1}
+.mini .tk .draft .lbl{font-size:8px;letter-spacing:.1em;color:#00ff88;text-transform:uppercase;margin-bottom:2px;display:flex;justify-content:space-between;gap:6px;white-space:nowrap}
+.mini .tk .draft .lbl .st{color:#6b7280;text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis}
+.mini .tk .act{display:flex;gap:4px;justify-content:flex-end;flex-shrink:0}
+.mini .tk .act button{font:inherit;font-size:9px;padding:2px 7px;border-radius:3px;border:1px solid #2a2a38;color:#9ca3af;background:transparent;transition:background .25s,color .25s;white-space:nowrap}
+.mini .tk .act button.pri{border-color:rgba(0,255,136,.6);color:#00ff88}
+.mini .tk .act button.hit{background:#00ff88;color:#0a0a0e}
+.mini.big .tk{font-size:13px}.mini.big .tk .tl .th{padding:6px 10px;font-size:10px}.mini.big .tk .tl .ti{padding:8px 10px}.mini.big .tk .pill{font-size:9.5px;padding:1px 7px}.mini.big .tk .tr{padding:10px 14px;gap:8px}.mini.big .tk .tr .meta{font-size:11px}.mini.big .tk .draft{padding:8px 10px}.mini.big .tk .draft .lbl{font-size:10px}.mini.big .tk .act button{font-size:12px;padding:5px 12px}
+@media (max-width:420px){.mini:not(.big):not(.lg) .tk .tl{width:34%}}
+/* --- cockpit (dashboard) skin --- */
+.mini .ck{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr auto;gap:4px;height:100%;font-family:Inter,-apple-system,"Hiragino Sans",sans-serif}
+.mini .ck .tile{border:1px solid #22222f;border-radius:4px;padding:2px 6px;background:#0f0f16;display:flex;flex-direction:column;justify-content:center;min-width:0;min-height:0;transition:border-color .35s,background .35s;overflow:hidden}
+.mini .ck .tile .k{font-size:8px;letter-spacing:.1em;color:#6b7280;text-transform:uppercase;display:flex;align-items:center;gap:4px;line-height:1.3}
+.mini .ck .tile .k i{width:7px;height:7px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px #00ff88;transition:background .35s,box-shadow .35s;flex-shrink:0}
+.mini .ck .tile.w{border-color:rgba(234,179,8,.5)}.mini .ck .tile.w .k i{background:#eab308;box-shadow:0 0 6px #eab308}
+.mini .ck .tile.r{border-color:rgba(239,68,68,.6);background:rgba(239,68,68,.06)}.mini .ck .tile.r .k i{background:#ef4444;box-shadow:0 0 6px #ef4444}
+.mini .ck .tile .v{font-size:11px;color:#fff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.mini .ck .tile .n{display:none;font-size:11px;color:#9ca3af;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .ck .tile.r .n{color:#fca5a5}.mini .ck .tile.w .n{color:#fcd34d}
+.mini .ck .sp{grid-column:1 / -1;border:1px solid #22222f;border-radius:4px;background:#0f0f16;padding:2px 6px;display:flex;align-items:center;gap:6px;min-height:0;overflow:hidden}
+.mini .ck .sp .k{font-size:8px;color:#6b7280;letter-spacing:.08em;white-space:nowrap}
+.mini .ck .sp svg{flex:1;height:20px;min-width:0}
+.mini .ck .sp path{fill:none;stroke:#3b82f6;stroke-width:1.5;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.6s ease}
+.mini .ck .sp path.in{stroke-dashoffset:0}
+.mini .ck .sp .ft{font-size:8px;color:#6b7280;white-space:nowrap}
+.mini.big .ck{gap:8px}.mini.big .ck .tile{padding:8px 12px}.mini.big .ck .tile .k{font-size:10px}.mini.big .ck .tile .v{font-size:17px}.mini.big .ck .tile .n{display:block}.mini.big .ck .sp{padding:6px 12px}.mini.big .ck .sp svg{height:44px}.mini.big .ck .sp .k,.mini.big .ck .sp .ft{font-size:10px}
+@media (prefers-reduced-motion:reduce){.mini .line .msg,.mini .tk .tl .ti,.mini .tk .draft{opacity:1;transform:none;transition:none}.mini .ck .sp path{stroke-dashoffset:0;transition:none}.mini .line .typing i{animation:none}#pal .box{transition:none}}
+    </style>
+    <style>
+/* phones: the card previews use the big sizes (generated from every .mini.big rule) */
+@media (max-width:639px){
+.mini.lg{height:280px;font-size:13px;margin:0}
+.mini.lg .bar{height:26px;font-size:11px}
+.mini.lg .body{height:253px;padding:12px 14px;gap:7px}
+.mini.lg .chat{gap:7px}
+.mini.lg .bub{padding:6px 11px;border-radius:12px;max-width:80%}
+.mini.lg .chip{font-size:11px;padding:0 8px}
+.mini.lg .badge{font-size:11px;padding:1px 8px}
+.mini.lg .row{min-height:22px;gap:10px}
+.mini.lg .dot{width:9px;height:9px}
+.mini.lg .prog{height:5px}
+.mini.lg .chart{height:150px;gap:12px}
+.mini.lg .clock{font-size:40px;padding:14px 0}
+.mini.lg .mail,.mini.lg .post{padding:6px 10px}
+.mini.lg .bar .ctl{margin-left:auto;display:flex;gap:4px}
+.mini.lg .bar .ctl button{font:inherit;color:#9ca3af;border:1px solid #2a2a38;border-radius:4px;padding:0 7px;line-height:16px;font-size:10px;background:transparent;cursor:pointer}
+.mini.lg .bar .ctl button:hover,.mini.lg .bar .ctl button:active{color:#00ff88;border-color:rgba(0,255,136,.5)}
+.mini.lg .bar .zoom{margin-left:0}
+.mini.lg .line{font-size:13px}
+.mini.lg .line .lh{padding:6px 12px}
+.mini.lg .line .av{width:22px;height:22px;font-size:11px}
+.mini.lg .line .lh .st{font-size:11px}
+.mini.lg .line .lc{padding:10px 12px;gap:8px}
+.mini.lg .line .msg{gap:6px;max-width:82%}
+.mini.lg .line .msg .bb{padding:7px 12px;border-radius:16px}
+.mini.lg .line .msg .tm{font-size:10px}
+.mini.lg .line .ref{font-size:11px;padding:1px 9px;margin-top:5px}
+.mini.lg .line .lf{padding:7px 12px;font-size:12px}
+.mini.lg .line .lf .ip{padding:3px 10px}
+.mini.lg .tk{font-size:13px}
+.mini.lg .tk .tl .th{padding:6px 10px;font-size:10px}
+.mini.lg .tk .tl .ti{padding:8px 10px}
+.mini.lg .tk .pill{font-size:9.5px;padding:1px 7px}
+.mini.lg .tk .tr{padding:10px 14px;gap:8px}
+.mini.lg .tk .tr .meta{font-size:11px}
+.mini.lg .tk .draft{padding:8px 10px}
+.mini.lg .tk .draft .lbl{font-size:10px}
+.mini.lg .tk .act button{font-size:12px;padding:5px 12px}
+.mini.lg .ck{gap:8px}
+.mini.lg .ck .tile{padding:8px 12px}
+.mini.lg .ck .tile .k{font-size:10px}
+.mini.lg .ck .tile .v{font-size:17px}
+.mini.lg .ck .tile .n{display:block}
+.mini.lg .ck .sp{padding:6px 12px}
+.mini.lg .ck .sp svg{height:44px}
+.mini.lg .ck .sp .k,.mini.lg .ck .sp .ft{font-size:10px}
+.mini.lg{margin:0 0 14px}
+}
+    </style>
 </head>
 <body class="relative min-h-screen flex flex-col font-sans">
     <div id="boot" aria-hidden="true"><pre id="boot-pre"></pre></div>
@@ -375,7 +588,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
         <div class="brand-bar max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs text-gray-400">
             <div class="brand-group flex items-center gap-4">
                 <a href="index.html" class="brand-link" aria-label="Veritas AI Partners ホーム"><img class="brand-logo" src="assets/brand/veritas-logo-b-white.svg" alt="Veritas AI Partners" width="885" height="187" fetchpriority="high"></a>
-                <span class="brand-version hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">v3.0.0</span>
+                <span class="brand-version hidden md:inline-block px-2 py-0.5 bg-line rounded text-[10px] tracking-widest text-gray-300">v3.1.0</span>
             </div>
 
             <nav class="brand-desktop-nav hidden xl:flex items-center gap-6">
@@ -388,10 +601,12 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             </nav>
 
             <div class="flex items-center gap-3">
+                <button id="pal-btn" type="button" aria-label="検索・コマンドを開く"><i class="ph ph-magnifying-glass"></i><span>検索 / コマンド</span><kbd id="pal-kbd">⌘K</kbd></button>
                 <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-terminal/10 border border-terminal/30 rounded-full text-terminal">
                     <div class="w-1.5 h-1.5 rounded-full bg-terminal animate-pulse"></div>
                     <span class="tracking-wider">SYSTEM ONLINE</span>
                 </div>
+                <button id="pal-btn-m" type="button" class="sm:hidden p-1.5 text-gray-300 hover:text-white" aria-label="検索・コマンドを開く"><i class="ph-bold ph-magnifying-glass text-2xl"></i></button>
                 <button id="mobile-menu-toggle" class="xl:hidden p-1.5 -mr-1.5 text-gray-300 hover:text-white" aria-label="Menu">
                     <i class="ph-bold ph-list text-2xl"></i>
                 </button>
@@ -437,6 +652,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                         自社のEC・製造業で取り組んできた業務改善をもとに、<span class="text-white">お客様の会社でも使えるAIシステム</span>を開発します。<br>
                         <span class="text-sm text-gray-500">画面内のログは、自社で稼働中のシステムの動きを再現したデモです。</span>
                     </p>
+                    <div id="gitline"><i class="ph ph-git-commit"></i><span>このサイト自体も自作・公開リポジトリ</span><span class="ago" id="git-ago"></span><a class="sha" id="git-sha" href="https://github.com/schizawa/veritas-ai-partners/commits/main" target="_blank" rel="noopener" aria-label="最新コミット"></a><a href="https://github.com/schizawa/veritas-ai-partners" target="_blank" rel="noopener">GitHub で見る</a></div>
 
                     <!-- AI Live Metrics Bar -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
@@ -1005,6 +1221,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 <h3 id="sysmodal-title" class="text-2xl font-bold mb-2"></h3>
                 <p id="sysmodal-desc" class="text-sm text-gray-300 leading-relaxed mb-5 max-w-3xl"></p>
                 <div id="sysmodal-mini"></div>
+                <div id="sysmodal-wire"></div>
                 <div id="sysmodal-flow" class="hidden"></div>
                 <div id="sysmodal-tags" class="mt-5 flex flex-wrap items-center gap-5 text-xs text-[#8b949e] font-mono"></div>
                 <div class="mt-7 pt-5 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -1012,6 +1229,18 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                     <a href="contact.html" class="font-mono text-xs text-void bg-white font-bold px-5 py-2.5 rounded hover:bg-gray-200 transition-colors whitespace-nowrap text-center">相談する（45分・無料） →</a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- v3.1: command palette (⌘K / Ctrl K / "/" / header buttons) -->
+    <div id="pal" role="dialog" aria-modal="true" aria-label="検索・コマンド">
+        <div class="bg" data-pal-close></div>
+        <div class="box">
+            <div class="in"><i class="ph ph-magnifying-glass"></i><input id="pal-in" type="text" role="combobox" aria-expanded="false" aria-controls="pal-list" aria-autocomplete="list" aria-haspopup="listbox" placeholder="システム・料金・FAQ・コマンドを検索（例: 返品 / 見積 / neofetch）" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-label="検索・コマンド"><button type="button" class="esc" data-pal-close aria-label="閉じる">閉じる</button></div>
+            <div class="out" id="pal-out" aria-live="polite"></div>
+            <div class="chips" id="pal-chips"><button type="button" data-q="返品">返品の問い合わせ</button><button type="button" data-q="見積">見積</button><button type="button" data-q="料金">料金</button><button type="button" data-q="修理">修理</button><button type="button" data-q="neofetch">neofetch</button><button type="button" data-q="git log">git log</button></div>
+            <div class="list" id="pal-list" role="listbox" aria-label="候補"></div>
+            <div class="ft"><span><kbd>↑</kbd><kbd>↓</kbd> 選択</span><span><kbd>Enter</kbd> 実行</span><span><kbd>Esc</kbd> 閉じる</span><span><kbd>⌘K</kbd> / <kbd>/</kbd> どこからでも開く</span></div>
         </div>
     </div>
 
@@ -1028,7 +1257,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
         <div class="flex items-center gap-4">
             <div class="hidden md:flex items-center gap-1">
                 <i class="ph ph-git-commit text-sysblue"></i>
-                <span>build 2026-10-18</span>
+                <span>build 2026-10-18</span><span id="gitfoot"></span>
             </div>
             <span id="ld" class="hidden lg:inline"></span>
             <span id="clk" class="text-gray-400"></span>
@@ -1155,13 +1384,13 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             const input = document.getElementById('vshell-in');
             if (!out || !form || !input) return;
             const CMDS = {
-                help: () => 'commands: ' + ['demo', 'ls', 'cat', 'services', 'repos', 'models', 'stack', 'review', 'changelog', 'team', 'neofetch', 'time', 'contact', 'whoami', 'clear'].map(c => '<span class="text-terminal">' + c + '</span>').join(' · ') + '  (Tab で補完 · ↑ で履歴)',
+                help: () => 'commands: ' + ['demo', 'ls', 'cat', 'services', 'repos', 'models', 'stack', 'review', 'changelog', 'team', 'neofetch', 'git log', 'time', 'contact', 'whoami', 'clear'].map(c => '<span class="text-terminal">' + c + '</span>').join(' · ') + '  (Tab で補完 · ↑ で履歴)',
                 services: () => { setTimeout(() => location.hash = '#services', 400); return 'AI診断 15〜30万円 / AI実装 50〜150万円 / AI顧問 月15〜50万円（税別・目安）→ #services へ移動'; },
                 repos: () => { setTimeout(() => location.hash = '#repos', 400); return 'production repos を表示 → #repos へ移動'; },
                 team: () => { setTimeout(() => location.hash = '#founder', 400); return 'founder を表示 → #founder へ移動'; },
                 models: () => 'Claude · GPT · Gemini — 業務ごとに精度・速度・費用を確認して選定します。開発には Claude Code / Codex を使用します。',
                 review: () => 'コードの変更箇所と関連する動作を検証し、別の観点からレビューします。本番への反映は人が確認してから行います。',
-                changelog: () => 'v3.0.0 (2026-10-18): トップを6区画に整理 / 架空の表示を撤去 / 稼働中の9システムに動く小窓と詳細ビュー / status bar・新コマンドを追加 — v2.6.0 (2026-10-16): 代表略歴・会社沿革を訂正',
+                changelog: () => 'v3.1.0 (2026-10-18): ⌘K コマンドパレット / 各システムの配線図（AI・ルール・人の分担） / 本物の git log（公開リポジトリ） / LINE・ヘルプデスク・コックピットの小窓を実画面風に / 携帯にも起動演出とスクロール連動 — v3.0.0 (2026-10-18): トップを6区画に整理 / 架空の表示を撤去 / 稼働中の9システムに動く小窓と詳細ビュー / status bar・新コマンドを追加 — v2.6.0 (2026-10-16): 代表略歴・会社沿革を訂正',
                 contact: () => { setTimeout(() => location.href = 'contact.html', 600); return '無料相談フォームへ移動します…'; },
                 whoami: () => 'guest — ご相談は contact コマンドから',
                 clear: () => { out.innerHTML = ''; return null; },
@@ -1171,6 +1400,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 demo: () => { setTimeout(() => { if (window.__openSys) window.__openSys('line-crm-ai-engine'); }, 300); return 'LINE問い合わせ対応AIのデモを開きます（Esc で閉じる）'; },
                 neofetch: () => '<pre class="leading-snug text-[11px]"><span class="text-terminal">      ▲        </span>veritas@studio\n<span class="text-terminal">     ▲ ▲       </span>---------------\n<span class="text-terminal">    ▲   ▲      </span>site:     veritasai.jp · static html\n<span class="text-terminal">   ▲  ▲  ▲     </span>models:   Claude · GPT · Gemini\n<span class="text-terminal">  ▲▲▲▲▲▲▲▲▲    </span>systems:  9 published\n               founder:  遅沢 翔 · Tokyo\n               build:    2026-10-18</pre>',
                 sudo: () => 'guest is not in the sudoers file. This incident will be reported to 遅沢.',
+                git: (arg) => (arg || '').trim().startsWith('log') ? (window.__gitlog ? window.__gitlog() : 'git: not ready') : 'usage: git log',
             };
             const FILES = {
                 'how_we_work.md': '01 聞く — 今の業務と、時間がかかっている作業を45分で整理<br>02 小さく試す — 実際の業務データで動く試作を先につくる<br>03 人が最終確認する設計 — 根拠が取れない回答は人に回す<br>04 引き渡す — コード・設定・手順書を御社の環境とアカウントへ',
@@ -1190,14 +1420,14 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 print('<span class="text-sysblue">~/veritas</span> $ ' + esc(raw));
                 const fn = CMDS[cmd];
                 const res = fn ? fn(args.join(' ')) : 'command not found: ' + esc(cmd) + ' — try <span class="text-terminal">help</span>';
-                if (res) print(res, 'text-gray-400');
                 input.value = '';
-                out.scrollTop = out.scrollHeight;
+                Promise.resolve(res).then(r => { if (r) print(r, 'text-gray-400'); out.scrollTop = out.scrollHeight; });
             });
+            window.__vshell = { run: raw => { const [cmd, ...args] = raw.trim().toLowerCase().split(/\s+/); const fn = CMDS[cmd]; return Promise.resolve(fn ? fn(args.join(' ')) : 'command not found: ' + esc(cmd) + ' — try <span class="text-terminal">help</span>'); }, cmds: Object.keys(CMDS) };
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowUp') { if (hi > 0) { hi--; input.value = HIST[hi]; } e.preventDefault(); }
                 else if (e.key === 'ArrowDown') { if (hi < HIST.length - 1) { hi++; input.value = HIST[hi]; } else { hi = HIST.length; input.value = ''; } e.preventDefault(); }
-                else if (e.key === 'Tab' && !e.shiftKey && input.value.trim()) { const v = input.value.toLowerCase(); const m = Object.keys(CMDS).filter(k => k.startsWith(v)); if (m.length === 1) input.value = m[0] + (m[0] === 'cat' ? ' ' : ''); else if (m.length > 1) print(m.join('  '), 'text-gray-500'); e.preventDefault(); }
+                else if (e.key === 'Tab' && !e.shiftKey && input.value.trim()) { const v = input.value.toLowerCase(); const m = Object.keys(CMDS).filter(k => k.startsWith(v)); if (m.length === 1) input.value = m[0] + (m[0] === 'cat' || m[0] === 'git' ? ' ' : ''); else if (m.length > 1) print(m.join('  '), 'text-gray-500'); e.preventDefault(); }
                 else if (e.key === 'Escape') input.blur();
             });
         });
@@ -1220,7 +1450,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             if (boot) {
                 let recent = false;
                 try { recent = Date.now() - (+localStorage.getItem('veritas-boot') || 0) < 7 * 86400e3; } catch (e) {}
-                if (rm || !fine || recent) boot.remove();
+                if (rm || recent) boot.remove();
                 else {
                     bootRunning = true;
                     const pre = $('#boot-pre');
@@ -1230,7 +1460,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                     const step = () => { if (done) return; if (i < lines.length) { pre.innerHTML = lines.slice(0, ++i).join('\n') + '<span class="cur"></span>'; setTimeout(step, i === 1 ? 180 : 110); } else setTimeout(off, 160); };
                     boot.addEventListener('click', off);
                     document.addEventListener('keydown', e => { if (['Escape', 'Enter', ' '].includes(e.key)) off(); }, { once: true });
-                    setTimeout(off, 900);
+                    setTimeout(off, fine ? 900 : 650);
                     step();
                 }
             }
@@ -1390,30 +1620,36 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
 
             const MINIS = {
                 'line-crm-ai-engine': {
-                    title: 'LINE · 問い合わせ',
-                    init: '<div class="chat"></div>',
+                    title: 'LINE · 問い合わせ', cls: 'bleed',
+                    init: '<div class="line"><div class="lh"><span class="av">V</span>公式アカウント<span class="st">AI応答 · 営業時間外も</span></div><div class="lc"></div><div class="lf"><span class="ip">メッセージを入力</span><span>➤</span></div></div>',
                     run: async (b, step) => {
-                        const chat = b.querySelector('.chat');
-                        const add = (cls, html) => { const d = el('bub ' + cls, html); chat.appendChild(d); return show(d); };
-                        add('u', '返品や交換はできますか？'); await step(1000);
-                        add('s', '根拠を検索中… FAQ 1件 · 返品のご案内 1件'); await step(1100);
-                        add('a', '未使用でお届けから7日以内なら交換できます。<span class="chip">参照 2件</span>'); await step(2400);
-                        add('u', '注文の届け先を変えたい'); await step(1000);
-                        add('s', '注文・個人情報 → AIは答えない'); await step(900);
-                        add('a h', 'スタッフにお繋ぎします <span class="chip h">人の窓口</span>'); await step(2800);
+                        const lc = b.querySelector('.lc');
+                        const hm = () => new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', hour12: false, hour: '2-digit', minute: '2-digit' }).format(new Date());
+                        const msg = (cls, html) => { const d = el('msg ' + cls, (cls[0] === 'a' ? '<span class="av">V</span>' : '') + `<div class="bb">${html}</div><span class="tm">${hm()}</span>`); lc.appendChild(d); return show(d); };
+                        const read = d => { d.querySelector('.tm').innerHTML = '<b>既読</b>' + hm(); };
+                        const typing = async ms => { const d = el('msg a', '<span class="av">V</span><div class="bb typing"><i></i><i></i><i></i></div>'); lc.appendChild(d); show(d); await step(ms); d.remove(); };
+                        const u1 = msg('u', '返品や交換はできますか？'); await step(900); read(u1);
+                        await typing(1100);
+                        msg('a', '未使用でお届けから7日以内なら交換できます。手順はご案内ページにまとめています。<br><span class="ref">返品・交換のご案内</span><span class="ref">FAQ</span>'); await step(2600);
+                        const u2 = msg('u', '注文した商品の届け先を変えたい'); await step(800); read(u2);
+                        await typing(800);
+                        msg('a h', 'ご注文の変更はスタッフが確認して対応します。このまま窓口にお繋ぎしますね。<br><span class="ref">人の窓口へ引き継ぎ</span>'); await step(3000);
                     },
                 },
                 'cs-draft-engine': {
-                    title: 'inbox · 返信下書き',
-                    init: '',
+                    title: 'helpdesk · 返信下書き', cls: 'bleed',
+                    init: '<div class="tk"><div class="tl"><div class="th">Tickets</div></div><div class="tr"><div class="sub">#1043 返品について</div><div class="meta">お客様 → support · 受信 2分前 · 担当 未割当</div><div class="draft"><div class="lbl"><span>AI 下書き</span><span class="st">生成中…</span></div><div class="tx"></div></div><div class="act"><button type="button" tabindex="-1">編集</button><button type="button" tabindex="-1" class="pri">承認して送信</button></div></div></div>',
                     run: async (b, step) => {
-                        row(b, '<span class="dot g"></span><span class="t">#1042 納期の確認</span><span class="badge ok">送信済み</span>'); await step(400);
-                        const r = row(b, '<span class="dot w"></span><span class="t">#1043 返品について</span><span class="badge w">新着</span>'); await step(900);
-                        r.querySelector('.badge').textContent = '下書き生成中'; const p = row(b, '<span class="m">AI</span><span class="prog"><i></i></span>'); await step(100);
-                        p.querySelector('.prog i').style.width = '100%'; await step(900);
-                        p.remove(); row(b, '<span class="t" style="white-space:normal;line-height:1.4">下書き: お問い合わせありがとうございます。未使用品は7日以内…</span>'); r.querySelector('.badge').textContent = 'レビュー待ち'; await step(1700);
-                        r.querySelector('.badge').className = 'badge ok'; r.querySelector('.badge').textContent = '人が承認 → 送信'; r.querySelector('.dot').className = 'dot'; await step(1300);
-                        row(b, '<span class="ok">✓</span><span class="t">日次監査: 書き換え率 正常</span>'); await step(2400);
+                        const tl = b.querySelector('.tl'), draft = b.querySelector('.draft'), tx = b.querySelector('.tx'), st = b.querySelector('.draft .st'), pri = b.querySelector('.act .pri');
+                        const ti = (n, s, cls, on) => { const d = el('ti' + (on ? ' on' : ''), `<span class="pill ${cls}">${s}</span><span class="t">${n}</span>`); tl.appendChild(d); return show(d); };
+                        ti('#1041 納期の確認', 'solved', 'solv'); await step(150); ti('#1042 法人の請求書払い', 'pending', 'pend'); await step(150);
+                        const t3 = ti('#1043 返品について', 'new', 'new', true); await step(700);
+                        show(draft);
+                        const text = 'お問い合わせありがとうございます。未使用の商品で、お届けから7日以内であれば交換を承ります。手順と送料の扱いは、以下のご案内をご覧ください。';
+                        for (let c = 1; c <= text.length; c++) { tx.textContent = text.slice(0, c); if (c % 2 === 0) await step(26); }
+                        st.textContent = '根拠 2件 · レビュー待ち'; t3.querySelector('.pill').className = 'pill open'; t3.querySelector('.pill').textContent = 'open'; await step(1500);
+                        pri.classList.add('hit'); pri.textContent = '人が承認 → 送信'; await step(700);
+                        t3.querySelector('.pill').className = 'pill solv'; t3.querySelector('.pill').textContent = 'solved'; st.textContent = '送信済み · 日次監査に記録'; await step(2600);
                     },
                 },
                 'competitor-monitor': {
@@ -1441,15 +1677,16 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 },
                 'company-cockpit': {
                     title: 'cockpit · 経営の信号',
-                    init: '',
+                    init: '<div class="ck"><div class="tile" data-k="cs"><div class="k"><i></i>CS</div><div class="v">未返信 0</div><div class="n">担当 CS · 次：なし</div></div><div class="tile" data-k="ship"><div class="k"><i></i>出荷</div><div class="v">当日分 完了</div><div class="n">担当 物流 · 次：なし</div></div><div class="tile" data-k="rep"><div class="k"><i></i>修理</div><div class="v">連絡待ち 0</div><div class="n">担当 CS · 次：なし</div></div><div class="tile" data-k="stock"><div class="k"><i></i>在庫</div><div class="v">欠品なし</div><div class="n">担当 購買 · 次：なし</div></div><div class="sp"><span class="k">未返信の推移</span><svg viewBox="0 0 120 24" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 18 L12 14 L24 16 L36 9 L48 11 L60 6 L72 10 L84 7 L96 12 L108 4 L120 8"/></svg><span class="ft">判定はルールのみ</span></div></div>',
                     run: async (b, step) => {
-                        const rows = {};
-                        for (const [k, nx] of [['CS', '未返信 0'], ['出荷', '当日分 完了'], ['修理', '連絡待ち 0'], ['在庫', '欠品なし']]) { rows[k] = row(b, `<span class="dot"></span><span class="t">${k}</span><span class="m">${nx}</span>`); await step(150); }
-                        await step(900);
-                        rows['修理'].querySelector('.dot').className = 'dot w'; rows['修理'].querySelector('.m').innerHTML = '<span class="w">経過連絡 2件 · 担当 CS</span>'; await step(1300);
-                        rows['在庫'].querySelector('.dot').className = 'dot r'; rows['在庫'].querySelector('.m').innerHTML = '<span class="r">欠品 1 · 担当 購買 → 発注確認</span>'; await step(1600);
-                        rows['修理'].querySelector('.dot').className = 'dot'; rows['修理'].querySelector('.m').textContent = '連絡待ち 0'; await step(1200);
-                        row(b, '<span class="m">判定はルールだけ（LLM不使用）</span>'); await step(2200);
+                        const t = k => b.querySelector(`.tile[data-k="${k}"]`);
+                        const set = (k, cls, v, n) => { const x = t(k); x.className = 'tile' + (cls ? ' ' + cls : ''); x.querySelector('.v').textContent = v; x.querySelector('.n').textContent = n; };
+                        await step(300); b.querySelector('.sp path').classList.add('in'); await step(1200);
+                        set('rep', 'w', '経過連絡 2件', '担当 CS · 次：顧客へ納期を連絡'); await step(1300);
+                        set('stock', 'r', '欠品 1 · 発注確認', '担当 購買 · 次：メーカーへ納期確認'); await step(1600);
+                        set('cs', 'w', '未返信 3', '担当 CS · 次：下書きをレビュー'); await step(1200);
+                        set('rep', '', '連絡待ち 0', '担当 CS · 次：なし'); await step(1000);
+                        set('cs', '', '未返信 0', '担当 CS · 次：なし'); await step(2400);
                     },
                 },
                 'nightly-review': {
@@ -1469,7 +1706,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                     run: async (b, step) => {
                         row(b, '<span class="b">LINE</span><span class="t">修理 #1041「部品の入荷待ちです」</span>'); await step(1100);
                         row(b, '<span class="dot w"></span><span class="t">#1041 次：顧客へ経過連絡</span><span class="badge w">期日 10/20</span>'); await step(1500);
-                        row(b, '<span class="w">🔔</span><span class="t">前日にリマインド → 返信するだけで記録</span>'); await step(1500);
+                        row(b, '<span class="w">🔔</span><span class="t">期日前にリマインド → 返信するだけで記録</span>'); await step(1500);
                         row(b, '<span class="b">LINE</span><span class="t">「お客様へ納期をご連絡しました」</span>'); await step(900);
                         const r = b.children[1]; r.querySelector('.dot').className = 'dot'; r.querySelector('.badge').className = 'badge ok'; r.querySelector('.badge').textContent = '連絡済み ✓'; await step(2600);
                     },
@@ -1507,11 +1744,11 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 const start = async () => {
                     if (running) return; running = true; const my = ++gen;
                     try {
-                        while (gen === my) { body.innerHTML = def.init; await def.run(body, step(my)); if (rm) return; await step(my)(900); }
+                        while (gen === my) { body.className = 'body' + (def.cls ? ' ' + def.cls : ''); body.innerHTML = def.init; await def.run(body, step(my)); if (rm) return; await step(my)(900); }
                     } catch (e) { if (e !== STOP) throw e; } finally { if (gen === my) running = false; }
                 };
                 const stop = () => { gen++; running = false; };
-                return { m, start, stop };
+                return { m, start, stop, paused: false };
             };
             const players = [...document.querySelectorAll('.mini[data-mini]')].map(makePlayer).filter(Boolean);
             if ('IntersectionObserver' in window) {
@@ -1534,8 +1771,14 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
                 mTitle.textContent = card.querySelector('.jp').textContent.trim();
                 mDesc.textContent = card.querySelector('.desc').textContent.trim();
                 mTags.innerHTML = card.querySelector('.tags').innerHTML;
-                mMini.innerHTML = `<div class="mini big" data-mini="${id}"><div class="bar"><i></i><i></i><i class="g"></i><span class="nm"></span><span class="zoom">動作イメージ · 例のデータ</span></div><div class="body"></div></div>`;
+                mMini.innerHTML = `<div class="mini big" data-mini="${id}"><div class="bar"><i></i><i></i><i class="g"></i><span class="nm"></span><span class="ctl"><button type="button" data-act="pause" aria-label="一時停止 / 再生">❚❚</button><button type="button" data-act="replay" aria-label="もう一度">↻</button></span><span class="zoom">動作イメージ · 例のデータ</span></div><div class="body"></div></div>`;
                 bigPlayer = makePlayer(mMini.firstElementChild);
+                mMini.querySelectorAll('.ctl button').forEach(btn => btn.addEventListener('click', e => {
+                    e.stopPropagation(); if (!bigPlayer) return; const pauseBtn = mMini.querySelector('[data-act="pause"]');
+                    if (btn.dataset.act === 'pause') { if (bigPlayer.paused) { bigPlayer.paused = false; pauseBtn.textContent = '❚❚'; bigPlayer.start(); } else { bigPlayer.paused = true; pauseBtn.textContent = '▶'; bigPlayer.stop(); } }
+                    else { bigPlayer.paused = false; pauseBtn.textContent = '❚❚'; bigPlayer.stop(); bigPlayer.start(); }
+                }));
+                if (window.__wire) window.__wire(id, modal.querySelector('#sysmodal-wire'));
                 if (id === 'line-crm-ai-engine' && flow) { mFlow.appendChild(flow); mFlow.classList.remove('hidden'); } else mFlow.classList.add('hidden');
                 modal.classList.remove('hidden'); document.body.style.overflow = 'hidden';
                 modal.querySelector('.panel').scrollTop = 0;
@@ -1546,6 +1789,7 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             const close = () => {
                 if (modal.classList.contains('hidden')) return;
                 bigPlayer && bigPlayer.stop(); bigPlayer = null;
+                const wireHost = modal.querySelector('#sysmodal-wire'); if (wireHost) wireHost.innerHTML = '';
                 if (flow && holder && flow.parentElement !== holder) holder.appendChild(flow);
                 modal.classList.add('hidden'); document.body.style.overflow = ''; openId = null;
                 if (lastFocus && lastFocus.focus) lastFocus.focus();
@@ -1556,7 +1800,245 @@ palette: Deep Void (#0a0a0e), Terminal Green (#00ff88), Systems Blue (#3b82f6), 
             });
             modal.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
             document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-            window.__openSys = open;
+            window.__openSys = open; window.__closeSys = close;
+        })();
+    </script>
+    <script>
+        // === v3.1: command palette (⌘K), wiring diagrams, open-studio git line (real GitHub data), phone carousel ===
+        (() => {
+            const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const $ = (s, r = document) => r.querySelector(s);
+            const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+            const esc = t => String(t).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
+            const phone = matchMedia('(max-width: 639px)');
+
+            // ---- 1. real git log: the site's own public repository (cached 1h per tab; silent when GitHub is unreachable) ----
+            // The hero line is static HTML (no layout shift); only the time and the sha are filled in. Commit subjects are never
+            // shown on the site (2026-10-18 decision): `git log` in the shell / palette lists sha + date only and links to GitHub.
+            const GH = 'https://api.github.com/repos/schizawa/veritas-ai-partners/commits?per_page=5';
+            const ago = iso => { const s = (Date.now() - new Date(iso)) / 1000; if (s < 3600) return Math.max(1, Math.round(s / 60)) + '分前'; if (s < 86400) return Math.round(s / 3600) + '時間前'; return Math.round(s / 86400) + '日前'; };
+            const jst = iso => new Date(iso).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+            let gitP = null;
+            const gitLog = () => gitP || (gitP = (async () => {
+                try { const c = sessionStorage.getItem('veritas-git'); if (c) { const o = JSON.parse(c); if (Date.now() - o.t < 3600e3 && Array.isArray(o.d)) return o.d; } } catch (e) {}
+                const r = await fetch(GH);
+                if (!r.ok) throw new Error('GitHub ' + r.status);
+                const d = (await r.json()).map(c => ({ sha: c.sha.slice(0, 7), date: c.commit.author.date, url: c.html_url }));
+                try { sessionStorage.setItem('veritas-git', JSON.stringify({ t: Date.now(), d })); } catch (e) {}
+                return d;
+            })().catch(e => { gitP = null; throw e; }));
+            window.__gitlog = async () => {
+                try { const d = await gitLog(); return '<pre class="leading-snug text-[11px]">' + d.map(c => `<span class="text-sysblue">${c.sha}</span>  ${esc(jst(c.date))} JST  （${esc(ago(c.date))}）`).join('\n') + '</pre><span class="text-gray-500">直近5件。件名は GitHub で: github.com/schizawa/veritas-ai-partners（このサイトの公開リポジトリ）</span>'; }
+                catch (e) { return 'git: GitHub に接続できませんでした（' + esc(e.message) + '）'; }
+            };
+            const gAgo = $('#git-ago'), gSha = $('#git-sha'), gf = $('#gitfoot');
+            if (gAgo || gf) gitLog().then(d => { const c = d[0]; if (!c) return; if (gAgo) gAgo.textContent = '最終コミット ' + ago(c.date); if (gSha) { gSha.textContent = c.sha; gSha.href = c.url; } if (gf) gf.textContent = '· last commit ' + ago(c.date); }).catch(() => {});
+
+            // ---- 2. wiring diagrams: where AI runs, where rules run, where a person checks (one spec → horizontal + vertical SVG + text) ----
+            const K = { src: 'SOURCE', ai: 'AI', rule: 'RULE', job: 'JOB', human: 'HUMAN', store: 'DATA', out: 'OUTPUT' };
+            const WIRES = {
+                'line-crm-ai-engine': { n: [
+                    { id: 'in', k: 'src', l: 'LINE 受信', s: 'お客様のメッセージ', c: 0 },
+                    { id: 'judge', k: 'ai', l: '判定', s: '答えてよい質問か', c: 1 },
+                    { id: 'ret', k: 'store', l: '根拠検索', s: '商品情報・技術記事', c: 2 },
+                    { id: 'gen', k: 'ai', l: '回答生成', s: '根拠つき', c: 3 },
+                    { id: 'out', k: 'out', l: 'LINE 返信', s: '参照リンクを添付', c: 4 },
+                    { id: 'hum', k: 'human', l: '人の窓口', s: 'お問い合わせフォームへ', c: 2, r: 1 }],
+                    e: [['in', 'judge'], ['judge', 'ret'], ['ret', 'gen'], ['gen', 'out'], ['judge', 'hum', { h: 1, l: '根拠なし・注文/個人情報' }]] },
+                'cs-draft-engine': { n: [
+                    { id: 'in', k: 'src', l: '問い合わせメール', s: 'Zendesk 新着', c: 0 },
+                    { id: 'gen', k: 'ai', l: '下書き生成', s: '問い合わせ内容から', c: 1 },
+                    { id: 'rev', k: 'human', l: '人がレビュー', s: '修正して承認', c: 2 },
+                    { id: 'out', k: 'out', l: '送信', s: 'お客様へ', c: 3 },
+                    { id: 'aud', k: 'rule', l: '日次監査', s: '件数・書き換え率（LLM不使用）', c: 2, r: 1 }],
+                    e: [['in', 'gen'], ['gen', 'rev'], ['rev', 'out'], ['rev', 'aud', { l: '修正内容を記録' }]] },
+                'competitor-monitor': { n: [
+                    { id: 'job', k: 'job', l: '定期実行', s: '毎日', c: 0 },
+                    { id: 'crawl', k: 'rule', l: '巡回', s: 'Playwright · 対象サイトを順に', c: 1 },
+                    { id: 'diff', k: 'rule', l: '差分検知', s: '価格・新商品・キャンペーン', c: 2 },
+                    { id: 'out', k: 'out', l: 'LINE レポート', s: '毎朝', c: 3 }],
+                    e: [['job', 'crawl'], ['crawl', 'diff'], ['diff', 'out']] },
+                'amazon-ads-optimizer': { n: [
+                    { id: 'api', k: 'src', l: 'Ads API / SP-API', s: '広告の成果', c: 0 },
+                    { id: 'agg', k: 'rule', l: '集計', s: 'キャンペーン別', c: 1 },
+                    { id: 'ana', k: 'ai', l: '分析', s: '成果の低い案件を抽出', c: 2 },
+                    { id: 'rep', k: 'out', l: '朝レポート', s: '入札判断の材料', c: 3 },
+                    { id: 'hum', k: 'human', l: '人が入札を判断', s: '材料をもとに', c: 4 }],
+                    e: [['api', 'agg'], ['agg', 'ana'], ['ana', 'rep'], ['rep', 'hum']] },
+                'company-cockpit': { n: [
+                    { id: 'jobs', k: 'job', l: '監視ジョブ', s: 'CS・出荷・修理・在庫', c: 0 },
+                    { id: 'db', k: 'store', l: 'データベース', s: '1か所に集約', c: 1 },
+                    { id: 'sig', k: 'rule', l: '信号判定', s: 'ルールのみ · LLM不使用', c: 2 },
+                    { id: 'ui', k: 'out', l: '1画面', s: '4色の信号・担当・次アクション', c: 3 },
+                    { id: 'memo', k: 'ai', l: '1行メモの要約', s: 'AIはここだけ', c: 2, r: 1 }],
+                    e: [['jobs', 'db'], ['db', 'sig'], ['sig', 'ui'], ['db', 'memo', { l: '各項目のメモ' }], ['memo', 'ui']] },
+                'nightly-review': { n: [
+                    { id: 'day', k: 'src', l: '日中のAI作業', s: 'コードと記録の差分', c: 0 },
+                    { id: 'chk', k: 'rule', l: '23:30 機械検算', s: 'LLM不使用', c: 1 },
+                    { id: 'a', k: 'rule', l: '構造チェック', s: '記録の破損がないか', c: 2 },
+                    { id: 'b', k: 'rule', l: '直接編集チェック', s: '管理画面での手編集がないか', c: 2, r: 1 },
+                    { id: 'rep', k: 'out', l: '朝のレポート', s: '人が読む', c: 3 }],
+                    e: [['day', 'chk'], ['chk', 'a'], ['chk', 'b'], ['a', 'rep'], ['b', 'rep']] },
+                'repair-dashboard': { n: [
+                    { id: 'grp', k: 'src', l: '修理LINEグループ', s: 'スタッフのやり取り', c: 0 },
+                    { id: 'read', k: 'ai', l: '読み取り', s: '案件・次の連絡・期日', c: 1 },
+                    { id: 'db', k: 'store', l: '案件台帳', s: '返信がそのまま記録に', c: 2 },
+                    { id: 'ui', k: 'out', l: '現場の1画面', s: '次に連絡すること', c: 3 },
+                    { id: 'rem', k: 'out', l: '期日の通知', s: 'LINE へ', c: 3, r: 1 },
+                    { id: 'hum', k: 'human', l: 'スタッフが顧客へ連絡', s: '返信すると完了', c: 4 }],
+                    e: [['grp', 'read'], ['read', 'db'], ['db', 'ui'], ['db', 'rem'], ['ui', 'hum'], ['rem', 'hum', { h: 1 }]] },
+                'quote-assist': { n: [
+                    { id: 'mail', k: 'src', l: '問い合わせメール', s: 'Zendesk', c: 0 },
+                    { id: 'ext', k: 'ai', l: '項目抽出', s: '商品・数量・納期', c: 1 },
+                    { id: 'hum', k: 'human', l: '人が照合', s: '商品の特定と金額の確認', c: 2 },
+                    { id: 'pdf', k: 'out', l: '見積書 PDF', s: '自動生成', c: 3 },
+                    { id: 'ord', k: 'store', l: '受注の下書き', s: '再入力なし', c: 3, r: 1 }],
+                    e: [['mail', 'ext'], ['ext', 'hum'], ['hum', 'pdf'], ['hum', 'ord']] },
+                'weekly-report-bot': { n: [
+                    { id: 'mail', k: 'src', l: '週報メール', s: '社員から', c: 0 },
+                    { id: 'imp', k: 'job', l: '毎週取り込み', s: '提出状況を確認', c: 1 },
+                    { id: 'sum', k: 'ai', l: '要約・傾向分析', s: '今週のまとめ', c: 2 },
+                    { id: 'disc', k: 'out', l: 'チャットへ投稿', s: 'Discord', c: 3 },
+                    { id: 'rem', k: 'out', l: '未提出者へ通知', s: 'LINE', c: 2, r: 1 }],
+                    e: [['mail', 'imp'], ['imp', 'sum'], ['sum', 'disc'], ['imp', 'rem', { l: '未提出' }]] },
+            };
+            const NW = 136, NH = 46, CW = 152, RH = 68;      // horizontal grid (desktop)
+            const VX = 8, VWd = 324, VH = 46, VR = 64, VB = 20; // vertical: one full-width column (phones), skip-edges bulge out to the right
+            const nodeSvg = (n, x, y, w, h) => `<g class="node ${n.k === 'job' ? 'rule' : n.k}" transform="translate(${x},${y})"><rect width="${w}" height="${h}" rx="5"/><text class="k" x="9" y="13">${K[n.k]}</text><text class="l" x="9" y="27" font-weight="600">${esc(n.l)}</text><text class="s" x="9" y="39">${esc(n.s)}</text></g>`;
+            const packets = (paths, T) => paths.map(([d, h], i) => { const s = (i * 0.9 / T).toFixed(3), e = ((i * 0.9 + 0.9) / T).toFixed(3); return `<circle class="pk${h ? ' h' : ''}" r="3"><animateMotion dur="${T.toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;${s};${e};1" path="${d}"/></circle>`; }).join('');
+            const buildH = spec => {
+                const maxC = Math.max(...spec.n.map(n => n.c)), maxR = Math.max(...spec.n.map(n => n.r || 0)), pos = {};
+                spec.n.forEach(n => { pos[n.id] = { x: 10 + n.c * CW, y: 10 + (n.r || 0) * RH, w: NW, h: NH, r: n.r || 0 }; });
+                const W = 20 + maxC * CW + NW, H = 20 + maxR * RH + NH, T = 0.9 * spec.e.length + 0.8;
+                let edges = '', labels = ''; const paths = [];
+                spec.e.forEach(([a, b, o = {}]) => {
+                    const A = pos[a], B = pos[b], x1 = A.x + A.w, y1 = A.y + A.h / 2, x2 = B.x, y2 = B.y + B.h / 2;
+                    const d = A.r === B.r ? `M${x1} ${y1} L${x2} ${y2}` : `M${x1} ${y1} C${x1 + 34} ${y1} ${x2 - 34} ${y2} ${x2} ${y2}`;
+                    edges += `<path class="edge${o.h ? ' h' : ''}" d="${d}"/>`; paths.push([d, o.h]);
+                    if (o.l) labels += `<text class="elabel" x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 6}" text-anchor="middle">${esc(o.l)}</text>`;
+                });
+                return `<svg class="h" viewBox="0 0 ${W} ${H}" aria-hidden="true">${edges}${labels}${spec.n.map(n => nodeSvg(n, pos[n.id].x, pos[n.id].y, NW, NH)).join('')}${packets(paths, T)}</svg>`;
+            };
+            const buildV = spec => {
+                const order = [...spec.n].sort((a, b) => (a.c - b.c) || ((a.r || 0) - (b.r || 0))), pos = {};
+                order.forEach((n, i) => { pos[n.id] = { i, x: VX, y: 8 + i * VR, w: VWd, h: VH }; });
+                const W = VX + VWd + VB + 8, H = 16 + (order.length - 1) * VR + VH, T = 0.9 * spec.e.length + 0.8;
+                let edges = '', labels = ''; const paths = [];
+                spec.e.forEach(([a, b, o = {}]) => {
+                    const A = pos[a], B = pos[b]; let d;
+                    if (B.i === A.i + 1) d = `M${A.x + A.w / 2} ${A.y + A.h} L${B.x + B.w / 2} ${B.y}`;
+                    else { const xr = A.x + A.w, y1 = A.y + A.h / 2, y2 = B.y + B.h / 2; d = `M${xr} ${y1} C${xr + VB + 6} ${y1} ${xr + VB + 6} ${y2} ${xr} ${y2}`; }
+                    edges += `<path class="edge${o.h ? ' h' : ''}" d="${d}"/>`; paths.push([d, o.h]);
+                    if (o.l) labels += `<text class="elabel" x="${A.x + A.w - 6}" y="${A.y + A.h + 12}" text-anchor="end">${esc(o.l)}</text>`;
+                });
+                return `<svg class="v" viewBox="0 0 ${W} ${H}" aria-hidden="true">${edges}${labels}${order.map(n => nodeSvg(n, pos[n.id].x, pos[n.id].y, VWd, VH)).join('')}${packets(paths, T)}</svg>`;
+            };
+            const textVersion = spec => { const by = {}; spec.n.forEach(n => { by[n.id] = n; }); return spec.e.map(([a, b, o = {}]) => `${by[a].l}（${K[by[a].k]}）→ ${by[b].l}（${K[by[b].k]}）${o.l ? '：' + o.l : ''}`).join('。 ') + '。'; };
+            window.__wire = (id, host) => {
+                if (!host) return; const spec = WIRES[id];
+                if (!spec) { host.innerHTML = ''; return; }
+                host.innerHTML = `<div class="wire-box"><div class="hd"><span>wiring · AI が動く所と人が確認する所</span><span>流れの図</span></div>${buildH(spec)}${buildV(spec)}<p class="sr">処理の流れ：${esc(textVersion(spec))}</p><div class="lg"><span><i style="background:#00ff88"></i>AI</span><span><i style="background:#9ca3af"></i>ルール（LLM不使用）</span><span><i style="background:#eab308"></i>人が確認</span><span><i style="background:#a855f7"></i>データ</span><span><i style="background:#3b82f6"></i>入出力</span></div></div>`;
+            };
+
+            // ---- 3. command palette: ⌘K / Ctrl K / "/" / header buttons (desktop text button, phone icon) ----
+            const pal = $('#pal');
+            if (pal) {
+                const input = $('#pal-in'), list = $('#pal-list'), out = $('#pal-out'), box = $('.box', pal);
+                const isMac = /Mac|iPhone|iPad/.test(navigator.platform || '') || /Mac OS/.test(navigator.userAgent);
+                const kb = $('#pal-kbd'); if (kb && !isMac) kb.textContent = 'Ctrl K';
+                const norm = s => String(s).toLowerCase().replace(/[\s　・、。「」（）()]/g, '');
+                const items = [];
+                const KW = { 'line-crm-ai-engine': '返品 交換 LINE チャット 問い合わせ 自動返信 FAQ 顧客対応', 'cs-draft-engine': 'メール 返信 下書き Zendesk ヘルプデスク チケット 顧客対応', 'competitor-monitor': '競合 価格 監視 巡回 クロール', 'amazon-ads-optimizer': 'Amazon 広告 入札 レポート', 'company-cockpit': 'ダッシュボード 経営 信号 KPI 出荷 在庫', 'nightly-review': '監査 検算 夜間 品質 チェック', 'repair-dashboard': '修理 連絡 期日 LINEグループ 現場', 'quote-assist': '見積 見積書 PDF 受注 メール', 'weekly-report-bot': '週報 レポート Discord 要約 社員' };
+                $$('#repos .grid > [data-sys]').forEach(c => items.push({ g: 'Systems', icon: 'ph-cube', t: c.querySelector('.jp').textContent.trim(), s: c.querySelector('h3').textContent.trim(), k: (KW[c.dataset.sys] || '') + ' ' + c.querySelector('.desc').textContent + ' ' + c.querySelector('.tags').textContent, kbd: '詳細を開く', sys: true, run: () => { if (window.__openSys) window.__openSys(c.dataset.sys); } }));
+                [['#repos', 'Systems in Production', '稼働中の9システム'], ['#services', 'Services & Pricing', '診断・実装・顧問の料金'], ['#founder', 'Founder', '代表プロフィール'], ['#faq', 'FAQ', 'よくある質問'], ['#cta', '相談する', '45分・無料のオンライン相談']].forEach(([h, t, s]) => items.push({ g: 'Sections', icon: 'ph-arrow-bend-down-right', t, s, k: h + ' 料金 価格 相談', kbd: '移動', run: () => { location.hash = h; } }));
+                [['about.html', 'About', '会社・代表の経歴'], ['contact.html', 'Contact', '無料相談フォーム'], ['privacy.html', 'Privacy', 'プライバシーポリシー']].forEach(([h, t, s]) => items.push({ g: 'Pages', icon: 'ph-file', t, s, k: h + ' 問い合わせ 相談', kbd: '開く', run: () => { location.href = h; } }));
+                $$('#faq details').forEach(d => items.push({ g: 'FAQ', icon: 'ph-question', t: d.querySelector('summary span').textContent.trim(), s: d.querySelector('p').textContent.trim().slice(0, 56) + '…', k: d.textContent, kbd: '回答を開く', run: () => { d.open = true; d.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block: 'center' }); } }));
+                const SH = [['neofetch', 'システム情報'], ['git log', 'このサイトの最新コミット（GitHub）'], ['changelog', '更新履歴'], ['ls', 'systems/ の一覧'], ['stack', '技術スタック'], ['time', '現在時刻（JST）'], ['demo', 'LINE問い合わせAIのデモを開く'], ['cat how_we_work.md', '進め方'], ['help', 'コマンド一覧'], ['sudo', '…']];
+                const NAV = /^(demo|contact|services|repos|team)$/;
+                SH.forEach(([c, s]) => items.push({ g: 'Shell', icon: 'ph-terminal', t: c, s, k: c + ' shell コマンド', kbd: '実行', cmd: true, run: () => runShell(c) }));
+                const closeSys = () => { if (window.__closeSys) window.__closeSys(); };
+                const runShell = async c => {
+                    const sh = window.__vshell; if (!sh) { out.innerHTML = '<p>shell が準備中です</p>'; return; }
+                    const first = c.split(/\s+/)[0];
+                    if (NAV.test(first)) { close(); closeSys(); sh.run(c); return; }
+                    out.innerHTML = `<p><span class="text-sysblue">~/veritas</span> $ ${esc(c)}</p><p class="text-gray-500">…</p>`;
+                    const r = await sh.run(c);
+                    out.innerHTML = `<p><span class="text-sysblue">~/veritas</span> $ ${esc(c)}</p>` + (r == null ? '' : `<div>${r}</div>`);
+                };
+                let q = '', sel = 0, visible = [], lastFocus = null;
+                const noMatch = () => `<div class="none">「${esc(q)}」に一致するものはありません。<br><a href="#faq" data-pal-go>よくある質問を見る</a> ・ <a href="contact.html">相談フォームへ</a>${window.__vshell && window.__vshell.cmds.includes(norm(q).split(/\s/)[0]) ? '' : '<br><span class="dim">コマンドは help で一覧</span>'}</div>`;
+                const render = () => {
+                    const nq = norm(q);
+                    if (nq) {
+                        visible = items.filter(it => norm(it.t + it.s + (it.k || '')).includes(nq));
+                        visible.sort((a, b) => (norm(a.t).includes(nq) ? 0 : 1) - (norm(b.t).includes(nq) ? 0 : 1));
+                    } else visible = items.filter(it => it.g === 'Systems' || it.g === 'Sections' || it.g === 'Pages').concat(items.filter(it => it.g === 'Shell').slice(0, 3));
+                    sel = Math.min(sel, Math.max(0, visible.length - 1));
+                    let html = '', g = '';
+                    visible.forEach((it, i) => { if (it.g !== g) { g = it.g; html += `<div class="grp">${g}</div>`; } html += `<div class="it${i === sel ? ' on' : ''}" id="pal-opt-${i}" data-i="${i}" role="option" aria-selected="${i === sel}"><i class="ph ${it.icon}"></i><span class="t"><b>${esc(it.t)}</b><small>${esc(it.s)}</small></span><kbd>${it.kbd}</kbd></div>`; });
+                    list.innerHTML = html || noMatch();
+                    input.setAttribute('aria-activedescendant', visible.length ? 'pal-opt-' + sel : '');
+                    const on = list.querySelector('.it.on'); if (on) on.scrollIntoView({ block: 'nearest' });
+                };
+                const open = () => { if (pal.classList.contains('open')) return; lastFocus = document.activeElement; pal.classList.add('open'); document.body.classList.add('pal-open'); input.setAttribute('aria-expanded', 'true'); q = input.value = ''; out.innerHTML = ''; sel = 0; render(); input.focus(); };
+                const close = () => { if (!pal.classList.contains('open')) return; pal.classList.remove('open'); document.body.classList.remove('pal-open'); input.setAttribute('aria-expanded', 'false'); const f = lastFocus; lastFocus = null; if (f && f.focus && f !== document.body && f.isConnected && getComputedStyle(f).display !== 'none') f.focus(); };
+                const go = i => {
+                    const it = visible[i];
+                    if (!it) { const first = norm(q).split(/\s/)[0]; if (q.trim() && window.__vshell && window.__vshell.cmds.includes(q.trim().toLowerCase().split(/\s+/)[0])) runShell(q.trim()); return; }
+                    if (it.cmd) { it.run(); return; }
+                    close(); if (!it.sys) closeSys(); it.run();
+                };
+                window.__palette = { open, close };
+                $$('[data-pal-close]', pal).forEach(b => b.addEventListener('click', close));
+                ['#pal-btn', '#pal-btn-m'].forEach(s => { const b = $(s); if (b) b.addEventListener('click', open); });
+                $$('#pal-chips button').forEach(b => b.addEventListener('click', () => { q = input.value = b.dataset.q; sel = 0; render(); input.focus(); }));
+                input.addEventListener('input', () => { q = input.value; sel = 0; render(); });
+                input.addEventListener('keydown', e => {
+                    if (e.key === 'ArrowDown') { e.preventDefault(); if (visible.length) { sel = (sel + 1) % visible.length; render(); } }
+                    else if (e.key === 'ArrowUp') { e.preventDefault(); if (visible.length) { sel = (sel - 1 + visible.length) % visible.length; render(); } }
+                    else if (e.key === 'Enter') { e.preventDefault(); go(sel); }
+                });
+                pal.addEventListener('keydown', e => {   // dialog-level: Esc anywhere inside, Tab cycles inside the box
+                    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return; }
+                    if (e.key === 'Tab') {
+                        const f = $$('input, button, a[href]', box).filter(el => el.offsetParent !== null);
+                        if (!f.length) return; const i = f.indexOf(document.activeElement);
+                        if (e.shiftKey && (i <= 0)) { e.preventDefault(); f[f.length - 1].focus(); }
+                        else if (!e.shiftKey && (i === -1 || i === f.length - 1)) { e.preventDefault(); f[0].focus(); }
+                    }
+                });
+                list.addEventListener('click', e => { const a = e.target.closest('a'); if (a) { close(); closeSys(); return; } const it = e.target.closest('.it'); if (it) go(+it.dataset.i); });
+                list.addEventListener('mousemove', e => { const it = e.target.closest('.it'); if (it && +it.dataset.i !== sel) { sel = +it.dataset.i; $$('.it', list).forEach(x => x.classList.toggle('on', +x.dataset.i === sel)); input.setAttribute('aria-activedescendant', 'pal-opt-' + sel); } });
+                document.addEventListener('keydown', e => {
+                    if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.classList.contains('open') ? close() : open(); return; }
+                    if (e.key === '/' && !pal.classList.contains('open') && !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '') && !(document.activeElement && document.activeElement.isContentEditable)) { e.preventDefault(); open(); }
+                });
+            }
+
+            // ---- 4. phones: Systems becomes a swipe carousel with large previews (the same 9 cards, one at a time) ----
+            const grid = $('#repos .grid');
+            if (grid) {
+                const cards = $$('#repos .grid > [data-sys]');
+                const minis = $$('#repos .grid .mini');
+                const dots = document.createElement('div'); dots.id = 'repos-dots'; dots.setAttribute('aria-hidden', 'true');
+                dots.innerHTML = cards.map((c, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('') + '<span>スワイプで次へ</span>';
+                grid.after(dots);
+                let tick = false;
+                const upd = () => {
+                    tick = false;
+                    if (!phone.matches) { cards.forEach(c => { c.style.transform = ''; }); return; }
+                    const gr = grid.getBoundingClientRect(), cx = gr.left + gr.width / 2; let best = 0, bd = 1e9;
+                    cards.forEach((c, i) => {
+                        const r = c.getBoundingClientRect(), mid = r.left + r.width / 2, p = Math.max(-1, Math.min(1, (mid - cx) / gr.width));
+                        if (!rm) c.style.transform = `perspective(900px) rotateY(${(-p * 9).toFixed(2)}deg) scale(${(1 - Math.abs(p) * 0.05).toFixed(3)})`;
+                        const d = Math.abs(mid - cx); if (d < bd) { bd = d; best = i; }
+                    });
+                    $$('i', dots).forEach((d, i) => d.classList.toggle('on', i === best));
+                };
+                const applyPhone = () => { minis.forEach(m => m.classList.toggle('lg', phone.matches)); upd(); };
+                grid.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+                applyPhone(); phone.addEventListener('change', applyPhone);
+            }
         })();
     </script>
 </body>
