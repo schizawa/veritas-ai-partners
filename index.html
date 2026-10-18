@@ -425,12 +425,6 @@ body.pal-open{overflow:hidden}
 .wire-box .pk.h{fill:#fcd34d;filter:drop-shadow(0 0 4px #fcd34d)}
 .wire-box .elabel{fill:#9ca3af;font-size:8.5px;paint-order:stroke;stroke:#0a0a0e;stroke-width:3px;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){.wire-box .pk{display:none}}
-/* --- open studio: static line, time and sha filled in from the public repo (no layout shift) --- */
-#gitline{display:flex;margin-top:12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#9ca3af;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.6;min-height:1.6em}
-#gitline>i{color:#3b82f6;font-size:14px}
-#gitline .ago{color:#00ff88;min-width:9.5em}
-#gitline .sha{color:#3b82f6;min-width:4.5em;text-decoration:none}
-#gitline a{color:#9ca3af;text-decoration:underline;text-underline-offset:3px}#gitline a:hover{color:#fff}#gitline a.sha{color:#3b82f6;text-decoration:none}
 /* --- big preview controls --- */
 .mini.big .bar .ctl{margin-left:auto;display:flex;gap:4px}
 .mini.big .bar .ctl button{font:inherit;color:#9ca3af;border:1px solid #2a2a38;border-radius:4px;padding:0 7px;line-height:16px;font-size:10px;background:transparent;cursor:pointer}
@@ -649,10 +643,8 @@ body.pal-open{overflow:hidden}
 
                     <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-2xl">
                         問い合わせへの返信、商品情報の検索、業務レポートの作成。<br>
-                        自社のEC・製造業で取り組んできた業務改善をもとに、<span class="text-white">お客様の会社でも使えるAIシステム</span>を開発します。<br>
-                        <span class="text-sm text-gray-500">画面内のログは、自社で稼働中のシステムの動きを再現したデモです。</span>
+                        自社のEC・製造業で取り組んできた業務改善をもとに、<span class="text-white">お客様の会社でも使えるAIシステム</span>を開発します。
                     </p>
-                    <div id="gitline"><i class="ph ph-git-commit"></i><span>このサイト自体も自作・公開リポジトリ</span><span class="ago" id="git-ago"></span><a class="sha" id="git-sha" href="https://github.com/schizawa/veritas-ai-partners/commits/main" target="_blank" rel="noopener" aria-label="最新コミット"></a><a href="https://github.com/schizawa/veritas-ai-partners" target="_blank" rel="noopener">GitHub で見る</a></div>
 
                     <!-- AI Live Metrics Bar -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
@@ -1813,7 +1805,7 @@ body.pal-open{overflow:hidden}
             const phone = matchMedia('(max-width: 639px)');
 
             // ---- 1. real git log: the site's own public repository (cached 1h per tab; silent when GitHub is unreachable) ----
-            // The hero line is static HTML (no layout shift); only the time and the sha are filled in. Commit subjects are never
+            // Only the footer "last commit" is filled in on load (the hero line was removed 2026-10-19). Commit subjects are never
             // shown on the site (2026-10-18 decision): `git log` in the shell / palette lists sha + date only and links to GitHub.
             const GH = 'https://api.github.com/repos/schizawa/veritas-ai-partners/commits?per_page=5';
             const ago = iso => { const s = (Date.now() - new Date(iso)) / 1000; if (s < 3600) return Math.max(1, Math.round(s / 60)) + '分前'; if (s < 86400) return Math.round(s / 3600) + '時間前'; return Math.round(s / 86400) + '日前'; };
