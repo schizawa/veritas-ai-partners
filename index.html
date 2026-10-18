@@ -433,16 +433,25 @@ body.pal-open{overflow:hidden}
 .mini .body.bleed{padding:0}
 #sysmodal .panel,#pal .list{overscroll-behavior:contain}
 @media (max-width:767px){#sysmodal .panel{max-height:100dvh}}
-/* --- phones: Systems is a swipe carousel of full-width cards with large previews --- */
+/* --- phones: Systems is a swipe carousel; the next card peeks in on the right and ‹ 1 / 9 › controls sit right under the cards --- */
 #repos-dots{display:none}
 @media (max-width:639px){
-#repos .grid{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -24px;padding:6px 24px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+#repos .grid{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;gap:14px;margin:0 -24px;padding:6px 24px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 #repos .grid::-webkit-scrollbar{display:none}
-#repos .grid>[data-sys]{flex:0 0 calc(100% - 20px);max-width:420px;scroll-snap-align:center;transition:border-color .2s}
-#repos-dots{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:2px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;color:#6b7280}
+#repos .grid>[data-sys]{flex:0 0 auto;width:calc(100% - 30px);max-width:420px;min-width:0;box-sizing:border-box;scroll-snap-align:start;transition:border-color .2s}
+#repos .mini.lg .line .msg{max-width:96%}
+#repos .mini.lg .line .ref{white-space:nowrap}
+@media (max-width:359px){#repos .grid>[data-sys]{width:calc(100% - 18px)}#repos .mini.lg .line .msg{max-width:100%}#repos .mini.lg .line .msg .tm{display:none}}
+@keyframes repos-nudge{0%,100%{translate:0 0}35%,65%{translate:-44px 0}}
+#repos .grid.nudge>[data-sys]{animation:repos-nudge 1.2s cubic-bezier(.4,0,.2,1) 1}
+#repos-dots{display:flex;justify-content:center;align-items:center;gap:12px;margin:0 0 10px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#9ca3af}
+#repos-dots .ds{display:flex;align-items:center;gap:5px}
 #repos-dots i{width:6px;height:6px;border-radius:50%;background:#2a2a38;transition:background .2s,transform .2s}
 #repos-dots i.on{background:#00ff88;transform:scale(1.35)}
-#repos-dots span{margin-left:8px}
+#repos-dots .ct{color:#e5e7eb;font-weight:600;min-width:3.5em;text-align:center}
+#repos-dots button{width:42px;height:42px;border:1px solid #2a2a38;border-radius:9px;background:#0f0f17;color:#00ff88;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0 0 3px}
+#repos-dots button:disabled{opacity:.3}
+#repos-dots button:active{background:#1a1a26}
 }
 @media (pointer:coarse){.tilt{transition:border-color .2s}.tilt:active{transform:scale(.985)!important}}
 /* --- LINE skin (dark theme look-alike; example data) --- */
@@ -2012,24 +2021,39 @@ body.pal-open{overflow:hidden}
             if (grid) {
                 const cards = $$('#repos .grid > [data-sys]');
                 const minis = $$('#repos .grid .mini');
-                const dots = document.createElement('div'); dots.id = 'repos-dots'; dots.setAttribute('aria-hidden', 'true');
-                dots.innerHTML = cards.map((c, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('') + '<span>スワイプで次へ</span>';
-                grid.after(dots);
+                const dots = document.createElement('div'); dots.id = 'repos-dots';
+                dots.innerHTML = '<button type="button" class="pv" aria-label="前のシステム">‹</button><span class="ds" aria-hidden="true">' + cards.map((c, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('') + '</span><b class="ct" aria-live="polite">1 / ' + cards.length + '</b><button type="button" class="nx" aria-label="次のシステム">›</button>';
+                grid.before(dots);
+                const pv = dots.querySelector('.pv'), nx = dots.querySelector('.nx'), ct = dots.querySelector('.ct');
+                const stepW = () => cards[0].getBoundingClientRect().width + 14;
+                pv.addEventListener('click', () => grid.scrollBy({ left: -stepW(), behavior: rm ? 'auto' : 'smooth' }));
+                nx.addEventListener('click', () => grid.scrollBy({ left: stepW(), behavior: rm ? 'auto' : 'smooth' }));
                 let tick = false;
                 const upd = () => {
                     tick = false;
                     if (!phone.matches) { cards.forEach(c => { c.style.transform = ''; }); return; }
-                    const gr = grid.getBoundingClientRect(), cx = gr.left + gr.width / 2; let best = 0, bd = 1e9;
+                    const gr = grid.getBoundingClientRect(), x0 = gr.left + 24; let best = 0, bd = 1e9;
                     cards.forEach((c, i) => {
-                        const r = c.getBoundingClientRect(), mid = r.left + r.width / 2, p = Math.max(-1, Math.min(1, (mid - cx) / gr.width));
+                        const r = c.getBoundingClientRect(), p = Math.max(-1, Math.min(1, (r.left - x0) / gr.width));
                         if (!rm) c.style.transform = `perspective(900px) rotateY(${(-p * 9).toFixed(2)}deg) scale(${(1 - Math.abs(p) * 0.05).toFixed(3)})`;
-                        const d = Math.abs(mid - cx); if (d < bd) { bd = d; best = i; }
+                        const d = Math.abs(r.left - x0); if (d < bd) { bd = d; best = i; }
                     });
                     $$('i', dots).forEach((d, i) => d.classList.toggle('on', i === best));
+                    ct.textContent = (best + 1) + ' / ' + cards.length; pv.disabled = best === 0; nx.disabled = best === cards.length - 1;
                 };
                 const applyPhone = () => { minis.forEach(m => m.classList.toggle('lg', phone.matches)); upd(); };
                 grid.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
                 applyPhone(); phone.addEventListener('change', applyPhone);
+                // first time the cards come into view on a phone: a short sideways nudge shows that they slide
+                let nudged = false, touched = false;
+                grid.addEventListener('touchstart', () => { touched = true; }, { passive: true });
+                if ('IntersectionObserver' in window) new IntersectionObserver((es, io) => {
+                    es.forEach(e => {
+                        if (!e.isIntersecting || nudged) return; nudged = true; io.disconnect();
+                        if (!phone.matches || rm || touched || grid.scrollLeft > 0) return;
+                        grid.classList.add('nudge'); grid.addEventListener('animationend', () => grid.classList.remove('nudge'), { once: true });
+                    });
+                }, { threshold: 0.25 }).observe(grid);
             }
         })();
     </script>
